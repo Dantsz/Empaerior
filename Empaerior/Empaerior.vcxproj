@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Dist|x64">
+      <Configuration>Dist</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{92237521-B9AB-3486-99C7-5A50E3050B06}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>Empaerior</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Dan\source\repos\Empaerior\bin\Debug64-windows-\Empaerior\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Empaerior.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Empaerior</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">C:\Users\Dan\source\repos\Empaerior\bin\Dist64-windows-\Empaerior\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Empaerior.dir\Dist\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">Empaerior</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Dan\source\repos\Empaerior\bin\Release64-windows-\Empaerior\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Empaerior.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Empaerior</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\Dan\source\repos\Empaerior\Empaerior\Src;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\SDL\SDL2\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\SDL\SDL2_mixer\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\stb;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\glm;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\VulkanSDK\Include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\VulkanMemoryAllocator\src;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\spdlog\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>EMPAERIOR_DEBUG;_CRT_SECURE_NO_WARNINGS;EMPAERIOR_WINDOWS;UNICODE;_UNICODE;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;EMPAERIOR_DEBUG;_CRT_SECURE_NO_WARNINGS;EMPAERIOR_WINDOWS;UNICODE;_UNICODE;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Dan\source\repos\Empaerior\Empaerior\Src;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\SDL\SDL2\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\SDL\SDL2_mixer\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\stb;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\glm;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\VulkanSDK\Include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\VulkanMemoryAllocator\src;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\spdlog\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Dan\source\repos\Empaerior\Empaerior\Src;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\SDL\SDL2\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\SDL\SDL2_mixer\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\stb;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\glm;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\VulkanSDK\Include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\VulkanMemoryAllocator\src;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\spdlog\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\Dan\source\repos\Empaerior\Empaerior\Src;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\SDL\SDL2\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\SDL\SDL2_mixer\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\stb;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\glm;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\VulkanSDK\Include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\VulkanMemoryAllocator\src;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\spdlog\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild>false</MinimalRebuild>
+      <Optimization>Full</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StringPooling>true</StringPooling>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>EMPAERIOR_DIST;_CRT_SECURE_NO_WARNINGS;EMPAERIOR_WINDOWS;UNICODE;_UNICODE;CMAKE_INTDIR="Dist";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;EMPAERIOR_DIST;_CRT_SECURE_NO_WARNINGS;EMPAERIOR_WINDOWS;UNICODE;_UNICODE;CMAKE_INTDIR=\"Dist\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Dan\source\repos\Empaerior\Empaerior\Src;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\SDL\SDL2\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\SDL\SDL2_mixer\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\stb;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\glm;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\VulkanSDK\Include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\VulkanMemoryAllocator\src;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\spdlog\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Dan\source\repos\Empaerior\Empaerior\Src;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\SDL\SDL2\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\SDL\SDL2_mixer\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\stb;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\glm;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\VulkanSDK\Include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\VulkanMemoryAllocator\src;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\spdlog\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\Dan\source\repos\Empaerior\Empaerior\Src;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\SDL\SDL2\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\SDL\SDL2_mixer\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\stb;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\glm;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\VulkanSDK\Include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\VulkanMemoryAllocator\src;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\spdlog\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MinimalRebuild>false</MinimalRebuild>
+      <Optimization>Full</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StringPooling>true</StringPooling>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>EMPAERIOR_RELEASE;_CRT_SECURE_NO_WARNINGS;EMPAERIOR_WINDOWS;UNICODE;_UNICODE;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;EMPAERIOR_RELEASE;_CRT_SECURE_NO_WARNINGS;EMPAERIOR_WINDOWS;UNICODE;_UNICODE;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Dan\source\repos\Empaerior\Empaerior\Src;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\SDL\SDL2\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\SDL\SDL2_mixer\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\stb;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\glm;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\VulkanSDK\Include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\VulkanMemoryAllocator\src;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\spdlog\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Dan\source\repos\Empaerior\Empaerior\Src;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\SDL\SDL2\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\SDL\SDL2_mixer\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\stb;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\glm;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\VulkanSDK\Include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\VulkanMemoryAllocator\src;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\spdlog\include;C:\Users\Dan\source\repos\Empaerior\Empaerior\..\External_Libraries\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\core.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\point2.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\rect.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\vector2.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\unsafe_vector.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\vec.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\mat.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\defines\basic_defines.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\defines\defines.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\defines\struct_defines.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\ecs\ecs.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\ecs\entity.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\ecs\components\componentmanager.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\ecs\system\system.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\exceptions\exceptions.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\utilities\math.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\utilities\timer.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\utilities\hash\emp_hash.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\utilities\hash\sha256.h" />
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\application.cpp" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\application.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\Empaerior.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\main.h" />
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\pch.cpp" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\pch.h" />
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\assetmanager\assetmanager.cpp" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\assetmanager\assetmanager.h" />
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\eventhandler\eventhandler.cpp" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\eventhandler\eventhandler.h" />
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\camera.cpp" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\camera.h" />
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\window.cpp" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\window.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\renderer.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\camera.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\texture_atlas.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\geometry_buffer.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\misc_functions.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\sprite.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\glyphs.h" />
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\sprite.cpp" />
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\state\state.cpp" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\state\state.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\systems\component.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\systems\systems.h" />
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\systems\systems.cpp" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\debugging\get_data_info.h" />
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\debugging\log.cpp" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\debugging\log.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\utilities\utilities.h" />
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\utilities\utilities.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

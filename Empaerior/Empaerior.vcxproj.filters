@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\application.cpp" />
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\pch.cpp" />
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\assetmanager\assetmanager.cpp">
+      <Filter>assetmanager</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\eventhandler\eventhandler.cpp">
+      <Filter>input\eventhandler</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\camera.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\window.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\sprite.cpp">
+      <Filter>rendering\vulkan_rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\state\state.cpp">
+      <Filter>state</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\systems\systems.cpp">
+      <Filter>systems</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\debugging\log.cpp">
+      <Filter>debugging</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\utilities\utilities.cpp">
+      <Filter>utilities</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\core.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\point2.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\rect.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\vector2.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\unsafe_vector.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\vec.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\mat.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\defines\basic_defines.h">
+      <Filter>core\defines</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\defines\defines.h">
+      <Filter>core\defines</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\defines\struct_defines.h">
+      <Filter>core\defines</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\ecs\ecs.h">
+      <Filter>core\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\ecs\entity.h">
+      <Filter>core\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\ecs\components\componentmanager.h">
+      <Filter>core\ecs\components</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\ecs\system\system.h">
+      <Filter>core\ecs\system</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\exceptions\exceptions.h">
+      <Filter>core\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\utilities\math.h">
+      <Filter>core\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\utilities\timer.h">
+      <Filter>core\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\utilities\hash\emp_hash.h">
+      <Filter>core\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\core\utilities\hash\sha256.h">
+      <Filter>core\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\application.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\Empaerior.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\main.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\pch.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\assetmanager\assetmanager.h">
+      <Filter>assetmanager</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\eventhandler\eventhandler.h">
+      <Filter>input\eventhandler</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\camera.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\window.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\renderer.h">
+      <Filter>rendering\vulkan_rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\camera.h">
+      <Filter>rendering\vulkan_rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\texture_atlas.h">
+      <Filter>rendering\vulkan_rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\geometry_buffer.h">
+      <Filter>rendering\vulkan_rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\misc_functions.h">
+      <Filter>rendering\vulkan_rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\sprite.h">
+      <Filter>rendering\vulkan_rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\glyphs.h">
+      <Filter>rendering\vulkan_rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\state\state.h">
+      <Filter>state</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\systems\component.h">
+      <Filter>systems</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\systems\systems.h">
+      <Filter>systems</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\debugging\get_data_info.h">
+      <Filter>debugging</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\debugging\log.h">
+      <Filter>debugging</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\utilities\utilities.h">
+      <Filter>utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="assetmanager">
+      <UniqueIdentifier>{E38E5B22-C356-39FC-8AD6-358A083C96E5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core">
+      <UniqueIdentifier>{47957CCF-6622-3ECC-BFAE-0CC0A98C019C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\defines">
+      <UniqueIdentifier>{DAD7B6B5-DB12-32CD-B68B-A3DEDD6F06A6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\ecs">
+      <UniqueIdentifier>{7F841BD1-8AFB-3C4B-A8F6-A03D10AC8CB1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\ecs\components">
+      <UniqueIdentifier>{52A3E5F0-AF08-3373-946E-08BE2EEA3FBD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\ecs\system">
+      <UniqueIdentifier>{8BBE6E2D-33A2-3394-9AB7-E0536D7727C9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\exceptions">
+      <UniqueIdentifier>{F9BC6DED-9AB8-39C2-934C-FCB7963296FC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\utilities">
+      <UniqueIdentifier>{947A85C7-A6EA-338B-A790-4865EEB303ED}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="debugging">
+      <UniqueIdentifier>{DA20497C-2304-357C-AC55-2811F207A1E3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="input">
+      <UniqueIdentifier>{45C21516-7B82-3CFB-859D-49F00BCFBCC1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="input\eventhandler">
+      <UniqueIdentifier>{7A6A1002-553A-3CB2-AA54-A85AF89F055F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rendering">
+      <UniqueIdentifier>{77568D3F-6C51-3E26-8C05-6176820774E5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rendering\vulkan_rendering">
+      <UniqueIdentifier>{6BE8CB07-20B9-38DB-AD23-BF01F86DEF6F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="state">
+      <UniqueIdentifier>{CB1CE0F1-7615-3F4E-AEDD-7BC62CC796D6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="systems">
+      <UniqueIdentifier>{CF999769-1CCF-3A8D-A021-417F5ABB0C69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utilities">
+      <UniqueIdentifier>{DEA79C34-F7C8-360A-AB60-12315ACD8164}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
