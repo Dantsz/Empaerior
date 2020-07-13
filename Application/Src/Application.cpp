@@ -90,7 +90,7 @@ public:
 
 
 		//CREATE A WINDOW
-		window.Init("Empaerior  3.0B -Vulkan Renderer", 960, 800);
+		window.Init("Empaerior  3.0B -Vulkan Renderer", 960, 540);
 
 
 		//CREATE A NEW STATE
@@ -110,10 +110,10 @@ public:
 		
 		Empaerior::Font idk;
 		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/calibri.ttf", 64, vk.framebufferNeedsReconstruction);
+		
 
-
-		createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { 32 , 0,32,32 }, {0,0,100,100}, vk.texture_atlas.create_texture_from_file("textures/textur3e.png",vk.framebufferNeedsReconstruction));
-		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,32,32 }, {32,32}, idk, "ABCDEFGHi");
+		//createSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 32, 0,888,888 }, {0,0,100,100}, vk.texture_atlas.create_texture_from_file("textures/textur3e.png",vk.framebufferNeedsReconstruction));
+		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { 0,0,128,65 }, { 32,32 }, idk, "AAAAAAAAAAAAAAAAAAAAA");
 		//Empaerior::destroySprite(greenboi); 
 
 		

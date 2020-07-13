@@ -402,7 +402,7 @@ public:
          texture_atlas.create_texture_from_file("textures/oldgreenboi.png");*/
         texture_atlas.create_texture_from_file("textures/textur1e.png", framebufferNeedsReconstruction);
         texture_atlas.create_texture_from_file("textures/textur2e.png", framebufferNeedsReconstruction);
-        texture_atlas.create_texture_from_file("textures/textur1e.png", framebufferNeedsReconstruction);
+    
     }
 
     void attachGeometryBuffer()
@@ -1096,10 +1096,10 @@ public:
         samplerInfo.addressModeW = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
         samplerInfo.anisotropyEnable = VK_TRUE;
         samplerInfo.maxAnisotropy = 16;
+        
 
 
-
-        //samplerInfo.borderColor = VK_BORDER_COLOR_INT_OPAQUE_WHITE;
+       // samplerInfo.borderColor = VK_BORDER_COLOR_INT_OPAQUE_WHITE;
         samplerInfo.borderColor = VK_BORDER_COLOR_INT_TRANSPARENT_BLACK;
         samplerInfo.unnormalizedCoordinates = VK_FALSE;
         samplerInfo.compareEnable = VK_FALSE;

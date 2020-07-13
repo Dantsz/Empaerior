@@ -66,11 +66,12 @@ namespace Empaerior
 				beginY += charDimensions[1];
 				beginX = rect.x;
 			}
+
 			if (beginY >= rect.y + rect.h) return;
 
 			CharWidth = charDimensions.elements[0] * ar;
 
-			std::cout<<message[i] << ' ' << charDimensions.elements[0] << ' ' << CharWidth << ' ';
+		
 
 			//set data
 			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i *4)       = { { beginX,                                  beginY                                  ,   0.0f},                        {0.0f,0.0f} ,sprite.texture_id, {0.0f,0.0f,0.0f} };
@@ -86,10 +87,15 @@ namespace Empaerior
 			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 4 + i * 6) = buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3 + i * 4;
 			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 5 + i * 6) = buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i * 4;
 
-			//set texture cropping
-			Empaerior::fl_point  textureAR = CharWidth /  (charDimensions.elements[0] * ar);
-			std::cout << textureAR << '\n';
-			setSpriteTexRect(sprite, { 0, message[i] * font.glyphHeight   , font.glyphSize[message[i]].width  * textureAR,font.glyphSize[message[i]].height } , i *  4 );
+			//set texture cropping (how much of a letter is visible)
+			Empaerior::fl_point  visibilityX = CharWidth /  (charDimensions.elements[0] * ar);
+			//check if the whole letter is present
+			Empaerior::fl_point visibilityY;
+			if (beginY + charDimensions.elements[1] > rect.y + rect.h) visibilityY = (rect.y + rect.h) / (beginY + charDimensions.elements[1]);
+			else visibilityY = 1.0f;
+
+
+			setSpriteTexRect(sprite, { 0, message[i] * font.glyphHeight   , font.glyphSize[message[i]].width  * visibilityX,font.glyphSize[message[i]].height  * visibilityY} , i *  4 );
 			beginX += charDimensions.elements[0] ;
 
 
