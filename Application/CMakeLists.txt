@@ -175,7 +175,7 @@ set(ADDITIONAL_LIBRARY_DEPENDENCIES
         "SDL2;"
         "SDL2main;"
         "SDL2_mixer;"
-		"vulkan;"
+		"vulkan-1;"
         "freetype;")
 		#"libtmxlite")
 

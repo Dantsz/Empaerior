@@ -97,7 +97,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>..\bin\Debug64-windows-\Empaerior\Empaerior.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;vulkan.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>..\bin\Debug64-windows-\Empaerior\Empaerior.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;vulkan-1.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/SDL/SDL2/lib/x64;C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/SDL/SDL2/lib/x64/$(Configuration);C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/SDL/SDL2_mixer/lib/x64;C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/SDL/SDL2_mixer/lib/x64/$(Configuration);C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/freetype/lib/x64;C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/freetype/lib/x64/$(Configuration);C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/VulkanSDK/Lib;C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/VulkanSDK/Lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -141,7 +141,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>..\bin\Dist64-windows-\Empaerior\Empaerior.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;vulkan.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>..\bin\Dist64-windows-\Empaerior\Empaerior.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;vulkan-1.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/SDL/SDL2/lib/x64;C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/SDL/SDL2/lib/x64/$(Configuration);C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/SDL/SDL2_mixer/lib/x64;C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/SDL/SDL2_mixer/lib/x64/$(Configuration);C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/freetype/lib/x64;C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/freetype/lib/x64/$(Configuration);C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/VulkanSDK/Lib;C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/VulkanSDK/Lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
@@ -187,7 +187,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>..\bin\Release64-windows-\Empaerior\Empaerior.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;vulkan.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>..\bin\Release64-windows-\Empaerior\Empaerior.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;vulkan-1.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/SDL/SDL2/lib/x64;C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/SDL/SDL2/lib/x64/$(Configuration);C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/SDL/SDL2_mixer/lib/x64;C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/SDL/SDL2_mixer/lib/x64/$(Configuration);C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/freetype/lib/x64;C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/freetype/lib/x64/$(Configuration);C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/VulkanSDK/Lib;C:/Users/Dan/source/repos/Empaerior/Application/../External_Libraries/VulkanSDK/Lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>

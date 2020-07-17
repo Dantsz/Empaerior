@@ -205,6 +205,8 @@ struct Texture_Atlas {
         implementUpdate = true;
         return images.size() - 1;
 
+        
+
     }
 
     size_t create_texture_from_memory(Empaerior::byte* pixels, Empaerior::s_int width, Empaerior::s_int height, Empaerior::s_int texChannels , bool& implementUpdate)

@@ -97,8 +97,24 @@ struct UniformBufferObject {
 
 struct VK_RendererGraphicsInfo
 {
-    bool Depth = VK_TRUE;
+   
+    //Shader
+    std::string vertShaderpath = "shaders/vert.spv";
+    std::string fragShaderpath = "shaders/frag.spv";
+    //Viewport
+    float viewportX = 0.0f;
+    float viewportY = 0.0f;
+    float minDepth = 0.0f;
+    float maxDepth = 1.0f;
+    //Blending   
     bool Blending = VK_TRUE;
+    //Depth
+    bool Depth = VK_TRUE;
+    bool DepthBoundTest = VK_FALSE;
+    bool StencilTest = VK_FALSE;
+    //rasterizer
+    bool DepthClamp = VK_FALSE;
+    bool rasterizerDiscardEnable = VK_FALSE;
 };
 
 
@@ -402,7 +418,7 @@ public:
          texture_atlas.create_texture_from_file("textures/oldgreenboi.png");*/
         texture_atlas.create_texture_from_file("textures/textur1e.png", framebufferNeedsReconstruction);
         texture_atlas.create_texture_from_file("textures/textur2e.png", framebufferNeedsReconstruction);
-    
+
     }
 
     void attachGeometryBuffer()
@@ -522,11 +538,12 @@ public:
 
         VkPhysicalDeviceFeatures deviceFeatures{};
         deviceFeatures.samplerAnisotropy = VK_TRUE;
-
-
+        deviceFeatures.depthClamp = VK_TRUE;
+        deviceFeatures.shaderSampledImageArrayDynamicIndexing = VK_TRUE;
         VkPhysicalDeviceDescriptorIndexingFeatures shader_Feature{};
         shader_Feature.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES;
         shader_Feature.runtimeDescriptorArray = VK_TRUE;
+        shader_Feature.shaderSampledImageArrayNonUniformIndexing = VK_TRUE;
 
         VkDeviceCreateInfo createInfo{};
         createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
@@ -631,8 +648,8 @@ public:
         colorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
         colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
         colorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
-        colorAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-        colorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+        colorAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_LOAD;
+        colorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_STORE;
         colorAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
         colorAttachment.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
 
@@ -655,9 +672,9 @@ public:
         depthAttachment.format = findDepthFormat();
         depthAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
         depthAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
-        depthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-        depthAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-        depthAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+        depthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+        depthAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_LOAD;
+        depthAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_STORE;
         depthAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
         depthAttachment.finalLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
 
@@ -844,8 +861,8 @@ public:
     }
 
     void createGraphicsPipeline(const VK_RendererGraphicsInfo& info) {
-        auto vertShaderCode = readFile("shaders/vert.spv");
-        auto fragShaderCode = readFile("shaders/frag.spv");
+        auto vertShaderCode = readFile(info.vertShaderpath);
+        auto fragShaderCode = readFile(info.fragShaderpath);
 
         VkShaderModule vertShaderModule = createShaderModule(vertShaderCode);
         VkShaderModule fragShaderModule = createShaderModule(fragShaderCode);
@@ -881,12 +898,12 @@ public:
         inputAssembly.primitiveRestartEnable = VK_FALSE;
 
         VkViewport viewport{};
-        viewport.x = 0.0f;
-        viewport.y = 0.0f;
+        viewport.x = info.viewportX;
+        viewport.y = info.viewportY;
         viewport.width = (float)swapChainExtent.width;
         viewport.height = (float)swapChainExtent.height;
-        viewport.minDepth = 0.0f;
-        viewport.maxDepth = 1.0f;
+        viewport.minDepth = info.minDepth;
+        viewport.maxDepth = info.maxDepth;
 
         VkRect2D scissor{};
         scissor.offset = { 0, 0 };
@@ -901,13 +918,13 @@ public:
 
         VkPipelineRasterizationStateCreateInfo rasterizer{};
         rasterizer.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
-        rasterizer.depthClampEnable = VK_FALSE;
-        rasterizer.rasterizerDiscardEnable = VK_FALSE;
+        rasterizer.depthClampEnable = info.DepthClamp;
+        rasterizer.rasterizerDiscardEnable = info.rasterizerDiscardEnable;
         rasterizer.polygonMode = VK_POLYGON_MODE_FILL;
         rasterizer.lineWidth = 1.0f;
         rasterizer.cullMode = VK_CULL_MODE_BACK_BIT;
         rasterizer.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
-        rasterizer.depthBiasEnable = VK_FALSE;
+        rasterizer.depthBiasEnable = VK_TRUE;
 
         VkPipelineMultisampleStateCreateInfo multisampling{};
         multisampling.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
@@ -941,10 +958,10 @@ public:
         depthStencil.depthTestEnable = info.Depth;
         depthStencil.depthWriteEnable = info.Depth;
         depthStencil.depthCompareOp = VK_COMPARE_OP_LESS;
-        depthStencil.depthBoundsTestEnable = VK_FALSE;
+        depthStencil.depthBoundsTestEnable = info.DepthBoundTest;
         depthStencil.minDepthBounds = 0.0f; // Optional
         depthStencil.maxDepthBounds = 1.0f; // Optional
-        depthStencil.stencilTestEnable = VK_FALSE;
+        depthStencil.stencilTestEnable = info.StencilTest;
 
 
         VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
@@ -1094,17 +1111,17 @@ public:
         samplerInfo.addressModeU = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
         samplerInfo.addressModeV = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
         samplerInfo.addressModeW = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
-        samplerInfo.anisotropyEnable = VK_TRUE;
+        samplerInfo.anisotropyEnable = VK_FALSE;
         samplerInfo.maxAnisotropy = 16;
-        
 
 
-       // samplerInfo.borderColor = VK_BORDER_COLOR_INT_OPAQUE_WHITE;
+
+        //samplerInfo.borderColor = VK_BORDER_COLOR_INT_OPAQUE_WHITE;
         samplerInfo.borderColor = VK_BORDER_COLOR_INT_TRANSPARENT_BLACK;
         samplerInfo.unnormalizedCoordinates = VK_FALSE;
         samplerInfo.compareEnable = VK_FALSE;
-        samplerInfo.compareOp = VK_COMPARE_OP_ALWAYS;
-        samplerInfo.mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR;
+        samplerInfo.compareOp = VK_COMPARE_OP_NEVER;
+        samplerInfo.mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR; 
         samplerInfo.mipLodBias = 0.0f;
         samplerInfo.minLod = 0.0f;
         samplerInfo.maxLod = 0.0f;
@@ -1244,7 +1261,7 @@ public:
         renderPassInfo.renderArea.extent = swapChainExtent;
 
         std::array<VkClearValue, 2> clearValues{};
-        clearValues[0].color = { 0.0f, 0.0f, 0.0f, 1.0f };
+        clearValues[0].color = { 0.0f, 0.0f, 0.0f, 0.0f };
         clearValues[1].depthStencil = { 1.0f, 0 };
 
         renderPassInfo.clearValueCount = static_cast<uint32_t>(clearValues.size());
@@ -1258,14 +1275,10 @@ public:
 
         VkDeviceSize offsets[] = { 0 };
 
-        vkCmdBindVertexBuffers(commandBuffer, 0, 1, vertexBuffers, offsets);
-
-
-
-        vkCmdBindIndexBuffer(commandBuffer, indexBuffer, 0, VK_INDEX_TYPE_UINT32);
 
         vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, 0, 1, descriptorSet, 0, nullptr);
-
+        vkCmdBindVertexBuffers(commandBuffer, 0, 1, vertexBuffers, offsets);
+        vkCmdBindIndexBuffer(commandBuffer, indexBuffer, 0, VK_INDEX_TYPE_UINT32);
         vkCmdDrawIndexed(commandBuffer, geometrybuffer.indexBuffer.used_size[geometrybuffer.indexBuffer.inUseBufferIndex] / sizeof(uint32_t), 1, 0, 0, 0);
 
         vkCmdEndRenderPass(commandBuffer);
@@ -1316,7 +1329,7 @@ public:
 
         ubo.scale = glm::mat4(1.0f);
 
-        ubo.scale = glm::scale(glm::mat4(1.0f), glm::vec3(static_cast<float>(width) / static_cast<float>(height), static_cast<float>(width) / static_cast<float>(height), 2));
+        ubo.scale = glm::scale(glm::mat4(1.0f), glm::vec3(static_cast<float>(width) / static_cast<float>(height), static_cast<float>(width) / static_cast<float>(height), 1));
 
 
 
@@ -1352,10 +1365,6 @@ public:
     }
 
     void drawFrame() {
-
-
-
-
 
 
         updateUniformBuffer(imageIndex);

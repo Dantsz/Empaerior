@@ -90,7 +90,7 @@ public:
 
 
 		//CREATE A WINDOW
-		window.Init("Empaerior  3.0B -Vulkan Renderer", 960, 540);
+		window.Init("Empaerior  3.0B6 -Vulkan Renderer", 960, 540);
 
 
 		//CREATE A NEW STATE
@@ -110,21 +110,22 @@ public:
 		
 		Empaerior::Font idk;
 		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/calibri.ttf", 64, vk.framebufferNeedsReconstruction);
-		
-
+		auto originText = vk.texture_atlas.create_texture_from_file("assets/img.png", vk.framebufferNeedsReconstruction);
+		createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { -32,-32,32,32 }, { 0,0,vk.texture_atlas.image_dimensions[originText].elements[0],vk.texture_atlas.image_dimensions[originText].elements[1] }, originText);
+		setSpriteDepth(greenerboi, 1);
 		//createSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 32, 0,888,888 }, {0,0,100,100}, vk.texture_atlas.create_texture_from_file("textures/textur3e.png",vk.framebufferNeedsReconstruction));
-		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { 0,0,128,65 }, { 32,32 }, idk, "AAAAAAAAAAAAAAAAAAAAA");
+		//Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { 0,0,1280,65 }, { 32,32 }, idk, "AAAAAAAAAAAAAAAAAAAAA");
 		//Empaerior::destroySprite(greenboi); 
 
 		
 	 //  auto txt = vk.texture_atlas.create_texture_from_file("textures/textur3e.png", vk.framebufferNeedsReconstruction);
-		for (float i = 0; i < 1; i+=2)
+		for (float i = 0; i < 30; i+=0.5)
 		{
 		
-			for (float j = 0; j < 1; j+=2)
+			for (float j = 0; j < 30; j+=1)
 			{
-				//createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { i * 32 , j * 32,32,32 }, {0,0,100,100}, vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/calibri.ttf",32,vk.framebufferNeedsReconstruction));
-				
+				createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { (i-15) * 32 ,   (j-15) * 32,32,32 }, {0,0,700,700}, int(i)%2);
+				setSpriteDepth(greenerboi,0.1);
 			}
 
 		}
@@ -236,70 +237,14 @@ public:
 
 
 				ImGui_Emp::NewFrame(window, vk, camera);
-
-				ImGui::ShowMetricsWindow();
-				
-			
-				ImGui::ShowDemoWindow();
-				ImGui::ShowAboutWindow();
-
-				ImGui::Begin("Graphics");
-
-				ImGui::Checkbox("Depth", &vk.GraphicsSettings.Depth);
-				ImGui::Checkbox("Blending", &vk.GraphicsSettings.Blending);
-
-				ImGui::Button("Apply", { 50, 25 });
-				if (ImGui::IsItemClicked()) vk.framebufferNeedsReconstruction = true;
-				ImGui::End();
-
-				ImGui::Begin("Camera Settings");
-				ImGui::InputFloat("Camera X", &vk.ubo.position.x, 10, 100, 2);
-				ImGui::InputFloat("Camera Y", &vk.ubo.position.y, 10, 100, 2);
-			
-
-				
-
-				ImGui::End();
-
-				ImGui::Begin("Geometry Buffer Data");
-				//TODO:
-				if (ImGui::CollapsingHeader("Vertex Buffer")) {
-					std::string bufferIndex("Current Buffer Index : " + std::to_string(vk.geometrybuffer.vertexBuffer.inUseBufferIndex));
-					ImGui::Text(bufferIndex.c_str());
-
-					std::string bufferAllocationSize("Buffer Allocation Size : " + std::to_string(vk.geometrybuffer.vertexBuffer.BufferSize[vk.geometrybuffer.vertexBuffer.inUseBufferIndex]));
-					ImGui::Text(bufferAllocationSize.c_str());
-
-					std::string bufferSize("Current Buffer Size : " + std::to_string(vk.geometrybuffer.vertexBuffer.used_size[vk.geometrybuffer.vertexBuffer.inUseBufferIndex]));
-					ImGui::Text(bufferSize.c_str());
-
-					std::string vertices("Current Vertice count : " + std::to_string(vk.geometrybuffer.vertexBuffer.used_size[vk.geometrybuffer.vertexBuffer.inUseBufferIndex] / sizeof(Vertex) )) ;
-					ImGui::Text(vertices.c_str());
-				}
-				if (ImGui::CollapsingHeader("Index Buffer")) {
-					std::string bufferIndex("Current Buffer Index : " + std::to_string(vk.geometrybuffer.indexBuffer.inUseBufferIndex));
-					ImGui::Text(bufferIndex.c_str());
-
-					std::string bufferAllocation("Current Buffer Allocation : " + std::to_string(vk.geometrybuffer.indexBuffer.BufferSize[vk.geometrybuffer.indexBuffer.inUseBufferIndex]));
-					ImGui::Text(bufferAllocation.c_str());
-
-					std::string bufferSize("Current Buffer Size : " + std::to_string(vk.geometrybuffer.indexBuffer.used_size[vk.geometrybuffer.indexBuffer.inUseBufferIndex]));
-					ImGui::Text(bufferSize.c_str());
-
-					std::string vertices("Current Index count : " + std::to_string(vk.geometrybuffer.indexBuffer.used_size[vk.geometrybuffer.indexBuffer.inUseBufferIndex] / sizeof(uint32_t)));
-					ImGui::Text(vertices.c_str());
-
-				
-				}
-
-
+				ShowImGuiWindows();
 				ImGui::End();
 
 				
 
 
 				vk.newFrame();
-
+			
 				ImGui_Emp::Render(window, vk, camera);
 				//	vk.framebufferResized = true;
 				vk.drawFrame();
@@ -308,7 +253,7 @@ public:
 				//std::cout <<"Frame time: " << timy.getTicks()<< ' '  << "FPS: " << 1000/ ( timy.getTicks<double,std::chrono::nanoseconds>()/ 1000000.0f) << '\n';
 				timy.stop();
 				vk.present();
-
+	
 
 				//
 
@@ -349,6 +294,74 @@ public:
 	void render() override
 	{
 		for (auto& index : active_states) states[index]->Render();
+
+	}
+
+	void ShowImGuiWindows()
+	{
+		ImGui::Begin("Graphics");
+		if (ImGui::CollapsingHeader("Rasterization"))
+		{
+			ImGui::Checkbox("rasterizerDiscardEnable", &vk.GraphicsSettings.rasterizerDiscardEnable);
+			ImGui::Checkbox("DepthClamp", &vk.GraphicsSettings.DepthClamp);
+		}
+		if (ImGui::CollapsingHeader("Depth Settings"))
+		{
+			ImGui::Checkbox("Depth", &vk.GraphicsSettings.Depth);
+			ImGui::Checkbox("Stenciltest", &vk.GraphicsSettings.StencilTest);
+			ImGui::InputFloat("MinDepth", &vk.GraphicsSettings.minDepth);
+			ImGui::InputFloat("MaxDepth", &vk.GraphicsSettings.maxDepth);
+		}
+
+
+		ImGui::Checkbox("Blending", &vk.GraphicsSettings.Blending);
+		ImGui::InputFloat("ViewportX", &vk.GraphicsSettings.viewportX);
+		ImGui::InputFloat("ViewportY", &vk.GraphicsSettings.viewportY);
+
+
+		ImGui::Button("Apply", { 50, 25 });
+		if (ImGui::IsItemClicked()) vk.framebufferNeedsReconstruction = true;
+		ImGui::End();
+
+		ImGui::Begin("Camera Settings");
+		ImGui::InputFloat("Camera X", &vk.ubo.position.x, 10, 100, 2);
+		ImGui::InputFloat("Camera Y", &vk.ubo.position.y, 10, 100, 2);
+
+
+
+
+		ImGui::End();
+
+		ImGui::Begin("Geometry Buffer Data");
+
+		if (ImGui::CollapsingHeader("Vertex Buffer")) {
+			std::string bufferIndex("Current Buffer Index : " + std::to_string(vk.geometrybuffer.vertexBuffer.inUseBufferIndex));
+			ImGui::Text(bufferIndex.c_str());
+
+			std::string bufferAllocationSize("Buffer Allocation Size : " + std::to_string(vk.geometrybuffer.vertexBuffer.BufferSize[vk.geometrybuffer.vertexBuffer.inUseBufferIndex]));
+			ImGui::Text(bufferAllocationSize.c_str());
+
+			std::string bufferSize("Current Buffer Size : " + std::to_string(vk.geometrybuffer.vertexBuffer.used_size[vk.geometrybuffer.vertexBuffer.inUseBufferIndex]));
+			ImGui::Text(bufferSize.c_str());
+
+			std::string vertices("Current Vertice count : " + std::to_string(vk.geometrybuffer.vertexBuffer.used_size[vk.geometrybuffer.vertexBuffer.inUseBufferIndex] / sizeof(Vertex)));
+			ImGui::Text(vertices.c_str());
+		}
+		if (ImGui::CollapsingHeader("Index Buffer")) {
+			std::string bufferIndex("Current Buffer Index : " + std::to_string(vk.geometrybuffer.indexBuffer.inUseBufferIndex));
+			ImGui::Text(bufferIndex.c_str());
+
+			std::string bufferAllocation("Current Buffer Allocation : " + std::to_string(vk.geometrybuffer.indexBuffer.BufferSize[vk.geometrybuffer.indexBuffer.inUseBufferIndex]));
+			ImGui::Text(bufferAllocation.c_str());
+
+			std::string bufferSize("Current Buffer Size : " + std::to_string(vk.geometrybuffer.indexBuffer.used_size[vk.geometrybuffer.indexBuffer.inUseBufferIndex]));
+			ImGui::Text(bufferSize.c_str());
+
+			std::string vertices("Current Index count : " + std::to_string(vk.geometrybuffer.indexBuffer.used_size[vk.geometrybuffer.indexBuffer.inUseBufferIndex] / sizeof(uint32_t)));
+			ImGui::Text(vertices.c_str());
+
+
+		}
 
 	}
 

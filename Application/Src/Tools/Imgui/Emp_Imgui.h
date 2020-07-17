@@ -29,11 +29,11 @@ namespace ImGui_Emp
 		VkAttachmentDescription colorAttachment{};
 		colorAttachment.format = renderer.swapChainImageFormat;
 		colorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
-		colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;// don't clear the screen please , thanks
+		colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_LOAD;// don't clear the screen please , thanks
 		colorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
-		colorAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-		colorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-		colorAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+		colorAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_LOAD;
+		colorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_STORE;
+		colorAttachment.initialLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
 		colorAttachment.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
 
 		VkAttachmentReference colorAttachmentRef = {};
@@ -220,14 +220,10 @@ namespace ImGui_Emp
 
 	EMP_FORCEINLINE void NewFrame(Empaerior::Window& window,VK_Renderer& renderer, const Empaerior::Camera& camera)
 	{
-
-		
-
-		
+	
 		ImGui_ImplVulkan_NewFrame();
 
-	
-		
+
 		ImGuiEmpImpl::NewFrame(Empaerior::Application::window, camera);
 		ImGui::NewFrame();
 	}
@@ -253,7 +249,7 @@ namespace ImGui_Emp
 		
 
 		std::array<VkClearValue, 1> clearValues{};
-		clearValues[0].color = { 0.0f, 0.0f, 0.0f, 0.0f };
+		clearValues[0].color = { 1.0f, 1.0f, 1.0f, 1.0f };
 		//clearValues[1].depthStencil = { 1.0f, 0 };
 
 		VkRenderPassBeginInfo renderInfo;
@@ -265,16 +261,13 @@ namespace ImGui_Emp
 		renderInfo.renderArea.offset = { 0, 0 };
 		renderInfo.renderArea.extent.width = window.get_width();
 		renderInfo.renderArea.extent.height = window.get_heigth();
-		renderInfo.clearValueCount = clearValues.size();
-		renderInfo.pClearValues = clearValues.data();
+		
+		renderInfo.clearValueCount = 1;
+		renderInfo.pClearValues = &clearValues[0];
 		renderInfo.pNext = nullptr;
 
 		auto err = vkBeginCommandBuffer(fd->CommandBuffer, &info);
 		vkCmdBeginRenderPass(fd->CommandBuffer, &renderInfo, VK_SUBPASS_CONTENTS_INLINE);
-
-
-
-		
 
 		ImGui_ImplVulkan_RenderDrawData(ImGui::GetDrawData(), fd->CommandBuffer);
 	
