@@ -184,7 +184,7 @@ namespace Empaerior
 
 						auto value = *src;
 						src++;
-
+						if (value != 0xff) value = 0;
 						font.fontTexture[dst++] = 0xff;
 						font.fontTexture[dst++] = 0xff;
 						font.fontTexture[dst++] = 0xff;

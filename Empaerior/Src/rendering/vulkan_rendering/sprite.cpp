@@ -74,10 +74,10 @@ namespace Empaerior
 		
 
 			//set data
-			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i *4)       = { { beginX,                                  beginY                                  ,   0.0f},                        {0.0f,0.0f} ,sprite.texture_id, {0.0f,0.0f,0.0f} };
-			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1 + i * 4 ) = { { beginX,                                  beginY + charDimensions.elements[1]  ,   0.0f},                            {0.0f,1.0f}, sprite.texture_id, {0.0f,0.0f,0.0f} };
-			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2 + i * 4)  = { { beginX + CharWidth ,                     beginY  + charDimensions.elements[1]   ,   0.0f},                           {0.14f,1.0f},sprite.texture_id , {0.0f,0.0f,0.0f} };
-			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3 + i * 4)  = { { beginX + CharWidth,                      beginY  ,          0.0f},                                                    {0.14f,0.0f},sprite.texture_id , {0.0f,0.0f,0.0f} };
+			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i *4)       = { { beginX,                                  beginY                               ,        0.0f},                        {0.0f,0.0f} , sprite.texture_id, {0.0f,0.0f,0.0f} };
+			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1 + i * 4 ) = { { beginX,                                  beginY + charDimensions.elements[1]  ,        0.0f},                            {0.0f,1.0f},  sprite.texture_id, {0.0f,0.0f,0.0f} };
+			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2 + i * 4)  = { { beginX + CharWidth ,                     beginY  + charDimensions.elements[1] ,        0.0f},                           {0.14f,1.0f}, sprite.texture_id , {0.0f,0.0f,0.0f} };
+			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3 + i * 4)  = { { beginX + CharWidth,                      beginY                               ,        0.0f},                                                    {0.14f,0.0f}, sprite.texture_id , {0.0f,0.0f,0.0f} };
 		
 			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + i * 6)  = buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i * 4;
 			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 1 + i * 6) = buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1 + i * 4;
@@ -154,6 +154,17 @@ namespace Empaerior
 #undef vertex
 	}
 
+	void setTextSpriteDepth(Sprite& sprite, Empaerior::fl_point depth)
+	{
+#define vertex ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
+		for (size_t i = 0; i < sprite.verticesSize / ( sizeof(Vertex)); i++)
+		{
+			(vertex + i)->pos.z = depth;
+		}
+
+#undef vertex
+
+	}
 
 
 

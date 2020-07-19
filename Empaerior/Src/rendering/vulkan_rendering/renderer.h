@@ -427,8 +427,8 @@ public:
         texture_atlas.attachRenderComponents(&device, &graphicsQueue, &commandPool, &allocator);
         /* texture_atlas.create_texture_from_file("textures/greenboi.png");
          texture_atlas.create_texture_from_file("textures/oldgreenboi.png");*/
-        texture_atlas.create_texture_from_file("textures/textur1e.png", framebufferNeedsReconstruction);
-        texture_atlas.create_texture_from_file("textures/textur2e.png", framebufferNeedsReconstruction);
+        texture_atlas.create_texture_from_file("assets/textur1e.png", framebufferNeedsReconstruction);
+        texture_atlas.create_texture_from_file("assets/textur2e.png", framebufferNeedsReconstruction);
 
     }
 
@@ -549,12 +549,15 @@ public:
 
         VkPhysicalDeviceFeatures deviceFeatures{};
         deviceFeatures.samplerAnisotropy = VK_TRUE;
+
         deviceFeatures.depthClamp = VK_TRUE;
         deviceFeatures.shaderSampledImageArrayDynamicIndexing = VK_TRUE;
+
         VkPhysicalDeviceDescriptorIndexingFeatures shader_Feature{};
         shader_Feature.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES;
         shader_Feature.runtimeDescriptorArray = VK_TRUE;
         shader_Feature.shaderSampledImageArrayNonUniformIndexing = VK_TRUE;
+
 
         VkDeviceCreateInfo createInfo{};
         createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
@@ -601,7 +604,7 @@ public:
 
     void createSwapChain() {
         SwapChainSupportDetails swapChainSupport = querySwapChainSupport(physicalDevice);
-
+        
         surfaceFormat = chooseSwapSurfaceFormat(swapChainSupport.formats);
         VkPresentModeKHR presentMode = chooseSwapPresentMode(swapChainSupport.presentModes);
         VkExtent2D extent = chooseSwapExtent(swapChainSupport.capabilities);
@@ -636,6 +639,7 @@ public:
 
         createInfo.preTransform = swapChainSupport.capabilities.currentTransform;
         createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
+
         createInfo.presentMode = presentMode;
         createInfo.clipped = VK_TRUE;
 
@@ -780,7 +784,7 @@ public:
         VkDescriptorSetLayoutBinding textureArrayLayoutBinding = {};
         textureArrayLayoutBinding.binding = 2;
         textureArrayLayoutBinding.descriptorCount = texture_atlas.images.size();
-        textureArrayLayoutBinding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
+        textureArrayLayoutBinding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT | VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT;
         textureArrayLayoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
         textureArrayLayoutBinding.pImmutableSamplers = 0;
 
@@ -792,6 +796,13 @@ public:
         layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
         layoutInfo.bindingCount = static_cast<uint32_t>(bindings.size());
         layoutInfo.pBindings = bindings.data();
+        
+        //Add descriptor indexing support test
+    
+
+
+
+
 
         if (vkCreateDescriptorSetLayout(device, &layoutInfo, nullptr, &descriptorSetLayout) != VK_SUCCESS) {
             throw std::runtime_error("failed to create descriptor set layout!");
@@ -865,7 +876,7 @@ public:
             descriptorWrites[2].descriptorCount = descriptorImageInfos.size();
             descriptorWrites[2].pBufferInfo = 0;
             descriptorWrites[2].pImageInfo = descriptorImageInfos.data();
-
+         
 
             vkUpdateDescriptorSets(device, static_cast<uint32_t>(descriptorWrites.size()), descriptorWrites.data(), 0, nullptr);
         }
@@ -939,7 +950,7 @@ public:
         rasterizer.lineWidth = 1.0f;
         rasterizer.cullMode = VK_CULL_MODE_BACK_BIT;
         rasterizer.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
-        rasterizer.depthBiasEnable = VK_TRUE;
+        rasterizer.depthBiasEnable = VK_FALSE;
 
         VkPipelineMultisampleStateCreateInfo multisampling{};
         multisampling.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
@@ -1394,7 +1405,7 @@ public:
 
         VkSemaphore waitSemaphores[] = { imageAvailableSemaphores[currentFrame] };
         VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
-        submitInfo.waitSemaphoreCount = 1;
+        submitInfo.waitSemapshoreCount = 1;
         submitInfo.pWaitSemaphores = waitSemaphores;
         submitInfo.pWaitDstStageMask = waitStages;
 

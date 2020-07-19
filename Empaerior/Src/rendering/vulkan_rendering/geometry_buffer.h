@@ -14,7 +14,7 @@ struct Vertex {
 	glm::vec2 texCoord;
 	uint32_t tex_id;
 	glm::vec3 color;
-
+	
 	static VkVertexInputBindingDescription getBindingDescription() {
 		VkVertexInputBindingDescription bindingDescription{};
 		bindingDescription.binding = 0;
