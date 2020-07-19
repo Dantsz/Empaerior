@@ -20,9 +20,9 @@ layout(binding = 2 ) uniform texture2D textures[];
 
 void main() {
 
-			
+	
     outColor = texture(sampler2D(textures[texture_id], texSampler), fragTexCoord);
 
-	if(outColor.w < 0.1) discard;
+	if(outColor.w < 0.2) discard;
 	
 }

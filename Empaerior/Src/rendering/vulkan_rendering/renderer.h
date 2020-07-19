@@ -104,6 +104,10 @@ struct VK_RendererGraphicsInfo
     //Viewport
     float viewportX = 0.0f;
     float viewportY = 0.0f;
+    float viewportW = 0.0f;
+    float viewportH = 0.0f;
+   
+
     float minDepth = 0.0f;
     float maxDepth = 1.0f;
     //Blending   
@@ -220,7 +224,7 @@ public:
     std::vector<VkCommandBuffer> inUseCommandBuffers;
     size_t mainCommandBufferinUseIndex;
 
-    VK_RendererGraphicsInfo GraphicsSettings;
+    VK_RendererGraphicsInfo GraphicsSettings, InitialGraphicsSettings;
 public:
 
 
@@ -238,7 +242,12 @@ public:
         createAllocator();
 
         createSwapChain();
+
+      
+
         createImageViews();
+        InitialGraphicsSettings.viewportW = (float)swapChainExtent.width;
+        InitialGraphicsSettings.viewportH = (float)swapChainExtent.height;
         createRenderPass();
 
         createDepthResources();
@@ -250,7 +259,7 @@ public:
         attachGeometryBuffer();
 
         createDescriptorSetLayout();
-        createGraphicsPipeline(GraphicsSettings);
+        createGraphicsPipeline(InitialGraphicsSettings);
 
         createTextureSampler();
 
@@ -263,6 +272,8 @@ public:
         mainCommandBufferinUseIndex = inUseCommandBuffers.size() - 1;
 
         createSyncObjects();
+        GraphicsSettings = InitialGraphicsSettings;
+
     }
     void cleanup() {
         cleanupSwapChain();
@@ -443,7 +454,7 @@ public:
         appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
         appInfo.pEngineName = "Empaerior";
         appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
-        appInfo.apiVersion = VK_API_VERSION_1_0;
+        appInfo.apiVersion = VK_API_VERSION_1_2;
 
         VkInstanceCreateInfo createInfo{};
         createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
@@ -860,7 +871,7 @@ public:
         }
     }
 
-    void createGraphicsPipeline(const VK_RendererGraphicsInfo& info) {
+    void createGraphicsPipeline(VK_RendererGraphicsInfo& info) {
         auto vertShaderCode = readFile(info.vertShaderpath);
         auto fragShaderCode = readFile(info.fragShaderpath);
 
@@ -900,8 +911,12 @@ public:
         VkViewport viewport{};
         viewport.x = info.viewportX;
         viewport.y = info.viewportY;
-        viewport.width = (float)swapChainExtent.width;
-        viewport.height = (float)swapChainExtent.height;
+    
+        viewport.width = info.viewportW;
+     
+        viewport.height = info.viewportH;
+       
+     
         viewport.minDepth = info.minDepth;
         viewport.maxDepth = info.maxDepth;
 

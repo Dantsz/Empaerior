@@ -111,6 +111,7 @@ public:
 		Empaerior::Font idk;
 		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/calibri.ttf", 64, vk.framebufferNeedsReconstruction);
 		auto originText = vk.texture_atlas.create_texture_from_file("assets/img.png", vk.framebufferNeedsReconstruction);
+		auto greenboiTxt = vk.texture_atlas.create_texture_from_file("assets/green_boi.png",vk.framebufferNeedsReconstruction);
 		createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { -32,-32,32,32 }, { 0,0,vk.texture_atlas.image_dimensions[originText].elements[0],vk.texture_atlas.image_dimensions[originText].elements[1] }, originText);
 		setSpriteDepth(greenerboi, 1);
 		//createSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 32, 0,888,888 }, {0,0,100,100}, vk.texture_atlas.create_texture_from_file("textures/textur3e.png",vk.framebufferNeedsReconstruction));
@@ -119,12 +120,12 @@ public:
 
 		
 	 //  auto txt = vk.texture_atlas.create_texture_from_file("textures/textur3e.png", vk.framebufferNeedsReconstruction);
-		for (float i = 0; i < 30; i+=0.5)
+		for (float i = 0; i < 30; i+=1)
 		{
 		
 			for (float j = 0; j < 30; j+=1)
 			{
-				createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { (i-15) * 32 ,   (j-15) * 32,32,32 }, {0,0,700,700}, int(i)%2);
+				createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { (i-15) * 32 ,   (j-15) * 32,32,32 }, {0,0,16,16}, greenboiTxt);
 				setSpriteDepth(greenerboi,0.1);
 			}
 
@@ -312,15 +313,25 @@ public:
 			ImGui::InputFloat("MinDepth", &vk.GraphicsSettings.minDepth);
 			ImGui::InputFloat("MaxDepth", &vk.GraphicsSettings.maxDepth);
 		}
+		if (ImGui::CollapsingHeader("Viewport"))
+		{
+			ImGui::InputFloat("ViewportX", &vk.GraphicsSettings.viewportX, 10, 100, 2);
+			ImGui::InputFloat("ViewportY", &vk.GraphicsSettings.viewportY, 10, 100, 2);
+			ImGui::InputFloat("ViewportW", &vk.GraphicsSettings.viewportW, 10, 100, 2);
+			ImGui::InputFloat("ViewportH", &vk.GraphicsSettings.viewportH ,10, 100, 2);
 
 
+		}
+		
 		ImGui::Checkbox("Blending", &vk.GraphicsSettings.Blending);
-		ImGui::InputFloat("ViewportX", &vk.GraphicsSettings.viewportX);
-		ImGui::InputFloat("ViewportY", &vk.GraphicsSettings.viewportY);
-
+		
 
 		ImGui::Button("Apply", { 50, 25 });
 		if (ImGui::IsItemClicked()) vk.framebufferNeedsReconstruction = true;
+	
+
+		ImGui::Button("Reset", { 50,25 });
+		if (ImGui::IsItemClicked()) { vk.GraphicsSettings = vk.InitialGraphicsSettings;  vk.framebufferNeedsReconstruction = true; }
 		ImGui::End();
 
 		ImGui::Begin("Camera Settings");
