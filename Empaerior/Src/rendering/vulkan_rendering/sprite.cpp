@@ -95,7 +95,7 @@ namespace Empaerior
 			Empaerior::fl_point visibilityY;
 			if (beginY + font.glyphSize[message[i]].height > rect.y + rect.h) visibilityY = CharHeight / charDimensions.elements[1];
 			else visibilityY = 1.0f;
-			std::cout << visibilityY << '\n';
+		
 
 			setSpriteTexRect(sprite, { 0, message[i] * font.glyphHeight   , font.glyphSize[message[i]].width  * visibilityX,font.glyphSize[message[i]].height  * visibilityY} , i *  4 );
 			beginX += charDimensions.elements[0] * ar ;
