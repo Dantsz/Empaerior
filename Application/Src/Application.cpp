@@ -127,9 +127,12 @@ public:
 			}
 
 		}
-		Empaerior::Font idk;
+		
 		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/calibri.ttf", 64, vk.framebufferNeedsReconstruction);
-		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,1000,48 }, { 32,32 }, idk, "LOLOL fgffdhydfgydfghydfg hy8dfghudfghu8dfghu8dfghuidfghiugdf hu9fgdhui gdfhuidfg b OL");
+
+		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,32,48 }, { 32,32 }, idk, "LOLOL fgffdhydfgydfghydfg hy8dfghudfghu8dfghu8dfghuidfghiugdf hu9fgdhui gdfhuidfg b OL");
+		
+
 		Empaerior::setTextSpriteDepth(greenboi, 1.0f);
 
 
@@ -256,7 +259,9 @@ public:
 				timy.stop();
 				vk.present();
 	
-
+				//Empaerior::setTextSpriteRect(greenboi, vk.geometrybuffer, { 0,0,++forTest,48 }, { 32,32 }, idk, "LOLOL fgffdhydfgydfghydfg hy8dfghudfghu8dfghu8dfghuidfghiugdf hu9fgdhui gdfhuidfg b OL");
+				Empaerior::setTextSpritePosition(greenboi, forTest, forTest);
+				forTest += 0.01;
 				//
 
 			}
@@ -271,7 +276,7 @@ public:
 		vkDeviceWaitIdle(vk.device);
 		ImGui_Emp::Quit(vk);
 		vk.cleanup();
-
+	
 	}
 
 
@@ -383,7 +388,8 @@ public:
 	Empaerior::Sprite greenerboi;
 	Empaerior::Camera camera;
 	VK_Renderer vk;
-	int forTest = 0;
+	float forTest = 0;
+	Empaerior::Font idk;
 };
 
 //CREATE A NEW APPLICATION

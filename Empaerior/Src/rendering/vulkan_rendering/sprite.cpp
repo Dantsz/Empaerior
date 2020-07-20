@@ -110,7 +110,7 @@ namespace Empaerior
 	}
 
 
-
+	//=========Sprite=========//
 	void setSpriteRect(Sprite& sprite, geometryBuffer& buffer, Empaerior::Float_Rect_S& rect)
 	{
 		((Vertex*)sprite.parent->vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))->pos = { rect.x,rect.y,0.0f };
@@ -122,6 +122,7 @@ namespace Empaerior
 		((Vertex*)sprite.parent->vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3)->pos = { rect.x + rect.w, rect.y ,0.0f };
 
 	}
+
 
 	void setSpriteDimensions(Sprite& sprite, Empaerior::fl_point x, Empaerior::fl_point y)
 	{
@@ -156,6 +157,60 @@ namespace Empaerior
 #undef vertex
 	}
 
+	//======Text Sprite======//
+	void setTextSpriteRect(Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message)
+	{
+#define buffer (*sprite.parent)
+		Empaerior::fl_point beginX = rect.x;
+		Empaerior::fl_point beginY = rect.y;
+
+
+		for (size_t i = 0; i < strlen(message); i++)
+		{
+			//used to transform the width and height based on the char size
+			Empaerior::fl_point ar;
+			if (font.glyphSize[message[i]].height > 0.0001) ar = font.glyphSize[message[i]].width / font.glyphSize[message[i]].height;
+			else  ar = 1.0f;
+
+			//calculate if the character fits and how much it fits
+			Empaerior::fl_point CharWidth, CharHeight;
+			if (beginX + charDimensions.elements[0] * ar >= rect.w + rect.x) {
+				//CharWidth = charDimensions.elements[0] * ar - beginX - charDimensions.elements[0] * ar + rect.w + rect.x;
+				beginY += charDimensions[1];
+				beginX = rect.x;
+			}
+
+
+
+			CharWidth = charDimensions.elements[0] * ar;
+			CharHeight = charDimensions.elements[1];
+			//crop 
+			if (beginY + CharHeight >= rect.y + rect.h) CharHeight = (rect.y + rect.h) - beginY;
+
+			//set data
+			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i * 4) = { { beginX,                                  beginY                               ,        0.0f},                        {0.0f,0.0f} , sprite.texture_id, {0.0f,0.0f,0.0f} };
+			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1 + i * 4) = { { beginX,                                  beginY + CharHeight  ,        0.0f},                            {0.0f,1.0f},  sprite.texture_id, {0.0f,0.0f,0.0f} };
+			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2 + i * 4) = { { beginX + CharWidth ,                     beginY + CharHeight ,        0.0f},                           {0.14f,1.0f}, sprite.texture_id , {0.0f,0.0f,0.0f} };
+			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3 + i * 4) = { { beginX + CharWidth,                      beginY                               ,        0.0f},                                                    {0.14f,0.0f}, sprite.texture_id , {0.0f,0.0f,0.0f} };
+
+
+			//set texture cropping (how much of a letter is visible)
+			Empaerior::fl_point  visibilityX = CharWidth / (charDimensions.elements[0] * ar);
+			//calculate how much of the letter must be shown
+			Empaerior::fl_point visibilityY;
+			if (beginY + font.glyphSize[message[i]].height > rect.y + rect.h) visibilityY = CharHeight / charDimensions.elements[1];
+			else visibilityY = 1.0f;
+
+
+			setSpriteTexRect(sprite, { 0, message[i] * font.glyphHeight   , font.glyphSize[message[i]].width * visibilityX,font.glyphSize[message[i]].height * visibilityY }, i * 4);
+			beginX += charDimensions.elements[0] * ar;
+
+
+#undef buffer
+		}
+
+	}
+
 	void setTextSpriteDepth(Sprite& sprite, Empaerior::fl_point depth)
 	{
 #define vertex ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
@@ -168,7 +223,21 @@ namespace Empaerior
 
 	}
 
+	void setTextSpritePosition(Sprite& sprite, Empaerior::fl_point x , Empaerior::fl_point y)
+	{
+#define vertex ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
 
+		//calculate the offset 
+		x = x - vertex->pos.x;
+		y = y - vertex->pos.y;
+		//modify each vertex
+		for (Empaerior::u_inter i = 0; i < sprite.verticesSize / sizeof(Vertex); i++)
+		{
+			(vertex + i)->pos.x += x;
+			(vertex + i)->pos.y += y;
+		}
+
+	}
 
 
 	//deletes sprite from buffer 
