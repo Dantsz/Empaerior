@@ -51,8 +51,9 @@ namespace Empaerior
 
 		Empaerior::fl_point beginX = rect.x;
 		Empaerior::fl_point beginY = rect.y;
+		
 
-		for (size_t i = 0; i < strlen(message); i++)
+		for (size_t i = 0; i < strlen(message) ; i++)
 		{
 			//used to transform the width and height based on the char size
 			Empaerior::fl_point ar;
@@ -60,23 +61,23 @@ namespace Empaerior
 			else  ar = 1.0f;
 
 			//calculate if the character fits and how much it fits
-			Empaerior::fl_point CharWidth;
+			Empaerior::fl_point CharWidth,CharHeight;
 			if (beginX + charDimensions.elements[0] * ar >= rect.w + rect.x) {
 				//CharWidth = charDimensions.elements[0] * ar - beginX - charDimensions.elements[0] * ar + rect.w + rect.x;
 				beginY += charDimensions[1];
 				beginX = rect.x;
 			}
 
-			if (beginY >= rect.y + rect.h) return;
+			
 
 			CharWidth = charDimensions.elements[0] * ar;
-
+			CharHeight = charDimensions.elements[1];
 		
-
+			if (beginY >= rect.y + rect.h) CharHeight = 0;
 			//set data
 			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i *4)       = { { beginX,                                  beginY                               ,        0.0f},                        {0.0f,0.0f} , sprite.texture_id, {0.0f,0.0f,0.0f} };
-			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1 + i * 4 ) = { { beginX,                                  beginY + charDimensions.elements[1]  ,        0.0f},                            {0.0f,1.0f},  sprite.texture_id, {0.0f,0.0f,0.0f} };
-			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2 + i * 4)  = { { beginX + CharWidth ,                     beginY  + charDimensions.elements[1] ,        0.0f},                           {0.14f,1.0f}, sprite.texture_id , {0.0f,0.0f,0.0f} };
+			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1 + i * 4 ) = { { beginX,                                  beginY + CharHeight  ,        0.0f},                            {0.0f,1.0f},  sprite.texture_id, {0.0f,0.0f,0.0f} };
+			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2 + i * 4)  = { { beginX + CharWidth ,                     beginY  + CharHeight ,        0.0f},                           {0.14f,1.0f}, sprite.texture_id , {0.0f,0.0f,0.0f} };
 			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3 + i * 4)  = { { beginX + CharWidth,                      beginY                               ,        0.0f},                                                    {0.14f,0.0f}, sprite.texture_id , {0.0f,0.0f,0.0f} };
 		
 			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + i * 6)  = buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i * 4;
@@ -86,12 +87,12 @@ namespace Empaerior
 			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 3 + i * 6) = buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2 + i * 4;
 			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 4 + i * 6) = buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3 + i * 4;
 			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 5 + i * 6) = buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i * 4;
-
+		
 			//set texture cropping (how much of a letter is visible)
 			Empaerior::fl_point  visibilityX = CharWidth /  (charDimensions.elements[0] * ar);
 			//check if the whole letter is present
 			Empaerior::fl_point visibilityY;
-			if (beginY + charDimensions.elements[1] > rect.y + rect.h) visibilityY = (rect.y + rect.h) / (beginY + charDimensions.elements[1]);
+			if (beginY + CharHeight > rect.y + rect.h) visibilityY = (rect.y + rect.h) / (beginY + charDimensions.elements[1]);
 			else visibilityY = 1.0f;
 
 

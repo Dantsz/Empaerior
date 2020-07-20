@@ -117,7 +117,7 @@ public:
 
 		
 	 //  auto txt = vk.texture_atlas.create_texture_from_file("textures/textur3e.png", vk.framebufferNeedsReconstruction);
-		for (float i = 0; i < 30; i+=1){
+		/*for (float i = 0; i < 30; i+=1){
 		
 			for (float j = 0; j < 30; j+=1)
 			{
@@ -126,13 +126,12 @@ public:
 				setSpriteDepth(greenerboi,0.1);
 			}
 
-		}
+		}*/
 		Empaerior::Font idk;
 		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/calibri.ttf", 64, vk.framebufferNeedsReconstruction);
 		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,100,32 }, { 32,32 }, idk, "LOLOLOL");
 		Empaerior::setTextSpriteDepth(greenboi, 1.0f);
-		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 700,-90,100,32 }, { 32,32 }, idk, "LOLOLOL");
-		Empaerior::setTextSpriteDepth(greenboi, 1.0f);
+
 
 
 	}
@@ -237,7 +236,7 @@ public:
 
 				timy.start();
 
-
+				//dump_data(vk.geometrybuffer);
 
 				ImGui_Emp::NewFrame(window, vk, camera);
 				ShowImGuiWindows();
