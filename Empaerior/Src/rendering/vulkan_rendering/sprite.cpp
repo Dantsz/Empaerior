@@ -97,7 +97,7 @@ namespace Empaerior
 
 
 			setSpriteTexRect(sprite, { 0, message[i] * font.glyphHeight   , font.glyphSize[message[i]].width  * visibilityX,font.glyphSize[message[i]].height  * visibilityY} , i *  4 );
-			beginX += charDimensions.elements[0] ;
+			beginX += charDimensions.elements[0] * ar ;
 
 
 			
