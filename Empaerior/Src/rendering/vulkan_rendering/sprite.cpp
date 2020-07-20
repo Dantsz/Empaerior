@@ -72,8 +72,9 @@ namespace Empaerior
 
 			CharWidth = charDimensions.elements[0] * ar;
 			CharHeight = charDimensions.elements[1];
+			//crop 
+			if (beginY + CharHeight >= rect.y + rect.h) CharHeight =  (rect.y + rect.h) - beginY;
 		
-			if (beginY >= rect.y + rect.h) CharHeight = 0;
 			//set data
 			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i *4)       = { { beginX,                                  beginY                               ,        0.0f},                        {0.0f,0.0f} , sprite.texture_id, {0.0f,0.0f,0.0f} };
 			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1 + i * 4 ) = { { beginX,                                  beginY + CharHeight  ,        0.0f},                            {0.0f,1.0f},  sprite.texture_id, {0.0f,0.0f,0.0f} };
@@ -90,11 +91,11 @@ namespace Empaerior
 		
 			//set texture cropping (how much of a letter is visible)
 			Empaerior::fl_point  visibilityX = CharWidth /  (charDimensions.elements[0] * ar);
-			//check if the whole letter is present
+			//calculate how much of the letter must be shown
 			Empaerior::fl_point visibilityY;
-			if (beginY + CharHeight > rect.y + rect.h) visibilityY = (rect.y + rect.h) / (beginY + charDimensions.elements[1]);
+			if (beginY + font.glyphSize[message[i]].height > rect.y + rect.h) visibilityY = CharHeight / charDimensions.elements[1];
 			else visibilityY = 1.0f;
-
+			std::cout << visibilityY << '\n';
 
 			setSpriteTexRect(sprite, { 0, message[i] * font.glyphHeight   , font.glyphSize[message[i]].width  * visibilityX,font.glyphSize[message[i]].height  * visibilityY} , i *  4 );
 			beginX += charDimensions.elements[0] * ar ;

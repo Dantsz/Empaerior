@@ -129,7 +129,7 @@ public:
 		}*/
 		Empaerior::Font idk;
 		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/calibri.ttf", 64, vk.framebufferNeedsReconstruction);
-		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,1000,100 }, { 32,32 }, idk, "LOLOL fgffdhydfgydfghydfg hy8dfghudfghu8dfghu8dfghuidfghiugdf hu9fgdhui gdfhuidfg b OL");
+		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,1000,48 }, { 32,32 }, idk, "LOLOL fgffdhydfgydfghydfg hy8dfghudfghu8dfghu8dfghuidfghiugdf hu9fgdhui gdfhuidfg b OL");
 		Empaerior::setTextSpriteDepth(greenboi, 1.0f);
 
 
