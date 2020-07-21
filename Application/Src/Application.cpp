@@ -14,7 +14,7 @@
 //An example of what a application might look like
 #include "rendering/vulkan_rendering/renderer.h"
 #include <vulkan/vulkan.h>
-#include <rendering\vulkan_rendering\sprite.cpp>
+
 
 
 //
@@ -128,7 +128,7 @@ public:
 
 		}
 		
-		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/calibri.ttf", 64, vk.framebufferNeedsReconstruction);
+		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/idk.ttf", 64, vk.framebufferNeedsReconstruction);
 
 		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,32,48 }, { 32,32 }, idk, "LOLOL fgffdhydfgydfghydfg hy8dfghudfghu8dfghu8dfghuidfghiugdf hu9fgdhui gdfhuidfg b OL");
 		
@@ -259,8 +259,9 @@ public:
 				timy.stop();
 				vk.present();
 	
-				//Empaerior::setTextSpriteRect(greenboi, vk.geometrybuffer, { 0,0,++forTest,48 }, { 32,32 }, idk, "LOLOL fgffdhydfgydfghydfg hy8dfghudfghu8dfghu8dfghuidfghiugdf hu9fgdhui gdfhuidfg b OL");
-				Empaerior::setTextSpritePosition(greenboi, forTest, forTest);
+				
+				Empaerior::setTextSpriteMessage(greenboi, { 0,0,2000,32 }, { 32,32 }, idk, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.!@#$%^&*()_+");
+				Empaerior::setTextSpriteDepth(greenboi, 1.0f);
 				forTest += 0.01;
 				//
 

@@ -10,7 +10,7 @@ namespace Empaerior
 	namespace FontLoading
 	{
 		struct GlyphDimesnsions {
-			Empaerior::fl_point width, height , bearingY;
+			Empaerior::fl_point width, height , VbearingY,HbearingX , Mwidth, MHeight;//Mwidh- the actual width of the character
 		};
 	}
 	struct Font
@@ -139,8 +139,10 @@ namespace Empaerior
 				font.glyphSize.push_back({
 					static_cast<Empaerior::fl_point>(font.fontFace->glyph->bitmap.width) ,				  
 					static_cast<Empaerior::fl_point>(font.fontFace->glyph->bitmap.rows),
-					static_cast<Empaerior::fl_point>(font.fontFace->glyph->metrics.vertBearingY)/64
-					
+					static_cast<Empaerior::fl_point>(font.fontFace->glyph->metrics.vertBearingY)/64,
+					static_cast<Empaerior::fl_point>(font.fontFace->glyph->metrics.horiBearingX)/64,
+					static_cast<Empaerior::fl_point>(font.fontFace->glyph->metrics.width) / 64,
+					static_cast<Empaerior::fl_point>(font.fontFace->glyph->metrics.height)/ 64 ,
 					});
 			
 				auto gwidth = font.fontFace->glyph->bitmap.width;
