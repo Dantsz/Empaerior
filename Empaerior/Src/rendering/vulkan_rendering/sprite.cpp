@@ -99,9 +99,10 @@ namespace Empaerior
 		
 
 			setSpriteTexRect(sprite, { 0, message[i] * font.glyphHeight   , font.glyphSize[message[i]].width  * visibilityX,font.glyphSize[message[i]].height  * visibilityY} , i *  4 );
-			beginX += font.glyphSize[message[i]].Mwidth;
-
-
+		
+			//add the space 
+			if (message[i] == ' ') beginX += charDimensions[0];
+			else beginX += font.glyphSize[message[i]].Mwidth;
 			
 		}
 	

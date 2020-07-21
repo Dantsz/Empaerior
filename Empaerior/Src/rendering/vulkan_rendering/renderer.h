@@ -20,7 +20,7 @@
 #include <array>
 #include <optional>
 #include <set>
-
+#include "../../debugging/log.h"
 #include "camera.h"
 
 
@@ -551,21 +551,29 @@ public:
 
         VkPhysicalDeviceFeatures deviceFeatures{};
         deviceFeatures.samplerAnisotropy = VK_TRUE;
-
+        
         deviceFeatures.depthClamp = VK_TRUE;
         deviceFeatures.shaderSampledImageArrayDynamicIndexing = VK_TRUE;
-
-        VkPhysicalDeviceDescriptorIndexingFeatures shader_Feature{};
-        shader_Feature.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES;
-        shader_Feature.runtimeDescriptorArray = VK_TRUE;
-        shader_Feature.shaderSampledImageArrayNonUniformIndexing = VK_TRUE;
-
+        deviceFeatures.shaderStorageImageArrayDynamicIndexing = VK_TRUE;
+    
 
         VkDeviceCreateInfo createInfo{};
         createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
 
+        VkPhysicalDeviceVulkan12Features vulkan12Features{};
+        vulkan12Features.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_FEATURES;
+        vulkan12Features.descriptorIndexing = VK_TRUE;
+        vulkan12Features.shaderSampledImageArrayNonUniformIndexing = VK_TRUE;
+        vulkan12Features.shaderInputAttachmentArrayDynamicIndexing = VK_TRUE;
+        vulkan12Features.shaderInputAttachmentArrayNonUniformIndexing = VK_TRUE;
+        vulkan12Features.runtimeDescriptorArray = VK_TRUE;
+        vulkan12Features.shaderStorageImageArrayNonUniformIndexing = VK_TRUE;
+     
 
-        createInfo.pNext = &shader_Feature;
+        vulkan12Features.pNext = nullptr;
+
+        createInfo.pNext = &vulkan12Features;
+       // shader_Feature.pNext = &vulkan12Features;
 
         createInfo.queueCreateInfoCount = static_cast<uint32_t>(queueCreateInfos.size());
         createInfo.pQueueCreateInfos = queueCreateInfos.data();
@@ -925,9 +933,9 @@ public:
         viewport.x = info.viewportX;
         viewport.y = info.viewportY;
     
-        viewport.width = info.viewportW;
+        viewport.width = swapChainExtent.width;
      
-        viewport.height = info.viewportH;
+        viewport.height = swapChainExtent.height;
        
      
         viewport.minDepth = info.minDepth;
@@ -1568,17 +1576,30 @@ public:
             SwapChainSupportDetails swapChainSupport = querySwapChainSupport(device);
             swapChainAdequate = !swapChainSupport.formats.empty() && !swapChainSupport.presentModes.empty();
         }
-        VkPhysicalDeviceFeatures supportedFeatures;
-        vkGetPhysicalDeviceFeatures(device, &supportedFeatures);
+    
+        VkPhysicalDeviceFeatures2 supportedFeatures{};
+        supportedFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2;
 
-        if (!supportedFeatures.shaderSampledImageArrayDynamicIndexing)
+        VkPhysicalDeviceDescriptorIndexingFeatures descriptorIndexingFeatures{};
+        descriptorIndexingFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES;
+
+
+
+        supportedFeatures.pNext = &descriptorIndexingFeatures;
+
+      
+        vkGetPhysicalDeviceFeatures2(device, &supportedFeatures);
+
+        if (!supportedFeatures.features.shaderSampledImageArrayDynamicIndexing)
         {
             throw std::runtime_error("Device does not support shaderSampledImageArrayDynamicIndexing feature , please use another render backend!");
         }
+        if (!descriptorIndexingFeatures.shaderSampledImageArrayNonUniformIndexing)
+        {
+            throw std::runtime_error ("Device doesn't have non uniform indexing");
+        }
 
-
-
-        return indices.isComplete() && extensionsSupported && swapChainAdequate && supportedFeatures.samplerAnisotropy;
+        return indices.isComplete() && extensionsSupported && swapChainAdequate && supportedFeatures.features.samplerAnisotropy;
     }
 
     bool checkDeviceExtensionSupport(VkPhysicalDevice device) {

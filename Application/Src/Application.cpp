@@ -135,7 +135,7 @@ public:
 
 		Empaerior::setTextSpriteDepth(greenboi, 1.0f);
 
-		Empaerior::setTextSpriteMessage(greenboi, { 0,0,2000,2000 }, { 32,32 }, idk, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQ sdffdssdfsdf y8 hfbyfgebhy8efgy78dbewgy8begr8b we68bwey8 bwe67 8bwef68 b68wef b6wefvb yewfb6y wefb67ef wb6wef b6wbe6 bewf 6bwef b6wef b6ewb6efw bbwefvbwef utyvbefw uygbef wyu7vwef vbef67 ywvg67ef wv6efwg68y wefgh78wefh78ef wh78 wefh78wefh 78efwh78 efwh678hqw7g36728qg46782q13gh7281g124687bdfbsqadsqRSTUVWXYZ.!@#$%^&*()_+", { 0.0f,0.5f,1.0f });
+		Empaerior::setTextSpriteMessage(greenboi, { 0,0,480,3000 }, { 32,32 }, idk, "This is a test to test the descriptor indexing features and it's not working :((((((", { 0.0f,0.5f,1.0f });
 		Empaerior::setTextSpriteDepth(greenboi, 1.0f);
 
 	}
@@ -244,8 +244,7 @@ public:
 
 				ImGui_Emp::NewFrame(window, vk, camera);
 				ShowImGuiWindows();
-				ImGui::End();
-
+			
 				
 
 
@@ -380,7 +379,9 @@ public:
 
 
 		}
-
+		ImGui::End();
+		
+		ImGui::ShowMetricsWindow();
 	}
 
 	std::vector<Empaerior::Sprite> sprites;
