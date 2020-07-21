@@ -41,11 +41,11 @@ namespace Empaerior
 	void destroySprite(Sprite& sprite);
 
 
-	void createTextSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message);
+	void createTextSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message, glm::vec3 color);
 	
 
 	void setTextSpriteDepth(Sprite& sprite, Empaerior::fl_point depth);
 	void setTextSpritePosition(Sprite& sprite, Empaerior::fl_point x, Empaerior::fl_point y);
-	void setTextSpriteMessage(Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message);
+	void setTextSpriteMessage(Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message,glm::vec3 color);
 
 }

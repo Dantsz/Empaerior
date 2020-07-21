@@ -16,9 +16,12 @@ layout(location = 3) in vec3 inColor;
 
 layout(location = 1) out vec2 fragTexCoord;
 layout(location = 2) out uint  texture_id;
+layout(location = 3) out vec3 outColor;
+
 
 void main() {
     gl_Position = ubo.proj* ubo.position * ubo.scale *  vec4(inPosition,1.0);
 	texture_id = tex_id;
 	fragTexCoord = inTexCoord;
+	outColor = inColor;
 }

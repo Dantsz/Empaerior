@@ -130,12 +130,13 @@ public:
 		
 		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/idk.ttf", 64, vk.framebufferNeedsReconstruction);
 
-		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,32,48 }, { 32,32 }, idk, "LOLOL fgffdhydfgydfghydfg hy8dfghudfghu8dfghu8dfghuidfghiugdf hu9fgdhui gdfhuidfg b OL");
+		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,32,48 }, { 32,32 }, idk, "LOLOL fgffdhydfgydfghydfg hy8dfghudfghu8dfghu8dfghuidfghiugdf hu9fgdhui gdfhuidfg b OL", {1.0f,1.0f,1.0f});
 		
 
 		Empaerior::setTextSpriteDepth(greenboi, 1.0f);
 
-
+		Empaerior::setTextSpriteMessage(greenboi, { 0,0,2000,2000 }, { 32,32 }, idk, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQ sdffdssdfsdf y8 hfbyfgebhy8efgy78dbewgy8begr8b we68bwey8 bwe67 8bwef68 b68wef b6wefvb yewfb6y wefb67ef wb6wef b6wbe6 bewf 6bwef b6wef b6ewb6efw bbwefvbwef utyvbefw uygbef wyu7vwef vbef67 ywvg67ef wv6efwg68y wefgh78wefh78ef wh78 wefh78wefh 78efwh78 efwh678hqw7g36728qg46782q13gh7281g124687bdfbsqadsqRSTUVWXYZ.!@#$%^&*()_+", { 0.0f,1.0f,1.0f });
+		Empaerior::setTextSpriteDepth(greenboi, 1.0f);
 
 	}
 	
@@ -260,8 +261,7 @@ public:
 				vk.present();
 	
 				
-				Empaerior::setTextSpriteMessage(greenboi, { 0,0,2000,32 }, { 32,32 }, idk, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.!@#$%^&*()_+");
-				Empaerior::setTextSpriteDepth(greenboi, 1.0f);
+				
 				forTest += 0.01;
 				//
 

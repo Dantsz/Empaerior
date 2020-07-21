@@ -33,7 +33,7 @@ namespace Empaerior
 		setSpriteTexRect(sprite, tex_rect);
 	}
 
-	void createTextSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite,Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions , const Empaerior::Font &  font, const char* message)
+	void createTextSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite,Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions , const Empaerior::Font &  font, const char* message, glm::vec3 color)
 	{
 		if (strlen(message) == 0) return;
 
@@ -64,7 +64,7 @@ namespace Empaerior
 			Empaerior::fl_point CharWidth,CharHeight;
 			if (beginX + charDimensions.elements[0] * ar >= rect.w + rect.x) {
 				//CharWidth = charDimensions.elements[0] * ar - beginX - charDimensions.elements[0] * ar + rect.w + rect.x;
-				beginY += charDimensions[1];
+				beginY += font.glyphHeight;
 				beginX = rect.x;
 			}
 
@@ -77,10 +77,10 @@ namespace Empaerior
 			if (beginY + CharHeight >= rect.y + rect.h) CharHeight =  (rect.y + rect.h) - beginY;
 		
 			//set data
-			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i *4)       = { { beginX ,     beginY   + (CharHeight - font.glyphSize[message[i]].MHeight)                             ,        0.0f},                        {0.0f,0.0f} , sprite.texture_id, {0.0f,0.0f,0.0f} };
-			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1 + i * 4 ) = { { beginX ,    beginY + CharHeight  ,        0.0f},                            {0.0f,1.0f},  sprite.texture_id, {0.0f,0.0f,0.0f} };
-			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2 + i * 4)  = { { beginX + font.glyphSize[message[i]].Mwidth ,      beginY  + CharHeight ,        0.0f},                           {0.14f,1.0f}, sprite.texture_id , {0.0f,0.0f,0.0f} };
-			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3 + i * 4)  = { { beginX + font.glyphSize[message[i]].Mwidth,       beginY +  (CharHeight - font.glyphSize[message[i]].MHeight)            ,        0.0f},                                                    {0.14f,0.0f}, sprite.texture_id , {0.0f,0.0f,0.0f} };
+			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i *4)       = { { beginX ,     beginY   + (CharHeight - font.glyphSize[message[i]].MHeight)                             ,        0.0f},                        {0.0f,0.0f} , sprite.texture_id, color };
+			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1 + i * 4 ) = { { beginX ,    beginY + CharHeight  ,        0.0f},                            {0.0f,1.0f},  sprite.texture_id,color };
+			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2 + i * 4)  = { { beginX + font.glyphSize[message[i]].Mwidth ,      beginY  + CharHeight ,        0.0f},                           {0.14f,1.0f}, sprite.texture_id , color };
+			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3 + i * 4)  = { { beginX + font.glyphSize[message[i]].Mwidth,       beginY +  (CharHeight - font.glyphSize[message[i]].MHeight)            ,        0.0f},                                                    {0.14f,0.0f}, sprite.texture_id , color };
 		
 			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + i * 6)  = buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i * 4;
 			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 1 + i * 6) = buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1 + i * 4;
@@ -189,7 +189,7 @@ namespace Empaerior
 
 	}
 
-	void setTextSpriteMessage(Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message)
+	void setTextSpriteMessage(Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message,glm::vec3 color)
 	{
 		//deallocate previous vertex/indices
 		uint32_t* data = (uint32_t*)sprite.parent->indexBuffer.BuffersData[sprite.parent->indexBuffer.get_in_use_index()];
@@ -204,7 +204,7 @@ namespace Empaerior
 
 		sprite.parent->vertexBuffer.deallocate(sprite.verticesIndex, sprite.verticesSize);
 		
-		Empaerior::createTextSprite(*sprite.parent, *sprite.parent_atlas, sprite, rect, charDimensions, font, message);
+		Empaerior::createTextSprite(*sprite.parent, *sprite.parent_atlas, sprite, rect, charDimensions, font, message,color);
 	}
 	//deletes sprite from buffer 
 	//the data is erased from the buffer

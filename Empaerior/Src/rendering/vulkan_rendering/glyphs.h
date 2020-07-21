@@ -187,18 +187,18 @@ namespace Empaerior
 						auto value = *src;
 						src++;
 						if (value != 0xff) value = 0;
-						font.fontTexture[dst++] = 0xff;
-						font.fontTexture[dst++] = 0xff;
-						font.fontTexture[dst++] = 0xff;
+						font.fontTexture[dst++] = 0x0;
+						font.fontTexture[dst++] = 0x0;
+						font.fontTexture[dst++] = 0x0;
 						font.fontTexture[dst++] = value;
 						//std::cout << value << ' ';
 
 					}
 					for (Empaerior::u_inter x = cwidth; x < width; ++x)
 					{
-						font.fontTexture[dst++] = 0xff;
-						font.fontTexture[dst++] = 0xff;
-						font.fontTexture[dst++] = 0xff;
+						font.fontTexture[dst++] = 0x0;
+						font.fontTexture[dst++] = 0x0;
+						font.fontTexture[dst++] = 0x0;
 						font.fontTexture[dst++] = 0;
 					}
 

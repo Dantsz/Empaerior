@@ -194,7 +194,7 @@ struct DynamicBuffer
 	//costly
 	void deallocate(size_t allocationIndex, size_t size)
 	{
-		std::cout << "Deallocating " << size << " bytes\n";
+		//std::cout << "Deallocating " << size << " bytes\n";
 		/*
 		How this works
 
