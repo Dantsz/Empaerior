@@ -30,7 +30,7 @@
 
 #include <vk_mem_alloc.h>
 
-#define image_count 8
+
 
 const int MAX_FRAMES_IN_FLIGHT = 2;
 
@@ -40,12 +40,17 @@ const int MAX_FRAMES_IN_FLIGHT = 2;
 #include "sprite.h"
 #include "glyphs.h"
 const std::vector<const char*> validationLayers = {
-    "VK_LAYER_KHRONOS_validation"
+    "VK_LAYER_KHRONOS_validation",
+    "VK_LAYER_LUNARG_standard_validation",
+
+
 };
 
 const std::vector<const char*> deviceExtensions = {
     VK_KHR_SWAPCHAIN_EXTENSION_NAME,
-    VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME
+    VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME,
+     
+  
     
 };
 
@@ -430,7 +435,7 @@ public:
         /* texture_atlas.create_texture_from_file("textures/greenboi.png");
          texture_atlas.create_texture_from_file("textures/oldgreenboi.png");*/
         texture_atlas.create_texture_from_file("assets/textur1e.png", framebufferNeedsReconstruction);
-        texture_atlas.create_texture_from_file("assets/textur2e.png", framebufferNeedsReconstruction);
+  
 
     }
 
@@ -573,7 +578,7 @@ public:
         vulkan12Features.pNext = nullptr;
 
         createInfo.pNext = &vulkan12Features;
-       // shader_Feature.pNext = &vulkan12Features;
+      
 
         createInfo.queueCreateInfoCount = static_cast<uint32_t>(queueCreateInfos.size());
         createInfo.pQueueCreateInfos = queueCreateInfos.data();
@@ -591,8 +596,9 @@ public:
             createInfo.enabledLayerCount = 0;
         }
 
-        if (vkCreateDevice(physicalDevice, &createInfo, nullptr, &device) != VK_SUCCESS) {
-            throw std::runtime_error("failed to create logical device!");
+        bool res = vkCreateDevice(physicalDevice, &createInfo, nullptr, &device) != VK_SUCCESS;
+        if (res != VK_SUCCESS) {
+            throw std::runtime_error("Something went wrong creating the logical device");
         }
 
         vkGetDeviceQueue(device, indices.graphicsFamily.value(), 0, &graphicsQueue);
@@ -1590,13 +1596,14 @@ public:
       
         vkGetPhysicalDeviceFeatures2(device, &supportedFeatures);
 
-        if (!supportedFeatures.features.shaderSampledImageArrayDynamicIndexing)
-        {
-            throw std::runtime_error("Device does not support shaderSampledImageArrayDynamicIndexing feature , please use another render backend!");
-        }
+     
         if (!descriptorIndexingFeatures.shaderSampledImageArrayNonUniformIndexing)
         {
             throw std::runtime_error ("Device doesn't have non uniform indexing");
+        }
+        if (!supportedFeatures.features.shaderSampledImageArrayDynamicIndexing)
+        {
+            throw std::runtime_error("Device does not support shaderSampledImageArrayDynamicIndexing feature , please use another render backend!");
         }
 
         return indices.isComplete() && extensionsSupported && swapChainAdequate && supportedFeatures.features.samplerAnisotropy;

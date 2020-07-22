@@ -22,7 +22,12 @@ layout(binding = 2) uniform texture2D textures[];
 void main() {
 
 	
-    outColor = texture(sampler2D(textures[texture_id], texSampler), fragTexCoord) + vec4(inColor,0);
+	vec2 dPdx = dFdx( fragTexCoord );
+	vec2 dPdy = dFdy( fragTexCoord );
+	vec4 texColor = textureGrad(sampler2D(textures[texture_id], texSampler), fragTexCoord , dPdx,dPdy);
+	
+	
+    outColor =  texColor + vec4(inColor,0);
 
 	if(outColor.w < 0.2) discard;
 	

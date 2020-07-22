@@ -110,7 +110,7 @@ public:
 		
 		
 	
-
+		vk.texture_atlas.create_texture_from_file("assets/textur2e.png", vk.framebufferNeedsReconstruction);
 		auto originText = vk.texture_atlas.create_texture_from_file("assets/textur3e.png", vk.framebufferNeedsReconstruction);
 		auto greenboiTxt = vk.texture_atlas.create_texture_from_file("assets/green_boi.png",vk.framebufferNeedsReconstruction);
 	
@@ -135,7 +135,7 @@ public:
 
 		Empaerior::setTextSpriteDepth(greenboi, 1.0f);
 
-		Empaerior::setTextSpriteMessage(greenboi, { 0,0,480,3000 }, { 32,32 }, idk, "This is a test to test the descriptor indexing features and it's not working :((((((", { 0.0f,0.5f,1.0f });
+		Empaerior::setTextSpriteMessage(greenboi, { 0,0,480,3000 }, { 32,32 }, idk, "This is a test to test the descriptor indexing features and it's working as it should  :))))", { 0.0f,0.5f,1.0f });
 		Empaerior::setTextSpriteDepth(greenboi, 1.0f);
 
 	}
