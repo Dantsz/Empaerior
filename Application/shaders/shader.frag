@@ -24,7 +24,7 @@ void main() {
 	
 	vec2 dPdx = dFdx( fragTexCoord );
 	vec2 dPdy = dFdy( fragTexCoord );
-	vec4 texColor = textureGrad(sampler2D(textures[texture_id], texSampler), fragTexCoord , dPdx,dPdy);
+	vec4 texColor = textureGrad(sampler2D(textures[nonuniformEXT(texture_id)], texSampler), fragTexCoord , dPdx,dPdy);
 	
 	
     outColor =  texColor + vec4(inColor,0);
