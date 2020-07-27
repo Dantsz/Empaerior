@@ -94,6 +94,8 @@ struct DynamicBuffer
 
 	void ExpandBuffer(size_t new_size)
 	{
+
+		std::cout << "Expanding buffer by " << new_size << '\n';
 		size_t index = (inUseBufferIndex + 1) % buffering;
 		//if the buffer hasn't been updated before , it doesn't have any new data that the old buffer doesn't have
 		//so a third buffer is not needed
@@ -165,19 +167,28 @@ struct DynamicBuffer
 		//check if there's space available
 		if (size <= BufferSize[get_in_use_index()] - used_size[get_in_use_index()])
 		{
+			std::cout << "there's space'\n";
 			place = index.emplace_back(used_size[get_in_use_index()]);
 			used_size[get_in_use_index()] += size;
 		}
 		//if there is any space left but not enought
 		else if (used_size[get_in_use_index()] < BufferSize[get_in_use_index()])
 		{
+			std::cout << "there's some space'\n";
+			std::cout << " size : " << size << '\n';
+			std::cout << BufferSize[get_in_use_index()] - used_size[get_in_use_index()]  << " available "<< '\n';
+
 			place = index.emplace_back(used_size[get_in_use_index()]);
-			used_size[get_in_use_index()] += BufferSize[get_in_use_index()] - used_size[get_in_use_index()];
+
+		
+			size_t leftSize= (BufferSize[get_in_use_index()] - used_size[get_in_use_index()]);
+			std::cout << size - (BufferSize[get_in_use_index()] - used_size[get_in_use_index()]) << " new\n";
 			ExpandBuffer(size - (BufferSize[get_in_use_index()] - used_size[get_in_use_index()]) );
+			used_size[get_in_use_index()] +=leftSize;
 		}
 		else // create new space
 		{
-		
+			std::cout << "there's no space'\n";
 			place = index.emplace_back(BufferSize[get_in_use_index()]);
 			ExpandBuffer(size);
 			
@@ -327,24 +338,26 @@ struct geometryBuffer
 	uint32_t images;
 
 
-	const size_t initialVertexSize = 1200000ULL* sizeof(Vertex);
-	const size_t initialIndexSize = 1200000ULL * sizeof(uint32_t);
+	const size_t initialVertexSize = 120ULL* sizeof(Vertex);
+	const size_t initialIndexSize = 120ULL * sizeof(uint32_t);
 };
 
 
-EMP_FORCEINLINE void dump_data(geometryBuffer& buffer)
+
+EMP_FORCEINLINE void dump_IndexData(geometryBuffer& buffer)
 {
 	uint32_t* index_data = (uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()];
 	std::cout << "======Index=====\n";
 	std::cout << buffer.indexBuffer.used_size[buffer.indexBuffer.inUseBufferIndex] / sizeof(uint32_t) << " will be drawn\n";
-	for (size_t i = 0; i < buffer.indexBuffer.used_size[buffer.indexBuffer.get_in_use_index()] / sizeof(uint32_t); i++)
+	for (size_t i = 0; i < (buffer.indexBuffer.used_size[buffer.indexBuffer.get_in_use_index()] / sizeof(uint32_t)); i++)
 	{
 		std::cout << index_data[i] << ' ';
 		if (i % 6 == 5) std::cout << '\n';
 	}
 	std::cout << "====================\n";
-
-
+}
+EMP_FORCEINLINE void dump_VertexData(geometryBuffer& buffer)
+{
 	Vertex* vertex_data = (Vertex*)buffer.vertexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()];
 	std::cout << "==========Vertex=========\n";
 	for (size_t i = 0; i < buffer.vertexBuffer.used_size[buffer.indexBuffer.get_in_use_index()] / sizeof(Vertex); i++)
@@ -354,3 +367,13 @@ EMP_FORCEINLINE void dump_data(geometryBuffer& buffer)
 
 	}
 }
+EMP_FORCEINLINE void dump_data(geometryBuffer& buffer)
+{
+
+	dump_IndexData(buffer);
+	dump_VertexData(buffer);
+
+	
+}
+
+

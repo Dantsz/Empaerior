@@ -104,7 +104,9 @@ namespace Empaerior
 
 		sprite.IndicesSize = strlen(message) * 6 * sizeof(uint32_t);
 		sprite.verticesSize = strlen(message) *  4 * sizeof(Vertex);
-		std::cout << "allocated : " << strlen(message) * 4 * sizeof(Vertex) << '\n';
+
+
+		std::cout << "allocated : " << sprite.IndicesSize << '\n';
 		sprite.texture_id = atlas.getFont(font.name);
 	
 		setupTextSprite(buffer, atlas, sprite, rect, charDimensions, font, message, color);
@@ -219,10 +221,11 @@ namespace Empaerior
 		else
 		{
 			//overwrite the currently allocated buffer data with the message and make the rest of the data invisible
+			ENGINE_INFO("overwriting buffer");
 			Vertex* vertexData = (Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()];
 			for (size_t i = 0; i < (sprite.verticesSize / sizeof(Vertex) - strlen(message)); i++)
 			{
-				(vertexData  + 4*strlen(message) + (sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i))->color = { 0.0f,0.0f,0.0f };
+				(vertexData  +4 * strlen(message) + (sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i))->color = { 0.0f,0.0f,0.0f };
 				(vertexData + 4 * strlen(message) + (sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i))->pos = { 0.0f,0.0f,0.0f };
 			}
 			
