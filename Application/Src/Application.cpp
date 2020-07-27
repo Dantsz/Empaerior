@@ -117,9 +117,9 @@ public:
 
 		
 	 //  auto txt = vk.texture_atlas.create_texture_from_file("textures/textur3e.png", vk.framebufferNeedsReconstruction);
-		for (float i = 0; i < 30; i+=1){
+		for (float i = 0; i < 100; i+=1){
 		
-			for (float j = 0; j < 30; j+=1)
+			for (float j = 0; j < 100; j+=1)
 			{
 				int text = int(i + j) % 3;
 				createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { (i-15) * 32 ,   (j-15) * 32,32,32 }, { 0,0,vk.texture_atlas.image_dimensions[text].elements[0],vk.texture_atlas.image_dimensions[text].elements[1] }, text);
@@ -130,13 +130,13 @@ public:
 		
 		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/idk.ttf", 64, vk.framebufferNeedsReconstruction);
 
-		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,32,48 }, { 32,32 }, idk, "LOLOL fgffdhydfgydfghydfg hy8dfghudfghu8dfghu8dfghuidfghiugdf hu9fgdhui gdfhuidfg b OL", {1.0f,1.0f,1.0f});
+		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,480,3000 }, { 32,32 }, idk, "L", {1.0f,1.0f,1.0f});
 		
 
 		Empaerior::setTextSpriteDepth(greenboi, 1.0f);
 
-		Empaerior::setTextSpriteMessage(greenboi, { 0,0,480,3000 }, { 32,32 }, idk, "Thres and it's working as it should  :))))", { 0.0f,0.5f,1.0f });
-		Empaerior::setTextSpriteDepth(greenboi, 1.0f);
+	//	Empaerior::setTextSpriteMessage(greenboi, { 0,0,480,3000 }, { 32,32 }, idk, "Thres and it's working as it should  :))))", { 0.0f,0.5f,1.0f });
+	//	Empaerior::setTextSpriteDepth(greenboi, 1.0f);
 
 	}
 	
@@ -187,7 +187,8 @@ public:
 				if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_W))
 				{
 					vk.ubo.position.y -= 1;
-
+					Empaerior::setTextSpriteMessage(greenboi, { 0,0,480,3000 }, { 32,32 }, idk, "YTt", { 0.0f,0.5f,1.0f });
+					Empaerior::setTextSpriteDepth(greenboi, 1.0f);
 					//	if(i< 0.4) i += 0.001;
 
 						//setSpriteDepth(greenerboi, i);

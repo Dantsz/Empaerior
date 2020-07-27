@@ -327,8 +327,8 @@ struct geometryBuffer
 	uint32_t images;
 
 
-	const size_t initialVertexSize = 12000ULL* sizeof(Vertex);
-	const size_t initialIndexSize = 12000ULL * sizeof(uint32_t);
+	const size_t initialVertexSize = 1200000ULL* sizeof(Vertex);
+	const size_t initialIndexSize = 1200000ULL * sizeof(uint32_t);
 };
 
 
