@@ -25,6 +25,10 @@ namespace Empaerior
 	};
 
 
+#define EMP_SPR_VERTEX_TOP_LEFT 0
+#define EMP_SPR_VERTEX_TOP_RIGHT 1
+#define EMP_SPR_VERTEX_BTM_RIGHT 2
+#define EMP_SPR_VERTEX_BTM_LEFT 3
 
 	void createSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t texture_id);
 
@@ -38,7 +42,12 @@ namespace Empaerior
 
 	void setSpriteDepth(Sprite& sprite, Empaerior::fl_point depth);
 
-	void destroySprite(Sprite& sprite);
+	Vertex* getSpriteVertex(Sprite& sprite, uint8_t vert);
+
+	
+
+
+
 
 
 	void createTextSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message, glm::vec3 color);
@@ -48,4 +57,7 @@ namespace Empaerior
 	void setTextSpritePosition(Sprite& sprite, Empaerior::fl_point x, Empaerior::fl_point y);
 	void setTextSpriteMessage(Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message,glm::vec3 color);
 
+
+
+	void destroySprite(Sprite& sprite);
 }

@@ -117,24 +117,24 @@ public:
 
 		
 	 //  auto txt = vk.texture_atlas.create_texture_from_file("textures/textur3e.png", vk.framebufferNeedsReconstruction);
-		for (float i = 0; i < 1; i+=1){
+	/*	for (float i = 0; i < 100; i+=1){
 		
-			for (float j = 0; j < 1; j+=1)
+			for (float j = 0; j < 100; j+=1)
 			{
 				int text = int(i + j) % 3;
 				createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { (i-15) * 32 ,   (j-15) * 32,32,32 }, { 0,0,vk.texture_atlas.image_dimensions[text].elements[0],vk.texture_atlas.image_dimensions[text].elements[1] }, text);
 				setSpriteDepth(greenerboi,0.1);
 			}
 
-		}
+		}*/
 		
 		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/idk.ttf", 64, vk.framebufferNeedsReconstruction);
 
-		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,480,3000 }, { 32,32 }, idk, "L", {1.0f,1.0f,1.0f});
+	//	Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,480,3000 }, { 32,32 }, idk, "L", {1.0f,1.0f,1.0f});
 		
 
 		Empaerior::setTextSpriteDepth(greenboi, 1.0f);
-
+		createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { 0,0,32,32 }, { 0,0,vk.texture_atlas.image_dimensions[originText][0],vk.texture_atlas.image_dimensions[originText][1] }, originText);
 	//	Empaerior::setTextSpriteMessage(greenboi, { 0,0,480,3000 }, { 32,32 }, idk, "Thres and it's working as it should  :))))", { 0.0f,0.5f,1.0f });
 	//	Empaerior::setTextSpriteDepth(greenboi, 1.0f);
 
@@ -186,36 +186,42 @@ public:
 
 				if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_W))
 				{
-					vk.ubo.position.y -= 1;
+				//	vk.ubo.position.y -= 1;
+					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_TOP_LEFT)->pos.y -= 0.25f;
 
-					//	if(i< 0.4) i += 0.001;
-					
-						//setSpriteDepth(greenerboi, i);
-						//std::cout << i << '\n';
+				
 				}
 				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_S))
 				{
-					vk.ubo.position.y += 1;
+					//vk.ubo.position.y += 1;
 
-					//if (i > -0.4) i -= 0.001;
-				//	setSpriteDepth(greenerboi, i);
-				//	std::cout << i << '\n';
+					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_TOP_LEFT)->pos.y += 0.25f;
 
 				}
 				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_A))
 				{
-					vk.ubo.position.x -= 1;
+					//vk.ubo.position.x -= 1;
+					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_TOP_LEFT)->pos.x -= 0.25f;
 
 				}
 				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_D))
 				{
-					vk.ubo.position.x += 1;
+					//vk.ubo.position.x += 1;
+					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_TOP_LEFT)->pos.x += 0.25f;
 				}
 				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_UP))
 				{
 
 				}
 				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_DOWN))
+				{
+
+				}
+				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_RIGHT))
+				{
+
+				}
+				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_LEFT))
 				{
 
 				}
@@ -231,22 +237,9 @@ public:
 
 					
 				
-					i++;
-					j++;
-					std::cout << i << '\n';
-					int text = int(i + j) % 3;
-					
-						
-					str += '1';
-					Empaerior::setTextSpriteMessage(greenboi, { 0,0,480,3000 }, { 32,32 }, idk, str.c_str(), { 0.0f,0.5f,1.0f });
-					Empaerior::setTextSpriteDepth(greenboi, 1.0f);
-					
-			
-			
-					setSpriteDepth(greenerboi, 0.1);
 				
 				vk.ubo.position_mat = glm::translate(glm::mat4(1.0f), glm::vec3(vk.ubo.position.x * -1, vk.ubo.position.y * -1 , 0.0f));
-
+				
 
 
 				timy.start();
@@ -274,7 +267,7 @@ public:
 				
 				forTest += 0.01;
 				//
-				dump_IndexData(vk.geometrybuffer);
+
 			}
 
 
