@@ -1,11 +1,9 @@
 #include "pch.h"
 #include "mouse.h" 
 #include "application.h"
-Empaerior::Point2f Empaerior::Input::Mouse::get_screen_mouse_coords()
-{
 
-	//Transform for the position of the renderer
-	//This is in case the viewport  doesn't match the camera (blackboxing)
+Empaerior::Point2f Empaerior::Input::Mouse::get_screen_mouse_coords(Empaerior::fl_point viewportX , Empaerior::fl_point	 viewportY, Empaerior::fl_point viewportW, Empaerior::fl_point viewportH)
+{
 
 	//get the positions
 	Empaerior::v_pair<Empaerior::s_int, Empaerior::s_int> pos;
@@ -16,40 +14,38 @@ Empaerior::Point2f Empaerior::Input::Mouse::get_screen_mouse_coords()
 
 
 
-	f_pos.x = float(pos.first);
-	f_pos.y = float(pos.second);
+	f_pos[0] = float(pos.first);
+	f_pos[1] = float(pos.second);
 
 
 
-	//Scale down the positions to match the world
-	float sx = 0;
-	float sy = 0;
-	SDL_RenderGetScale(Application::window.renderer, &sx, &sy);
+	//Scale down the positions to match the windows
+	int width, height;
+	SDL_GetWindowSize(Empaerior::Application::window.window, &width, &height);
 
-	f_pos.x /= sx;
-	f_pos.y /= sy;
+	float sx = static_cast<float>(width);
+	float sy = static_cast<float>(height);
+	f_pos[0] /= sx;
+	f_pos[1] /= sy;
 
-
-
-
-	//Transform for the position of the renderer
-	Empaerior::Int_Rect renderer_viewport;
-
-	SDL_RenderGetViewport(Application::window.renderer, &renderer_viewport);
-	f_pos.x -= renderer_viewport.x;
-	f_pos.y -= renderer_viewport.y;
+	f_pos[0] *= viewportW;
+	f_pos[1] *= viewportH;
 
 
-	f_pos.x /= renderer_viewport.w;
-	f_pos.y /= renderer_viewport.h;
+
+
+	
+
+
+
 
 
 	return f_pos;
 }
 
-Empaerior::Point2f Empaerior::Input::Mouse::get_world_mouse_coords(const Empaerior::Camera& camera)
+Empaerior::Point2f Empaerior::Input::Mouse::get_world_mouse_coords(Empaerior::fl_point viewportX, Empaerior::fl_point	 viewportY, Empaerior::fl_point viewportW, Empaerior::fl_point viewportH,const Empaerior::Camera2D& camera)
 {
-	{
+	
 		//get the positions
 		Empaerior::v_pair<Empaerior::s_int, Empaerior::s_int> pos;
 		Empaerior::Point2f f_pos;
@@ -59,48 +55,36 @@ Empaerior::Point2f Empaerior::Input::Mouse::get_world_mouse_coords(const Empaeri
 
 
 
-		f_pos.x = float(pos.first);
-		f_pos.y = float(pos.second);
+		f_pos[0] = float(pos.first);
+		f_pos[1] = float(pos.second);
 
 
 
 		//Scale down the positions to match the world
-		float sx = 0;
-		float sy = 0;
-		SDL_RenderGetScale(Empaerior::Application::window.renderer, &sx, &sy);
+		int width, height;
+		SDL_GetWindowSize(Empaerior::Application::window.window, &width, &height);
 
-		f_pos.x /= sx;
-		f_pos.y /= sy;
+		float sx = static_cast<float>(width);
+		float sy = static_cast<float>(height);
+		f_pos[0] /= sx;
+		f_pos[1] /= sy;
 
+		f_pos[0] *= viewportW;
+		f_pos[1] *= viewportH;
 
+		f_pos[0] += camera.position.x;
+		f_pos[1] += camera.position.y;
 
-
-		//Transform for the position of the renderer
+		f_pos[0] /= camera.scale;
+		f_pos[1] /= camera.scale;
+	
 		Empaerior::Int_Rect renderer_viewport;
 
-		SDL_RenderGetViewport(Empaerior::Application::window.renderer, &renderer_viewport);
-		f_pos.x -= renderer_viewport.x;
-		f_pos.y -= renderer_viewport.y;
-
-		//Transform the position relative to the camera dimesnions
-		f_pos.x *= camera.rect.w;
-		f_pos.y *= camera.rect.h;
-
-
-
-		f_pos.x /= renderer_viewport.w;
-		f_pos.y /= renderer_viewport.h;
-
-
-
-		//Tranform for position
-		f_pos.x += camera.rect.x;
-		f_pos.y += camera.rect.y;
 
 
 
 
 		return f_pos;
 
-	}
+	
 }

@@ -14,7 +14,7 @@
 //An example of what a application might look like
 #include "rendering/vulkan_rendering/renderer.h"
 #include <vulkan/vulkan.h>
-
+#include "input/input.h"
 
 
 //
@@ -117,7 +117,7 @@ public:
 
 		
 	 //  auto txt = vk.texture_atlas.create_texture_from_file("textures/textur3e.png", vk.framebufferNeedsReconstruction);
-	/*	for (float i = 0; i < 100; i+=1){
+		for (float i = 0; i < 100; i+=1){
 		
 			for (float j = 0; j < 100; j+=1)
 			{
@@ -126,7 +126,7 @@ public:
 				setSpriteDepth(greenerboi,0.1);
 			}
 
-		}*/
+		}
 		
 		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/idk.ttf", 64, vk.framebufferNeedsReconstruction);
 
@@ -258,8 +258,9 @@ public:
 				}
 
 				
-
-					
+				auto position = Empaerior::Input::Mouse::get_world_mouse_coords(vk.GraphicsSettings.viewportX, vk.GraphicsSettings.viewportY, vk.GraphicsSettings.viewportW, vk.GraphicsSettings.viewportH, vk.ubo);
+			//	 position = Empaerior::Input::Mouse::get_screen_mouse_coords(vk.GraphicsSettings.viewportX, vk.GraphicsSettings.viewportY, vk.GraphicsSettings.viewportW, vk.GraphicsSettings.viewportH);
+				std::cout << position[0]	 << ' ' << position[1] << '\n';
 				
 				
 				vk.ubo.position_mat = glm::translate(glm::mat4(1.0f), glm::vec3(vk.ubo.position.x * -1, vk.ubo.position.y * -1 , 0.0f));

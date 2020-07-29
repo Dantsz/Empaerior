@@ -1369,10 +1369,10 @@ public:
         SDL_GetWindowSize(sdl_window, &width, &height);
 
 
-        ubo.scale = glm::mat4(1.0f);
+        ubo.scale_mat = glm::mat4(1.0f);
 
-        ubo.scale = glm::scale(glm::mat4(1.0f), glm::vec3(static_cast<float>(width) / static_cast<float>(height), static_cast<float>(width) / static_cast<float>(height), 1));
-
+        ubo.scale_mat = glm::scale(glm::mat4(1.0f), glm::vec3((static_cast<float>(width) / InitialGraphicsSettings.viewportW) * ubo.scale, (static_cast<float>(height) / InitialGraphicsSettings.viewportH )* ubo.scale , 0));
+     
 
 
         ubo.proj = glm::ortho(0.0f, static_cast<float>(width), 0.0f, static_cast<float>(height), -1.0f, 1.0f);
