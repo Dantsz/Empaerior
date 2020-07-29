@@ -6,6 +6,9 @@
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\assetmanager\assetmanager.cpp">
       <Filter>assetmanager</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\mouse.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\eventhandler\eventhandler.cpp">
       <Filter>input\eventhandler</Filter>
     </ClCompile>
@@ -95,6 +98,15 @@
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\pch.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\assetmanager\assetmanager.h">
       <Filter>assetmanager</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\input.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\keyboard.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\mouse.h">
+      <Filter>input</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\eventhandler\eventhandler.h">
       <Filter>input\eventhandler</Filter>

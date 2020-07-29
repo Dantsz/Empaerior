@@ -91,7 +91,7 @@ public:
 
 
 		//CREATE A WINDOW
-		window.Init("Empaerior  3.0B7 -Vulkan Renderer", 960, 540);
+		window.Init("Empaerior  3.0B8 -Vulkan Renderer", 960, 540);
 
 
 		//CREATE A NEW STATE
@@ -133,8 +133,8 @@ public:
 	//	Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,480,3000 }, { 32,32 }, idk, "L", {1.0f,1.0f,1.0f});
 		
 
-		Empaerior::setTextSpriteDepth(greenboi, 1.0f);
-		createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { 0,0,32,32 }, { 0,0,vk.texture_atlas.image_dimensions[originText][0],vk.texture_atlas.image_dimensions[originText][1] }, originText);
+	//	Empaerior::setTextSpriteDepth(greenboi, 1.0f);
+		createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { 32,32,32,32 }, { 0,0,vk.texture_atlas.image_dimensions[originText][0],vk.texture_atlas.image_dimensions[originText][1] }, originText);
 	//	Empaerior::setTextSpriteMessage(greenboi, { 0,0,480,3000 }, { 32,32 }, idk, "Thres and it's working as it should  :))))", { 0.0f,0.5f,1.0f });
 	//	Empaerior::setTextSpriteDepth(greenboi, 1.0f);
 
@@ -211,21 +211,45 @@ public:
 				}
 				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_UP))
 				{
-
+					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_BTM_RIGHT)->pos.y -= 0.25f;
 				}
 				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_DOWN))
 				{
-
+					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_BTM_RIGHT)->pos.y += 0.25f;
 				}
 				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_RIGHT))
 				{
-
+					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_BTM_RIGHT)->pos.x += 0.25f;
 				}
 				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_LEFT))
 				{
+					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_BTM_RIGHT)->pos.x -= 0.25f;
+				}
+				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_T))
+				{
+					//	vk.ubo.position.y -= 1;
+					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_BTM_LEFT)->pos.y -= 0.25f;
+
 
 				}
+				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_G))
+				{
+					//vk.ubo.position.y += 1;
 
+					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_BTM_LEFT)->pos.y += 0.25f;
+
+				}
+				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_F))
+				{
+					//vk.ubo.position.x -= 1;
+					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_BTM_LEFT)->pos.x -= 0.25f;
+
+				}
+				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_H))
+				{
+					//vk.ubo.position.x += 1;
+					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_BTM_LEFT)->pos.x += 0.25f;
+				}
 				if (vk.framebufferNeedsReconstruction)
 				{
 					vk.checkFrameBufferResize();

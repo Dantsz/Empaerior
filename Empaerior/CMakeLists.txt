@@ -21,12 +21,19 @@ set(assetmanager
 )
 source_group("assetmanager" FILES ${assetmanager})
 
+set(input
+	"Src/input/input.h"
+	"Src/input/keyboard.h"
+	"Src/input/mouse.h"
+	"Src/input/mouse.cpp"
+)
 
 source_group("input" FILES ${input})
 
 set(input__eventhandler
     "Src/input/eventhandler/eventhandler.cpp"
     "Src/input/eventhandler/eventhandler.h"
+		
 )
 source_group("input\\eventhandler" FILES ${input__eventhandler})
 

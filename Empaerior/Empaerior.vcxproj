@@ -184,6 +184,10 @@
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\pch.h" />
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\assetmanager\assetmanager.cpp" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\assetmanager\assetmanager.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\input.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\keyboard.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\mouse.h" />
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\mouse.cpp" />
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\eventhandler\eventhandler.cpp" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\eventhandler\eventhandler.h" />
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\camera.cpp" />
