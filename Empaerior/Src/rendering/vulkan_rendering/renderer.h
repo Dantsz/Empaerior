@@ -39,6 +39,8 @@ const int MAX_FRAMES_IN_FLIGHT = 2;
 #include "misc_functions.h"
 #include "sprite.h"
 #include "glyphs.h"
+#include "graphic_settings.h"
+
 const std::vector<const char*> validationLayers = {
     "VK_LAYER_KHRONOS_validation",
     "VK_LAYER_LUNARG_standard_validation",
@@ -102,31 +104,7 @@ struct UniformBufferObject {
 };
 
 
-struct VK_RendererGraphicsInfo
-{
-   
-    //Shader
-    std::string vertShaderpath = "shaders/vert.spv";
-    std::string fragShaderpath = "shaders/frag.spv";
-    //Viewport
-    float viewportX = 0.0f;
-    float viewportY = 0.0f;
-    float viewportW = 0.0f;
-    float viewportH = 0.0f;
-   
 
-    float minDepth = 0.0f;
-    float maxDepth = 1.0f;
-    //Blending   
-    bool Blending = VK_TRUE;
-    //Depth
-    bool Depth = VK_TRUE;
-    bool DepthBoundTest = VK_FALSE;
-    bool StencilTest = VK_FALSE;
-    //rasterizer
-    bool DepthClamp = VK_FALSE;
-    bool rasterizerDiscardEnable = VK_FALSE;
-};
 
 
 class VK_Renderer {

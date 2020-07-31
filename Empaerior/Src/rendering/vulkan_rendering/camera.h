@@ -17,7 +17,7 @@ namespace Empaerior
 		glm::mat4 proj;
 
 		glm::vec3 position = {0,0,0};
-		Empaerior::fl_point scale = 8.0f;
+		Empaerior::fl_point scale = 1.0f;
 	};
 
 }

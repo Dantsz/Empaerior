@@ -202,6 +202,7 @@
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\sprite.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\glyphs.h" />
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\sprite.cpp" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\graphic_settings.h" />
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\state\state.cpp" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\state\state.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\systems\component.h" />

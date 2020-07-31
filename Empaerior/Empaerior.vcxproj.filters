@@ -138,6 +138,9 @@
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\glyphs.h">
       <Filter>rendering\vulkan_rendering</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\graphic_settings.h">
+      <Filter>rendering\vulkan_rendering</Filter>
+    </ClInclude>
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\state\state.h">
       <Filter>state</Filter>
     </ClInclude>

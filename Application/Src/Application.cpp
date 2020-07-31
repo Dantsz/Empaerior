@@ -117,7 +117,7 @@ public:
 
 		
 	 //  auto txt = vk.texture_atlas.create_texture_from_file("textures/textur3e.png", vk.framebufferNeedsReconstruction);
-		for (float i = 0; i < 100; i+=1){
+	/*	for (float i = 0; i < 100; i+=1){
 		
 			for (float j = 0; j < 100; j+=1)
 			{
@@ -126,7 +126,7 @@ public:
 				setSpriteDepth(greenerboi,0.1);
 			}
 
-		}
+		}*/
 		
 		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/idk.ttf", 64, vk.framebufferNeedsReconstruction);
 
@@ -372,7 +372,7 @@ public:
 		ImGui::Begin("Camera Settings");
 		ImGui::InputFloat("Camera X", &vk.ubo.position.x, 10, 100, 2);
 		ImGui::InputFloat("Camera Y", &vk.ubo.position.y, 10, 100, 2);
-
+		ImGui::InputFloat("Scale", &vk.ubo.scale, 0.1f, 100, 2);
 
 
 
