@@ -2,7 +2,7 @@
 #include "mouse.h" 
 #include "application.h"
 
-Empaerior::Point2f Empaerior::Input::Mouse::get_screen_mouse_coords(Empaerior::fl_point viewportX , Empaerior::fl_point	 viewportY, Empaerior::fl_point viewportW, Empaerior::fl_point viewportH)
+Empaerior::Point2f Empaerior::Input::Mouse::get_screen_mouse_coords(const Empaerior::VK_RendererGraphicsInfo& renderSettings)
 {
 
 	//get the positions
@@ -28,8 +28,8 @@ Empaerior::Point2f Empaerior::Input::Mouse::get_screen_mouse_coords(Empaerior::f
 	f_pos[0] /= sx;
 	f_pos[1] /= sy;
 
-	f_pos[0] *= viewportW;
-	f_pos[1] *= viewportH;
+	f_pos[0] *= renderSettings.viewportW;
+	f_pos[1] *= renderSettings.viewportH;
 
 
 
@@ -43,7 +43,7 @@ Empaerior::Point2f Empaerior::Input::Mouse::get_screen_mouse_coords(Empaerior::f
 	return f_pos;
 }
 
-Empaerior::Point2f Empaerior::Input::Mouse::get_world_mouse_coords(Empaerior::fl_point viewportX, Empaerior::fl_point	 viewportY, Empaerior::fl_point viewportW, Empaerior::fl_point viewportH,const Empaerior::Camera2D& camera)
+Empaerior::Point2f Empaerior::Input::Mouse::get_world_mouse_coords(const Empaerior::VK_RendererGraphicsInfo& renderSettings,const Empaerior::Camera2D& camera)
 {
 	
 		//get the positions
@@ -69,8 +69,8 @@ Empaerior::Point2f Empaerior::Input::Mouse::get_world_mouse_coords(Empaerior::fl
 		f_pos[0] /= sx;
 		f_pos[1] /= sy;
 
-		f_pos[0] *= viewportW;
-		f_pos[1] *= viewportH;
+		f_pos[0] *= renderSettings.viewportW;
+		f_pos[1] *= renderSettings.viewportH;
 
 		f_pos[0] += camera.position.x;
 		f_pos[1] += camera.position.y;

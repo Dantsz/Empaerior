@@ -258,7 +258,7 @@ public:
 				}
 
 				
-				auto position = Empaerior::Input::Mouse::get_world_mouse_coords(vk.GraphicsSettings.viewportX, vk.GraphicsSettings.viewportY, vk.GraphicsSettings.viewportW, vk.GraphicsSettings.viewportH, vk.ubo);
+				auto position = Empaerior::Input::Mouse::get_world_mouse_coords(vk.GraphicsSettings, vk.ubo);
 			//	 position = Empaerior::Input::Mouse::get_screen_mouse_coords(vk.GraphicsSettings.viewportX, vk.GraphicsSettings.viewportY, vk.GraphicsSettings.viewportW, vk.GraphicsSettings.viewportH);
 				std::cout << position[0]	 << ' ' << position[1] << '\n';
 				

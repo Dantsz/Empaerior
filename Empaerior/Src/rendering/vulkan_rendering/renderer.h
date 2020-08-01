@@ -209,7 +209,7 @@ public:
     std::vector<VkCommandBuffer> inUseCommandBuffers;
     size_t mainCommandBufferinUseIndex;
 
-    VK_RendererGraphicsInfo GraphicsSettings, InitialGraphicsSettings;
+    Empaerior::VK_RendererGraphicsInfo GraphicsSettings, InitialGraphicsSettings;
 public:
 
 
@@ -876,7 +876,7 @@ public:
         }
     }
 
-    void createGraphicsPipeline(VK_RendererGraphicsInfo& info) {
+    void createGraphicsPipeline(Empaerior::VK_RendererGraphicsInfo& info) {
         auto vertShaderCode = readFile(info.vertShaderpath);
         auto fragShaderCode = readFile(info.fragShaderpath);
 
