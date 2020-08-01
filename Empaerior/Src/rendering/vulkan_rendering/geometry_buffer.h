@@ -167,30 +167,21 @@ struct DynamicBuffer
 		//check if there's space available
 		if (size <= BufferSize[get_in_use_index()] - used_size[get_in_use_index()])
 		{
-		
 			place = index.emplace_back(used_size[get_in_use_index()]);
 			used_size[get_in_use_index()] += size;
 		}
 		//if there is any space left but not enought
 		else if (used_size[get_in_use_index()] < BufferSize[get_in_use_index()])
 		{
-		
-
 			place = index.emplace_back(used_size[get_in_use_index()]);
-
-		
 			size_t leftSize= (BufferSize[get_in_use_index()] - used_size[get_in_use_index()]);
-	
 			ExpandBuffer(size - (BufferSize[get_in_use_index()] - used_size[get_in_use_index()]) );
 			used_size[get_in_use_index()] +=leftSize;
 		}
 		else // create new space
 		{
-			
 			place = index.emplace_back(BufferSize[get_in_use_index()]);
 			ExpandBuffer(size);
-			
-			
 		}
 	
 		//expand 

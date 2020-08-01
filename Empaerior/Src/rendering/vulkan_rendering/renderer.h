@@ -1349,7 +1349,7 @@ public:
 
         ubo.scale_mat = glm::mat4(1.0f);
 
-        ubo.scale_mat = glm::scale(glm::mat4(1.0f), glm::vec3((static_cast<float>(width) / InitialGraphicsSettings.viewportW) * ubo.scale, (static_cast<float>(height) / InitialGraphicsSettings.viewportH )* ubo.scale , 0));
+        ubo.scale_mat = glm::scale(glm::mat4(1.0f), glm::vec3((static_cast<float>(width) / InitialGraphicsSettings.viewportW) * ubo.scaleX, (static_cast<float>(height) / InitialGraphicsSettings.viewportH )* ubo.scaleY , 0));
      
 
 

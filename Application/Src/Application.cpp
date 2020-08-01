@@ -117,7 +117,7 @@ public:
 
 		
 	 //  auto txt = vk.texture_atlas.create_texture_from_file("textures/textur3e.png", vk.framebufferNeedsReconstruction);
-	/*	for (float i = 0; i < 100; i+=1){
+		for (float i = 0; i < 100; i+=1){
 		
 			for (float j = 0; j < 100; j+=1)
 			{
@@ -126,7 +126,7 @@ public:
 				setSpriteDepth(greenerboi,0.1);
 			}
 
-		}*/
+		}
 		
 		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/idk.ttf", 64, vk.framebufferNeedsReconstruction);
 
@@ -135,8 +135,7 @@ public:
 
 	//	Empaerior::setTextSpriteDepth(greenboi, 1.0f);
 		createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { 32,32,32,32 }, { 0,0,vk.texture_atlas.image_dimensions[originText][0],vk.texture_atlas.image_dimensions[originText][1] }, originText);
-	//	Empaerior::setTextSpriteMessage(greenboi, { 0,0,480,3000 }, { 32,32 }, idk, "Thres and it's working as it should  :))))", { 0.0f,0.5f,1.0f });
-	//	Empaerior::setTextSpriteDepth(greenboi, 1.0f);
+
 
 	}
 	
@@ -372,8 +371,8 @@ public:
 		ImGui::Begin("Camera Settings");
 		ImGui::InputFloat("Camera X", &vk.ubo.position.x, 10, 100, 2);
 		ImGui::InputFloat("Camera Y", &vk.ubo.position.y, 10, 100, 2);
-		ImGui::InputFloat("Scale", &vk.ubo.scale, 0.1f, 100, 2);
-
+		ImGui::InputFloat("ScaleX", &vk.ubo.scaleX, 0.1f, 100, 2);
+		ImGui::InputFloat("ScaleY", &vk.ubo.scaleY, 0.1f, 100, 2);
 
 
 		ImGui::End();
