@@ -690,7 +690,7 @@ public:
         VkAttachmentReference depthAttachmentRef{};
         depthAttachmentRef.attachment = 1;
         depthAttachmentRef.layout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
-
+   
 
         VkSubpassDescription subpass{};
         subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
@@ -944,7 +944,7 @@ public:
         rasterizer.lineWidth = 1.0f;
         rasterizer.cullMode = VK_CULL_MODE_BACK_BIT;
         rasterizer.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
-        rasterizer.depthBiasEnable = VK_FALSE;
+        rasterizer.depthBiasEnable = VK_TRUE;
 
         VkPipelineMultisampleStateCreateInfo multisampling{};
         multisampling.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
@@ -1353,7 +1353,7 @@ public:
      
 
 
-        ubo.proj = glm::ortho(0.0f, static_cast<float>(width), 0.0f, static_cast<float>(height), -1.0f, 1.0f);
+        ubo.proj = glm::ortho(0.0f, static_cast<float>(width),0.0f, static_cast<float>(height), -1.0f, 1.0f);
 
 
         void* data;

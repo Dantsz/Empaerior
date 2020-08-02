@@ -20,10 +20,10 @@ namespace Empaerior
 		sprite.texture_id = tex_id;
 
 
-		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex)) = { {  rect.dimensions.x,rect.dimensions.y ,0.0f},                      { 0.0f,0.0f } ,tex_id , {0.0f,0.0f,0.0f} };
-		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1) = { {rect.dimensions.x, rect.dimensions.y + rect.dimensions.h,0.0f },          {0.0f,1.0f}, tex_id, {0.0f,0.0f,0.0f} };
-		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2) = { { rect.dimensions.x + rect.dimensions.w, rect.dimensions.y + rect.dimensions.h,0.0f}, {0.14f,1.0f},tex_id, {0.0f,0.0f,0.0f} };
-		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3) = { { rect.dimensions.x + rect.dimensions.w,rect.dimensions.y ,0.0f},          {0.14f,0.0f},tex_id , {0.0f,0.0f,0.0f} };
+		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex)) = { {  rect.x,rect.y ,0.0f},                      { 0.0f,0.0f } ,tex_id , {0.0f,0.0f,0.0f} };
+		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1) = { {rect.x, rect.y + rect.h,0.0f },          {0.0f,1.0f}, tex_id, {0.0f,0.0f,0.0f} };
+		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2) = { { rect.x + rect.w, rect.y + rect.h,0.0f}, {0.14f,1.0f},tex_id, {0.0f,0.0f,0.0f} };
+		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3) = { { rect.x + rect.w,rect.y ,0.0f},          {0.14f,0.0f},tex_id , {0.0f,0.0f,0.0f} };
 
 		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t)) = buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex);
 		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 1) = buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1;
@@ -220,11 +220,33 @@ namespace Empaerior
 
 	void setTextSpriteMessage(Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message,glm::vec3 color)
 	{
+		//preserver the original depth of the sprite 
+		Empaerior::fl_point originalDepth = 0.0f;
+		//check for the sprite to already be valid
+		if (sprite.verticesSize > 0)
+		{
+			//
+			Vertex* vert = getSpriteVertex(sprite, EMP_SPR_VERTEX_TOP_LEFT);
+
+			originalDepth = vert->pos.z;
+		}
 	
-	
+		//if everything is cleared
+		if (strlen(message) == 0)
+		{
+			uint32_t* data = (uint32_t*)sprite.parent->indexBuffer.BuffersData[sprite.parent->indexBuffer.get_in_use_index()];
+			//the vertex data will  move , so the index buffer needs to be adjusted
+			for (size_t i = sprite.parent->indexBuffer.index[sprite.IndicesIndex]; i < sprite.parent->indexBuffer.used_size[sprite.parent->indexBuffer.get_in_use_index()]; i++)
+			{
+				data[i] -= (sprite.verticesSize / sizeof(Vertex));
+			}
+
+
+			sprite.parent->indexBuffer.deallocate(sprite.IndicesIndex, sprite.IndicesSize);
+			sprite.parent->vertexBuffer.deallocate(sprite.verticesIndex, sprite.verticesSize);
+		}
 		//if there's not enougth space to change the message it allocated a new space
-	
-		if (strlen(message) > sprite.verticesSize / (sizeof(Vertex) * 4))
+		else if (strlen(message) > sprite.verticesSize / (sizeof(Vertex) * 4))
 		{
 			
 			uint32_t* data = (uint32_t*)sprite.parent->indexBuffer.BuffersData[sprite.parent->indexBuffer.get_in_use_index()];
@@ -251,6 +273,7 @@ namespace Empaerior
 			}
 			
 			Empaerior::setupTextSprite(*sprite.parent, *sprite.parent_atlas, sprite, rect, charDimensions, font, message, color);
+			Empaerior::setTextSpriteDepth(sprite, originalDepth);
 		}
 
 

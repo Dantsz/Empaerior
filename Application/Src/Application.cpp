@@ -110,7 +110,7 @@ public:
 		
 		
 	
-		vk.texture_atlas.create_texture_from_file("assets/textur2e.png", vk.framebufferNeedsReconstruction);
+		auto originText2 = vk.texture_atlas.create_texture_from_file("assets/textur2e.png", vk.framebufferNeedsReconstruction);
 		auto originText = vk.texture_atlas.create_texture_from_file("assets/textur3e.png", vk.framebufferNeedsReconstruction);
 		auto greenboiTxt = vk.texture_atlas.create_texture_from_file("assets/green_boi.png",vk.framebufferNeedsReconstruction);
 	
@@ -130,12 +130,18 @@ public:
 		
 		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/idk.ttf", 64, vk.framebufferNeedsReconstruction);
 
-	//	Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,480,3000 }, { 32,32 }, idk, "L", {1.0f,1.0f,1.0f});
-		
+	
 
 	//	Empaerior::setTextSpriteDepth(greenboi, 1.0f);
-		createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { 32,32,32,32 }, { 0,0,vk.texture_atlas.image_dimensions[originText][0],vk.texture_atlas.image_dimensions[originText][1] }, originText);
+		Empaerior::createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { 32,32,32,32 }, { 0,0,vk.texture_atlas.image_dimensions[originText][0],vk.texture_atlas.image_dimensions[originText][1] }, originText);
+		Empaerior::setSpriteDepth(greenerboi, 0.5f);
+		
 
+		Empaerior::createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { 16,32,32,32 }, { 0,0,vk.texture_atlas.image_dimensions[originText][0],vk.texture_atlas.image_dimensions[originText][1] }, originText2);
+		Empaerior::setSpriteDepth(greenerboi,0.9f);
+
+		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,480,3000 }, { 32,32 }, idk, "ABCDEFGHIJKL", {1.0f,1.0f,1.0f});
+		Empaerior::setTextSpriteDepth(greenboi, 0.0f);
 
 	}
 	
@@ -256,13 +262,21 @@ public:
 					vk.framebufferNeedsReconstruction = false;
 				}
 
-				
+				if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_M))
+				{
+					
+					Empaerior::setSpriteDepth(greenboi, i);
+					i++;
+					std::cout << i << '\n';
+				}
+
+
 				auto position = Empaerior::Input::Mouse::get_world_mouse_coords(vk.GraphicsSettings, vk.ubo);
 			//	 position = Empaerior::Input::Mouse::get_screen_mouse_coords(vk.GraphicsSettings.viewportX, vk.GraphicsSettings.viewportY, vk.GraphicsSettings.viewportW, vk.GraphicsSettings.viewportH);
-				std::cout << position[0]	 << ' ' << position[1] << '\n';
+			//	std::cout << position[0]	 << ' ' << position[1] << '\n';
 				
 				
-				vk.ubo.position_mat = glm::translate(glm::mat4(1.0f), glm::vec3(vk.ubo.position.x * -1, vk.ubo.position.y * -1 , 0.0f));
+				vk.ubo.position_mat = glm::translate(glm::mat4(1.0f), glm::vec3(vk.ubo.position.x * -1, vk.ubo.position.y * -1 , 1.0f));
 				
 
 
@@ -344,6 +358,7 @@ public:
 		{
 			ImGui::Checkbox("Depth", &vk.GraphicsSettings.Depth);
 			ImGui::Checkbox("Stenciltest", &vk.GraphicsSettings.StencilTest);
+			ImGui::Checkbox("DepthBoundtest", &vk.GraphicsSettings.DepthBoundTest);
 			ImGui::InputFloat("MinDepth", &vk.GraphicsSettings.minDepth);
 			ImGui::InputFloat("MaxDepth", &vk.GraphicsSettings.maxDepth);
 		}

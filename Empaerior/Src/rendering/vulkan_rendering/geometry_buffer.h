@@ -1,4 +1,6 @@
 #pragma once
+#define GLM_FORCE_RADIANS
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include <vulkan/vulkan.h>
 #include <vk_mem_alloc.h>
 #include <vector>
