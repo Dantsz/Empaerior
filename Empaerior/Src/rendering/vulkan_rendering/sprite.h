@@ -19,6 +19,9 @@ namespace Empaerior
 		size_t verticesSize;
 		size_t IndicesSize;
 
+		Empaerior::Float_Rect rect;
+
+
 		geometryBuffer* parent;
 		Texture_Atlas* parent_atlas;
 
@@ -30,7 +33,7 @@ namespace Empaerior
 #define EMP_SPR_VERTEX_BTM_RIGHT 2
 #define EMP_SPR_VERTEX_BTM_LEFT 3
 
-	void createSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t texture_id);
+	void createSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t tex_id);
 
 	void setSpriteRect(Sprite& sprite, geometryBuffer& buffer, Empaerior::Float_Rect_S& rect);
 

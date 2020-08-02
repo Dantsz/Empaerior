@@ -9,6 +9,9 @@ namespace Empaerior
 		sprite.parent = &buffer;
 		sprite.parent_atlas = &atlas;
 
+		sprite.rect.dimensions = rect;
+		sprite.rect.angle = 0.0f;
+
 		sprite.IndicesIndex = buffer.indexBuffer.allocate(6 * sizeof(uint32_t));
 		sprite.verticesIndex = buffer.vertexBuffer.allocate(4 * sizeof(Vertex));
 		sprite.IndicesSize = 6 * sizeof(uint32_t);
@@ -17,10 +20,10 @@ namespace Empaerior
 		sprite.texture_id = tex_id;
 
 
-		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex)) = { {  rect.x,rect.y ,0.0f},                      { 0.0f,0.0f } ,tex_id , {0.0f,0.0f,0.0f} };
-		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1) = { {rect.x, rect.y + rect.h,0.0f },          {0.0f,1.0f}, tex_id, {0.0f,0.0f,0.0f} };
-		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2) = { { rect.x + rect.w, rect.y + rect.h,0.0f}, {0.14f,1.0f},tex_id, {0.0f,0.0f,0.0f} };
-		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3) = { { rect.x + rect.w,rect.y ,0.0f},          {0.14f,0.0f},tex_id , {0.0f,0.0f,0.0f} };
+		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex)) = { {  rect.dimensions.x,rect.dimensions.y ,0.0f},                      { 0.0f,0.0f } ,tex_id , {0.0f,0.0f,0.0f} };
+		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1) = { {rect.dimensions.x, rect.dimensions.y + rect.dimensions.h,0.0f },          {0.0f,1.0f}, tex_id, {0.0f,0.0f,0.0f} };
+		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2) = { { rect.dimensions.x + rect.dimensions.w, rect.dimensions.y + rect.dimensions.h,0.0f}, {0.14f,1.0f},tex_id, {0.0f,0.0f,0.0f} };
+		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3) = { { rect.dimensions.x + rect.dimensions.w,rect.dimensions.y ,0.0f},          {0.14f,0.0f},tex_id , {0.0f,0.0f,0.0f} };
 
 		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t)) = buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex);
 		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 1) = buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1;
@@ -92,6 +95,7 @@ namespace Empaerior
 
 		}
 	}
+
 	void createTextSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite,Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions , const Empaerior::Font &  font, const char* message, glm::vec3 color)
 	{
 		if (strlen(message) == 0) return;
@@ -122,6 +126,8 @@ namespace Empaerior
 	//=========Sprite=========//
 	void setSpriteRect(Sprite& sprite, geometryBuffer& buffer, Empaerior::Float_Rect_S& rect)
 	{
+		sprite.rect.dimensions = rect;
+
 		((Vertex*)sprite.parent->vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))->pos = { rect.x,rect.y,0.0f };
 
 		((Vertex*)sprite.parent->vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1)->pos = { rect.x , rect.y + rect.h ,0.0f };
@@ -133,12 +139,14 @@ namespace Empaerior
 	}
 
 
-	void setSpriteDimensions(Sprite& sprite, Empaerior::fl_point x, Empaerior::fl_point y)
+	void setSpriteDimensions(Sprite& sprite, Empaerior::fl_point width, Empaerior::fl_point height)
 	{
+		sprite.rect.dimensions.w = width;
+		sprite.rect.dimensions.h = height;
 #define vertex ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
-		(vertex + 1)->pos.y = vertex->pos.y + y;
-		(vertex + 2)->pos = { vertex->pos.x + x, vertex->pos.y + y,0.0f };
-		(vertex + 3)->pos.x = vertex->pos.x + x;
+		(vertex + 1)->pos.y = vertex->pos.y + height;
+		(vertex + 2)->pos = { vertex->pos.x + width, vertex->pos.y + height,0.0f };
+		(vertex + 3)->pos.x = vertex->pos.x + width;
 #undef vertex
 	}
 
@@ -166,11 +174,19 @@ namespace Empaerior
 #undef vertex
 	}
 
+	void setSpriteAngle(Sprite& sprite, Empaerior::fl_point angle)
+	{
+#define vertex ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
+
+
+#undef vertex
+	}
+
+
 	Vertex* getSpriteVertex(Sprite& sprite, uint8_t vert)
 	{
 		return ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + vert);
 	}
-
 	//======Text Sprite======//
 
 
