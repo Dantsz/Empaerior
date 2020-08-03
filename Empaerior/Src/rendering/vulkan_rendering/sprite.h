@@ -29,9 +29,9 @@ namespace Empaerior
 
 
 #define EMP_SPR_VERTEX_TOP_LEFT 0
-#define EMP_SPR_VERTEX_TOP_RIGHT 1
+#define EMP_SPR_VERTEX_TOP_RIGHT 3
 #define EMP_SPR_VERTEX_BTM_RIGHT 2
-#define EMP_SPR_VERTEX_BTM_LEFT 3
+#define EMP_SPR_VERTEX_BTM_LEFT 1
 
 	void createSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t tex_id);
 
@@ -44,6 +44,8 @@ namespace Empaerior
 	void setSpriteTexRect (Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::u_inter offset = 0);
 
 	void setSpriteDepth(Sprite& sprite, Empaerior::fl_point depth);
+
+	void setSpriteAngle(Sprite& sprite, Empaerior::fl_point angle);
 
 	Vertex* getSpriteVertex(Sprite& sprite, uint8_t vert);
 

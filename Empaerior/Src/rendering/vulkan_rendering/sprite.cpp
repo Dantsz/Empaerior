@@ -176,9 +176,23 @@ namespace Empaerior
 
 	void setSpriteAngle(Sprite& sprite, Empaerior::fl_point angle)
 	{
+		sprite.rect.angle = angle;
+		//get the middle of the spritw
+		Empaerior::fl_point midX = sprite.rect.dimensions.x + sprite.rect.dimensions.w / 2 ,
+			                midY = sprite.rect.dimensions.y + sprite.rect.dimensions.h / 2;
 #define vertex ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
-
-
+		//rotate each vertex separately
+		//top left
+		(vertex)->pos.x = midX + (sprite.rect.dimensions.x - midX) * Empaerior::Math::cosd(sprite.rect.angle) - (sprite.rect.dimensions.y - midY) * Empaerior::Math::sind(sprite.rect.angle);
+		(vertex)->pos.y = midY + (sprite.rect.dimensions.y - midY) * Empaerior::Math::cosd(sprite.rect.angle) + (sprite.rect.dimensions.x - midX) * Empaerior::Math::sind(sprite.rect.angle);
+		//top right
+		(vertex + 3)->pos.x = midX + (sprite.rect.dimensions.x + sprite.rect.dimensions.w - midX) * Empaerior::Math::cosd(sprite.rect.angle) - (sprite.rect.dimensions.y - midY) * Empaerior::Math::sind(sprite.rect.angle);
+		(vertex + 3)->pos.y = midY + (sprite.rect.dimensions.y - midY) * Empaerior::Math::cosd(sprite.rect.angle) + (sprite.rect.dimensions.x + sprite.rect.dimensions.w - midX) * Empaerior::Math::sind(sprite.rect.angle);
+		//bottom left
+		(vertex + 1)->pos.x = midX + (sprite.rect.dimensions.x - midX) * Empaerior::Math::cosd(sprite.rect.angle) - (sprite.rect.dimensions.y - midY) * Empaerior::Math::sind(sprite.rect.angle);
+		(vertex + 1)->pos.y = midY + (sprite.rect.dimensions.y - midY) * Empaerior::Math::cosd(sprite.rect.angle) + (sprite.rect.dimensions.x - midX) * Empaerior::Math::sind(sprite.rect.angle);
+		//bottom right
+		
 #undef vertex
 	}
 
