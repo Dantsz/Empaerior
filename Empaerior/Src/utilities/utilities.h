@@ -13,7 +13,9 @@ namespace Empaerior
 	namespace Utilities {
 		//clipboard functions
 
-		Empaerior::string get_clipboard_text();
+
+
+		 Empaerior::string get_clipboard_text();
 
 		 void set_clipboard_text(const char* text);
 
@@ -58,9 +60,13 @@ namespace Empaerior
 		//check if a rect contains a point
 		Empaerior::boole rect_contains_point(const Empaerior::Float_Rect& rect, Empaerior::fl_point x , Empaerior::fl_point y);
 		Empaerior::boole rect_contains_point(const Empaerior::Float_Rect& rect,const Empaerior::Point2f point);
+		//rotate point around axis
+		Empaerior::Point2f get_rotated_point(const Empaerior::Point2f& point, const Empaerior::Point2f& axis, const Empaerior::fl_point angle);
 
 		//takes a screenshot
 		void take_screenshot(Empaerior::Window& window, std::string name = get_date_string());
+
+
 
 
 	}

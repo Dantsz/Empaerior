@@ -42,8 +42,8 @@ Empaerior::boole Empaerior::Utilities::rect_contains_point(const Empaerior::Floa
 
 
 	//rotating the point counter-clockwise
-	Empaerior::fl_point c_x = o_x +  (x - o_x) * Empaerior::Math::cosd(rect.angle) - (y - o_y) * Empaerior::Math::sind(rect.angle);
-	Empaerior::fl_point c_y = o_y +	(y - o_y) * Empaerior::Math::cosd(rect.angle) + (x - o_x) * Empaerior::Math::sind(rect.angle);
+	Empaerior::fl_point c_x = o_x +  (x - o_x) * Empaerior::Math::sind(rect.angle) - (y - o_y) * Empaerior::Math::cosd(rect.angle);
+	Empaerior::fl_point c_y = o_y +	(y - o_y) * Empaerior::Math::sind(rect.angle) + (x - o_x) * Empaerior::Math::cosd(rect.angle);
 	
 	//
 	
@@ -66,8 +66,8 @@ Empaerior::boole Empaerior::Utilities::rect_contains_point(const Empaerior::Floa
 
 
 	//rotating the point counter-clockwise
-	Empaerior::fl_point c_x = o_x + (point[0] - o_x) * Empaerior::Math::cosd(rect.angle) - (point[1] - o_y) * Empaerior::Math::sind(rect.angle);
-	Empaerior::fl_point c_y = o_y + (point[1] - o_y) * Empaerior::Math::cosd(rect.angle) + (point[0] - o_x) * Empaerior::Math::sind(rect.angle);
+	Empaerior::fl_point c_x = o_x + (point[0] - o_x) * Empaerior::Math::sind(rect.angle) - (point[1] - o_y) * Empaerior::Math::cosd(rect.angle);
+	Empaerior::fl_point c_y = o_y + (point[1] - o_y) * Empaerior::Math::sind(rect.angle) + (point[0] - o_x) * Empaerior::Math::cosd(rect.angle);
 
 	//
 
@@ -80,13 +80,21 @@ Empaerior::boole Empaerior::Utilities::rect_contains_point(const Empaerior::Floa
 	return true;
 }
 
+Empaerior::Point2f Empaerior::Utilities::get_rotated_point(const Empaerior::Point2f& point, const Empaerior::Point2f& axis, const Empaerior::fl_point angle)
+{
+	Empaerior::Point2f rotated;
+	rotated[0] = axis[0] + (point[0] - axis[0]) * Empaerior::Math::cosd(angle) - (point[1] - axis[1]) * Empaerior::Math::sind(angle);
+	rotated[1] = axis[1] + (point[1] - axis[1]) * Empaerior::Math::cosd(angle) + (point[0] - axis[0]) * Empaerior::Math::sind(angle);
+
+	return rotated;
+}
 
 
 
 void Empaerior::Utilities::take_screenshot(Empaerior::Window& window, std::string name )
 {
 	SDL_Surface* sshot = SDL_CreateRGBSurface(0, window.get_width() , window.get_heigth(), 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
-	SDL_RenderReadPixels(Empaerior::SDL_Rendering::get_renderer(), NULL, SDL_PIXELFORMAT_ARGB8888, sshot->pixels, sshot->pitch);
+//	SDL_RenderReadPixels(Empaerior::SDL_Rendering::get_renderer(), NULL, SDL_PIXELFORMAT_ARGB8888, sshot->pixels, sshot->pitch);
 	name += ".bmp";
 	SDL_SaveBMP(sshot,name.c_str());
 	SDL_FreeSurface(sshot);

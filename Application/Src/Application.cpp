@@ -140,8 +140,8 @@ public:
 		Empaerior::createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { 16,32,32,32 }, { 0,0,vk.texture_atlas.image_dimensions[originText][0],vk.texture_atlas.image_dimensions[originText][1] }, originText2);
 		Empaerior::setSpriteDepth(greenerboi,0.9f);
 
-		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,480,3000 }, { 32,32 }, idk, "ABCDEFGHIJKL", {1.0f,1.0f,1.0f});
-		Empaerior::setTextSpriteDepth(greenboi, 0.0f);
+		//Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,480,3000 }, { 32,32 }, idk, "ABCDEFGHIJKL", {1.0f,1.0f,1.0f});
+	//	Empaerior::setTextSpriteDepth(greenboi, 0.0f);
 
 	}
 	
@@ -280,6 +280,22 @@ public:
 				
 
 
+
+				Empaerior::setSpriteAngle(greenerboi, forTest);
+				forTest += 0.01;
+
+				if (Empaerior::Utilities::rect_contains_point(greenerboi.rect, position))
+				{
+					Empaerior::createSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { position[0],position[1],1,1 }, { 0,0,vk.texture_atlas.image_dimensions[2][0],vk.texture_atlas.image_dimensions[2][1] }, 2);
+				}
+
+
+
+
+
+
+
+
 				timy.start();
 
 				//dump_data(vk.geometrybuffer);
@@ -302,8 +318,7 @@ public:
 				vk.present();
 	
 				
-				Empaerior::setSpriteAngle(greenerboi, forTest);
-				forTest += 0.01;
+				
 				//
 
 			}
