@@ -66,14 +66,18 @@ Empaerior::Point2f Empaerior::Input::Mouse::get_world_mouse_coords(const Empaeri
 
 		float sx = static_cast<float>(width);
 		float sy = static_cast<float>(height);
+
+		f_pos[0] += camera.position.x;
+		f_pos[1] += camera.position.y;
+
+
 		f_pos[0] /= sx;
 		f_pos[1] /= sy;
 
 		f_pos[0] *= renderSettings.viewportW;
 		f_pos[1] *= renderSettings.viewportH;
 
-		f_pos[0] += camera.position.x;
-		f_pos[1] += camera.position.y;
+
 
 		f_pos[0] /= camera.scaleX;
 		f_pos[1] /= camera.scaleY;

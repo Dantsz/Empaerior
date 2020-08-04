@@ -272,8 +272,7 @@ public:
 
 
 				auto position = Empaerior::Input::Mouse::get_world_mouse_coords(vk.GraphicsSettings, vk.ubo);
-			//	 position = Empaerior::Input::Mouse::get_screen_mouse_coords(vk.GraphicsSettings.viewportX, vk.GraphicsSettings.viewportY, vk.GraphicsSettings.viewportW, vk.GraphicsSettings.viewportH);
-			//	std::cout << position[0]	 << ' ' << position[1] << '\n';
+				std::cout << position[0]	 << ' ' << position[1] << '\n';
 				
 				
 				vk.ubo.position_mat = glm::translate(glm::mat4(1.0f), glm::vec3(vk.ubo.position.x * -1, vk.ubo.position.y * -1 , 1.0f));
