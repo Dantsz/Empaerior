@@ -3,10 +3,10 @@
 #include <memory>
 #include <string>
 #include <unordered_map>
-#include "rendering/camera.h"
+#include "../include/rendering/camera.h"
 #include "rendering/sdl_rendering/objects/sprite.h"
 #include "../include/core/defines/defines.h"
-#include "input/eventhandler/eventhandler.h"
+#include "../include/input/eventhandler/eventhandler.h"
 
 namespace Empaerior
 {

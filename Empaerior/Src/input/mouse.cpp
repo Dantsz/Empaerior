@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "mouse.h" 
+#include "../include/input/mouse.h" 
 #include "application.h"
 
 Empaerior::Point2f Empaerior::Input::Mouse::get_screen_mouse_coords(const Empaerior::VK_RendererGraphicsInfo& renderSettings)

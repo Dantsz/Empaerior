@@ -99,46 +99,46 @@
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\assetmanager\assetmanager.h">
       <Filter>assetmanager</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\input.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\input\input.h">
       <Filter>input</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\keyboard.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\input\keyboard.h">
       <Filter>input</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\mouse.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\input\mouse.h">
       <Filter>input</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\eventhandler\eventhandler.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\input\eventhandler\eventhandler.h">
       <Filter>input\eventhandler</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\camera.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\camera.h">
       <Filter>rendering</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\window.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\window.h">
       <Filter>rendering</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\renderer.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\vulkan_rendering\renderer.h">
       <Filter>rendering\vulkan_rendering</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\camera.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\vulkan_rendering\camera.h">
       <Filter>rendering\vulkan_rendering</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\texture_atlas.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\vulkan_rendering\texture_atlas.h">
       <Filter>rendering\vulkan_rendering</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\geometry_buffer.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\vulkan_rendering\geometry_buffer.h">
       <Filter>rendering\vulkan_rendering</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\misc_functions.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\vulkan_rendering\misc_functions.h">
       <Filter>rendering\vulkan_rendering</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\sprite.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\vulkan_rendering\sprite.h">
       <Filter>rendering\vulkan_rendering</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\glyphs.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\vulkan_rendering\glyphs.h">
       <Filter>rendering\vulkan_rendering</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\graphic_settings.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\vulkan_rendering\graphic_settings.h">
       <Filter>rendering\vulkan_rendering</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\state\state.h">

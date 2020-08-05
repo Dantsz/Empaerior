@@ -3,7 +3,7 @@
 #include "sdlwrappers/ptr_wrappers.h"
 #include "sdlwrappers/rendering_wrappers.h"
 #include "sdlwrappers/sdl_wrappers.h"
-#include "../window.h"
+#include "../../../include/rendering/window.h"
 
 
 namespace Empaerior::SDL_Rendering

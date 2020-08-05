@@ -1,8 +1,8 @@
 #pragma once
 #include "../../include/core/defines/defines.h"
 #include "../rendering/camera.h"
-#include "rendering/vulkan_rendering/camera.h"
-#include "rendering/vulkan_rendering/graphic_settings.h"
+#include "../rendering/vulkan_rendering/camera.h"
+#include "../rendering/vulkan_rendering/graphic_settings.h"
 namespace Empaerior
 {
 	namespace Input

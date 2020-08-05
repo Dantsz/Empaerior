@@ -1,6 +1,6 @@
 
-#include "sprite.h"
-#include "glyphs.h"
+#include "../include/rendering/vulkan_rendering/sprite.h"
+#include "../include/rendering/vulkan_rendering/glyphs.h"
 namespace Empaerior
 {
 	void createSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t tex_id)

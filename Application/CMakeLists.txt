@@ -79,6 +79,7 @@ endif()
  	"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/freetype/include"
 		
         "${CMAKE_CURRENT_SOURCE_DIR}/../Empaerior/Src"
+		"${CMAKE_CURRENT_SOURCE_DIR}/../Empaerior/include"
     )
 
 

@@ -8,10 +8,10 @@
 
 #include "state/state.h"
 
-#include "rendering/window.h"
+#include "../include/rendering/window.h"
 
 
-#include "input/eventhandler/eventhandler.h"
+#include "../include/input/eventhandler/eventhandler.h"
 #include "../include/core/exceptions/exceptions.h"
 
 

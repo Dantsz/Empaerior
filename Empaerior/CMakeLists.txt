@@ -22,9 +22,9 @@ set(assetmanager
 source_group("assetmanager" FILES ${assetmanager})
 
 set(input
-	"Src/input/input.h"
-	"Src/input/keyboard.h"
-	"Src/input/mouse.h"
+	"include/input/input.h"
+	"include/input/keyboard.h"
+	"include/input/mouse.h"
 	"Src/input/mouse.cpp"
 )
 
@@ -32,16 +32,16 @@ source_group("input" FILES ${input})
 
 set(input__eventhandler
     "Src/input/eventhandler/eventhandler.cpp"
-    "Src/input/eventhandler/eventhandler.h"
+    "include/input/eventhandler/eventhandler.h"
 		
 )
 source_group("input\\eventhandler" FILES ${input__eventhandler})
 
 set(rendering
     "Src/rendering/camera.cpp"
-    "Src/rendering/camera.h"
+    "include/rendering/camera.h"
     "Src/rendering/window.cpp"
-    "Src/rendering/window.h"
+    "include/rendering/window.h"
 )
 source_group("rendering" FILES ${rendering})
 
@@ -49,7 +49,7 @@ source_group("rendering" FILES ${rendering})
 
 #include("Src/rendering/sdl_rendering/CMakeLists.txt")
 
-include ("Src/rendering/vulkan_rendering/CMakeLists.txt")
+include ("include/rendering/vulkan_rendering/CMakeLists.txt")
 
 set(state
     "Src/state/state.cpp"

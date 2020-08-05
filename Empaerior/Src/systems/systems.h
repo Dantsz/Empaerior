@@ -8,7 +8,7 @@
 #include "component.h"
 #include "rendering/sdl_rendering/objects/sprite.h"
 
-#include "input/eventhandler/eventhandler.h"
+#include "../include/input/eventhandler/eventhandler.h"
 #include "rendering/sdl_rendering/sdlwrappers/rendering_wrappers.h"
 
 #include <set>

@@ -2,7 +2,7 @@
 
 
 #include "rendering/sdl_rendering/objects/sprite.h"
-#include "rendering/camera.h"
+#include "../include/rendering/camera.h"
 
 //entity tests
 

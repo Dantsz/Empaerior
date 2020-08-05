@@ -1,7 +1,7 @@
 #pragma once
 #include "../Include/core/exceptions/exceptions.h"
 #include "../Include/assetmanager/assetmanager.h"
-#include "../../camera.h"
+#include "../include/rendering/camera.h"
 #include "rendering/sdl_rendering/sdl_renderer.h"
 
 

@@ -19,15 +19,15 @@
 #include "systems/systems.h"
 #include "systems/component.h"
 
-#include "rendering/window.h"
-#include "rendering/camera.h"
+#include "../include/rendering/window.h"
+#include "../include/rendering/camera.h"
 #include "rendering/sdl_rendering/objects/sprite.h"
 
 
 
 
 
-#include "input/input.h"
+#include "../include/input/input.h"
 
 
 
