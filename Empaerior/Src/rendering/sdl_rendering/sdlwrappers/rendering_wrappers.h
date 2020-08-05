@@ -1,7 +1,7 @@
 #pragma once
 //Wrappes library functions
 #include <SDL.h>
-#include "core/defines/defines.h"
+#include "../Include/core/defines/defines.h"
 
 
 

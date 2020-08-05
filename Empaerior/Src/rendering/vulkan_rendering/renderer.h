@@ -34,7 +34,7 @@
 
 const int MAX_FRAMES_IN_FLIGHT = 2;
 
-#include "core/defines/defines.h"
+#include "../Include/core/defines/defines.h"
 #include "geometry_buffer.h"
 #include "misc_functions.h"
 #include "sprite.h"

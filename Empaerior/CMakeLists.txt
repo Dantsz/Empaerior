@@ -13,11 +13,11 @@ set(no_group_source_files
 )
 source_group("" FILES ${no_group_source_files})
 
-include("Src/core/CMakeLists.txt")
+include("Include/core/CMakeLists.txt")
 
 set(assetmanager
     "Src/assetmanager/assetmanager.cpp"
-    "Src/assetmanager/assetmanager.h"
+    "Include/assetmanager/assetmanager.h"
 )
 source_group("assetmanager" FILES ${assetmanager})
 

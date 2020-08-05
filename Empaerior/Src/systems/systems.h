@@ -1,9 +1,9 @@
 #pragma once
 
-#include "core/exceptions/exceptions.h"
+#include "../Include/core/exceptions/exceptions.h"
 
 
-#include "core/ecs/ecs.h"
+#include "../Include/core/ecs/ecs.h"
 
 #include "component.h"
 #include "rendering/sdl_rendering/objects/sprite.h"

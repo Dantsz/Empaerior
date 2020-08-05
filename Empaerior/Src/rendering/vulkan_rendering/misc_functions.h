@@ -1,7 +1,7 @@
 #pragma once
 #include <vulkan/vulkan.h>
 #include <vk_mem_alloc.h>
-#include "../../core/defines/defines.h"
+#include "../../../Include/core/defines/defines.h"
 
 EMP_FORCEINLINE VkCommandBuffer beginSingleTimeCommands(VkDevice& device, VkQueue& graphicsQueue, VkCommandPool& commandPool) {
     VkCommandBufferAllocateInfo allocInfo{};

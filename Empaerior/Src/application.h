@@ -1,8 +1,7 @@
 #pragma once
-#include "core/defines/defines.h"
+#include "../Include/core/defines/defines.h"
 
 
-#include "assetmanager/assetmanager.h"
 
 
 #include "rendering/sdl_rendering/objects/sprite.h"
@@ -13,7 +12,7 @@
 
 
 #include "input/eventhandler/eventhandler.h"
-#include "core/exceptions/exceptions.h"
+#include "../Include/core/exceptions/exceptions.h"
 
 
 namespace  Empaerior{

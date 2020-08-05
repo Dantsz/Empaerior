@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include "rendering/camera.h"
 #include "rendering/sdl_rendering/objects/sprite.h"
-#include "core/defines/defines.h"
+#include "../Include/core/defines/defines.h"
 #include "input/eventhandler/eventhandler.h"
 
 namespace Empaerior

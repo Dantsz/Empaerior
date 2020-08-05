@@ -1,6 +1,6 @@
 #pragma once
 #include "geometry_buffer.h"
-#include "core/defines/basic_defines.h"
+#include "../Include/core/defines/basic_defines.h"
 #include "texture_atlas.h"
 #include "glyphs.h"
 //Rectangle

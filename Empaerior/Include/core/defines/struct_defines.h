@@ -1,9 +1,9 @@
 #pragma once
 
 #include <string>
-#include "core/vector2.h"
-#include "core/rect.h"
-#include "core/unsafe_vector.h"
+#include "../vector2.h"
+#include "../rect.h"
+#include "../unsafe_vector.h"
 namespace Empaerior
 {
 

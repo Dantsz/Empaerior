@@ -1,7 +1,7 @@
 #pragma once
 
 #include "input/eventhandler/eventhandler.h"
-#include "core/defines/defines.h"
+#include "../Include/core/defines/defines.h"
 namespace Empaerior
 {
 	struct Window_Info

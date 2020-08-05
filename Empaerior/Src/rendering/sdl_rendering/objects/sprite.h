@@ -1,6 +1,6 @@
 #pragma once
-#include "core/exceptions/exceptions.h"
-#include "assetmanager/assetmanager.h"
+#include "../Include/core/exceptions/exceptions.h"
+#include "../Include/assetmanager/assetmanager.h"
 #include "../../camera.h"
 #include "rendering/sdl_rendering/sdl_renderer.h"
 

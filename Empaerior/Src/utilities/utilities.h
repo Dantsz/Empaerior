@@ -6,7 +6,7 @@
 #include <ctime>
 
 #include <cmath>
-#include "core/defines/defines.h"
+#include "../Include/core/defines/defines.h"
 
 namespace Empaerior
 {
