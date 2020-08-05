@@ -10,7 +10,7 @@
 #include <map>
 
 
-#include "../Include/core/core.h"
+#include "../include/core/core.h"
 
 #include "Empaerior.h"
 

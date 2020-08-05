@@ -7,7 +7,7 @@
 #include <iostream>
 
 #ifdef EMP_USE_LOGS
-	#include "debugging/log.h"
+	#include "../include/debugging/log.h"
 #endif // EMP_USE_LOGS
 
 

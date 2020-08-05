@@ -150,10 +150,10 @@
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\systems\systems.h">
       <Filter>systems</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\debugging\get_data_info.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\debugging\get_data_info.h">
       <Filter>debugging</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\debugging\log.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\debugging\log.h">
       <Filter>debugging</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\utilities\utilities.h">

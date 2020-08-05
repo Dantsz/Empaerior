@@ -1,5 +1,5 @@
 #pragma once
-#include "../Include/core/defines/defines.h"
+#include "../include/core/defines/defines.h"
 
 
 
@@ -12,7 +12,7 @@
 
 
 #include "input/eventhandler/eventhandler.h"
-#include "../Include/core/exceptions/exceptions.h"
+#include "../include/core/exceptions/exceptions.h"
 
 
 namespace  Empaerior{

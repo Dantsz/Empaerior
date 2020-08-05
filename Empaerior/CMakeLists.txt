@@ -13,11 +13,11 @@ set(no_group_source_files
 )
 source_group("" FILES ${no_group_source_files})
 
-include("Include/core/CMakeLists.txt")
+include("include/core/CMakeLists.txt")
 
 set(assetmanager
     "Src/assetmanager/assetmanager.cpp"
-    "Include/assetmanager/assetmanager.h"
+    "include/assetmanager/assetmanager.h"
 )
 source_group("assetmanager" FILES ${assetmanager})
 
@@ -65,9 +65,9 @@ set(systems
 source_group("systems" FILES ${systems})
 
 set (debugging 
-	"Src/debugging/get_data_info.h"
+	"include/debugging/get_data_info.h"
     "Src/debugging/log.cpp"
-    "Src/debugging/log.h"
+    "include/debugging/log.h"
 )
 source_group("debugging" FILES ${debugging})
 
@@ -144,7 +144,7 @@ endif()
         "${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/SDL/SDL2_mixer/include;"
 		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/stb;"
 		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/glm;"
-		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/VulkanSDK/Include;"
+		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/VulkanSDK/include;"
 		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/VulkanMemoryAllocator/src;"
         	"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/spdlog/include"
 		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/freetype/include"

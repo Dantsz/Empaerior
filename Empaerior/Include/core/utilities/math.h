@@ -1,5 +1,5 @@
 #pragma once
-#include "../Include/core/defines/defines.h"
+#include "../include/core/defines/defines.h"
 
 #define PI    3.1415926535897932384626433832795028
 

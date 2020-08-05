@@ -9,7 +9,7 @@
 
 #include <SDL.h>
 #include <SDL_render.h>
-#include "../Include/core/mat.h"
+#include "../include/core/mat.h"
 
 //An example of what a application might look like
 #include "rendering/vulkan_rendering/renderer.h"

@@ -1,8 +1,8 @@
 //Everything text 
 #pragma once
 #include <ft2build.h>
-#include "../Include/core/defines/defines.h"
-#include "debugging/log.h"
+#include "../include/core/defines/defines.h"
+#include "../include/debugging/log.h"
 #include FT_FREETYPE_H
 
 namespace Empaerior

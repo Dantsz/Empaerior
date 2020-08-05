@@ -2,7 +2,7 @@
 
 #ifdef EMP_USE_LOGS
 
-	#include "log.h"
+	#include "../include/debugging/log.h"
 	#include <spdlog/sinks/stdout_color_sinks.h>
 	
  	std::shared_ptr<spdlog::logger> Empaerior::Log::Logger::engine_logger;

@@ -20,7 +20,7 @@
 #include <array>
 #include <optional>
 #include <set>
-#include "../../debugging/log.h"
+#include "../../../include/debugging/log.h"
 #include "camera.h"
 
 
@@ -34,7 +34,7 @@
 
 const int MAX_FRAMES_IN_FLIGHT = 2;
 
-#include "../Include/core/defines/defines.h"
+#include "../include/core/defines/defines.h"
 #include "geometry_buffer.h"
 #include "misc_functions.h"
 #include "sprite.h"

@@ -9,7 +9,7 @@
 #include <stb_image.h>
 #include <cstring>
 #include "misc_functions.h"
-#include "../Include/core/defines/defines.h"
+#include "../include/core/defines/defines.h"
 #include "glyphs.h"
 
 static void createImage(VmaAllocator& allocator, uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VmaAllocation& allocation) {

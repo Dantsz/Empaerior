@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "utilities.h"
-#include "../Include/core/utilities/math.h"
+#include "../include/core/utilities/math.h"
 
 
 Empaerior::string Empaerior::Utilities::get_clipboard_text()

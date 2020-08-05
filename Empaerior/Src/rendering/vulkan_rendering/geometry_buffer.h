@@ -7,7 +7,7 @@
 #include <glm/glm.hpp>
 #include <array>
 #include "misc_functions.h"
-#include "../Include/core/unsafe_vector.h"
+#include "../include/core/unsafe_vector.h"
 #define buffering 2
 #include <iostream>
 

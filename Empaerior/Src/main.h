@@ -7,11 +7,11 @@
 #include "Empaerior.h"
 
 
-#include "../Include/core/exceptions/exceptions.h"
+#include "../include/core/exceptions/exceptions.h"
 #include "utilities/utilities.h"
-#include  "../Include/core/utilities/timer.h"
+#include  "../include/core/utilities/timer.h"
 
-#include "debugging/log.h"
+#include "../include/debugging/log.h"
 
 
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "../Include/core/defines/defines.h"
+#include "../include/core/defines/defines.h"
 namespace Empaerior
 {
 

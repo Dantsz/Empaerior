@@ -6,11 +6,11 @@
 
 //entity tests
 
-#include "../Include/core/ecs/ecs.h"
+#include "../include/core/ecs/ecs.h"
 #include "systems/systems.h"
 
 
-#include "../Include/core/defines/defines.h"
+#include "../include/core/defines/defines.h"
 /*
 	A state of the engine, which updates the layers contained in it's layers stack
 */

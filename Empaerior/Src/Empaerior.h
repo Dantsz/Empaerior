@@ -9,9 +9,9 @@
 
 #include <SDL_mixer.h>
 
-#include "../Include/core/core.h"
+#include "../include/core/core.h"
 
-#include "../Include/assetmanager/assetmanager.h"
+#include "../include/assetmanager/assetmanager.h"
 
 #include "rendering/sdl_rendering/sdl_renderer.h"
 

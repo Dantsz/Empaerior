@@ -1,7 +1,7 @@
 #include "pch.h"
-#include "../../Include/assetmanager/assetmanager.h"
+#include "../../include/assetmanager/assetmanager.h"
 #include "../application.h"
-#include "../Include/core/core.h"
+#include "../include/core/core.h"
 
 
 
