@@ -35,68 +35,68 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\core\core.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\core.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\core\point2.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\point2.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\core\rect.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\rect.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\core\vector2.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\vector2.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\core\unsafe_vector.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\unsafe_vector.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\core\vec.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\vec.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\core\mat.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\mat.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\core\defines\basic_defines.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\defines\basic_defines.h">
       <Filter>core\defines</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\core\defines\defines.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\defines\defines.h">
       <Filter>core\defines</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\core\defines\struct_defines.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\defines\struct_defines.h">
       <Filter>core\defines</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\core\ecs\ecs.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\ecs\ecs.h">
       <Filter>core\ecs</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\core\ecs\entity.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\ecs\entity.h">
       <Filter>core\ecs</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\core\ecs\components\componentmanager.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\ecs\components\componentmanager.h">
       <Filter>core\ecs\components</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\core\ecs\system\system.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\ecs\system\system.h">
       <Filter>core\ecs\system</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\core\exceptions\exceptions.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\exceptions\exceptions.h">
       <Filter>core\exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\core\utilities\math.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\utilities\math.h">
       <Filter>core\utilities</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\core\utilities\timer.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\utilities\timer.h">
       <Filter>core\utilities</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\core\utilities\hash\emp_hash.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\utilities\hash\emp_hash.h">
       <Filter>core\utilities</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\core\utilities\hash\sha256.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\utilities\hash\sha256.h">
       <Filter>core\utilities</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\application.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\Empaerior.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\main.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\pch.h" />
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Include\assetmanager\assetmanager.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\assetmanager\assetmanager.h">
       <Filter>assetmanager</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\input\input.h">
@@ -141,7 +141,7 @@
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\vulkan_rendering\graphic_settings.h">
       <Filter>rendering\vulkan_rendering</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\state\state.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\state\state.h">
       <Filter>state</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\systems\component.h">

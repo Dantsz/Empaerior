@@ -6,7 +6,7 @@
 
 #include "rendering/sdl_rendering/objects/sprite.h"
 
-#include "state/state.h"
+#include "../include/state/state.h"
 
 #include "../include/rendering/window.h"
 

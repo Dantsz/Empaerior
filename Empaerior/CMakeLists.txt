@@ -53,7 +53,7 @@ include ("include/rendering/vulkan_rendering/CMakeLists.txt")
 
 set(state
     "Src/state/state.cpp"
-    "Src/state/state.h"
+    "include/state/state.h"
 )
 source_group("state" FILES ${state})
 

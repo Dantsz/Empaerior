@@ -2,7 +2,7 @@
 
 
 #include "application.h"
-#include "state/state.h"
+#include "../include/state/state.h"
 
 
 #include <SDL.h>
