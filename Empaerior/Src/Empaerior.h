@@ -16,8 +16,8 @@
 #include "rendering/sdl_rendering/sdl_renderer.h"
 
 
-#include "systems/systems.h"
-#include "systems/component.h"
+#include "../include/systems/systems.h"
+#include "../include/systems/component.h"
 
 #include "../include/rendering/window.h"
 #include "../include/rendering/camera.h"

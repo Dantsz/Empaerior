@@ -58,8 +58,8 @@ set(state
 source_group("state" FILES ${state})
 
 set(systems
-    "Src/systems/component.h"
-    "Src/systems/systems.h"
+    "include/systems/component.h"
+    "include/systems/systems.h"
 	"Src/systems/systems.cpp"
 )
 source_group("systems" FILES ${systems})
@@ -73,7 +73,7 @@ source_group("debugging" FILES ${debugging})
 
 
 set ( utilities
-	"Src/utilities/utilities.h"
+	"include/utilities/utilities.h"
 	"Src/utilities/utilities.cpp"
 	)
 source_group("utilities" FILES ${utilities})

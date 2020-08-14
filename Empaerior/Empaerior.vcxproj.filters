@@ -144,10 +144,10 @@
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\state\state.h">
       <Filter>state</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\systems\component.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\systems\component.h">
       <Filter>systems</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\systems\systems.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\systems\systems.h">
       <Filter>systems</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\debugging\get_data_info.h">
@@ -156,7 +156,7 @@
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\debugging\log.h">
       <Filter>debugging</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\utilities\utilities.h">
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\utilities\utilities.h">
       <Filter>utilities</Filter>
     </ClInclude>
   </ItemGroup>

@@ -7,7 +7,7 @@
 //entity tests
 
 #include "../include/core/ecs/ecs.h"
-#include "systems/systems.h"
+#include "../include/systems/systems.h"
 
 
 #include "../include/core/defines/defines.h"

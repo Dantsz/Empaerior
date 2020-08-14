@@ -205,13 +205,13 @@
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\vulkan_rendering\graphic_settings.h" />
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\state\state.cpp" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\state\state.h" />
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\systems\component.h" />
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\systems\systems.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\systems\component.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\systems\systems.h" />
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\systems\systems.cpp" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\debugging\get_data_info.h" />
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\debugging\log.cpp" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\debugging\log.h" />
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\utilities\utilities.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\utilities\utilities.h" />
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\utilities\utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
