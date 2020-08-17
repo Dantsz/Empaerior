@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "camera.h"
+#include "../Include/rendering/camera.h"
 
 
 namespace Empaerior
