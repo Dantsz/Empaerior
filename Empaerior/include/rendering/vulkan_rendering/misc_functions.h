@@ -40,7 +40,7 @@ EMP_FORCEINLINE void allocateBuffer(VmaAllocator& allocator, VkDeviceSize size, 
     bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     bufferInfo.size = size;
     bufferInfo.usage = usage;
-    
+ 
     bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
     vmaCreateBuffer(allocator, &bufferInfo, &allocInfo, &buffer, &allocation, nullptr);

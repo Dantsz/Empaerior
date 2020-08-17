@@ -60,7 +60,8 @@ struct DynamicBuffer
 	Empaerior::unsafe_vector<size_t> index;
 
 
-	VkBuffer inUseBuffer ;
+	VkBuffer inUseBuffer;
+	VkDevice device;
 
 	size_t inUseBufferIndex = 0 ;
 
@@ -73,7 +74,7 @@ struct DynamicBuffer
 	std::vector<void*> BuffersData;
 	VkBufferUsageFlagBits usage;
 
-	bool updateBuffer;
+	bool updateBuffer = false;
 	VmaAllocator* m_allocator;
 
 	//set initial size and creates the initial buffers
@@ -97,13 +98,14 @@ struct DynamicBuffer
 	void ExpandBuffer(size_t new_size)
 	{
 
-		
+		vkDeviceWaitIdle(device);
 		size_t index = (inUseBufferIndex + 1) % buffering;
 		//if the buffer hasn't been updated before , it doesn't have any new data that the old buffer doesn't have
 		//so a third buffer is not needed
+		std::cout << updateBuffer << '\n';
 		if (!updateBuffer)
 		{
-		
+			
 			if (BuffersData[index] != nullptr)
 			{
 			
@@ -113,21 +115,24 @@ struct DynamicBuffer
 			}
 			VmaAllocationCreateInfo bufferAllocateInfo{};
 			bufferAllocateInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
+			bufferAllocateInfo.requiredFlags = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
 			allocateBuffer(*m_allocator,BufferSize[inUseBufferIndex] + new_size, usage, Buffers[index], BuffersAllocations[index], bufferAllocateInfo);
 			vmaMapMemory(*m_allocator, BuffersAllocations[index], &BuffersData[index]);
 			memcpy(BuffersData[index], BuffersData[inUseBufferIndex], BufferSize[inUseBufferIndex]);
 
 			BufferSize[index] = BufferSize[inUseBufferIndex] + new_size;
 			used_size[index] = used_size[inUseBufferIndex] + new_size;
+			updateBuffer = true;
 		}
 		else//the buffer is updated so the new one has to contain the new buffer info
 		{
-		
+			
 			VkBuffer stagingBuffer;
 			VmaAllocation stagingBufferAllocation;
 			void* stagingBufferData;
 			VmaAllocationCreateInfo stagingBufferAllocInfo{};
 			stagingBufferAllocInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
+			stagingBufferAllocInfo.requiredFlags =  VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
 			allocateBuffer(*m_allocator, BufferSize[index] + new_size, usage, stagingBuffer, stagingBufferAllocation, stagingBufferAllocInfo);
 			vmaMapMemory(*m_allocator, stagingBufferAllocation, &stagingBufferData);
 
@@ -143,6 +148,7 @@ struct DynamicBuffer
 			Buffers[index] = stagingBuffer;
 			BuffersAllocations[index] = stagingBufferAllocation;
 			BuffersData[index] = stagingBufferData;
+		
 			BufferSize[index] = BufferSize[index] + new_size;
 			used_size[index] = used_size[index] + new_size;
 			
@@ -152,7 +158,7 @@ struct DynamicBuffer
 		}
 		
 
-		updateBuffer = true;
+		
 		
 	}
 
@@ -231,7 +237,7 @@ struct DynamicBuffer
 		if (updateBuffer)
 		{
 			
-			size_t new_bufferindex = (inUseBufferIndex + 1) % 2;
+			size_t new_bufferindex = (inUseBufferIndex + 1) % buffering;
 		
 			inUseBuffer = Buffers[new_bufferindex];
 			inUseBufferIndex = new_bufferindex;
@@ -245,7 +251,7 @@ struct DynamicBuffer
 struct geometryBuffer
 {
 	
-	void attachrenderer(VmaAllocator* allocator,uint32_t swapChainImages)
+	void attachrenderer(VmaAllocator* allocator, VkDevice device,uint32_t swapChainImages)
 	{
 		m_allocator = allocator;
 		images = swapChainImages;
@@ -258,7 +264,7 @@ struct geometryBuffer
 		vertexBuffer.m_allocator = m_allocator;
 		vertexBuffer.usage = VkBufferUsageFlagBits(VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
 		vertexBuffer.Init(initialVertexSize);
-
+		vertexBuffer.device = device;
 
 
 		indexBuffer.Buffers.resize(buffering);
@@ -269,7 +275,7 @@ struct geometryBuffer
 		indexBuffer.m_allocator = m_allocator;
 		indexBuffer.usage = VkBufferUsageFlagBits(VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT);
 		indexBuffer.Init(initialIndexSize);
-
+		indexBuffer.device = device;
 	}
 
 	void cleanup()
@@ -329,8 +335,8 @@ struct geometryBuffer
 	uint32_t images;
 
 
-	const size_t initialVertexSize = 1200000ULL* sizeof(Vertex);
-	const size_t initialIndexSize = 1200000ULL * sizeof(uint32_t);
+	const size_t initialVertexSize = 120000ULL * sizeof(Vertex);
+	const size_t initialIndexSize = 36ULL * sizeof(uint32_t);
 };
 
 
@@ -339,7 +345,7 @@ EMP_FORCEINLINE void dump_IndexData(geometryBuffer& buffer)
 {
 	uint32_t* index_data = (uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()];
 	std::cout << "======Index=====\n";
-	std::cout << buffer.indexBuffer.used_size[buffer.indexBuffer.inUseBufferIndex] / sizeof(uint32_t) << " will be drawn\n";
+	std::cout << buffer.indexBuffer.used_size[buffer.indexBuffer.get_in_use_index()] / sizeof(uint32_t) << " will be drawn\n";
 	for (size_t i = 0; i < (buffer.indexBuffer.used_size[buffer.indexBuffer.get_in_use_index()] / sizeof(uint32_t)); i++)
 	{
 		std::cout << index_data[i] << ' ';

@@ -138,7 +138,7 @@ public:
 		
 
 		Empaerior::createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { 16,32,32,32 }, { 0,0,vk.texture_atlas.image_dimensions[originText][0],vk.texture_atlas.image_dimensions[originText][1] }, originText2);
-		Empaerior::setSpriteDepth(greenerboi,0.9f);
+	//	Empaerior::setSpriteDepth(greenerboi,0.9f);
 
 		//Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,480,3000 }, { 32,32 }, idk, "ABCDEFGHIJKL", {1.0f,1.0f,1.0f});
 	//	Empaerior::setTextSpriteDepth(greenboi, 0.0f);
@@ -189,72 +189,8 @@ public:
 			{
 
 
-				if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_W))
-				{
-				//	vk.ubo.position.y -= 1;
-					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_TOP_LEFT)->pos.y -= 0.25f;
-
+			
 				
-				}
-				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_S))
-				{
-					//vk.ubo.position.y += 1;
-
-					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_TOP_LEFT)->pos.y += 0.25f;
-
-				}
-				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_A))
-				{
-					//vk.ubo.position.x -= 1;
-					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_TOP_LEFT)->pos.x -= 0.25f;
-
-				}
-				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_D))
-				{
-					//vk.ubo.position.x += 1;
-					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_TOP_LEFT)->pos.x += 0.25f;
-				}
-				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_UP))
-				{
-					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_BTM_RIGHT)->pos.y -= 0.25f;
-				}
-				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_DOWN))
-				{
-					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_BTM_RIGHT)->pos.y += 0.25f;
-				}
-				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_RIGHT))
-				{
-					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_BTM_RIGHT)->pos.x += 0.25f;
-				}
-				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_LEFT))
-				{
-					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_BTM_RIGHT)->pos.x -= 0.25f;
-				}
-				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_T))
-				{
-					//	vk.ubo.position.y -= 1;
-					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_BTM_LEFT)->pos.y -= 0.25f;
-
-
-				}
-				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_G))
-				{
-					//vk.ubo.position.y += 1;
-
-					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_BTM_LEFT)->pos.y += 0.25f;
-
-				}
-				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_F))
-				{
-					//vk.ubo.position.x -= 1;
-					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_BTM_LEFT)->pos.x -= 0.25f;
-
-				}
-				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_H))
-				{
-					//vk.ubo.position.x += 1;
-					Empaerior::getSpriteVertex(greenerboi, EMP_SPR_VERTEX_BTM_LEFT)->pos.x += 0.25f;
-				}
 				if (vk.framebufferNeedsReconstruction)
 				{
 					vk.checkFrameBufferResize();
@@ -262,17 +198,10 @@ public:
 					vk.framebufferNeedsReconstruction = false;
 				}
 
-				if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_M))
-				{
-					
-					Empaerior::setSpriteDepth(greenboi, i);
-					i++;
-					std::cout << i << '\n';
-				}
 
 
 				auto position = Empaerior::Input::Mouse::get_world_mouse_coords(vk.GraphicsSettings, vk.ubo);
-				std::cout << position[0]	 << ' ' << position[1] << '\n';
+				//std::cout << position[0]	 << ' ' << position[1] << '\n';
 				
 				
 				vk.ubo.position_mat = glm::translate(glm::mat4(1.0f), glm::vec3(vk.ubo.position.x * -1, vk.ubo.position.y * -1 , 1.0f));
@@ -280,16 +209,20 @@ public:
 
 
 
-				Empaerior::setSpriteAngle(greenerboi, forTest);
-				forTest += 0.01;
+				//Empaerior::setSpriteAngle(greenerboi, forTest);
+				//forTest += 1;
 
-				if (Empaerior::Utilities::rect_contains_point(greenerboi.rect, position))
+				
+				//
+
+
+				if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_M))
 				{
-					Empaerior::createSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { position[0],position[1],1,1 }, { 0,0,vk.texture_atlas.image_dimensions[2][0],vk.texture_atlas.image_dimensions[2][1] }, 2);
+
+					Empaerior::createSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { position[0],position[1],10,10 }, { 0,0,vk.texture_atlas.image_dimensions[2][0],vk.texture_atlas.image_dimensions[2][1] }, 2);
+
+
 				}
-
-
-
 
 
 
@@ -301,16 +234,18 @@ public:
 
 				ImGui_Emp::NewFrame(window, vk, camera);
 				ShowImGuiWindows();
+		
 			
-				
-
-
 				vk.newFrame();
+				
+	
 			
+
 				ImGui_Emp::Render(window, vk, camera);
 				//	vk.framebufferResized = true;
-				vk.drawFrame();
 
+				vk.drawFrame();
+				
 
 				//std::cout <<"Frame time: " << timy.getTicks()<< ' '  << "FPS: " << 1000/ ( timy.getTicks<double,std::chrono::nanoseconds>()/ 1000000.0f) << '\n';
 				timy.stop();

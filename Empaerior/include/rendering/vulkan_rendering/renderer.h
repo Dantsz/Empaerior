@@ -97,11 +97,6 @@ struct SwapChainSupportDetails {
 
 
 
-struct UniformBufferObject {
-    glm::mat4 model;
-    glm::mat4 view;
-    glm::mat4 proj;
-};
 
 
 
@@ -185,7 +180,7 @@ public:
 
     std::vector<VkBuffer> uniformBuffers;
     std::vector<VmaAllocation> uniformBuffersAllocations;
-
+    std::vector<void*> uniformBufferData;
 
     VkSampler textureSampler;
 
@@ -360,8 +355,9 @@ public:
         vkDestroySwapchainKHR(device, swapChain, nullptr);
 
         for (size_t i = 0; i < swapChainImages.size(); i++) {
-
+            vmaUnmapMemory(allocator, uniformBuffersAllocations[i]);
             vmaDestroyBuffer(allocator, uniformBuffers[i], uniformBuffersAllocations[i]);
+        
         }
 
         vkDestroyDescriptorPool(device, descriptorPool, nullptr);
@@ -419,7 +415,7 @@ public:
 
     void attachGeometryBuffer()
     {
-        geometrybuffer.attachrenderer(&allocator, swapChainImages.size());
+        geometrybuffer.attachrenderer(&allocator,device, swapChainImages.size());
 
     }
 
@@ -826,7 +822,7 @@ public:
             VkDescriptorBufferInfo bufferInfo{};
             bufferInfo.buffer = uniformBuffers[i];
             bufferInfo.offset = 0;
-            bufferInfo.range = sizeof(UniformBufferObject);
+            bufferInfo.range = sizeof(Empaerior::Camera2D);
 
             VkDescriptorImageInfo samplerInfo{};
             samplerInfo.sampler = textureSampler;
@@ -1154,20 +1150,6 @@ public:
 
 
 
-    void createUniformBuffers() {
-        VkDeviceSize bufferSize = sizeof(UniformBufferObject);
-
-        uniformBuffers.resize(swapChainImages.size());
-
-        uniformBuffersAllocations.resize(swapChainImages.size());
-        for (size_t i = 0; i < swapChainImages.size(); i++) {
-
-            VmaAllocationCreateInfo allocInfo{};
-            allocInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
-            allocInfo.requiredFlags = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
-            allocateBuffer(allocator, bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, uniformBuffers[i], uniformBuffersAllocations[i], allocInfo);
-        }
-    }
 
 
 
@@ -1339,6 +1321,25 @@ public:
         }
     }
 
+    void createUniformBuffers() {
+        VkDeviceSize bufferSize = sizeof(Empaerior::Camera2D);
+
+        uniformBuffers.resize(swapChainImages.size());
+
+        uniformBuffersAllocations.resize(swapChainImages.size());
+
+        uniformBufferData.resize(swapChainImages.size());
+
+        for (size_t i = 0; i < swapChainImages.size(); i++) {
+
+            VmaAllocationCreateInfo allocInfo{};
+            allocInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
+            allocInfo.requiredFlags = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
+            allocateBuffer(allocator, bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, uniformBuffers[i], uniformBuffersAllocations[i], allocInfo);
+            vmaMapMemory(allocator, uniformBuffersAllocations[i], &uniformBufferData[i]);
+        }
+    }
+
     void updateUniformBuffer(uint32_t currentImage) {
 
 
@@ -1356,12 +1357,9 @@ public:
         ubo.proj = glm::ortho(0.0f, static_cast<float>(width),0.0f, static_cast<float>(height), -1.0f, 1.0f);
 
 
-        void* data;
+       memcpy(uniformBufferData[currentImage], &ubo, sizeof(Empaerior::Camera2D));
 
-        vmaMapMemory(allocator, uniformBuffersAllocations[currentImage], &data);
-        memcpy(data, &ubo, sizeof(ubo));
-        vmaUnmapMemory(allocator, uniformBuffersAllocations[currentImage]);
-
+       
     }
 
 
@@ -1386,6 +1384,7 @@ public:
 
     void drawFrame() {
 
+   
 
         updateUniformBuffer(imageIndex);
 
@@ -1403,7 +1402,9 @@ public:
         submitInfo.pWaitSemaphores = waitSemaphores;
         submitInfo.pWaitDstStageMask = waitStages;
 
+
         geometrybuffer.updateInUseBuffers();
+     
 
         //TODO: TEST FOR RECREATE COMMAND BUFFER EVERY FRAME
         recordCommandBuffer(commandBuffers[imageIndex], swapChainFramebuffers[imageIndex], &geometrybuffer.vertexBuffer.inUseBuffer, geometrybuffer.indexBuffer.inUseBuffer, &descriptorSets[imageIndex]);

@@ -12,6 +12,7 @@ namespace Empaerior
 		sprite.rect.dimensions = rect;
 		sprite.rect.angle = 0.0f;
 
+
 		sprite.IndicesIndex = buffer.indexBuffer.allocate(6 * sizeof(uint32_t));
 		sprite.verticesIndex = buffer.vertexBuffer.allocate(4 * sizeof(Vertex));
 		sprite.IndicesSize = 6 * sizeof(uint32_t);
@@ -34,6 +35,7 @@ namespace Empaerior
 		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 5) = buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex);
 
 		setSpriteTexRect(sprite, tex_rect);
+		
 	}
 
 	static void setupTextSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S& rect, Empaerior::Point2f& charDimensions, const Empaerior::Font& font, const char* message, glm::vec3& color)
