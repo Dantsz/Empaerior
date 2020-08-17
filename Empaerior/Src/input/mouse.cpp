@@ -81,10 +81,6 @@ Empaerior::Point2f Empaerior::Input::Mouse::get_world_mouse_coords(const Empaeri
 
 		f_pos[0] /= camera.scaleX;
 		f_pos[1] /= camera.scaleY;
-	
-		Empaerior::Int_Rect renderer_viewport;
-
-
 
 
 
