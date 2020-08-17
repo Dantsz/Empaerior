@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "../rendering/window.h"
-#include "application.h"
+#include "../include/application.h"
 
 
 Empaerior::Window::Window(const Empaerior::string& name, const Empaerior::u_int& width, const Empaerior::u_int& height)

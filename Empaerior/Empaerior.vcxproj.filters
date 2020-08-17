@@ -92,9 +92,9 @@
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\utilities\hash\sha256.h">
       <Filter>core\utilities</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\application.h" />
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\Empaerior.h" />
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\main.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\application.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\Empaerior.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\main.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\pch.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\assetmanager\assetmanager.h">
       <Filter>assetmanager</Filter>

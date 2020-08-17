@@ -5,9 +5,9 @@ project(Empaerior CXX)
 ################################################################################
 set(no_group_source_files
     "Src/application.cpp"
-    "Src/application.h"
-    "Src/Empaerior.h"
-    "Src/main.h"
+    "include/application.h"
+    "include/Empaerior.h"
+    "include/main.h"
     "Src/pch.cpp"
     "Src/pch.h"
 )

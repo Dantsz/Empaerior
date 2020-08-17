@@ -177,9 +177,9 @@
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\utilities\hash\emp_hash.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\core\utilities\hash\sha256.h" />
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\application.cpp" />
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\application.h" />
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\Empaerior.h" />
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\main.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\application.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\Empaerior.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\main.h" />
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\pch.cpp" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\pch.h" />
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\assetmanager\assetmanager.cpp" />
