@@ -4,19 +4,19 @@ project(Empaerior CXX)
 # Source groups
 ################################################################################
 set(no_group_source_files
-    "Src/application.cpp"
+    "src/application.cpp"
     "include/application.h"
     "include/Empaerior.h"
     "include/main.h"
-    "Src/pch.cpp"
-    "Src/pch.h"
+    "src/pch.cpp"
+    "src/pch.h"
 )
 source_group("" FILES ${no_group_source_files})
 
 include("include/core/CMakeLists.txt")
 
 set(assetmanager
-    "Src/assetmanager/assetmanager.cpp"
+    "src/assetmanager/assetmanager.cpp"
     "include/assetmanager/assetmanager.h"
 )
 source_group("assetmanager" FILES ${assetmanager})
@@ -25,34 +25,34 @@ set(input
 	"include/input/input.h"
 	"include/input/keyboard.h"
 	"include/input/mouse.h"
-	"Src/input/mouse.cpp"
+	"src/input/mouse.cpp"
 )
 
 source_group("input" FILES ${input})
 
 set(input__eventhandler
-    "Src/input/eventhandler/eventhandler.cpp"
+    "src/input/eventhandler/eventhandler.cpp"
     "include/input/eventhandler/eventhandler.h"
 		
 )
 source_group("input\\eventhandler" FILES ${input__eventhandler})
 
 set(rendering
-    "Src/rendering/camera.cpp"
+    "src/rendering/camera.cpp"
     "include/rendering/camera.h"
-    "Src/rendering/window.cpp"
+    "src/rendering/window.cpp"
     "include/rendering/window.h"
 )
 source_group("rendering" FILES ${rendering})
 
 
 
-#include("Src/rendering/sdl_rendering/CMakeLists.txt")
+#include("src/rendering/sdl_rendering/CMakeLists.txt")
 
 include ("include/rendering/vulkan_rendering/CMakeLists.txt")
 
 set(state
-    "Src/state/state.cpp"
+    "src/state/state.cpp"
     "include/state/state.h"
 )
 source_group("state" FILES ${state})
@@ -60,13 +60,13 @@ source_group("state" FILES ${state})
 set(systems
     "include/systems/component.h"
     "include/systems/systems.h"
-	"Src/systems/systems.cpp"
+	"src/systems/systems.cpp"
 )
 source_group("systems" FILES ${systems})
 
 set (debugging 
 	"include/debugging/get_data_info.h"
-    "Src/debugging/log.cpp"
+    "src/debugging/log.cpp"
     "include/debugging/log.h"
 )
 source_group("debugging" FILES ${debugging})
@@ -74,7 +74,7 @@ source_group("debugging" FILES ${debugging})
 
 set ( utilities
 	"include/utilities/utilities.h"
-	"Src/utilities/utilities.cpp"
+	"src/utilities/utilities.cpp"
 	)
 source_group("utilities" FILES ${utilities})
 
@@ -139,7 +139,7 @@ endif()
 ################################################################################
 
     target_include_directories(${PROJECT_NAME} PUBLIC
-        "${CMAKE_CURRENT_SOURCE_DIR}/Src;"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src;"
         "${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/SDL/SDL2/include;"
         "${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/SDL/SDL2_mixer/include;"
 		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/stb;"

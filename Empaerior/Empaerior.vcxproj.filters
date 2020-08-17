@@ -1,36 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\application.cpp" />
-    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\pch.cpp" />
-    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\assetmanager\assetmanager.cpp">
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\application.cpp" />
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\pch.cpp" />
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\assetmanager\assetmanager.cpp">
       <Filter>assetmanager</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\mouse.cpp">
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\input\mouse.cpp">
       <Filter>input</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\input\eventhandler\eventhandler.cpp">
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\input\eventhandler\eventhandler.cpp">
       <Filter>input\eventhandler</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\camera.cpp">
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\rendering\camera.cpp">
       <Filter>rendering</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\window.cpp">
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\rendering\window.cpp">
       <Filter>rendering</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\rendering\vulkan_rendering\sprite.cpp">
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\rendering\vulkan_rendering\sprite.cpp">
       <Filter>rendering\vulkan_rendering</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\state\state.cpp">
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\state\state.cpp">
       <Filter>state</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\systems\systems.cpp">
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\systems\systems.cpp">
       <Filter>systems</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\debugging\log.cpp">
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\debugging\log.cpp">
       <Filter>debugging</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\utilities\utilities.cpp">
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\utilities\utilities.cpp">
       <Filter>utilities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,7 +95,7 @@
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\application.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\Empaerior.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\main.h" />
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\Src\pch.h" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\pch.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\assetmanager\assetmanager.h">
       <Filter>assetmanager</Filter>
     </ClInclude>
