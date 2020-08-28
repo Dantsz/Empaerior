@@ -102,7 +102,7 @@ struct DynamicBuffer
 		size_t index = (inUseBufferIndex + 1) % buffering;
 		//if the buffer hasn't been updated before , it doesn't have any new data that the old buffer doesn't have
 		//so a third buffer is not needed
-		std::cout << updateBuffer << '\n';
+	
 		if (!updateBuffer)
 		{
 			
@@ -121,7 +121,7 @@ struct DynamicBuffer
 			memcpy(BuffersData[index], BuffersData[inUseBufferIndex], BufferSize[inUseBufferIndex]);
 
 			BufferSize[index] = BufferSize[inUseBufferIndex] + new_size;
-			used_size[index] = used_size[inUseBufferIndex] + new_size;
+			used_size[index] = used_size[inUseBufferIndex];
 			updateBuffer = true;
 		}
 		else//the buffer is updated so the new one has to contain the new buffer info
@@ -150,7 +150,7 @@ struct DynamicBuffer
 			BuffersData[index] = stagingBufferData;
 		
 			BufferSize[index] = BufferSize[index] + new_size;
-			used_size[index] = used_size[index] + new_size;
+			used_size[index] = used_size[index] ;
 			
 			
 
@@ -176,23 +176,24 @@ struct DynamicBuffer
 		if (size <= BufferSize[get_in_use_index()] - used_size[get_in_use_index()])
 		{
 			place = index.emplace_back(used_size[get_in_use_index()]);
-			used_size[get_in_use_index()] += size;
+			
 		}
 		//if there is any space left but not enought
 		else if (used_size[get_in_use_index()] < BufferSize[get_in_use_index()])
 		{
 			place = index.emplace_back(used_size[get_in_use_index()]);
-			size_t leftSize= (BufferSize[get_in_use_index()] - used_size[get_in_use_index()]);
+		
 			ExpandBuffer(size - (BufferSize[get_in_use_index()] - used_size[get_in_use_index()]) );
-			used_size[get_in_use_index()] +=leftSize;
+		
 		}
 		else // create new space
 		{
 			place = index.emplace_back(BufferSize[get_in_use_index()]);
 			ExpandBuffer(size);
 		}
+		//mark the meory as used
+		used_size[get_in_use_index()] += size;
 	
-		//expand 
 
 		return place;
 	}
