@@ -95,7 +95,7 @@ struct DynamicBuffer
 	}
 
 
-	void ExpandBuffer(size_t new_size)
+	void ExpandBuffer(size_t size)
 	{
 
 		vkDeviceWaitIdle(device);
@@ -116,11 +116,11 @@ struct DynamicBuffer
 			VmaAllocationCreateInfo bufferAllocateInfo{};
 			bufferAllocateInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
 			bufferAllocateInfo.requiredFlags = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
-			allocateBuffer(*m_allocator,BufferSize[inUseBufferIndex] + new_size, usage, Buffers[index], BuffersAllocations[index], bufferAllocateInfo);
+			allocateBuffer(*m_allocator,BufferSize[inUseBufferIndex] + size, usage, Buffers[index], BuffersAllocations[index], bufferAllocateInfo);
 			vmaMapMemory(*m_allocator, BuffersAllocations[index], &BuffersData[index]);
 			memcpy(BuffersData[index], BuffersData[inUseBufferIndex], BufferSize[inUseBufferIndex]);
 
-			BufferSize[index] = BufferSize[inUseBufferIndex] + new_size;
+			BufferSize[index] = BufferSize[inUseBufferIndex] + size;
 			used_size[index] = used_size[inUseBufferIndex];
 			updateBuffer = true;
 		}
@@ -133,7 +133,7 @@ struct DynamicBuffer
 			VmaAllocationCreateInfo stagingBufferAllocInfo{};
 			stagingBufferAllocInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
 			stagingBufferAllocInfo.requiredFlags =  VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
-			allocateBuffer(*m_allocator, BufferSize[index] + new_size, usage, stagingBuffer, stagingBufferAllocation, stagingBufferAllocInfo);
+			allocateBuffer(*m_allocator, BufferSize[index] + size, usage, stagingBuffer, stagingBufferAllocation, stagingBufferAllocInfo);
 			vmaMapMemory(*m_allocator, stagingBufferAllocation, &stagingBufferData);
 
 			
@@ -149,7 +149,7 @@ struct DynamicBuffer
 			BuffersAllocations[index] = stagingBufferAllocation;
 			BuffersData[index] = stagingBufferData;
 		
-			BufferSize[index] = BufferSize[index] + new_size;
+			BufferSize[index] = BufferSize[index] + size;
 			used_size[index] = used_size[index] ;
 			
 			
@@ -157,7 +157,7 @@ struct DynamicBuffer
 			
 		}
 		
-
+		
 		
 		
 	}
@@ -178,18 +178,10 @@ struct DynamicBuffer
 			place = index.emplace_back(used_size[get_in_use_index()]);
 			
 		}
-		//if there is any space left but not enought
-		else if (used_size[get_in_use_index()] < BufferSize[get_in_use_index()])
-		{
-			place = index.emplace_back(used_size[get_in_use_index()]);
-		
-			ExpandBuffer(size - (BufferSize[get_in_use_index()] - used_size[get_in_use_index()]) );
-		
-		}
 		else // create new space
 		{
 			place = index.emplace_back(BufferSize[get_in_use_index()]);
-			ExpandBuffer(size);
+			ExpandBuffer(BufferSize[get_in_use_index()]);
 		}
 		//mark the meory as used
 		used_size[get_in_use_index()] += size;
@@ -336,8 +328,8 @@ struct geometryBuffer
 	uint32_t images;
 
 
-	const size_t initialVertexSize = 120000ULL * sizeof(Vertex);
-	const size_t initialIndexSize = 36ULL * sizeof(uint32_t);
+	const size_t initialVertexSize = 4ULL * sizeof(Vertex);
+	const size_t initialIndexSize = 6ULL * sizeof(uint32_t);
 };
 
 
