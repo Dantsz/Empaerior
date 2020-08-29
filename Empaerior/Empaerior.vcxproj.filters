@@ -21,6 +21,12 @@
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\rendering\vulkan_rendering\sprite.cpp">
       <Filter>rendering\vulkan_rendering</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\rendering\vulkan_rendering\texture_atlas.cpp">
+      <Filter>rendering\vulkan_rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\rendering\vulkan_rendering\misc_functions.cpp">
+      <Filter>rendering\vulkan_rendering</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\state\state.cpp">
       <Filter>state</Filter>
     </ClCompile>
