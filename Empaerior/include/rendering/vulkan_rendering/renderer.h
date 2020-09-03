@@ -406,8 +406,7 @@ public:
 
     void attachAtlas() {
         texture_atlas.attachRenderComponents(&device, &graphicsQueue, &commandPool, &allocator);
-        /* texture_atlas.create_texture_from_file("textures/greenboi.png");
-         texture_atlas.create_texture_from_file("textures/oldgreenboi.png");*/
+    
         texture_atlas.create_texture_from_file("assets/textur1e.png", framebufferNeedsReconstruction);
   
 

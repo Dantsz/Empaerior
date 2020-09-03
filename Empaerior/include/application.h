@@ -4,7 +4,6 @@
 
 
 
-#include "rendering/sdl_rendering/objects/sprite.h"
 
 #include "../include/state/state.h"
 

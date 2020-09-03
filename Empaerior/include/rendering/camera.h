@@ -1,9 +1,11 @@
 #pragma once
 #include <SDL.h>
 #include "../include/core/defines/defines.h"
-#include "rendering/sdl_rendering/sdlwrappers/rendering_wrappers.h"
+
+
 namespace Empaerior
 {
+	using Int_Rect = SDL_Rect;
 
 	class Camera
 	{

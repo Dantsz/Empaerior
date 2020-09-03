@@ -1,5 +1,6 @@
 #include "..\..\..\include\rendering\vulkan_rendering\misc_functions.h"
 
+//CommandBuffer functions
 VkCommandBuffer beginSingleTimeCommands(VkDevice& device, VkQueue& graphicsQueue, VkCommandPool& commandPool)
 {
     VkCommandBufferAllocateInfo allocInfo{};
@@ -19,7 +20,6 @@ VkCommandBuffer beginSingleTimeCommands(VkDevice& device, VkQueue& graphicsQueue
 
     return commandBuffer;
 }
-
 void endSingleTimeCommands(VkDevice& device, VkQueue& graphicsQueue, VkCommandPool& commandPool, VkCommandBuffer commandBuffer)
 {
     vkEndCommandBuffer(commandBuffer);
@@ -34,7 +34,7 @@ void endSingleTimeCommands(VkDevice& device, VkQueue& graphicsQueue, VkCommandPo
 
     vkFreeCommandBuffers(device, commandPool, 1, &commandBuffer);
 }
-
+//Buffer funtions
 void allocateBuffer(VmaAllocator& allocator, VkDeviceSize size, VkBufferUsageFlags usage, VkBuffer& buffer, VmaAllocation& allocation, VmaAllocationCreateInfo& allocInfo)
 {
     VkBufferCreateInfo bufferInfo = {};
@@ -46,7 +46,6 @@ void allocateBuffer(VmaAllocator& allocator, VkDeviceSize size, VkBufferUsageFla
 
     vmaCreateBuffer(allocator, &bufferInfo, &allocInfo, &buffer, &allocation, nullptr);
 }
-
 void copyBuffer(VkDevice device, VkQueue graphicsQueue, VkCommandPool commandPool, VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size)
 {
     VkCommandBuffer commandBuffer = beginSingleTimeCommands(device, graphicsQueue, commandPool);
@@ -58,6 +57,7 @@ void copyBuffer(VkDevice device, VkQueue graphicsQueue, VkCommandPool commandPoo
     endSingleTimeCommands(device, graphicsQueue, commandPool, commandBuffer);
 }
 
+//Image Functions
 void createImage(VmaAllocator& allocator, uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VmaAllocation& allocation)
 {
     VkImageCreateInfo imageInfo{};
@@ -90,7 +90,6 @@ void createImage(VmaAllocator& allocator, uint32_t width, uint32_t height, VkFor
     }
 
 }
-
 void transitionImageLayout(VkDevice& device, VkQueue& graphicsQueue, VkCommandPool& commandPool, VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout) {
     VkCommandBuffer commandBuffer = beginSingleTimeCommands(device, graphicsQueue, commandPool);
 

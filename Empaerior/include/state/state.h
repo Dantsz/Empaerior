@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "rendering/sdl_rendering/objects/sprite.h"
+
 #include "../include/rendering/camera.h"
 
 //entity tests

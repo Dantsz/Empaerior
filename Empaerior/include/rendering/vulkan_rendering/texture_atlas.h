@@ -15,7 +15,7 @@
  
 
  
-static
+
 
 struct Texture_Atlas {
 

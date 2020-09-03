@@ -3,9 +3,6 @@
   <ItemGroup>
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\application.cpp" />
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\pch.cpp" />
-    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\assetmanager\assetmanager.cpp">
-      <Filter>assetmanager</Filter>
-    </ClCompile>
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\input\mouse.cpp">
       <Filter>input</Filter>
     </ClCompile>
@@ -102,9 +99,6 @@
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\Empaerior.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\main.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\pch.h" />
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\assetmanager\assetmanager.h">
-      <Filter>assetmanager</Filter>
-    </ClInclude>
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\input\input.h">
       <Filter>input</Filter>
     </ClInclude>
@@ -165,10 +159,13 @@
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\utilities\utilities.h">
       <Filter>utilities</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\SDLwrappers\sdl_wrappers.h">
+      <Filter>SDLwrapper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="assetmanager">
-      <UniqueIdentifier>{E38E5B22-C356-39FC-8AD6-358A083C96E5}</UniqueIdentifier>
+    <Filter Include="SDLwrapper">
+      <UniqueIdentifier>{5C2B20C4-CF38-3D0F-838D-A90FFBD4FEB4}</UniqueIdentifier>
     </Filter>
     <Filter Include="core">
       <UniqueIdentifier>{47957CCF-6622-3ECC-BFAE-0CC0A98C019C}</UniqueIdentifier>

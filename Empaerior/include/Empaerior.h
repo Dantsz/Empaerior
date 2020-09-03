@@ -11,9 +11,7 @@
 
 #include "../include/core/core.h"
 
-#include "../include/assetmanager/assetmanager.h"
 
-#include "rendering/sdl_rendering/sdl_renderer.h"
 
 
 #include "../include/systems/systems.h"
@@ -21,7 +19,7 @@
 
 #include "../include/rendering/window.h"
 #include "../include/rendering/camera.h"
-#include "rendering/sdl_rendering/objects/sprite.h"
+
 
 
 

@@ -182,8 +182,6 @@
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\main.h" />
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\pch.cpp" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\pch.h" />
-    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\assetmanager\assetmanager.cpp" />
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\assetmanager\assetmanager.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\input\input.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\input\keyboard.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\input\mouse.h" />
@@ -215,6 +213,7 @@
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\debugging\log.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\utilities\utilities.h" />
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\utilities\utilities.cpp" />
+    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\SDLwrappers\sdl_wrappers.h" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

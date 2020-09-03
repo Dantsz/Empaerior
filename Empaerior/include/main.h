@@ -10,7 +10,7 @@
 #include "../include/core/exceptions/exceptions.h"
 #include "utilities/utilities.h"
 #include  "../include/core/utilities/timer.h"
-
+#include "SDLwrappers/sdl_wrappers.h"
 #include "../include/debugging/log.h"
 
 

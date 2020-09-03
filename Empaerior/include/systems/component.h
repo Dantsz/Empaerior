@@ -4,7 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include "../include/rendering/camera.h"
-#include "rendering/sdl_rendering/objects/sprite.h"
+
 #include "../include/core/defines/defines.h"
 #include "../include/input/eventhandler/eventhandler.h"
 
@@ -18,15 +18,6 @@ namespace Empaerior
 	*/
 	
 
-	
-	struct Animation
-	{
-
-		Empaerior::Int_Rect rect;//the frame of the animation
-		Empaerior::u_inter next_animation; // the next animation in line, as index in animations
-	};
-
-	
 
 
 	struct Sprite_Component

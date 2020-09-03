@@ -15,11 +15,7 @@ source_group("" FILES ${no_group_source_files})
 
 include("include/core/CMakeLists.txt")
 
-set(assetmanager
-    "src/assetmanager/assetmanager.cpp"
-    "include/assetmanager/assetmanager.h"
-)
-source_group("assetmanager" FILES ${assetmanager})
+
 
 set(input
 	"include/input/input.h"
@@ -77,22 +73,24 @@ set ( utilities
 	"src/utilities/utilities.cpp"
 	)
 source_group("utilities" FILES ${utilities})
-
-
+		
+set(SDLwrappers
+	"include/SDLwrappers/sdl_wrappers.h"
+)
+source_group("SDLwrapper" FILES ${SDLwrappers})
 set(ALL_FILES
 
 	${core_all_files}
     ${no_group_source_files}
-    ${assetmanager}
     ${input}
     ${input__eventhandler}
     ${rendering}
-    ${sdl_rendering}
 	${vulkan_rendering}
     ${state}
     ${systems}
 	${debugging}
 	${utilities}
+	${SDLwrappers}
 )
 
 ################################################################################

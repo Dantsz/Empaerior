@@ -20,5 +20,4 @@
 #include <functional>
 #include <algorithm>
 
-#include "rendering/sdl_rendering/sdl_renderer.h"
 
