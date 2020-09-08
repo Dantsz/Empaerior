@@ -44,7 +44,7 @@ size_t Texture_Atlas::create_texture_from_memory(Empaerior::byte* pixels, Empaer
     allocInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
     allocInfo.requiredFlags = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
 
-    allocateBuffer(*m_allocator, imageSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, stagingBuffer, buffer_allocation, allocInfo);
+    Empaerior::VKfunctions::allocateBuffer(*m_allocator, imageSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, stagingBuffer, buffer_allocation, allocInfo);
     void* data;
 
     vmaMapMemory(*m_allocator, buffer_allocation, &data);
@@ -55,11 +55,11 @@ size_t Texture_Atlas::create_texture_from_memory(Empaerior::byte* pixels, Empaer
 
 
 
-    createImage(*m_allocator, width, height, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, images[images.size() - 1], image_allocations[image_allocations.size() - 1]);
+    Empaerior::VKfunctions::createImage(*m_allocator, width, height, VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, images[images.size() - 1], image_allocations[image_allocations.size() - 1]);
 
-    transitionImageLayout(*m_device, *m_graphicsqueue, *m_commandpool, images[images.size() - 1], VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
-    copyBufferToImage(*m_device, *m_graphicsqueue, *m_commandpool, stagingBuffer, images[images.size() - 1], static_cast<uint32_t>(width), static_cast<uint32_t>(height));
-    transitionImageLayout(*m_device, *m_graphicsqueue, *m_commandpool, images[images.size() - 1], VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+    Empaerior::VKfunctions::transitionImageLayout(*m_device, *m_graphicsqueue, *m_commandpool, images[images.size() - 1], VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+    Empaerior::VKfunctions::copyBufferToImage(*m_device, *m_graphicsqueue, *m_commandpool, stagingBuffer, images[images.size() - 1], static_cast<uint32_t>(width), static_cast<uint32_t>(height));
+    Empaerior::VKfunctions::transitionImageLayout(*m_device, *m_graphicsqueue, *m_commandpool, images[images.size() - 1], VK_FORMAT_R8G8B8A8_SRGB, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
 
 
     vmaDestroyBuffer(*m_allocator, stagingBuffer, buffer_allocation);

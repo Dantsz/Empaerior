@@ -425,8 +425,8 @@ public:
 
     void createDepthResources() {
         VkFormat depthFormat = findDepthFormat();
-        createImage(allocator,swapChainExtent.width, swapChainExtent.height, depthFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, depthImage, depthImageAllocation);
-        depthImageView = createImageView(device, depthImage, depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT);
+        Empaerior::VKfunctions::createImage(allocator,swapChainExtent.width, swapChainExtent.height, depthFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, depthImage, depthImageAllocation);
+        depthImageView = Empaerior::VKfunctions::createImageView(device, depthImage, depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT);
         // transitionImageLayout(depthImage, depthFormat, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
 
 
@@ -1101,7 +1101,7 @@ public:
         swapChainImageViews.resize(swapChainImages.size());
 
         for (uint32_t i = 0; i < swapChainImages.size(); i++) {
-            swapChainImageViews[i] = createImageView(device, swapChainImages[i], swapChainImageFormat, VK_IMAGE_ASPECT_COLOR_BIT);
+            swapChainImageViews[i] = Empaerior::VKfunctions::createImageView(device, swapChainImages[i], swapChainImageFormat, VK_IMAGE_ASPECT_COLOR_BIT);
         }
     }
 
@@ -1235,7 +1235,7 @@ public:
             VmaAllocationCreateInfo allocInfo{};
             allocInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
             allocInfo.requiredFlags = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
-            allocateBuffer(allocator, bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, uniformBuffers[i], uniformBuffersAllocations[i], allocInfo);
+            Empaerior::VKfunctions::allocateBuffer(allocator, bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, uniformBuffers[i], uniformBuffersAllocations[i], allocInfo);
             vmaMapMemory(allocator, uniformBuffersAllocations[i], &uniformBufferData[i]);
         }
     }

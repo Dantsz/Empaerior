@@ -85,7 +85,7 @@ struct DynamicBuffer
 		{
 			VmaAllocationCreateInfo bufferAllocInfo{};
 			bufferAllocInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
-			allocateBuffer(*m_allocator, BufferSize[inUseBufferIndex] + initialSize, usage, Buffers[i], BuffersAllocations[i], bufferAllocInfo);
+			Empaerior::VKfunctions::allocateBuffer(*m_allocator, BufferSize[inUseBufferIndex] + initialSize, usage, Buffers[i], BuffersAllocations[i], bufferAllocInfo);
 			vmaMapMemory(*m_allocator, BuffersAllocations[i], &BuffersData[i]);
 
 			BufferSize[i] = initialSize;
@@ -117,7 +117,7 @@ struct DynamicBuffer
 			VmaAllocationCreateInfo bufferAllocateInfo{};
 			bufferAllocateInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
 			bufferAllocateInfo.requiredFlags = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
-			allocateBuffer(*m_allocator,BufferSize[inUseBufferIndex] + size, usage, Buffers[index], BuffersAllocations[index], bufferAllocateInfo);
+			Empaerior::VKfunctions::allocateBuffer(*m_allocator,BufferSize[inUseBufferIndex] + size, usage, Buffers[index], BuffersAllocations[index], bufferAllocateInfo);
 			vmaMapMemory(*m_allocator, BuffersAllocations[index], &BuffersData[index]);
 			memcpy(BuffersData[index], BuffersData[inUseBufferIndex], BufferSize[inUseBufferIndex]);
 
@@ -134,7 +134,7 @@ struct DynamicBuffer
 			VmaAllocationCreateInfo stagingBufferAllocInfo{};
 			stagingBufferAllocInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
 			stagingBufferAllocInfo.requiredFlags =  VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
-			allocateBuffer(*m_allocator, BufferSize[index] + size, usage, stagingBuffer, stagingBufferAllocation, stagingBufferAllocInfo);
+			Empaerior::VKfunctions::allocateBuffer(*m_allocator, BufferSize[index] + size, usage, stagingBuffer, stagingBufferAllocation, stagingBufferAllocInfo);
 			vmaMapMemory(*m_allocator, stagingBufferAllocation, &stagingBufferData);
 
 			

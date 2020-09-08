@@ -170,9 +170,9 @@ namespace ImGui_Emp
 		imguiCommandBufferIndex = renderer.inUseCommandBuffers.size() - 1;
 
 
-		VkCommandBuffer command_buffer = beginSingleTimeCommands(renderer.device, renderer.graphicsQueue, renderer.commandPool);
+		VkCommandBuffer command_buffer = Empaerior::VKfunctions::beginSingleTimeCommands(renderer.device, renderer.graphicsQueue, renderer.commandPool);
 		ImGui_ImplVulkan_CreateFontsTexture(command_buffer);
-		endSingleTimeCommands(renderer.device, renderer.graphicsQueue, renderer.commandPool, command_buffer);
+		Empaerior::VKfunctions::endSingleTimeCommands(renderer.device, renderer.graphicsQueue, renderer.commandPool, command_buffer);
 
 	}
 	static void DettachImgui(Empaerior::Window& window, VK_Renderer& renderer)
