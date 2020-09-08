@@ -31,6 +31,9 @@ CMAKE_CXX_FLAGS:STRING=/DWIN32 /D_WINDOWS /W3 /GR /EHsc
 //Flags used by the CXX compiler during DEBUG builds.
 CMAKE_CXX_FLAGS_DEBUG:STRING=/MDd /Zi /Ob0 /Od /RTC1
 
+//Flags used by the CXX compiler during DIST builds.
+CMAKE_CXX_FLAGS_DIST:STRING=
+
 //Flags used by the CXX compiler during MINSIZEREL builds.
 CMAKE_CXX_FLAGS_MINSIZEREL:STRING=/MD /O1 /Ob1 /DNDEBUG
 
@@ -48,6 +51,9 @@ CMAKE_EXE_LINKER_FLAGS:STRING=/machine:x64
 
 //Flags used by the linker during DEBUG builds.
 CMAKE_EXE_LINKER_FLAGS_DEBUG:STRING=/debug /INCREMENTAL
+
+//Flags used by the linker during DIST builds.
+CMAKE_EXE_LINKER_FLAGS_DIST:STRING=
 
 //Flags used by the linker during MINSIZEREL builds.
 CMAKE_EXE_LINKER_FLAGS_MINSIZEREL:STRING=/INCREMENTAL:NO
@@ -71,6 +77,10 @@ CMAKE_MODULE_LINKER_FLAGS:STRING=/machine:x64
 //Flags used by the linker during the creation of modules during
 // DEBUG builds.
 CMAKE_MODULE_LINKER_FLAGS_DEBUG:STRING=/debug /INCREMENTAL
+
+//Flags used by the linker during the creation of modules during
+// DIST builds.
+CMAKE_MODULE_LINKER_FLAGS_DIST:STRING=
 
 //Flags used by the linker during the creation of modules during
 // MINSIZEREL builds.
@@ -105,6 +115,9 @@ CMAKE_RC_FLAGS:STRING=-DWIN32
 //Flags for Windows Resource Compiler during DEBUG builds.
 CMAKE_RC_FLAGS_DEBUG:STRING=-D_DEBUG
 
+//Flags for Windows Resource Compiler during DIST builds.
+CMAKE_RC_FLAGS_DIST:STRING=
+
 //Flags for Windows Resource Compiler during MINSIZEREL builds.
 CMAKE_RC_FLAGS_MINSIZEREL:STRING=
 
@@ -123,6 +136,10 @@ CMAKE_SHARED_LINKER_FLAGS:STRING=/machine:x64
 CMAKE_SHARED_LINKER_FLAGS_DEBUG:STRING=/debug /INCREMENTAL
 
 //Flags used by the linker during the creation of shared libraries
+// during DIST builds.
+CMAKE_SHARED_LINKER_FLAGS_DIST:STRING=
+
+//Flags used by the linker during the creation of shared libraries
 // during MINSIZEREL builds.
 CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL:STRING=/INCREMENTAL:NO
 
@@ -136,10 +153,10 @@ CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO:STRING=/debug /INCREMENTAL
 
 //If set, runtime paths are not added when installing shared libraries,
 // but are added when building.
-CMAKE_SKIP_INSTALL_RPATH:BOOL=NO
+CMAKE_SKIP_INSTALL_RPATH:BOOL=OFF
 
 //If set, runtime paths are not added when using shared libraries.
-CMAKE_SKIP_RPATH:BOOL=NO
+CMAKE_SKIP_RPATH:BOOL=OFF
 
 //Flags used by the linker during the creation of static libraries
 // during all build types.
@@ -148,6 +165,10 @@ CMAKE_STATIC_LINKER_FLAGS:STRING=/machine:x64
 //Flags used by the linker during the creation of static libraries
 // during DEBUG builds.
 CMAKE_STATIC_LINKER_FLAGS_DEBUG:STRING=
+
+//Flags used by the linker during the creation of static libraries
+// during DIST builds.
+CMAKE_STATIC_LINKER_FLAGS_DIST:STRING=
 
 //Flags used by the linker during the creation of static libraries
 // during MINSIZEREL builds.
@@ -167,7 +188,7 @@ CMAKE_SYSTEM_VERSION:STRING=10.0
 // .SILENT directive, and all commands will be echoed to the console
 // during the make.  This is useful for debugging only. With Visual
 // Studio IDE projects all commands are done without /nologo.
-CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
+CMAKE_VERBOSE_MAKEFILE:BOOL=OFF
 
 //Value Computed by CMake
 Empaerior_BINARY_DIR:STATIC=C:/Users/Dan/source/repos/Empaerior/Empaerior
@@ -198,6 +219,8 @@ CMAKE_CTEST_COMMAND:INTERNAL=C:/Software/CMake/bin/ctest.exe
 CMAKE_CXX_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_CXX_FLAGS_DEBUG
 CMAKE_CXX_FLAGS_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_CXX_FLAGS_DIST
+CMAKE_CXX_FLAGS_DIST-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_CXX_FLAGS_MINSIZEREL
 CMAKE_CXX_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_CXX_FLAGS_RELEASE
@@ -212,6 +235,8 @@ CMAKE_EXECUTABLE_FORMAT:INTERNAL=Unknown
 CMAKE_EXE_LINKER_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_DEBUG
 CMAKE_EXE_LINKER_FLAGS_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_DIST
+CMAKE_EXE_LINKER_FLAGS_DIST-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_MINSIZEREL
 CMAKE_EXE_LINKER_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_RELEASE
@@ -237,6 +262,8 @@ CMAKE_LINKER-ADVANCED:INTERNAL=1
 CMAKE_MODULE_LINKER_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_DEBUG
 CMAKE_MODULE_LINKER_FLAGS_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_DIST
+CMAKE_MODULE_LINKER_FLAGS_DIST-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_MINSIZEREL
 CMAKE_MODULE_LINKER_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_RELEASE
@@ -256,6 +283,8 @@ CMAKE_RC_COMPILER_WORKS:INTERNAL=1
 CMAKE_RC_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_RC_FLAGS_DEBUG
 CMAKE_RC_FLAGS_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_RC_FLAGS_DIST
+CMAKE_RC_FLAGS_DIST-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_RC_FLAGS_MINSIZEREL
 CMAKE_RC_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_RC_FLAGS_RELEASE
@@ -268,6 +297,8 @@ CMAKE_ROOT:INTERNAL=C:/Software/CMake/share/cmake-3.18
 CMAKE_SHARED_LINKER_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_DEBUG
 CMAKE_SHARED_LINKER_FLAGS_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_DIST
+CMAKE_SHARED_LINKER_FLAGS_DIST-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL
 CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_RELEASE
@@ -282,6 +313,8 @@ CMAKE_SKIP_RPATH-ADVANCED:INTERNAL=1
 CMAKE_STATIC_LINKER_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_STATIC_LINKER_FLAGS_DEBUG
 CMAKE_STATIC_LINKER_FLAGS_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_STATIC_LINKER_FLAGS_DIST
+CMAKE_STATIC_LINKER_FLAGS_DIST-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_STATIC_LINKER_FLAGS_MINSIZEREL
 CMAKE_STATIC_LINKER_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_STATIC_LINKER_FLAGS_RELEASE

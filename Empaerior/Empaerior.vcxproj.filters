@@ -15,6 +15,9 @@
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\rendering\window.cpp">
       <Filter>rendering</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\rendering\vulkan_rendering\renderer.cpp">
+      <Filter>rendering\vulkan_rendering</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\rendering\vulkan_rendering\sprite.cpp">
       <Filter>rendering\vulkan_rendering</Filter>
     </ClCompile>

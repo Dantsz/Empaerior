@@ -193,6 +193,7 @@
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\rendering\window.cpp" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\window.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\vulkan_rendering\renderer.h" />
+    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\rendering\vulkan_rendering\renderer.cpp" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\vulkan_rendering\camera.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\vulkan_rendering\texture_atlas.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\vulkan_rendering\geometry_buffer.h" />

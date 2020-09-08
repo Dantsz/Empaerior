@@ -1,5 +1,7 @@
 set(vulkan_rendering
 "include/rendering/vulkan_rendering/renderer.h"
+"Src/rendering/vulkan_rendering/renderer.cpp"
+
 "include/rendering/vulkan_rendering/camera.h"
 "include/rendering/vulkan_rendering/texture_atlas.h"
 "include/rendering/vulkan_rendering/geometry_buffer.h"

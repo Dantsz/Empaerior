@@ -26,34 +26,29 @@
 
 
 #define STB_IMAGE_IMPLEMENTATION
-#define VMA_IMPLEMENTATION
+
+
 
 #include <vk_mem_alloc.h>
 
-
-
-const int MAX_FRAMES_IN_FLIGHT = 2;
+const inline int MAX_FRAMES_IN_FLIGHT = 2;
 
 #include "../include/core/defines/defines.h"
 #include "geometry_buffer.h"
 #include "misc_functions.h"
 #include "sprite.h"
-#include "glyphs.h"
+
 #include "graphic_settings.h"
 
-const std::vector<const char*> validationLayers = {
+const inline std::vector<const char*> validationLayers = {
     "VK_LAYER_KHRONOS_validation",
     "VK_LAYER_LUNARG_standard_validation",
 
-
 };
 
-const std::vector<const char*> deviceExtensions = {
+const inline std::vector<const char*> deviceExtensions = {
     VK_KHR_SWAPCHAIN_EXTENSION_NAME,
     VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME,
-     
-  
-    
 };
 
 #ifdef EMP_USE_LOGS
@@ -98,13 +93,72 @@ struct SwapChainSupportDetails {
 
 
 
+static std::vector<char> readFile(const std::string& filename) {
+    std::ifstream file(filename, std::ios::ate | std::ios::binary);
+
+    if (!file.is_open()) {
+        throw std::runtime_error("failed to open file!");
+    }
+
+    size_t fileSize = (size_t)file.tellg();
+    std::vector<char> buffer(fileSize);
+
+    file.seekg(0);
+    file.read(buffer.data(), fileSize);
+
+    file.close();
+
+    return buffer;
+}
+
+static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData) {
+    std::cerr << "validation layer: " << pCallbackData->pMessage << std::endl;
+
+    return VK_FALSE;
+}
+
+static std::vector<const char*> getRequiredExtensions(SDL_Window* sdl_window) {
 
 
+    std::vector<const char*> extensions;
+
+
+
+    unsigned int count = 0;
+
+    SDL_Vulkan_GetInstanceExtensions(sdl_window, &count, NULL);
+
+    // now count is (probably) 2. Now you can make space:
+    extensions.resize(count);
+
+    // now call again with that not-NULL array you just allocated.
+    SDL_Vulkan_GetInstanceExtensions(sdl_window, &count, extensions.data());
+
+    // Now names should have (count) strings in it:
+
+
+
+
+
+    if (enableValidationLayers) {
+        extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
+    }
+
+    return extensions;
+}
+
+static void populateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT& createInfo) {
+    createInfo = {};
+    createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
+    createInfo.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
+    createInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
+    createInfo.pfnUserCallback = debugCallback;
+}
 
 
 class VK_Renderer {
 public:
-    void run() {
+    void Init() {
 
         if (sdl_window == nullptr)
         {
@@ -118,7 +172,7 @@ public:
 
         //  geometrybuffer.updateInUseBuffers();
     }
-
+    
 
     void AttachWindow(SDL_Window* window) {
 
@@ -255,6 +309,7 @@ public:
         GraphicsSettings = InitialGraphicsSettings;
 
     }
+
     void cleanup() {
         cleanupSwapChain();
 
@@ -371,11 +426,12 @@ public:
     void createDepthResources() {
         VkFormat depthFormat = findDepthFormat();
         createImage(allocator,swapChainExtent.width, swapChainExtent.height, depthFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, depthImage, depthImageAllocation);
-        depthImageView = createImageView(depthImage, depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT);
+        depthImageView = createImageView(device, depthImage, depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT);
         // transitionImageLayout(depthImage, depthFormat, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
 
 
     }
+
     VkFormat findSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features) {
         for (VkFormat format : candidates) {
             VkFormatProperties props;
@@ -399,6 +455,7 @@ public:
             VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT
         );
     }
+
     bool hasStencilComponent(VkFormat format) {
         return format == VK_FORMAT_D32_SFLOAT_S8_UINT || format == VK_FORMAT_D24_UNORM_S8_UINT;
     }
@@ -406,7 +463,6 @@ public:
 
     void attachAtlas() {
         texture_atlas.attachRenderComponents(&device, &graphicsQueue, &commandPool, &allocator);
-    
         texture_atlas.create_texture_from_file("assets/textur1e.png", framebufferNeedsReconstruction);
   
 
@@ -417,11 +473,6 @@ public:
         geometrybuffer.attachrenderer(&allocator,device, swapChainImages.size());
 
     }
-
-
-
-
-
 
     void createInstance() {
         if (enableValidationLayers && !checkValidationLayerSupport()) {
@@ -440,7 +491,7 @@ public:
         createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
         createInfo.pApplicationInfo = &appInfo;
 
-        auto extensions = getRequiredExtensions();
+        auto extensions = getRequiredExtensions(sdl_window);
         createInfo.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
         createInfo.ppEnabledExtensionNames = extensions.data();
 
@@ -463,13 +514,7 @@ public:
         }
     }
 
-    void populateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT& createInfo) {
-        createInfo = {};
-        createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
-        createInfo.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
-        createInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
-        createInfo.pfnUserCallback = debugCallback;
-    }
+
 
     void setupDebugMessenger() {
         if (!enableValidationLayers) return;
@@ -1056,30 +1101,12 @@ public:
         swapChainImageViews.resize(swapChainImages.size());
 
         for (uint32_t i = 0; i < swapChainImages.size(); i++) {
-            swapChainImageViews[i] = createImageView(swapChainImages[i], swapChainImageFormat, VK_IMAGE_ASPECT_COLOR_BIT);
+            swapChainImageViews[i] = createImageView(device, swapChainImages[i], swapChainImageFormat, VK_IMAGE_ASPECT_COLOR_BIT);
         }
     }
 
 
-    VkImageView createImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags) {
-        VkImageViewCreateInfo viewInfo{};
-        viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-        viewInfo.image = image;
-        viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
-        viewInfo.format = format;
-        viewInfo.subresourceRange.aspectMask = aspectFlags;
-        viewInfo.subresourceRange.baseMipLevel = 0;
-        viewInfo.subresourceRange.levelCount = 1;
-        viewInfo.subresourceRange.baseArrayLayer = 0;
-        viewInfo.subresourceRange.layerCount = 1;
-
-        VkImageView imageView;
-        if (vkCreateImageView(device, &viewInfo, nullptr, &imageView) != VK_SUCCESS) {
-            throw std::runtime_error("failed to create texture image view!");
-        }
-
-        return imageView;
-    }
+    
 
     void createTextureSampler() {
         VkSamplerCreateInfo samplerInfo{};
@@ -1107,19 +1134,6 @@ public:
             throw std::runtime_error("failed to create texture sampler!");
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     void createCommandBuffers() {
         commandBuffers.resize(swapChainFramebuffers.size());
@@ -1182,12 +1196,6 @@ public:
         }
 
     }
-
-
-
-
-
-
 
 
 
@@ -1258,10 +1266,6 @@ public:
     void newFrame()
     {
         vkWaitForFences(device, 1, &inFlightFences[currentFrame], VK_TRUE, UINT64_MAX);
-
-
-
-
         VkResult result = vkAcquireNextImageKHR(device, swapChain, UINT64_MAX, imageAvailableSemaphores[currentFrame], VK_NULL_HANDLE, &imageIndex);
 
         if (result == VK_ERROR_OUT_OF_DATE_KHR) {
@@ -1528,35 +1532,7 @@ public:
         return indices;
     }
 
-    std::vector<const char*> getRequiredExtensions() {
-
-
-        std::vector<const char*> extensions;
-
-
-
-        unsigned int count = 0;
-
-        SDL_Vulkan_GetInstanceExtensions(sdl_window, &count, NULL);
-
-        // now count is (probably) 2. Now you can make space:
-        extensions.resize(count);
-
-        // now call again with that not-NULL array you just allocated.
-        SDL_Vulkan_GetInstanceExtensions(sdl_window, &count, extensions.data());
-
-        // Now names should have (count) strings in it:
-
-
-
-
-
-        if (enableValidationLayers) {
-            extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
-        }
-
-        return extensions;
-    }
+ 
 
     bool checkValidationLayerSupport() {
         uint32_t layerCount;
@@ -1583,27 +1559,5 @@ public:
         return true;
     }
 
-    static std::vector<char> readFile(const std::string& filename) {
-        std::ifstream file(filename, std::ios::ate | std::ios::binary);
-
-        if (!file.is_open()) {
-            throw std::runtime_error("failed to open file!");
-        }
-
-        size_t fileSize = (size_t)file.tellg();
-        std::vector<char> buffer(fileSize);
-
-        file.seekg(0);
-        file.read(buffer.data(), fileSize);
-
-        file.close();
-
-        return buffer;
-    }
-
-    static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData) {
-        std::cerr << "validation layer: " << pCallbackData->pMessage << std::endl;
-
-        return VK_FALSE;
-    }
+    
 };

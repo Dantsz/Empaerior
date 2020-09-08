@@ -14,6 +14,8 @@
 #include "../include/debugging/log.h"
 
 
+#define VMA_IMPLEMENTATION
+#include <vk_mem_alloc.h>
 
 //static objects variables
 #pragma region static objects

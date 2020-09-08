@@ -104,7 +104,7 @@ public:
 
 		Empaerior::Sprite testtette;
 		activate_state(main_state);
-		vk.run();
+		vk.Init();
 		ImGui_Emp::Init(window, vk);
 
 		
