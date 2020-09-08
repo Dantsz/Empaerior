@@ -315,15 +315,6 @@ struct geometryBuffer
 	DynamicBuffer vertexBuffer;
 	DynamicBuffer indexBuffer;
 
-
-
-
-	
-	
-
-
-
-	
 	VmaAllocator* m_allocator;
 
 	uint32_t images;

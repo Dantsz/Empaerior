@@ -371,6 +371,29 @@ static void setupDebugMessenger(VkInstance& instance , VkDebugUtilsMessengerEXT&
         throw std::runtime_error("failed to set up debug messenger!");
     }
 }
+
+static VkPhysicalDevice pickPhysicalDevice(VkInstance& instance, VkSurfaceKHR & surface) {
+    uint32_t deviceCount = 0;
+    vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr);
+
+    if (deviceCount == 0) {
+        throw std::runtime_error("failed to find GPUs with Vulkan support!");
+    }
+
+    std::vector<VkPhysicalDevice> devices(deviceCount);
+    vkEnumeratePhysicalDevices(instance, &deviceCount, devices.data());
+    //return first gpu found
+    for (const auto& device : devices) {
+        if (isDeviceSuitable(surface, device)) {
+            return device;
+        }
+    }
+
+
+    throw std::runtime_error("failed to find a suitable GPU!");
+
+}
+
 #pragma endregion
 
 class VK_Renderer {
@@ -440,10 +463,6 @@ public:
     VkPipeline graphicsPipeline;
 
     VkCommandPool commandPool;
-
-
-
-
     geometryBuffer geometrybuffer;
 
 
@@ -483,9 +502,13 @@ public:
 
         createInstance();
         setupDebugMessenger(instance,debugMessenger);
-        createSurface();
-        pickPhysicalDevice();
+        //create surface
+        auto result = SDL_Vulkan_CreateSurface(sdl_window, instance, &surface);
+
+        physicalDevice = pickPhysicalDevice(instance,surface);
         createLogicalDevice();
+
+
         createAllocator();
 
         createSwapChain();
@@ -684,34 +707,7 @@ public:
         }
     }
 
-
-    void createSurface() {
-
-        auto result = SDL_Vulkan_CreateSurface(sdl_window, instance, &surface);
-    }
-
-    void pickPhysicalDevice() {
-        uint32_t deviceCount = 0;
-        vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr);
-
-        if (deviceCount == 0) {
-            throw std::runtime_error("failed to find GPUs with Vulkan support!");
-        }
-
-        std::vector<VkPhysicalDevice> devices(deviceCount);
-        vkEnumeratePhysicalDevices(instance, &deviceCount, devices.data());
-
-        for (const auto& device : devices) {
-            if (isDeviceSuitable(surface,device)) {
-                physicalDevice = device;
-                break;
-            }
-        }
-
-        if (physicalDevice == VK_NULL_HANDLE) {
-            throw std::runtime_error("failed to find a suitable GPU!");
-        }
-    }
+   
 
     void createLogicalDevice() {
         QueueFamilyIndices indices = findQueueFamilies(surface,physicalDevice);
@@ -1015,7 +1011,6 @@ public:
         updateDescriptorSets();
     }
 
-
     void updateDescriptorSets()
     {
         for (size_t i = 0; i < swapChainImages.size(); i++) {
@@ -1260,7 +1255,6 @@ public:
         }
     }
 
-  
 
     void createCommandBuffers() {
         commandBuffers.resize(swapChainFramebuffers.size());
