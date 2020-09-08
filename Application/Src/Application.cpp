@@ -15,7 +15,7 @@
 #include "rendering/vulkan_rendering/renderer.h"
 #include <vulkan/vulkan.h>
 #include "input/input.h"
-
+#include <stb_image.h>
 
 //
 //a user defined state

@@ -3,6 +3,7 @@
 #include <ft2build.h>
 #include "../include/core/defines/defines.h"
 #include "../include/debugging/log.h"
+#include <iostream>
 #include FT_FREETYPE_H
 
 namespace Empaerior
