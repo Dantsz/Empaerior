@@ -21,7 +21,7 @@ namespace ImGui_Emp
 	//Initialize EMP_IMGui
 	//if you're using the sdl_render this should be called after the renderer is attached to the window
 
-
+	
 
 	static void CreateRenderPass(VK_Renderer& renderer)
 	{
@@ -75,12 +75,13 @@ namespace ImGui_Emp
 		}
 
 	}
+	
 	static void CreateCommandObjects(VK_Renderer& renderer)
 	{
 		
 		for (size_t i = 0; i < renderer.swapChainImages.size(); i++)
 		{
-			QueueFamilyIndices queueFamilyIndices = renderer.findQueueFamilies(renderer.physicalDevice);
+			QueueFamilyIndices queueFamilyIndices = findQueueFamilies(renderer.surface , renderer.physicalDevice);
 			VkCommandPoolCreateInfo poolInfo{};
 			poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
 			poolInfo.queueFamilyIndex = queueFamilyIndices.graphicsFamily.value();
