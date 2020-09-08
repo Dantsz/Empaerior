@@ -453,10 +453,6 @@ public:
     std::vector<VmaAllocation> uniformBuffersAllocations;
     std::vector<void*> uniformBufferData;
 
-    VkSampler textureSampler;
-
-
-
     VkDescriptorPool descriptorPool;
     std::vector<VkDescriptorSet> descriptorSets;
 
@@ -514,7 +510,7 @@ public:
         createDescriptorSetLayout();
         createGraphicsPipeline(InitialGraphicsSettings);
 
-        createTextureSampler();
+       
 
         createUniformBuffers();
         createDescriptorPool();
@@ -531,9 +527,6 @@ public:
 
     void cleanup() {
         cleanupSwapChain();
-
-
-        vkDestroySampler(device, textureSampler, nullptr);
 
 
         texture_atlas.cleanup();
@@ -569,9 +562,6 @@ public:
 
         SDL_Quit();
     }
-
-
-
 
     void recreateSwapChain() {
         int width = 0, height = 0;
@@ -802,7 +792,6 @@ public:
 
     }
 
-
     void createSwapChain() {
         SwapChainSupportDetails swapChainSupport = querySwapChainSupport(surface,physicalDevice);
         
@@ -855,8 +844,6 @@ public:
         swapChainImageFormat = surfaceFormat.format;
         swapChainExtent = extent;
     }
-
-
 
     void createRenderPass() {
         VkAttachmentDescription colorAttachment{};
@@ -926,8 +913,6 @@ public:
             throw std::runtime_error("failed to create render pass!");
         }
     }
-
-
 
     void createDescriptorPool() {
 
@@ -1040,7 +1025,7 @@ public:
             bufferInfo.range = sizeof(Empaerior::Camera2D);
 
             VkDescriptorImageInfo samplerInfo{};
-            samplerInfo.sampler = textureSampler;
+            samplerInfo.sampler = texture_atlas.textureSampler;
 
             std::vector<VkDescriptorImageInfo> descriptorImageInfos;
             descriptorImageInfos.resize(texture_atlas.images.size());
@@ -1232,7 +1217,6 @@ public:
 
     void createFramebuffers() {
         swapChainFramebuffers.resize(swapChainImageViews.size());
-
         for (size_t i = 0; i < swapChainImageViews.size(); i++) {
             std::array<VkImageView, 2> attachments = {
              swapChainImageViews[i],
@@ -1276,32 +1260,7 @@ public:
         }
     }
 
-    void createTextureSampler() {
-        VkSamplerCreateInfo samplerInfo{};
-        samplerInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
-        samplerInfo.magFilter = VK_FILTER_NEAREST;
-        samplerInfo.minFilter = VK_FILTER_LINEAR;
-        samplerInfo.addressModeU = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
-        samplerInfo.addressModeV = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
-        samplerInfo.addressModeW = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
-        samplerInfo.anisotropyEnable = VK_FALSE;
-        samplerInfo.maxAnisotropy = 16;
-
-
-
-        //samplerInfo.borderColor = VK_BORDER_COLOR_INT_OPAQUE_WHITE;
-        samplerInfo.borderColor = VK_BORDER_COLOR_INT_TRANSPARENT_BLACK;
-        samplerInfo.unnormalizedCoordinates = VK_FALSE;
-        samplerInfo.compareEnable = VK_FALSE;
-        samplerInfo.compareOp = VK_COMPARE_OP_NEVER;
-        samplerInfo.mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR; 
-        samplerInfo.mipLodBias = 0.0f;
-        samplerInfo.minLod = 0.0f;
-        samplerInfo.maxLod = 0.0f;
-        if (vkCreateSampler(device, &samplerInfo, nullptr, &textureSampler) != VK_SUCCESS) {
-            throw std::runtime_error("failed to create texture sampler!");
-        }
-    }
+  
 
     void createCommandBuffers() {
         commandBuffers.resize(swapChainFramebuffers.size());
@@ -1495,7 +1454,6 @@ public:
 
     }
 
-
     void present()
     {
         VkSemaphore signalSemaphores[] = { renderFinishedSemaphores[currentFrame] };
@@ -1520,7 +1478,6 @@ public:
 
         currentFrame = (currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
     }
-
 
     void checkFrameBufferResize()
     {

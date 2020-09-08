@@ -8,7 +8,35 @@ void Texture_Atlas::attachRenderComponents(VkDevice* device, VkQueue* graphicsqu
     m_graphicsqueue = graphicsqueue;
     m_commandpool = commandPool;
     m_allocator = allocator;
+    createTextureSampler();
+}
 
+void Texture_Atlas::createTextureSampler()
+{
+    VkSamplerCreateInfo samplerInfo{};
+    samplerInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
+    samplerInfo.magFilter = VK_FILTER_NEAREST;
+    samplerInfo.minFilter = VK_FILTER_LINEAR;
+    samplerInfo.addressModeU = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
+    samplerInfo.addressModeV = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
+    samplerInfo.addressModeW = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER;
+    samplerInfo.anisotropyEnable = VK_FALSE;
+    samplerInfo.maxAnisotropy = 16;
+
+
+
+    //samplerInfo.borderColor = VK_BORDER_COLOR_INT_OPAQUE_WHITE;
+    samplerInfo.borderColor = VK_BORDER_COLOR_INT_TRANSPARENT_BLACK;
+    samplerInfo.unnormalizedCoordinates = VK_FALSE;
+    samplerInfo.compareEnable = VK_FALSE;
+    samplerInfo.compareOp = VK_COMPARE_OP_NEVER;
+    samplerInfo.mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR;
+    samplerInfo.mipLodBias = 0.0f;
+    samplerInfo.minLod = 0.0f;
+    samplerInfo.maxLod = 0.0f;
+    if (vkCreateSampler(*m_device, &samplerInfo, nullptr, &textureSampler) != VK_SUCCESS) {
+        throw std::runtime_error("failed to create texture sampler!");
+    }
 }
 
 size_t Texture_Atlas::create_texture_from_file(const std::string& path, bool& implementUpdate)
@@ -111,7 +139,7 @@ size_t Texture_Atlas::getFont(const char* path)
 
 void Texture_Atlas::cleanup()
 {
-
+    vkDestroySampler(*m_device, textureSampler, nullptr);
     for (size_t i = 0; i < images.size(); i++)
     {
         vkDestroyImageView(*m_device, image_views[i], nullptr);

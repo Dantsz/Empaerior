@@ -28,6 +28,7 @@ struct Texture_Atlas {
 
     void attachRenderComponents(VkDevice* device, VkQueue* graphicsqueue, VkCommandPool* commandPool, VmaAllocator* allocator);
    
+    void createTextureSampler();
 
     size_t create_texture_from_file(const std::string& path, bool& implementUpdate);
  
@@ -43,8 +44,6 @@ struct Texture_Atlas {
 
 
     void cleanup();
- 
-
 
 
     VkDevice* m_device;
@@ -62,4 +61,5 @@ struct Texture_Atlas {
 
 
     std::unordered_map<const char*, Empaerior::u_inter> fontName;
+    VkSampler textureSampler;
 };
