@@ -505,9 +505,11 @@ public:
         createFramebuffers();
         createCommandPool();
 
-
-        attachAtlas();
-        attachGeometryBuffer();
+        //texture atlas
+        texture_atlas.attachRenderComponents(&device, &graphicsQueue, &commandPool, &allocator);
+        texture_atlas.create_texture_from_file("assets/textur1e.png", framebufferNeedsReconstruction);
+        //geo buffer
+        geometrybuffer.attachrenderer(&allocator, device, swapChainImages.size());
 
         createDescriptorSetLayout();
         createGraphicsPipeline(InitialGraphicsSettings);
@@ -651,19 +653,7 @@ public:
 
     }
 
-    void attachAtlas() {
-        texture_atlas.attachRenderComponents(&device, &graphicsQueue, &commandPool, &allocator);
-        texture_atlas.create_texture_from_file("assets/textur1e.png", framebufferNeedsReconstruction);
   
-
-    }
-
-    void attachGeometryBuffer()
-    {
-        geometrybuffer.attachrenderer(&allocator,device, swapChainImages.size());
-
-    }
-
     void createInstance() {
         if (enableValidationLayers && !checkValidationLayerSupport()) {
             throw std::runtime_error("validation layers requested, but not available!");
