@@ -1,5 +1,5 @@
 ===Features I will add===
-* Renderer cleanup: fix the mess that is the renderer class []
+* Renderer cleanup: fix the mess that is the renderer class [*]
 * Fix warnings: []
 * Texture Atas: add path unordered map and get textures by path[]
 * Renderer : renderer multiple vertex/index bufers by frame[]

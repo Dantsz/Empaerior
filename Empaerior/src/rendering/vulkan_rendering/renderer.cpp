@@ -990,9 +990,9 @@ void VK_Renderer::createGraphicsPipeline(Empaerior::VK_RendererGraphicsInfo& inf
     viewport.x = info.viewportX;
     viewport.y = info.viewportY;
 
-    viewport.width = swapChainExtent.width;
+    viewport.width = static_cast<float>(swapChainExtent.width);
 
-    viewport.height = swapChainExtent.height;
+    viewport.height = static_cast<float>(swapChainExtent.height);
 
 
     viewport.minDepth = info.minDepth;

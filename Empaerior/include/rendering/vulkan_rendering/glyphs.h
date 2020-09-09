@@ -35,7 +35,7 @@ namespace Empaerior
 	namespace FontLoading
 	{
 		inline FT_Library fontLibrary;
-		inline constexpr Empaerior::u_inter Characters = 255; // normal ASCII
+		inline constexpr FT_ULong Characters = 255; // normal ASCII
 
 		
 	
@@ -131,7 +131,7 @@ namespace Empaerior
 			font.glyphSize.clear();
 			Empaerior::u_inter width = 0, height = 0 , pitch = 0;
 			//find the max width/height
-			for (Empaerior::u_inter ch = 0; ch < Characters; ch++)
+			for (FT_ULong ch = 0; ch < Characters; ch++)
 			{
 
 				if (FT_Load_Char(font.fontFace, ch, FT_LOAD_RENDER))
