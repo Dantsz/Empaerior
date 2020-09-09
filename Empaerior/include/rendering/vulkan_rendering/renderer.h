@@ -9,7 +9,6 @@
 #include <vk_mem_alloc.h>
 #include "../include/core/defines/defines.h"
 #include "geometry_buffer.h"
-
 #include "texture_atlas.h"
 #include "graphic_settings.h"
 

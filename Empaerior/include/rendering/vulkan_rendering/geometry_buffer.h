@@ -182,7 +182,11 @@ struct DynamicBuffer
 		else // create new space
 		{
 			place = index.emplace_back(BufferSize[get_in_use_index()]);
-			ExpandBuffer(BufferSize[get_in_use_index()]);
+			//expand the buffer while the new allocation is bigger
+			while (BufferSize[get_in_use_index()] < size)
+			{
+				ExpandBuffer(BufferSize[get_in_use_index()]);
+			}
 		}
 		//mark the meory as used
 		used_size[get_in_use_index()] += size;

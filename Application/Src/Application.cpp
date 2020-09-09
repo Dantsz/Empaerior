@@ -133,7 +133,7 @@ public:
 		}*/
 		
 		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/idk.ttf", 64, vk.framebufferNeedsReconstruction);
-
+		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, textboiii, { 0,0,320,320 }, { 32,32 }, idk, "nuidffuigfguiiu  uwdfug uwg weewgg i gewiue", { 255,255,255 });
 	
 
 	//	Empaerior::setTextSpriteDepth(greenboi, 1.0f);
@@ -384,6 +384,7 @@ public:
 	Empaerior::u_inter main_state;
 	Empaerior::Sprite greenboi;
 	Empaerior::Sprite greenerboi;
+	Empaerior::Sprite textboiii;
 	Empaerior::Camera camera;
 	VK_Renderer vk;
 	float forTest = 0;
