@@ -12,7 +12,7 @@
 
 #include "../include/input/eventhandler/eventhandler.h"
 #include "../include/core/exceptions/exceptions.h"
-
+#include "../include/debugging/log.h"
 
 namespace  Empaerior{
 

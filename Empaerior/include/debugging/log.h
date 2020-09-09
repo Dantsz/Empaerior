@@ -1,5 +1,30 @@
 #pragma once
 
+//Log usage
+
+#if defined(EMPAERIOR_DEBUG) || defined(EMPAERIOR_RELEASE)
+
+#define EMP_USE_LOGS
+
+#else
+
+#define ENGINE_TRACE(...) 	
+#define ENGINE_INFO(...) 
+#define ENGINE_WARN(...) 	
+#define ENGINE_ERROR(...) 
+#define ENGINE_CRITICAL(...) 	
+
+#define APP_TRACE(...) 
+#define APP_INFO(...) 
+#define APP_WARN(...) 
+#define APP_ERROR(...)
+#define APP_CRITICAL(...) 
+
+
+#endif
+
+
+
 #ifdef EMP_USE_LOGS
 
 #include <spdlog/spdlog.h>

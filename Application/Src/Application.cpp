@@ -2,10 +2,11 @@
 #include <main.h>
 #include <SDL_vulkan.h>
 #include "Tools/Imgui/Emp_Imgui.h"
-#include <vk_mem_alloc.h>
+
 
 //#include "tools/emptmxlite/emptmxlite.h"
 #include <thread>         
+
 
 #include <SDL.h>
 #include <SDL_render.h>
@@ -16,6 +17,7 @@
 #include <vulkan/vulkan.h>
 #include "input/input.h"
 #include <stb_image.h>
+#include <rendering/vulkan_rendering/sprite.h>
 
 //
 //a user defined state
@@ -97,14 +99,16 @@ public:
 		//CREATE A NEW STATE
 		main_state = push_state(new APP_State1());
 		
-		vk.AttachWindow(window.window);
+		
 		Empaerior::FontLoading::initFontEngine();
 
 		//make the state active
 
 		Empaerior::Sprite testtette;
 		activate_state(main_state);
-		vk.Init();
+		vk.Init(window.window);
+
+
 		ImGui_Emp::Init(window, vk);
 
 		

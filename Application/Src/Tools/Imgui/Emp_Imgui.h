@@ -5,6 +5,7 @@
 #include "imgui-empaerior/imgui_empaerior.h"
 #include <Empaerior.h>
 #include <rendering/vulkan_rendering/renderer.h>
+#include <optional>
 /*
 	
 
@@ -17,11 +18,56 @@ namespace ImGui_Emp
 	static inline size_t imguiCommandBufferIndex;
 	static inline ImGui_ImplVulkanH_Window wd;
 
+	struct QueueFamilyIndices {
+
+		std::optional<uint32_t> graphicsFamily;
+		std::optional<uint32_t> presentFamily;
+
+		bool isComplete() {
+			return graphicsFamily.has_value() && presentFamily.has_value();
+		}
+	};
+
+	struct SwapChainSupportDetails {
+		VkSurfaceCapabilitiesKHR capabilities;
+		std::vector<VkSurfaceFormatKHR> formats;
+		std::vector<VkPresentModeKHR> presentModes;
+	};
 	
 	//Initialize EMP_IMGui
 	//if you're using the sdl_render this should be called after the renderer is attached to the window
 
-	
+	static QueueFamilyIndices findQueueFamilies(VkSurfaceKHR& surface, VkPhysicalDevice device) {
+		QueueFamilyIndices indices;
+
+		uint32_t queueFamilyCount = 0;
+		vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, nullptr);
+
+		std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
+		vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, queueFamilies.data());
+
+		int i = 0;
+		for (const auto& queueFamily : queueFamilies) {
+			if (queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT) {
+				indices.graphicsFamily = i;
+			}
+
+			VkBool32 presentSupport = false;
+			vkGetPhysicalDeviceSurfaceSupportKHR(device, i, surface, &presentSupport);
+
+			if (presentSupport) {
+				indices.presentFamily = i;
+			}
+
+			if (indices.isComplete()) {
+				break;
+			}
+
+			i++;
+		}
+
+		return indices;
+	}
 
 	static void CreateRenderPass(VK_Renderer& renderer)
 	{

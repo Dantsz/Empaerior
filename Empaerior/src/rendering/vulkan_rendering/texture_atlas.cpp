@@ -1,4 +1,6 @@
 #include "..\..\..\include\rendering\vulkan_rendering\texture_atlas.h"
+
+#define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #include "..\..\..\include\rendering\vulkan_rendering\misc_functions.h"
 
