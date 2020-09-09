@@ -18,7 +18,7 @@
 namespace ImGuiEmpImpl
 {
 	bool Init(const Empaerior::Window& window);
-	void NewFrame(const Empaerior::Window& window , const Empaerior::Camera & camera);
+	void NewFrame(const Empaerior::Window& window );
 	bool ProcessEvent(const Empaerior::Event& event);
 	void Shutdown();
 }

@@ -156,7 +156,7 @@ static void UpdateMouseCursor()
 }
 
 
-static void UpdateMousePosAndButtons(const Empaerior::Camera& camera)
+static void UpdateMousePosAndButtons()
 {
     ImGuiIO& io = ImGui::GetIO();
 
@@ -207,7 +207,7 @@ static void UpdateMousePosAndButtons(const Empaerior::Camera& camera)
 }
 
 
-void ImGuiEmpImpl::NewFrame(const Empaerior::Window& window, const Empaerior::Camera& camera)
+void ImGuiEmpImpl::NewFrame(const Empaerior::Window& window)
 {
     ImGuiIO& io = ImGui::GetIO();
     IM_ASSERT(io.Fonts->IsBuilt() && "Font atlas not built! It is generally built by the renderer back-end. Missing call to renderer _NewFrame() function? e.g. ImGui_ImplOpenGL3_NewFrame().");
@@ -229,7 +229,7 @@ void ImGuiEmpImpl::NewFrame(const Empaerior::Window& window, const Empaerior::Ca
     io.DeltaTime = g_Time > 0 ? (float)((double)(current_time - g_Time) / frequency) : (float)(1.0f / 60.0f);
     g_Time = current_time;
 
-    UpdateMousePosAndButtons(camera);
+    UpdateMousePosAndButtons();
     UpdateMouseCursor();
 
     // Update game controllers (if enabled and available)

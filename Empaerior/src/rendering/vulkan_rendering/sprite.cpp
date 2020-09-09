@@ -1,6 +1,9 @@
 
 #include "../include/rendering/vulkan_rendering/sprite.h"
 #include "../include/rendering/vulkan_rendering/glyphs.h"
+
+
+
 namespace Empaerior
 {
 	void createSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t tex_id)
@@ -254,31 +257,13 @@ namespace Empaerior
 		//if everything is cleared
 		if (strlen(message) == 0)
 		{
-			uint32_t* data = (uint32_t*)sprite.parent->indexBuffer.BuffersData[sprite.parent->indexBuffer.get_in_use_index()];
-			//the vertex data will  move , so the index buffer needs to be adjusted
-			for (size_t i = sprite.parent->indexBuffer.index[sprite.IndicesIndex]; i < sprite.parent->indexBuffer.used_size[sprite.parent->indexBuffer.get_in_use_index()]; i++)
-			{
-				data[i] -= static_cast<uint32_t>(sprite.verticesSize / sizeof(Vertex));
-			}
-
-
-			sprite.parent->indexBuffer.deallocate(sprite.IndicesIndex, sprite.IndicesSize);
-			sprite.parent->vertexBuffer.deallocate(sprite.verticesIndex, sprite.verticesSize);
+			destroySprite(sprite);
 		}
 		//if there's not enougth space to change the message it allocated a new space
 		else if (strlen(message) > sprite.verticesSize / (sizeof(Vertex) * 4))
 		{
 			
-			uint32_t* data = (uint32_t*)sprite.parent->indexBuffer.BuffersData[sprite.parent->indexBuffer.get_in_use_index()];
-			//the vertex data will  move , so the index buffer needs to be adjusted
-			for (size_t i = sprite.parent->indexBuffer.index[sprite.IndicesIndex]; i < sprite.parent->indexBuffer.used_size[sprite.parent->indexBuffer.get_in_use_index()]; i++)
-			{
-				data[i] -= static_cast<uint32_t>(sprite.verticesSize / sizeof(Vertex));
-			}
-
-
-			sprite.parent->indexBuffer.deallocate(sprite.IndicesIndex, sprite.IndicesSize);
-			sprite.parent->vertexBuffer.deallocate(sprite.verticesIndex, sprite.verticesSize);
+			destroySprite(sprite);
 			Empaerior::createTextSprite(*sprite.parent, *sprite.parent_atlas, sprite, rect, charDimensions, font, message, color);
 		}
 		else
@@ -316,7 +301,6 @@ namespace Empaerior
 		}
 
 		sprite.parent->indexBuffer.deallocate(sprite.IndicesIndex, sprite.IndicesSize);
-
 		sprite.parent->vertexBuffer.deallocate(sprite.verticesIndex, sprite.verticesSize);
 
 

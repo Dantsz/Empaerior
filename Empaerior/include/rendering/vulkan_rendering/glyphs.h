@@ -14,6 +14,7 @@ namespace Empaerior
 			Empaerior::fl_point width, height , HbearingY,HbearingX , Mwidth, MHeight;//Mwidh- the actual width of the character
 		};
 	}
+
 	struct Font
 	{
 		FT_Face fontFace;
@@ -32,6 +33,7 @@ namespace Empaerior
 		char* name;
 
 	};
+
 	namespace FontLoading
 	{
 		inline FT_Library fontLibrary;
@@ -67,7 +69,7 @@ namespace Empaerior
 
 		EMP_FORCEINLINE void createFontFacefrommemory(Font& font, const Empaerior::byte* buffer, Empaerior::s_inter size)
 		{
-			auto error = FT_New_Memory_Face(Empaerior::FontLoading::fontLibrary, buffer, size, 0, &font.fontFace);
+			auto error = FT_New_Memory_Face(Empaerior::FontLoading::fontLibrary, buffer, static_cast<FT_Long>(size), 0, &font.fontFace);
 			if (error == FT_Err_Unknown_File_Format)
 			{
 				ENGINE_ERROR("Font file cannot be read or format is unsupported");
@@ -176,7 +178,7 @@ namespace Empaerior
 				uint8_t* src = font.fontFace->glyph->bitmap.buffer;
 				uint8_t* startOfLine = src;
 
-				Empaerior::u_inter dst = 4 * ch * height * width;
+				Empaerior::u_inter dst = 4 * static_cast<uint32_t>(ch) * height * width;
 
 				
 

@@ -236,7 +236,7 @@ public:
 
 				//dump_data(vk.geometrybuffer);
 
-				ImGui_Emp::NewFrame(window, vk, camera);
+				ImGui_Emp::NewFrame(window, vk);
 				ShowImGuiWindows();
 		
 			
@@ -245,7 +245,7 @@ public:
 	
 			
 
-				ImGui_Emp::Render(window, vk, camera);
+				ImGui_Emp::Render(window, vk);
 				//	vk.framebufferResized = true;
 
 				vk.drawFrame();
@@ -385,7 +385,7 @@ public:
 	Empaerior::Sprite greenboi;
 	Empaerior::Sprite greenerboi;
 	Empaerior::Sprite textboiii;
-	Empaerior::Camera camera;
+
 	VK_Renderer vk;
 	float forTest = 0;
 	float i  = 0, j = 0;

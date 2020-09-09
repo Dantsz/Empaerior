@@ -1,10 +1,10 @@
 ===Features I will add===
 * Renderer cleanup: fix the mess that is the renderer class [*]
-* Fix warnings: []
+* Fix warnings: [*]
+* Renderer cleanup : have only one camera class[]
 * Texture Atas: add path unordered map and get textures by path[]
 * Renderer : renderer multiple vertex/index bufers by frame[]
 * Window : redesign the class with minimal SDL dependecy[]
-* Renderer cleanup : have only one camera class[]
 * DynamicBuffer cleanup : tidy up the whole file[]
 ==Features that I plan adding==
 * Renderer: render using multiple pipelines per frame[]

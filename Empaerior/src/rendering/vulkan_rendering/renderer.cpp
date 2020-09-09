@@ -15,6 +15,7 @@
 
 #define VMA_IMPLEMENTATION
 #include <vk_mem_alloc.h>
+
 struct QueueFamilyIndices {
 
     std::optional<uint32_t> graphicsFamily;

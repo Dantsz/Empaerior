@@ -28,9 +28,7 @@ namespace Empaerior {
 		virtual void Render() = 0 ;//renders the state
 		virtual void handleevents(Empaerior::Event& event) = 0;
 
-		void set_camera(const Empaerior::Int_Rect& rect);//sets the camera to the specified sdl rect
-		
-		Empaerior::Camera& get_camera() { return camera; } // return the camera
+
 
 
 
@@ -38,10 +36,5 @@ namespace Empaerior {
 	protected:
 
 
-		Empaerior::Camera camera;
-		
-
-
-	
 	};
 }

@@ -265,13 +265,13 @@ namespace ImGui_Emp
 	
 	}
 
-	EMP_FORCEINLINE void NewFrame(Empaerior::Window& window,VK_Renderer& renderer, const Empaerior::Camera& camera)
+	EMP_FORCEINLINE void NewFrame(Empaerior::Window& window,VK_Renderer& renderer)
 	{
 	
 		ImGui_ImplVulkan_NewFrame();
 
 
-		ImGuiEmpImpl::NewFrame(Empaerior::Application::window, camera);
+		ImGuiEmpImpl::NewFrame(Empaerior::Application::window);
 		ImGui::NewFrame();
 	}
 
@@ -280,7 +280,7 @@ namespace ImGui_Emp
 
 
 
-	EMP_FORCEINLINE void Render(Empaerior::Window& window, VK_Renderer& renderer, const Empaerior::Camera& original_cam)
+	EMP_FORCEINLINE void Render(Empaerior::Window& window, VK_Renderer& renderer)
 	{
 	
 		ImGui::Render();
