@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 #include <unordered_map>
-#include "../include/rendering/camera.h"
+
 
 #include "../include/core/defines/defines.h"
 #include "../include/input/eventhandler/eventhandler.h"

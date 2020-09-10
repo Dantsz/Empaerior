@@ -18,7 +18,7 @@
 #include "../include/systems/component.h"
 
 #include "../include/rendering/window.h"
-#include "../include/rendering/camera.h"
+
 
 
 

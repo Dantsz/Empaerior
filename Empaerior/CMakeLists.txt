@@ -34,8 +34,7 @@ set(input__eventhandler
 source_group("input\\eventhandler" FILES ${input__eventhandler})
 
 set(rendering
-    "src/rendering/camera.cpp"
-    "include/rendering/camera.h"
+
     "src/rendering/window.cpp"
     "include/rendering/window.h"
 )

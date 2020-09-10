@@ -2,7 +2,6 @@
 
 
 
-#include "../include/rendering/camera.h"
 
 //entity tests
 

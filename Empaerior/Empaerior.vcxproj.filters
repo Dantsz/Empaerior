@@ -9,9 +9,6 @@
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\input\eventhandler\eventhandler.cpp">
       <Filter>input\eventhandler</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\rendering\camera.cpp">
-      <Filter>rendering</Filter>
-    </ClCompile>
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\rendering\window.cpp">
       <Filter>rendering</Filter>
     </ClCompile>
@@ -113,9 +110,6 @@
     </ClInclude>
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\input\eventhandler\eventhandler.h">
       <Filter>input\eventhandler</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\camera.h">
-      <Filter>rendering</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\window.h">
       <Filter>rendering</Filter>

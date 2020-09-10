@@ -188,8 +188,6 @@
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\input\mouse.cpp" />
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\input\eventhandler\eventhandler.cpp" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\input\eventhandler\eventhandler.h" />
-    <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\rendering\camera.cpp" />
-    <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\camera.h" />
     <ClCompile Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\src\rendering\window.cpp" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\window.h" />
     <ClInclude Include="C:\Users\Dan\source\repos\Empaerior\Empaerior\include\rendering\vulkan_rendering\renderer.h" />
