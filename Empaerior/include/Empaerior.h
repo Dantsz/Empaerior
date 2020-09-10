@@ -19,19 +19,12 @@
 
 #include "../include/rendering/window.h"
 
-
-
-
-
-
-
 #include "../include/input/input.h"
 
 
 
-#ifdef emp_use_logs
+#ifdef EMP_USE_LOGS
 
 #include "debugging/log.h"
-#include "debugging/get_data_info.h"
-	
+
 #endif
