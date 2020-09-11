@@ -30,7 +30,7 @@ namespace Empaerior
 		//the sizes of the whole images
 		//its the size of the largest glyph 
 		Empaerior::fl_point glyphWidth, glyphHeight;
-		char* name;
+		std::unique_ptr<char[]> name;
 
 	};
 
@@ -52,7 +52,7 @@ namespace Empaerior
 		}
 
 
-		EMP_FORCEINLINE void createFontFacefrompath(Font& font,  char* path)
+		EMP_FORCEINLINE void createFontFacefrompath(Font& font, const char* path)
 		{
 			auto error = FT_New_Face(Empaerior::FontLoading::fontLibrary, path, 0, &font.fontFace);
 			if (error == FT_Err_Unknown_File_Format)
@@ -64,7 +64,8 @@ namespace Empaerior
 				ENGINE_ERROR("File cannot be opened or file is broken");
 			}
 
-			font.name = path;
+			font.name = std::make_unique<char[]>(strlen(path));
+			strcpy(font.name.get(), path);
 		}
 
 		EMP_FORCEINLINE void createFontFacefrommemory(Font& font, const Empaerior::byte* buffer, Empaerior::s_inter size)

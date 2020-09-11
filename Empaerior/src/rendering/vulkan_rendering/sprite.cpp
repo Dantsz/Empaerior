@@ -116,7 +116,7 @@ namespace Empaerior
 
 
 		//TODO: fix type mismatch
-		sprite.texture_id = static_cast<uint32_t>(atlas.getFont(font.name));
+		sprite.texture_id = static_cast<uint32_t>(atlas.getFont(font.name.get()));
 	
 		setupTextSprite(buffer, atlas, sprite, rect, charDimensions, font, message, color);
 

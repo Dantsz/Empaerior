@@ -11,9 +11,11 @@
 
 
 #include <set>
+#include "../include/rendering/vulkan_rendering/renderer.h"
 
 namespace Empaerior
 {
+
 	class Event_System : public Empaerior::System
 	{
 	public:
@@ -126,4 +128,33 @@ namespace Empaerior
 
 	};
 
+	class singleSpriteSystem : public Empaerior::System
+	{
+	public:
+
+		void Init(VK_Renderer* p_renderer)
+		{
+			renderer = p_renderer;
+		}
+
+		void createSprite(Empaerior::ECS& ecs,
+			const Empaerior::u_inter& id,
+			const Empaerior::Float_Rect_S& rect,
+			const Empaerior::Float_Rect_S& texRect,
+			const uint32_t textureID
+		)
+		{
+			Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, ecs.get_component<Empaerior::singleSprite_Component>(id).sprites, rect, texRect, textureID);
+		}
+
+		void OnEntityRemovedfromSystem(Empaerior::ECS* ecs, const Empaerior::u_inter& entity_id) override
+		{
+			Empaerior::destroySprite(ecs->get_component<singleSprite_Component>(entity_id).sprites);
+		}
+		
+
+	private:
+		VK_Renderer* renderer;
+
+	};
 }

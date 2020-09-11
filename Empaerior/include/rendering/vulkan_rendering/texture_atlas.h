@@ -36,7 +36,7 @@ struct Texture_Atlas {
     size_t create_texture_from_memory(Empaerior::byte* pixels, Empaerior::s_int width, Empaerior::s_int height, Empaerior::s_int texChannels, bool& implementUpdate);
    
 
-    size_t create_texture_from_fontPath(Empaerior::Font& font, char* path, Empaerior::u_int size, bool& implementUpdate);
+    size_t create_texture_from_fontPath(Empaerior::Font& font, const std::string& path, Empaerior::u_int size, bool& implementUpdate);
    
 
     size_t getFont(const char* path);
@@ -60,6 +60,8 @@ struct Texture_Atlas {
     std::vector<Empaerior::Point2f> image_dimensions;
 
 
-    std::unordered_map<const char*, Empaerior::u_inter> fontName;
+    std::unordered_map<std::string, Empaerior::u_inter> fontName;
+    std::unordered_map<std::string, Empaerior::u_inter> texturePath;
+
     VkSampler textureSampler;
 };

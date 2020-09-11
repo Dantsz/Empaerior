@@ -7,6 +7,7 @@
 
 #include "../include/core/defines/defines.h"
 #include "../include/input/eventhandler/eventhandler.h"
+#include "../include/rendering/vulkan_rendering/sprite.h"
 
 namespace Empaerior
 {
@@ -19,21 +20,10 @@ namespace Empaerior
 	
 
 
-
-	struct Sprite_Component
-	{
-		
-		Empaerior::vector<Empaerior::u_inter> sprite_indexes;
-
-		struct Animation_Entry
-		{
-			Empaerior::u_inter anim_begin;
-			Empaerior::u_inter anim_end;
-		};
-
-		Empaerior::unsafe_vector<Animation_Entry> animation_index;
-
-	
+	//holds only one sprite
+	struct singleSprite_Component
+	{	
+		Empaerior::Sprite sprites;
 	};
 
 

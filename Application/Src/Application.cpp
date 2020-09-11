@@ -26,11 +26,20 @@ class APP_State1 : public Empaerior::State
 
 public:
 
-	APP_State1()
+	APP_State1(VK_Renderer* renderer)
 	{
+		ecs.Init();
+		sprite_system = ecs.register_system<Empaerior::singleSpriteSystem>();
+		sprite_system->Init(renderer);
+		ecs.register_component<Empaerior::singleSprite_Component>();
+		ecs.add_criteria_for_iteration<Empaerior::singleSpriteSystem, Empaerior::singleSprite_Component>();
 
 
+		morge.id = ecs.create_entity_ID();
+		ecs.add_component<Empaerior::singleSprite_Component>(morge.id, {});
 
+
+		sprite_system->createSprite(ecs, morge.id, { 0,0,320,320 }, {0,0,600,600}, 1);
 
 	}
 
@@ -64,7 +73,7 @@ public:
 	void handleevents(Empaerior::Event& event) override
 	{
 		//HANDLE EVENTS
-		event_system->handle_events(ecs, event);
+		//event_system->handle_events(ecs, event);
 
 
 
@@ -73,13 +82,13 @@ public:
 
 
 	std::shared_ptr<Empaerior::Event_System> event_system;
-
+	std::shared_ptr<Empaerior::singleSpriteSystem> sprite_system;
 	float  i = 0;
 private:
 
 	int angle = 0;
 	Empaerior::Entity morge;
-
+	
 
 };
 
@@ -97,7 +106,7 @@ public:
 
 
 		//CREATE A NEW STATE
-		main_state = push_state(new APP_State1());
+		
 		
 		
 		Empaerior::FontLoading::initFontEngine();
@@ -105,7 +114,7 @@ public:
 		//make the state active
 
 		Empaerior::Sprite testtette;
-		activate_state(main_state);
+	
 		vk.Init(window.window);
 
 
@@ -118,34 +127,21 @@ public:
 		auto originText = vk.texture_atlas.create_texture_from_file("assets/textur3e.png", vk.framebufferNeedsReconstruction);
 		auto greenboiTxt = vk.texture_atlas.create_texture_from_file("assets/green_boi.png",vk.framebufferNeedsReconstruction);
 	
+		main_state = push_state(new APP_State1(&vk));
+		activate_state(main_state);
+		
 
-		
-	 //  auto txt = vk.texture_atlas.create_texture_from_file("textures/textur3e.png", vk.framebufferNeedsReconstruction);
-	/*	for (float i = 0; i < 100; i+=1){
-		
-			for (float j = 0; j < 100; j+=1)
-			{
-				int text = int(i + j) % 3;
-				createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { (i-15) * 32 ,   (j-15) * 32,32,32 }, { 0,0,vk.texture_atlas.image_dimensions[text].elements[0],vk.texture_atlas.image_dimensions[text].elements[1] }, text);
-				setSpriteDepth(greenerboi,0.1);
-			}
-
-		}*/
-		
 		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/idk.ttf", 64, vk.framebufferNeedsReconstruction);
 		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, textboiii, { 0,0,320,320 }, { 32,32 }, idk, "nuidffufdsfdsfdsfdsigfguiiuuwdfuguwgweewggigewiue", { 255,255,255 });
 	
 
-	//	Empaerior::setTextSpriteDepth(greenboi, 1.0f);
-		//Empaerior::createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { 32,32,32,32 }, { 0,0,vk.texture_atlas.image_dimensions[originText][0],vk.texture_atlas.image_dimensions[originText][1] }, originText);
-		//Empaerior::setSpriteDepth(greenerboi, 0.5f);
+
 		
 
 		Empaerior::createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { 16,32,32,32 }, { 0,0,vk.texture_atlas.image_dimensions[originText][0],vk.texture_atlas.image_dimensions[originText][1] }, originText2);
-	//	Empaerior::setSpriteDepth(greenerboi,0.9f);
+	
 		Empaerior::createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { 48,32,32,32 }, { 0,0,vk.texture_atlas.image_dimensions[originText][0],vk.texture_atlas.image_dimensions[originText][1] }, originText2);
-		//Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { 0,0,480,3000 }, { 32,32 }, idk, "ABCDEFGHIJKL", {1.0f,1.0f,1.0f});
-	//	Empaerior::setTextSpriteDepth(greenboi, 0.0f);
+	
 
 	}
 	

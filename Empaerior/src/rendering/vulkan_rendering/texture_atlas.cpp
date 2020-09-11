@@ -51,7 +51,7 @@ size_t Texture_Atlas::create_texture_from_file(const std::string& path, bool& im
         ENGINE_CRITICAL(std::string("Failed to load texture : " + path)); return 0;
     }
     return  create_texture_from_memory(pixels, texWidth, texHeight, texChannels, implementUpdate);
-
+}
 
 }
 
@@ -115,10 +115,10 @@ size_t Texture_Atlas::create_texture_from_memory(Empaerior::byte* pixels, Empaer
 
 }
 
-size_t Texture_Atlas::create_texture_from_fontPath(Empaerior::Font& font, char* path, Empaerior::u_int size, bool& implementUpdate)
+size_t Texture_Atlas::create_texture_from_fontPath(Empaerior::Font& font, const std::string& path, Empaerior::u_int size, bool& implementUpdate)
 {
 
-    Empaerior::FontLoading::createFontFacefrompath(font, path);
+    Empaerior::FontLoading::createFontFacefrompath(font, path.c_str());
     Empaerior::FontLoading::setFontSize(font, size);
     Empaerior::FontLoading::createFontTexture(font);
 
