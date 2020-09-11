@@ -205,6 +205,19 @@ namespace Empaerior
 #undef vertex
 	}
 
+	void setSpriteTexture(Sprite& sprite, Empaerior::u_inter texID)
+	{
+#define vertex ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
+		
+		(vertex + EMP_SPR_VERTEX_TOP_LEFT)->tex_id = texID;
+		(vertex + EMP_SPR_VERTEX_TOP_RIGHT)->tex_id = texID;
+		(vertex + EMP_SPR_VERTEX_BTM_RIGHT)->tex_id = texID;
+		(vertex + EMP_SPR_VERTEX_BTM_LEFT)->tex_id = texID;
+#undef vertex
+
+
+	}
+
 
 	Vertex* getSpriteVertex(Sprite& sprite, uint8_t vert)
 	{

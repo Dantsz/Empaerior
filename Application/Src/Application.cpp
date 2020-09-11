@@ -41,6 +41,7 @@ public:
 
 		sprite_system->createSprite(ecs, morge.id, { 0,0,320,320 }, {0,0,600,600}, 1);
 
+
 	}
 
 
@@ -55,7 +56,9 @@ public:
 		//DEBUG CODE, LETS YOU MOVE AROUND THE MAP
 
 
-
+		i++;
+		if (i > 20) i = 0;
+		Empaerior::setSpriteTexture(ecs.get_component<Empaerior::singleSprite_Component>(morge.id).sprites, i/10);
 
 		//UPDATE 
 
@@ -83,7 +86,7 @@ public:
 
 	std::shared_ptr<Empaerior::Event_System> event_system;
 	std::shared_ptr<Empaerior::singleSpriteSystem> sprite_system;
-	float  i = 0;
+	int  i = 0;
 private:
 
 	int angle = 0;
@@ -224,7 +227,7 @@ public:
 
 				}
 
-
+				Update(0);
 
 
 
