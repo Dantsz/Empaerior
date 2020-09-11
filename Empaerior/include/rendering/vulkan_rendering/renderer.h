@@ -38,7 +38,15 @@ const bool enableValidationLayers = false;
 class VK_Renderer {
 public:
     void Init(SDL_Window* window);
-    
+    void checkFrameBufferResize();
+    void newFrame();
+
+    void drawFrame();
+
+    void present();
+  
+
+    void cleanup();
 
    
 
@@ -112,15 +120,18 @@ public:
     size_t mainCommandBufferinUseIndex;
 
     Empaerior::VK_RendererGraphicsInfo GraphicsSettings, InitialGraphicsSettings;
-public:
 
-
+   
     Empaerior::Camera2D ubo{};
+
+private:
+
+
+    
 
 
     void initVulkan();
 
-    void cleanup();
 
     void recreateSwapChain();
 
@@ -172,11 +183,6 @@ public:
     void updateUniformBuffer(uint32_t currentImage);
 
 
-    void newFrame();
-
-    void drawFrame();
-
-    void present();
-
-    void checkFrameBufferResize();
+   
+    
 };
