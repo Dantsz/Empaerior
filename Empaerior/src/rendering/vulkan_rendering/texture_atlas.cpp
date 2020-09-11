@@ -4,12 +4,13 @@
 #include <stb_image.h>
 #include "..\..\..\include\rendering\vulkan_rendering\misc_functions.h"
 
-void Texture_Atlas::attachRenderComponents(VkDevice* device, VkQueue* graphicsqueue, VkCommandPool* commandPool, VmaAllocator* allocator)
+void Texture_Atlas::attachRenderComponents(VkDevice* device, VkQueue* graphicsqueue, VkCommandPool* commandPool, VmaAllocator* allocator, bool* FrameBufferNeedsReconstruction)
 {
     m_device = device;
     m_graphicsqueue = graphicsqueue;
     m_commandpool = commandPool;
     m_allocator = allocator;
+    framebufferResetSwitch = FrameBufferNeedsReconstruction;
     createTextureSampler();
 }
 
@@ -41,21 +42,26 @@ void Texture_Atlas::createTextureSampler()
     }
 }
 
-size_t Texture_Atlas::create_texture_from_file(const std::string& path, bool& implementUpdate)
+size_t Texture_Atlas::create_texture_from_file(const std::string& path)
 {
 
-
-    Empaerior::s_int texWidth, texHeight, texChannels;
-    stbi_uc* pixels = stbi_load(path.c_str(), &texWidth, &texHeight, &texChannels, STBI_rgb_alpha);
-    if (!pixels) {
-        ENGINE_CRITICAL(std::string("Failed to load texture : " + path)); return 0;
+    if (texturePath.find(path) == texturePath.end())
+    {
+        Empaerior::s_int texWidth, texHeight, texChannels;
+        stbi_uc* pixels = stbi_load(path.c_str(), &texWidth, &texHeight, &texChannels, STBI_rgb_alpha);
+        if (!pixels) {
+            ENGINE_CRITICAL(std::string("Failed to load texture : " + path)); return 0;
+        }
+        
+        texturePath.insert({ path,create_texture_from_memory(pixels, texWidth, texHeight, texChannels) });
+     
     }
-    return  create_texture_from_memory(pixels, texWidth, texHeight, texChannels, implementUpdate);
-}
+   
+    return texturePath.at(path);
 
 }
 
-size_t Texture_Atlas::create_texture_from_memory(Empaerior::byte* pixels, Empaerior::s_int width, Empaerior::s_int height, Empaerior::s_int texChannels, bool& implementUpdate)
+size_t Texture_Atlas::create_texture_from_memory(Empaerior::byte* pixels, Empaerior::s_int width, Empaerior::s_int height, Empaerior::s_int texChannels)
 {
     image_allocations.push_back({});
     images.push_back({});
@@ -110,19 +116,19 @@ size_t Texture_Atlas::create_texture_from_memory(Empaerior::byte* pixels, Empaer
         throw std::runtime_error("failed to create texture image view!");
     }
 
-    implementUpdate = true;
+    *framebufferResetSwitch = true;
     return images.size() - 1;
 
 }
 
-size_t Texture_Atlas::create_texture_from_fontPath(Empaerior::Font& font, const std::string& path, Empaerior::u_int size, bool& implementUpdate)
+size_t Texture_Atlas::create_texture_from_fontPath(Empaerior::Font& font, const std::string& path, Empaerior::u_int size)
 {
 
     Empaerior::FontLoading::createFontFacefrompath(font, path.c_str());
     Empaerior::FontLoading::setFontSize(font, size);
     Empaerior::FontLoading::createFontTexture(font);
 
-    size_t ftextIndex = create_texture_from_memory(font.fontTexture.data(), font.texWidth, font.texHeight, 0, implementUpdate);
+    size_t ftextIndex = create_texture_from_memory(font.fontTexture.data(), font.texWidth, font.texHeight, 0);
     fontName.insert({ path , ftextIndex });
     return ftextIndex;
 

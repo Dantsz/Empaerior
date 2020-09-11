@@ -123,15 +123,15 @@ public:
 		
 		
 	
-		auto originText2 = vk.texture_atlas.create_texture_from_file("assets/textur2e.png", vk.framebufferNeedsReconstruction);
-		auto originText = vk.texture_atlas.create_texture_from_file("assets/textur3e.png", vk.framebufferNeedsReconstruction);
-		auto greenboiTxt = vk.texture_atlas.create_texture_from_file("assets/green_boi.png",vk.framebufferNeedsReconstruction);
+		auto originText2 = vk.texture_atlas.create_texture_from_file("assets/textur2e.png");
+		auto originText = vk.texture_atlas.create_texture_from_file("assets/textur3e.png");
+		auto greenboiTxt = vk.texture_atlas.create_texture_from_file("assets/green_boi.png");
 	
 		main_state = push_state(new APP_State1(&vk));
 		activate_state(main_state);
 		
 
-		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/idk.ttf", 64, vk.framebufferNeedsReconstruction);
+		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/idk.ttf", 64);
 		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, textboiii, { 0,0,320,320 }, { 32,32 }, idk, "nuidffufdsfdsfdsfdsigfguiiuuwdfuguwgweewggigewiue", { 255,255,255 });
 	
 

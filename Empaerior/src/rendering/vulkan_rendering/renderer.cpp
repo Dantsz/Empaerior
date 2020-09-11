@@ -408,8 +408,8 @@ void VK_Renderer::initVulkan()
     createCommandPool();
 
     //texture atlas
-    texture_atlas.attachRenderComponents(&device, &graphicsQueue, &commandPool, &allocator);
-    texture_atlas.create_texture_from_file("assets/textur1e.png", framebufferNeedsReconstruction);
+    texture_atlas.attachRenderComponents(&device, &graphicsQueue, &commandPool, &allocator,&framebufferNeedsReconstruction);
+    texture_atlas.create_texture_from_file("assets/textur1e.png");
     //geo buffer
     geometrybuffer.attachrenderer(&allocator, device, swapChainImages.size());
 

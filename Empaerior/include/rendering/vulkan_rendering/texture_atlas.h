@@ -15,7 +15,7 @@
 
  
 
- 
+    
 
 
 struct Texture_Atlas {
@@ -26,19 +26,15 @@ struct Texture_Atlas {
     }
 
 
-    void attachRenderComponents(VkDevice* device, VkQueue* graphicsqueue, VkCommandPool* commandPool, VmaAllocator* allocator);
+    void attachRenderComponents(VkDevice* device, VkQueue* graphicsqueue, VkCommandPool* commandPool, VmaAllocator* allocator, bool* FrameBufferNeedsReconstruction);
    
     void createTextureSampler();
 
-    size_t create_texture_from_file(const std::string& path, bool& implementUpdate);
- 
-
-    size_t create_texture_from_memory(Empaerior::byte* pixels, Empaerior::s_int width, Empaerior::s_int height, Empaerior::s_int texChannels, bool& implementUpdate);
+    size_t create_texture_from_file(const std::string& path);
+    size_t create_texture_from_memory(Empaerior::byte* pixels, Empaerior::s_int width, Empaerior::s_int height, Empaerior::s_int texChannels);
    
 
-    size_t create_texture_from_fontPath(Empaerior::Font& font, const std::string& path, Empaerior::u_int size, bool& implementUpdate);
-   
-
+    size_t create_texture_from_fontPath(Empaerior::Font& font, const std::string& path, Empaerior::u_int size);
     size_t getFont(const char* path);
     
 
@@ -50,6 +46,7 @@ struct Texture_Atlas {
     VkQueue* m_graphicsqueue;
     VkCommandPool* m_commandpool;
     VmaAllocator* m_allocator;
+    bool* framebufferResetSwitch;
 
     std::vector<VmaAllocation> image_allocations;
     std::vector<VkImage> images;
