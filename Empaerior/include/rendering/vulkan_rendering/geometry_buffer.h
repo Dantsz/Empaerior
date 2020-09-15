@@ -10,7 +10,7 @@
 #include "../include/core/unsafe_vector.h"
 #define buffering 2
 #include <iostream>
-
+#include "../include/debugging/log.h"
 
 struct Vertex {
 	glm::vec3 pos;
@@ -106,7 +106,7 @@ struct DynamicBuffer
 	
 		if (!updateBuffer)
 		{
-			
+			ENGINE_WARN("BUFFER NEEDS UPDATING");
 			if (BuffersData[index] != nullptr)
 			{
 			
@@ -154,7 +154,7 @@ struct DynamicBuffer
 			used_size[index] = used_size[index] ;
 			
 			
-
+			
 			
 		}
 		
@@ -174,7 +174,8 @@ struct DynamicBuffer
 		//create a new pointer
 		size_t place;
 		//check if there's space available
-		if (size <= BufferSize[get_in_use_index()] - used_size[get_in_use_index()])
+		std::cout << BufferSize[get_in_use_index()] << ' ' << used_size[get_in_use_index()] << ' ' <<  BufferSize[get_in_use_index()] - used_size[get_in_use_index()] << '\n';
+		if (size < BufferSize[get_in_use_index()] - used_size[get_in_use_index()])
 		{
 			place = index.emplace_back(used_size[get_in_use_index()]);
 			
@@ -183,9 +184,12 @@ struct DynamicBuffer
 		{
 			place = index.emplace_back(BufferSize[get_in_use_index()]);
 			//expand the buffer while the new allocation is bigger
-			while (BufferSize[get_in_use_index()] < size)
+			
+			while (BufferSize[get_in_use_index()] - used_size[get_in_use_index()]  < size)
 			{
+				ENGINE_WARN("Expanding buffer");
 				ExpandBuffer(BufferSize[get_in_use_index()]);
+				
 			}
 		}
 		//mark the meory as used
@@ -232,9 +236,10 @@ struct DynamicBuffer
 
 	void updateInUseBuffers()
 	{
+	
 		if (updateBuffer)
 		{
-			
+			ENGINE_WARN("updated buffer");
 			size_t new_bufferindex = (inUseBufferIndex + 1) % buffering;
 		
 			inUseBuffer = Buffers[new_bufferindex];
@@ -324,18 +329,18 @@ struct geometryBuffer
 	uint32_t images;
 
 
-	const size_t initialVertexSize = 4ULL * sizeof(Vertex);
-	const size_t initialIndexSize = 6ULL * sizeof(uint32_t);
+	const size_t initialVertexSize = 40ULL * sizeof(Vertex);
+	const size_t initialIndexSize = 60ULL * sizeof(uint32_t);
 };
 
 
 
-EMP_FORCEINLINE void dump_IndexData(geometryBuffer& buffer)
+EMP_FORCEINLINE void dump_IndexData(geometryBuffer& geometrybuffer)
 {
-	uint32_t* index_data = (uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()];
+	uint32_t* index_data = (uint32_t*)geometrybuffer.indexBuffer.BuffersData[geometrybuffer.indexBuffer.get_in_use_index()];
 	std::cout << "======Index=====\n";
-	std::cout << buffer.indexBuffer.used_size[buffer.indexBuffer.get_in_use_index()] / sizeof(uint32_t) << " will be drawn\n";
-	for (size_t i = 0; i < (buffer.indexBuffer.used_size[buffer.indexBuffer.get_in_use_index()] / sizeof(uint32_t)); i++)
+	std::cout << geometrybuffer.indexBuffer.used_size[geometrybuffer.indexBuffer.get_in_use_index()] / sizeof(uint32_t) << " will be drawn\n";
+	for (size_t i = 0; i < (geometrybuffer.indexBuffer.used_size[geometrybuffer.indexBuffer.get_in_use_index()] / sizeof(uint32_t)); i++)
 	{
 		std::cout << index_data[i] << ' ';
 		if (i % 6 == 5) std::cout << '\n';
@@ -349,7 +354,7 @@ EMP_FORCEINLINE void dump_VertexData(geometryBuffer& buffer)
 	for (size_t i = 0; i < buffer.vertexBuffer.used_size[buffer.indexBuffer.get_in_use_index()] / sizeof(Vertex); i++)
 	{
 		if (i % 4 == 0) std::cout << i << ":\n";
-		std::cout << vertex_data[i].pos.x << ' ' << vertex_data[i].pos.y << ' ' << vertex_data[i].pos.z << ' ' << vertex_data[i].texCoord.x << ' ' << vertex_data[i].texCoord.y << '\n';
+		std::cout << vertex_data[i].pos.x << ' ' << vertex_data[i].pos.y << ' ' << vertex_data[i].pos.z << ' ' << vertex_data[i].texCoord.x << ' ' << vertex_data[i].texCoord.y <<' ' <<vertex_data[i].tex_id <<  '\n';
 
 	}
 }

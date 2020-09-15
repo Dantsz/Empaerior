@@ -625,8 +625,8 @@ void VK_Renderer::createLogicalDevice()
     vulkan12Features.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_FEATURES;
     vulkan12Features.descriptorIndexing = VK_TRUE;
     vulkan12Features.shaderSampledImageArrayNonUniformIndexing = VK_TRUE;
-    vulkan12Features.shaderInputAttachmentArrayDynamicIndexing = VK_TRUE;
-    vulkan12Features.shaderInputAttachmentArrayNonUniformIndexing = VK_TRUE;
+    vulkan12Features.shaderInputAttachmentArrayDynamicIndexing = VK_FALSE;
+    vulkan12Features.shaderInputAttachmentArrayNonUniformIndexing = VK_FALSE;
     vulkan12Features.runtimeDescriptorArray = VK_TRUE;
     vulkan12Features.shaderStorageImageArrayNonUniformIndexing = VK_TRUE;
 
@@ -1193,7 +1193,7 @@ void VK_Renderer::recordCommandBuffer(VkCommandBuffer& commandBuffer, VkFramebuf
     vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, 0, 1, descriptorSet, 0, nullptr);
     vkCmdBindVertexBuffers(commandBuffer, 0, 1, vertexBuffers, offsets);
     vkCmdBindIndexBuffer(commandBuffer, indexBuffer, 0, VK_INDEX_TYPE_UINT32);
-    vkCmdDrawIndexed(commandBuffer, geometrybuffer.indexBuffer.used_size[geometrybuffer.indexBuffer.inUseBufferIndex] / sizeof(uint32_t), 1, 0, 0, 0);
+    vkCmdDrawIndexed(commandBuffer, geometrybuffer.indexBuffer.used_size[geometrybuffer.indexBuffer.get_in_use_index()] / sizeof(uint32_t), 1, 0, 0, 0);
 
     vkCmdEndRenderPass(commandBuffer);
 

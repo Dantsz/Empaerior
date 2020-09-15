@@ -26,7 +26,7 @@ class APP_State1 : public Empaerior::State
 
 public:
 
-	APP_State1(VK_Renderer* renderer)
+	APP_State1(VK_Renderer* renderer, Empaerior::u_inter originText)
 	{
 		ecs.Init();
 		sprite_system = ecs.register_system<Empaerior::singleSpriteSystem>();
@@ -34,13 +34,17 @@ public:
 		ecs.register_component<Empaerior::singleSprite_Component>();
 		ecs.add_criteria_for_iteration<Empaerior::singleSpriteSystem, Empaerior::singleSprite_Component>();
 
+		Empaerior::Sprite greenerboi;
+		Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, greenerboi, { 0,0,100,100 }, { 0,0,600,600 }, 1);
 
 		morge.id = ecs.create_entity_ID();
 		ecs.add_component<Empaerior::singleSprite_Component>(morge.id, {});
+		sprite_system->createSprite(ecs, morge.id, { 100,100,320,320 }, {0,0,600,600}, 1);
 
+		
 
-		sprite_system->createSprite(ecs, morge.id, { 0,0,320,320 }, {0,0,600,600}, 1);
-
+		
+		Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, greenerboi, { 0,0,100,100 }, { 0,0,600,600 }, 1);
 
 	}
 
@@ -58,7 +62,7 @@ public:
 
 		i++;
 		if (i > 20) i = 0;
-		Empaerior::setSpriteTexture(ecs.get_component<Empaerior::singleSprite_Component>(morge.id).sprites, i/10);
+	//	Empaerior::setSpriteTexture(ecs.get_component<Empaerior::singleSprite_Component>(morge.id).sprites, i/10);
 
 		//UPDATE 
 
@@ -91,7 +95,7 @@ private:
 
 	int angle = 0;
 	Empaerior::Entity morge;
-	
+	std::vector<Empaerior::Entity> norge;
 
 };
 
@@ -130,22 +134,12 @@ public:
 		auto originText = vk.texture_atlas.create_texture_from_file("assets/textur3e.png");
 		auto greenboiTxt = vk.texture_atlas.create_texture_from_file("assets/green_boi.png");
 	
-		main_state = push_state(new APP_State1(&vk));
+		main_state = push_state(new APP_State1(&vk,originText));
 		activate_state(main_state);
 		
 
-		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/idk.ttf", 64);
-		Empaerior::createTextSprite(vk.geometrybuffer, vk.texture_atlas, textboiii, { 0,0,320,320 }, { 32,32 }, idk, "nuidffufdsfdsfdsfdsigfguiiuuwdfuguwgweewggigewiue", { 255,255,255 });
-	
-
-
 		
-
-		Empaerior::createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { 16,32,32,32 }, { 0,0,vk.texture_atlas.image_dimensions[originText][0],vk.texture_atlas.image_dimensions[originText][1] }, originText2);
 	
-		Empaerior::createSprite(vk.geometrybuffer, vk.texture_atlas, greenerboi, { 48,32,32,32 }, { 0,0,vk.texture_atlas.image_dimensions[originText][0],vk.texture_atlas.image_dimensions[originText][1] }, originText2);
-	
-
 	}
 	
 	~Test_Aplication()
@@ -253,7 +247,7 @@ public:
 				//std::cout <<"Frame time: " << timy.getTicks()<< ' '  << "FPS: " << 1000/ ( timy.getTicks<double,std::chrono::nanoseconds>()/ 1000000.0f) << '\n';
 				timy.stop();
 				vk.present();
-	
+				//dump_data(vk.geometrybuffer);
 				
 				
 				//
