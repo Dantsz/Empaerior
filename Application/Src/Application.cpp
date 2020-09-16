@@ -44,8 +44,14 @@ public:
 		
 
 		
-		Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, greenerboi, { 0,0,100,100 }, { 0,0,600,600 }, 1);
-
+	
+		for (float i = 0; i < 5; i++)
+		{
+			for (float j = 0; j < 7; j++)
+			{
+				Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, greenerboi, { 100 * i,100 * j,100,100 }, { 0,0,600,600 }, 1);
+			}
+		}
 	}
 
 
@@ -227,7 +233,7 @@ public:
 
 				timy.start();
 
-				//dump_data(vk.geometrybuffer);
+				dump_data(vk.geometrybuffer);
 
 				ImGui_Emp::NewFrame(window, vk);
 				ShowImGuiWindows();

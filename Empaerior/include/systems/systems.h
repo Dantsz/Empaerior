@@ -149,7 +149,7 @@ namespace Empaerior
 
 		void OnEntityRemovedfromSystem(Empaerior::ECS* ecs, const Empaerior::u_inter& entity_id) override
 		{
-			Empaerior::destroySprite(ecs->get_component<singleSprite_Component>(entity_id).sprites);
+			//Empaerior::destroySprite(ecs->get_component<singleSprite_Component>(entity_id).sprites);
 		}
 		
 

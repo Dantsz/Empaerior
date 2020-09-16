@@ -152,9 +152,7 @@ struct DynamicBuffer
 		
 			BufferSize[index] = BufferSize[index] + size;
 			used_size[index] = used_size[index] ;
-			
-			
-			
+
 			
 		}
 		
@@ -174,15 +172,15 @@ struct DynamicBuffer
 		//create a new pointer
 		size_t place;
 		//check if there's space available
-		std::cout << BufferSize[get_in_use_index()] << ' ' << used_size[get_in_use_index()] << ' ' <<  BufferSize[get_in_use_index()] - used_size[get_in_use_index()] << '\n';
-		if (size < BufferSize[get_in_use_index()] - used_size[get_in_use_index()])
-		{
-			place = index.emplace_back(used_size[get_in_use_index()]);
+		
+		
+		
+		place = index.emplace_back(used_size[get_in_use_index()]);
 			
-		}
-		else // create new space
+		
+		if (size >= BufferSize[get_in_use_index()] - used_size[get_in_use_index()]) // create new space
 		{
-			place = index.emplace_back(BufferSize[get_in_use_index()]);
+			
 			//expand the buffer while the new allocation is bigger
 			
 			while (BufferSize[get_in_use_index()] - used_size[get_in_use_index()]  < size)
@@ -329,8 +327,8 @@ struct geometryBuffer
 	uint32_t images;
 
 
-	const size_t initialVertexSize = 40ULL * sizeof(Vertex);
-	const size_t initialIndexSize = 60ULL * sizeof(uint32_t);
+	const size_t initialVertexSize = 4ULL * sizeof(Vertex);
+	const size_t initialIndexSize = 6ULL * sizeof(uint32_t);
 };
 
 
