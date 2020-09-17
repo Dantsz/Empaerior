@@ -213,7 +213,7 @@ struct DynamicBuffer
 			DONE
 		
 		*/
-
+		
 		used_size[get_in_use_index()] -= size;
 		
 		unsigned char* data = (unsigned char*) BuffersData[get_in_use_index()];
@@ -227,6 +227,7 @@ struct DynamicBuffer
 
 		
 		//remove from index
+		
 		index.remove(allocationIndex);
 		
 

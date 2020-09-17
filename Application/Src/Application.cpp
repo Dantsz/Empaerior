@@ -32,7 +32,7 @@ public:
 		sprite_system = ecs.register_system<Empaerior::singleSpriteSystem>();
 		sprite_system->Init(renderer);
 		ecs.register_component<Empaerior::singleSprite_Component>();
-		ecs.add_criteria_for_iteration<Empaerior::singleSpriteSystem, Empaerior::singleSprite_Component>();
+		//ecs.add_criteria_for_iteration<Empaerior::singleSpriteSystem, Empaerior::singleSprite_Component>();
 
 		Empaerior::Sprite greenerboi;
 		Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, greenerboi, { 0,0,100,100 }, { 0,0,600,600 }, 1);
@@ -49,9 +49,15 @@ public:
 		{
 			for (float j = 0; j < 7; j++)
 			{
-				Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, greenerboi, { 100 * i,100 * j,100,100 }, { 0,0,600,600 }, 1);
+				borge.push_back({});
+				Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, borge[borge.size() -1], { 100 * i,100 * j,100,100 }, { 0,0,600,600 }, 1);
 			}
 		}
+		Empaerior::destroySprite(borge[25]);
+		//Empaerior::setSpriteDimensions(borge[25], 0.0f, 0.0f);
+		//Empaerior::destroySprite(borge[30]);
+
+	
 	}
 
 
@@ -102,6 +108,7 @@ private:
 	int angle = 0;
 	Empaerior::Entity morge;
 	std::vector<Empaerior::Entity> norge;
+	std::vector<Empaerior::Sprite> borge;
 
 };
 
@@ -204,8 +211,8 @@ public:
 
 
 				auto position = Empaerior::Input::Mouse::get_world_mouse_coords(vk.GraphicsSettings, vk.ubo);
-				//std::cout << position[0]	 << ' ' << position[1] << '\n';
-				
+	
+
 				
 				vk.ubo.position_mat = glm::translate(glm::mat4(1.0f), glm::vec3(vk.ubo.position.x * -1, vk.ubo.position.y * -1 , 1.0f));
 				
@@ -250,7 +257,7 @@ public:
 				vk.drawFrame();
 				
 
-				//std::cout <<"Frame time: " << timy.getTicks()<< ' '  << "FPS: " << 1000/ ( timy.getTicks<double,std::chrono::nanoseconds>()/ 1000000.0f) << '\n';
+				
 				timy.stop();
 				vk.present();
 				//dump_data(vk.geometrybuffer);

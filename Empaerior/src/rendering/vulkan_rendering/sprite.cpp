@@ -16,9 +16,9 @@ namespace Empaerior
 		sprite.rect.angle = 0.0f;
 
 
-		sprite.IndicesIndex = buffer.indexBuffer.allocate(6 * sizeof(uint32_t));
+		sprite.indicesIndex = buffer.indexBuffer.allocate(6 * sizeof(uint32_t));
 		sprite.verticesIndex = buffer.vertexBuffer.allocate(4 * sizeof(Vertex));
-		sprite.IndicesSize = 6 * sizeof(uint32_t);
+		sprite.indicesSize = 6 * sizeof(uint32_t);
 		sprite.verticesSize = 4 * sizeof(Vertex);
 
 		sprite.texture_id = tex_id;
@@ -29,13 +29,13 @@ namespace Empaerior
 		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2) = { { rect.x + rect.w, rect.y + rect.h,0.0f}, {0.14f,1.0f},tex_id, {0.0f,0.0f,0.0f} };
 		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3) = { { rect.x + rect.w,rect.y ,0.0f},          {0.14f,0.0f},tex_id , {0.0f,0.0f,0.0f} };
 
-		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t)) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex));
-		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 1) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1);
-		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 2) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2);
+		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t)) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex));
+		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 1) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1);
+		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 2) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2);
 
-		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 3) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2);
-		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 4) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3);
-		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 5) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex));
+		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 3) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2);
+		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 4) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3);
+		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 5) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex));
 
 		setSpriteTexRect(sprite, tex_rect);
 		
@@ -76,13 +76,13 @@ namespace Empaerior
 			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2 + i * 4) = { { beginX + font.glyphSize[message[i]].Mwidth ,      beginY + CharHeight + (font.glyphSize[message[i]].MHeight - font.glyphSize[message[i]].HbearingY) ,           0.0f},                {0.14f,1.0f}, sprite.texture_id , color };
 			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3 + i * 4) = { { beginX + font.glyphSize[message[i]].Mwidth,       beginY + (CharHeight - font.glyphSize[message[i]].HbearingY) ,0.0f},     {0.14f,0.0f}, sprite.texture_id , color };
 
-			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + i * 6) =     static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i * 4);
-			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 1 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1 + i * 4);
-			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 2 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2 + i * 4);
+			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + i * 6) =     static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i * 4);
+			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 1 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1 + i * 4);
+			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 2 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2 + i * 4);
 
-			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 3 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2 + i * 4);
-			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 4 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3 + i * 4);
-			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.IndicesIndex] / sizeof(uint32_t) + 5 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i * 4);
+			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 3 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2 + i * 4);
+			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 4 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3 + i * 4);
+			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 5 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i * 4);
 
 			//set texture cropping (how much of a letter is visible)
 			Empaerior::fl_point  visibilityX = CharWidth / (charDimensions.elements[0] * ar);
@@ -108,10 +108,10 @@ namespace Empaerior
 		sprite.parent = &buffer;
 		sprite.parent_atlas = &atlas;
 
-		sprite.IndicesIndex = buffer.indexBuffer.allocate(strlen(message) * 6 * sizeof(uint32_t));
+		sprite.indicesIndex = buffer.indexBuffer.allocate(strlen(message) * 6 * sizeof(uint32_t));
 		sprite.verticesIndex = buffer.vertexBuffer.allocate(strlen(message) * 4 * sizeof(Vertex));
 
-		sprite.IndicesSize = strlen(message) * 6 * sizeof(uint32_t);
+		sprite.indicesSize = strlen(message) * 6 * sizeof(uint32_t);
 		sprite.verticesSize = strlen(message) *  4 * sizeof(Vertex);
 
 
@@ -183,7 +183,7 @@ namespace Empaerior
 	void setSpriteAngle(Sprite& sprite, Empaerior::fl_point angle)
 	{
 		sprite.rect.angle = angle;
-		//get the middle of the spritw
+		//get the middle of the sprite
 		Empaerior::fl_point midX = sprite.rect.dimensions.x + sprite.rect.dimensions.w / 2 ,
 			                midY = sprite.rect.dimensions.y + sprite.rect.dimensions.h / 2;
 #define vertex ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
@@ -305,15 +305,17 @@ namespace Empaerior
 	{
 
 		uint32_t* data = (uint32_t*)sprite.parent->indexBuffer.BuffersData[sprite.parent->indexBuffer.get_in_use_index()];
-
-
+	
 		//the vertex data will  move , so the index buffer needs to be adjusted
-		for (size_t i = sprite.parent->indexBuffer.index[sprite.IndicesIndex]; i < sprite.parent->indexBuffer.used_size[sprite.parent->indexBuffer.get_in_use_index()]; i++)
+	
+		for (size_t i = (sprite.parent->indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t)); i < (sprite.parent->indexBuffer.used_size[sprite.parent->indexBuffer.get_in_use_index()] / sizeof(uint32_t) ); i++)
 		{
-			data[i] -= static_cast<uint32_t>(sprite.verticesSize / sizeof(Vertex));
+			
+		  data[i] -= static_cast<uint32_t>(sprite.verticesSize / sizeof(Vertex));
+		
 		}
 
-		sprite.parent->indexBuffer.deallocate(sprite.IndicesIndex, sprite.IndicesSize);
+		sprite.parent->indexBuffer.deallocate(sprite.indicesIndex, sprite.indicesSize);
 		sprite.parent->vertexBuffer.deallocate(sprite.verticesIndex, sprite.verticesSize);
 
 
