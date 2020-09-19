@@ -199,7 +199,7 @@ struct DynamicBuffer
 
 
 	//removes the data segment entierly,
-	//costly
+	//COSTLY OPERATION
 	void deallocate(size_t allocationIndex, size_t size)
 	{
 		//std::cout << "Deallocating " << size << " bytes\n";
@@ -218,11 +218,19 @@ struct DynamicBuffer
 		
 		unsigned char* data = (unsigned char*) BuffersData[get_in_use_index()];
 
-	
+		
 		//overwrite deleted data to fill the hole
 		for (size_t i = index[allocationIndex] ; i < used_size[get_in_use_index()] ; i++)
 		{
 			data[i] = data[i + size];
+		}
+		//adjust the allocations
+		for (size_t i = 0; i < index.objects.size(); i++)
+		{
+			if (index.objects[i] >= index[allocationIndex])
+			{
+				index.objects[i] -= size;
+			}
 		}
 
 		
@@ -247,6 +255,10 @@ struct DynamicBuffer
 		}
 	}
 
+	void resetBuffer()
+	{
+
+	}
 };
 
 

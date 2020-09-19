@@ -305,7 +305,10 @@ namespace Empaerior
 	{
 
 		uint32_t* data = (uint32_t*)sprite.parent->indexBuffer.BuffersData[sprite.parent->indexBuffer.get_in_use_index()];
-	
+		ENGINE_INFO(std::string("Deleting  sprite : \n Indices index: " 
+			+ std::to_string(sprite.indicesIndex) + "->" + std::to_string(sprite.parent->indexBuffer.index[sprite.indicesIndex]) + '\n' 
+			+ "Vertices index: " + std::to_string(sprite.verticesIndex) + "->" + std::to_string(sprite.parent->vertexBuffer.index[sprite.verticesIndex]) + '\n'	
+		));
 		//the vertex data will  move , so the index buffer needs to be adjusted
 	
 		for (size_t i = (sprite.parent->indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t)); i < (sprite.parent->indexBuffer.used_size[sprite.parent->indexBuffer.get_in_use_index()] / sizeof(uint32_t) ); i++)

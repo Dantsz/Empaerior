@@ -35,11 +35,11 @@ public:
 		//ecs.add_criteria_for_iteration<Empaerior::singleSpriteSystem, Empaerior::singleSprite_Component>();
 
 		Empaerior::Sprite greenerboi;
-		Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, greenerboi, { 0,0,100,100 }, { 0,0,600,600 }, 1);
+	//	Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, greenerboi, { 0,0,100,100 }, { 0,0,600,600 }, 1);
 
 		morge.id = ecs.create_entity_ID();
 		ecs.add_component<Empaerior::singleSprite_Component>(morge.id, {});
-		sprite_system->createSprite(ecs, morge.id, { 100,100,320,320 }, {0,0,600,600}, 1);
+	//	sprite_system->createSprite(ecs, morge.id, { 100,100,320,320 }, {0,0,600,600}, 1);
 
 		
 
@@ -54,6 +54,7 @@ public:
 			}
 		}
 		Empaerior::destroySprite(borge[25]);
+		Empaerior::destroySprite(borge[26]);
 		//Empaerior::setSpriteDimensions(borge[25], 0.0f, 0.0f);
 		//Empaerior::destroySprite(borge[30]);
 
@@ -240,7 +241,7 @@ public:
 
 				timy.start();
 
-				dump_data(vk.geometrybuffer);
+			//	dump_data(vk.geometrybuffer);
 
 				ImGui_Emp::NewFrame(window, vk);
 				ShowImGuiWindows();
