@@ -13,14 +13,14 @@ namespace Empaerior
 		size_t verticesIndex;
 		size_t indicesIndex;
 		
-		uint32_t texture_id;
+		
 
 		//the size of the allocations in bytes
 		size_t verticesSize;
 		size_t indicesSize;
 
 		Empaerior::Float_Rect rect;
-
+		uint32_t texture_id;
 
 		geometryBuffer* parent;
 		Texture_Atlas* parent_atlas;

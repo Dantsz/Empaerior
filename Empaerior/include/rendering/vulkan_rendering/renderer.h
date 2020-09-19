@@ -51,7 +51,7 @@ public:
    
 
 
-    uint32_t imageIndex;
+ 
 
     Texture_Atlas texture_atlas;
 
@@ -114,7 +114,7 @@ public:
 
     VmaAllocator allocator;
 
-    bool framebufferNeedsReconstruction = false;
+  
 
     std::vector<VkCommandBuffer> inUseCommandBuffers;
     size_t mainCommandBufferinUseIndex;
@@ -124,6 +124,8 @@ public:
    
     Empaerior::Camera2D ubo{};
 
+    uint32_t imageIndex;
+    bool framebufferNeedsReconstruction = false;
 private:
 
 

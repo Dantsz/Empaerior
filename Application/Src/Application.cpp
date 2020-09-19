@@ -58,7 +58,7 @@ public:
 		//Empaerior::setSpriteDimensions(borge[25], 0.0f, 0.0f);
 		//Empaerior::destroySprite(borge[30]);
 
-	
+		//renderer->geometrybuffer.reset();
 	}
 
 
@@ -140,7 +140,7 @@ public:
 
 
 		ImGui_Emp::Init(window, vk);
-
+		ENGINE_INFO(std::string("Sprite Size : " + std::to_string(sizeof(Empaerior::Sprite))));
 		
 		
 	
@@ -233,6 +233,10 @@ public:
 					Empaerior::createSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { position[0],position[1],10,10 }, { 0,0,vk.texture_atlas.image_dimensions[2][0],vk.texture_atlas.image_dimensions[2][1] }, 2);
 
 
+				}
+				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_N))
+				{
+					vk.geometrybuffer.reset();
 				}
 
 				Update(0);

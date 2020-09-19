@@ -18,6 +18,7 @@ struct Vertex {
 	uint32_t tex_id;
 	glm::vec3 color;
 	
+	
 	static VkVertexInputBindingDescription getBindingDescription() {
 		VkVertexInputBindingDescription bindingDescription{};
 		bindingDescription.binding = 0;
@@ -64,7 +65,7 @@ struct DynamicBuffer
 	VkBuffer inUseBuffer;
 	VkDevice device;
 
-	size_t inUseBufferIndex = 0 ;
+
 
 	std::vector<VkBuffer> Buffers;
 
@@ -74,9 +75,10 @@ struct DynamicBuffer
 	std::vector<size_t> used_size;
 	std::vector<void*> BuffersData;
 	VkBufferUsageFlagBits usage;
-
-	bool updateBuffer = false;
 	VmaAllocator* m_allocator;
+	size_t inUseBufferIndex = 0;
+	bool updateBuffer = false;
+
 
 	//set initial size and creates the initial buffers
 	void Init(size_t initialSize)
@@ -254,10 +256,22 @@ struct DynamicBuffer
 			updateBuffer = false;
 		}
 	}
-
+	//invalidates all allocations
 	void resetBuffer()
 	{
-
+		//clear direct allocations
+		index.objects.clear();
+		index.freed_indexes.clear();
+		//"delete" the data
+		for (size_t i = 0; i < buffering; i++)
+		{
+			used_size[i] = 0;
+		}
+		//no updates
+		updateBuffer = false;
+		//go to the first buff
+		inUseBufferIndex = 0;
+		inUseBuffer = Buffers[0];
 	}
 };
 
@@ -328,6 +342,14 @@ struct geometryBuffer
 	{
 		indexBuffer.updateInUseBuffers();
 		vertexBuffer.updateInUseBuffers();
+		
+	}
+
+	//reset the buffer to the original state
+	void reset()
+	{
+		indexBuffer.resetBuffer();
+		vertexBuffer.resetBuffer();
 		
 	}
 

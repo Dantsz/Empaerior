@@ -17,20 +17,21 @@ namespace Empaerior
 
 	struct Font
 	{
-		FT_Face fontFace;
+		
 
 		std::vector<Empaerior::byte> fontTexture;
-
+		std::unique_ptr<char[]> name;
 		//the size of each individual glyph
 		// glyphSize[i] , i - code of the character
 		std::vector<Empaerior::FontLoading::GlyphDimesnsions> glyphSize;
-
-		
 		Empaerior::u_inter texWidth, texHeight;
+		
+	
 		//the sizes of the whole images
 		//its the size of the largest glyph 
+		FT_Face fontFace;
 		Empaerior::fl_point glyphWidth, glyphHeight;
-		std::unique_ptr<char[]> name;
+	
 
 	};
 
