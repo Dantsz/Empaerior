@@ -18,7 +18,9 @@
 #include "input/input.h"
 #include <stb_image.h>
 #include <rendering/vulkan_rendering/sprite.h>
-
+inline Empaerior::Font idk;
+inline std::string message = "gpdr";
+inline Empaerior::Sprite lol;
 //
 //a user defined state
 class APP_State1 : public Empaerior::State
@@ -43,7 +45,7 @@ public:
 
 		
 
-		
+		Empaerior::Sprite testy;
 	
 		for (float i = 0; i < 5; i++)
 		{
@@ -53,8 +55,16 @@ public:
 				Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, borge[borge.size() -1], { 100 * i,100 * j,100,100 }, { 0,0,600,600 }, 1);
 			}
 		}
-		Empaerior::destroySprite(borge[25]);
-		Empaerior::destroySprite(borge[26]);
+		Empaerior::createTextSprite(renderer->geometrybuffer, renderer->texture_atlas, lol, {500,100,1000,1000}, {32,32}, idk, "gffgfgfgfgfg", { 255,255,255 });
+
+		Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, testy, { 500 ,200 ,100,100 }, { 0,0,600,600 }, 1);
+		
+		//std::cout << renderer->geometrybuffer.indexBuffer.index[testy.indicesIndex] / 6<< '\n';
+		//Empaerior::destroySprite(lol);
+		//Empaerior::createTextSprite(renderer->geometrybuffer, renderer->texture_atlas, lol, { 500,100,1000,1000 }, { 32,32 }, idk, "1234", { 255,255,255 });
+
+
+		//Empaerior::setTextSpriteMessage(lol, { 500,100,1000,1000 }, { 32,32 }, idk, "1234", { 255,255,255 });
 		//Empaerior::setSpriteDimensions(borge[25], 0.0f, 0.0f);
 		//Empaerior::destroySprite(borge[30]);
 
@@ -147,13 +157,17 @@ public:
 		auto originText2 = vk.texture_atlas.create_texture_from_file("assets/textur2e.png");
 		auto originText = vk.texture_atlas.create_texture_from_file("assets/textur3e.png");
 		auto greenboiTxt = vk.texture_atlas.create_texture_from_file("assets/green_boi.png");
-	
+		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/idk.ttf", 32);
 
 	
 
 
 
 		main_state = push_state(new APP_State1(&vk,originText));
+		
+
+
+
 		activate_state(main_state);
 		
 
@@ -243,6 +257,17 @@ public:
 				{
 					vk.geometrybuffer.reset();
 				}
+				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_O))
+				{
+					dump_data(vk.geometrybuffer);
+				}
+				
+				if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_E))
+				{
+					message += 'x';
+					Empaerior::setTextSpriteMessage(lol, { 500,100,1000,1000 }, { 32,32 }, idk, message.c_str(), {255,255,255});
+				}
+
 
 				Update(0);
 
@@ -250,7 +275,7 @@ public:
 
 				timy.start();
 
-			//	dump_data(vk.geometrybuffer);
+			//	
 
 				ImGui_Emp::NewFrame(window, vk);
 				ShowImGuiWindows();
@@ -405,7 +430,7 @@ public:
 	VK_Renderer vk;
 	float forTest = 0;
 	float i  = 0, j = 0;
-	Empaerior::Font idk;
+
 	std::string str = "1111111";
 };
 

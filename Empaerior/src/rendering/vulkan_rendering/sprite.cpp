@@ -282,12 +282,16 @@ namespace Empaerior
 		else
 		{
 			//overwrite the currently allocated buffer data with the message and make the rest of the data invisible
-		
+			
 			Vertex* vertexData = (Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()];
+
 			for (size_t i = 0; i < (sprite.verticesSize / sizeof(Vertex) - strlen(message)); i++)
 			{
-				(vertexData  +4 * strlen(message) + (sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i))->color = { 0.0f,0.0f,0.0f };
-				(vertexData + 4 * strlen(message) + (sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i))->pos = { 0.0f,0.0f,0.0f };
+				(vertexData  + (sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i))->color = { 0.0f,0.0f,0.0f };
+				(vertexData  + (sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i))->pos = { 0.0f,0.0f,0.0f };
+				(vertexData  + (sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i))->texCoord = { 0.0f,0.0f };
+				(vertexData  + (sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i))->tex_id = 0;
+
 			}
 			
 			Empaerior::setupTextSprite(*sprite.parent, *sprite.parent_atlas, sprite, rect, charDimensions, font, message, color);
