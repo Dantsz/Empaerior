@@ -10,7 +10,10 @@
 #include "../include/core/unsafe_vector.h"
 #define buffering 2
 #include <iostream>
+
+
 #include "../include/debugging/log.h"
+
 
 struct Vertex {
 	glm::vec3 pos;

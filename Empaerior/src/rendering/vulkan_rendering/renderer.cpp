@@ -5,7 +5,11 @@
 #include <array>
 #include <fstream>
 #include <optional>
+
 #include "../../../include/debugging/log.h"
+
+
+
 #include <algorithm>
 #include <SDL_vulkan.h>
 #define GLM_FORCE_RADIANS

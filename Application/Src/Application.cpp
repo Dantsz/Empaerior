@@ -148,6 +148,11 @@ public:
 		auto originText = vk.texture_atlas.create_texture_from_file("assets/textur3e.png");
 		auto greenboiTxt = vk.texture_atlas.create_texture_from_file("assets/green_boi.png");
 	
+
+	
+
+
+
 		main_state = push_state(new APP_State1(&vk,originText));
 		activate_state(main_state);
 		
