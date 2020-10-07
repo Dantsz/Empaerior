@@ -265,6 +265,8 @@ public:
 				if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_E))
 				{
 					message += 'x';
+			
+					
 					Empaerior::setTextSpriteMessage(lol, { 500,100,1000,1000 }, { 32,32 }, idk, message.c_str(), {255,255,255});
 				}
 
@@ -276,7 +278,7 @@ public:
 				timy.start();
 
 			//	
-
+				
 				ImGui_Emp::NewFrame(window, vk);
 				ShowImGuiWindows();
 		

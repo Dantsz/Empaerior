@@ -17,7 +17,7 @@
 const inline int MAX_FRAMES_IN_FLIGHT = 2;
 const inline std::vector<const char*> validationLayers = {
     "VK_LAYER_KHRONOS_validation",
-    "VK_LAYER_LUNARG_standard_validation",
+
 
 };
 

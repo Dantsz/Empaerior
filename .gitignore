@@ -366,3 +366,4 @@ build/Application/Makefile
 build/Empaerior/Makefile
 #Ignore anything external
 External_Libraries/
+/Application/Application.exe

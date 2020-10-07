@@ -119,6 +119,10 @@ static  bool checkValidationLayerSupport() {
         }
 
         if (!layerFound) {
+            std::string message = "Validation Layer : ";
+            message += layerName;
+            message +=" is missing " ;
+            ENGINE_CRITICAL(message);
             return false;
         }
     }
