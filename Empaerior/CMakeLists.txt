@@ -97,12 +97,9 @@ set(ALL_FILES
 ################################################################################
 add_library(${PROJECT_NAME} STATIC ${ALL_FILES})
 
-use_props(${PROJECT_NAME} "${CMAKE_CONFIGURATION_TYPES}" "${DEFAULT_CXX_PROPS}")
+
 set(ROOT_NAMESPACE Empaerior)
 
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    VS_GLOBAL_KEYWORD "Win32Proj"
-)
 ################################################################################
 # Target name
 ################################################################################
@@ -116,13 +113,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 ################################################################################
 # Output directory
 ################################################################################
-if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "Win32")
-    set_target_properties(${PROJECT_NAME} PROPERTIES
-        OUTPUT_DIRECTORY_DEBUG   "${CMAKE_CURRENT_SOURCE_DIR}/../bin/Debug32-windows-/Empaerior/"
-        OUTPUT_DIRECTORY_DIST    "${CMAKE_CURRENT_SOURCE_DIR}/../bin/Dist32-windows-/Empaerior/"
-        OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_SOURCE_DIR}/../bin/Release32-windows-/Empaerior/"
-    )
-elseif("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
     set_target_properties(${PROJECT_NAME} PROPERTIES
         OUTPUT_DIRECTORY_DEBUG   "${CMAKE_CURRENT_SOURCE_DIR}/../bin/Debug64-windows-/Empaerior/"
         OUTPUT_DIRECTORY_DIST    "${CMAKE_CURRENT_SOURCE_DIR}/../bin/Dist64-windows-/Empaerior/"
@@ -130,7 +120,7 @@ elseif("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
 		
 		
     )
-endif()
+
 ################################################################################
 # Include directories
 ################################################################################
@@ -143,79 +133,8 @@ endif()
 		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/glm;"
 		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/VulkanSDK/include;"
 		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/VulkanMemoryAllocator/src;"
-        	"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/spdlog/include"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/spdlog/include"
 		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/freetype/include"
     )
 
 
-################################################################################
-# Compile definitions
-################################################################################
-
-    target_compile_definitions(${PROJECT_NAME} PRIVATE
-        "$<$<CONFIG:Debug>:"
-            "EMPAERIOR_DEBUG"
-        ">"
-        "$<$<CONFIG:Dist>:"
-            "EMPAERIOR_DIST"
-        ">"
-        "$<$<CONFIG:Release>:"
-            "EMPAERIOR_RELEASE"
-        ">"
-        "_CRT_SECURE_NO_WARNINGS;"
-        "EMPAERIOR_WINDOWS;"
-        "UNICODE;"
-        "_UNICODE"
-    )
-
-
-################################################################################
-# Compile and link options
-################################################################################
-if(MSVC)
- 
-        target_compile_options(${PROJECT_NAME} PRIVATE
-            $<$<CONFIG:Debug>:
-                /Od;
-                /MD;
-                /ZI
-            >
-            $<$<CONFIG:Dist>:
-                /Gm-;
-                /Ox;
-                /Oi;
-                /GF;
-                /MD;
-                /Gy;
-				/Ot;
-                ${DEFAULT_CXX_DEBUG_INFORMATION_FORMAT}
-            >
-            $<$<CONFIG:Release>:
-                /Gm-;
-                /Ox;
-                /Oi;
-                /GF;
-                /MD;
-                /Gy;
-                ${DEFAULT_CXX_DEBUG_INFORMATION_FORMAT}
-            >
-            /std:c++17;
-            /W3;
-            ${DEFAULT_CXX_EXCEPTION_HANDLING};
-            /Y-
-        )
-   
-    
-        target_link_options(${PROJECT_NAME} PRIVATE
-            $<$<CONFIG:Dist>:
-                /OPT:REF;
-                /OPT:ICF
-            >
-            $<$<CONFIG:Release>:
-                /OPT:REF;
-                /OPT:ICF
-            >
-            /SUBSYSTEM:WINDOWS
-        )
-   
-endif()

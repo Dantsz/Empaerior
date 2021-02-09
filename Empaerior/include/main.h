@@ -117,7 +117,6 @@ int main(int argc, char** argv)
 	}
 	
 
-	
 
 #ifdef EMP_USE_LOGS
 	ENGINE_INFO("Stoping Application");
@@ -132,10 +131,9 @@ int main(int argc, char** argv)
 
 
 	SDLW::Quit();
-	
 
-#ifdef EMP_USE_LOGS
-	ENGINE_WARN("Stopped Application");
-#endif // EMPAERIOR_DEBUG
+
 	return 0;
+
+
 }

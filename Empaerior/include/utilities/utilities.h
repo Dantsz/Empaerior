@@ -45,7 +45,7 @@ namespace Empaerior
 		{
 			return SDL_GetSystemRAM();
 		}
-
+		[[deprecated]]
 		EMP_FORCEINLINE std::string get_date_string()
 		{
 			 auto t = std::time(nullptr);

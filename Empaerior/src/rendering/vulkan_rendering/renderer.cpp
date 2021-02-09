@@ -58,7 +58,7 @@ static std::vector<char> readFile(const std::string& filename) {
 }
 
 static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData) {
-    std::cerr << "validation layer: " << pCallbackData->pMessage << std::endl;
+    //std::cerr << "validation layer: " << pCallbackData->pMessage << std::endl;
 
     return VK_FALSE;
 }
@@ -158,14 +158,14 @@ static QueueFamilyIndices findQueueFamilies(VkSurfaceKHR& surface, VkPhysicalDev
     int i = 0;
     for (const auto& queueFamily : queueFamilies) {
         if (queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT) {
-            indices.graphicsFamily = i;
+            indices.graphicsFamily.value() = i;
         }
 
         VkBool32 presentSupport = false;
         vkGetPhysicalDeviceSurfaceSupportKHR(device, i, surface, &presentSupport);
 
         if (presentSupport) {
-            indices.presentFamily = i;
+            indices.presentFamily.value() = i;
         }
 
         if (indices.isComplete()) {
@@ -674,7 +674,7 @@ void VK_Renderer::createAllocator()
     VmaAllocatorCreateInfo allocatorInfo = {};
     allocatorInfo.physicalDevice = physicalDevice;
     allocatorInfo.device = device;
-    allocatorInfo.pVulkanFunctions;
+    //allocatorInfo.pVulkanFunctions;
     allocatorInfo.instance = instance;
     vmaCreateAllocator(&allocatorInfo, &allocator);
 

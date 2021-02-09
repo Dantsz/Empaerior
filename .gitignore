@@ -357,6 +357,9 @@ Application/*.dll
 #Ignore spdlog
 External_Libraries/spdlog
 
+#build folder
+build/
+
 #Ignore CMakefiles
 CMakeFiles/
 build/Makefile
@@ -364,6 +367,11 @@ build/Application/cmake_install.cmake
 build/Empaerior/cmake_install.cmake
 build/Application/Makefile
 build/Empaerior/Makefile
+
 #Ignore anything external
 External_Libraries/
 /Application/Application.exe
+
+#Ignore Assets
+assets/
+shaders/

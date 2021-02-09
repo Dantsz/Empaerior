@@ -36,6 +36,10 @@ namespace Empaerior
 		FT_Face fontFace;
 		Empaerior::fl_point glyphWidth, glyphHeight;
 	
+		~Font()
+		{
+			
+		}
 
 	};
 
@@ -69,8 +73,9 @@ namespace Empaerior
 				ENGINE_ERROR("File cannot be opened or file is broken");
 			}
 
-			font.name = std::make_unique<char[]>(strlen(path));
-			strcpy(font.name.get(), path);
+			font.name = std::make_unique<char[]>(strlen(path)+ 1);
+			//do alternative here pls
+			strncpy(font.name.get(), path,strlen(path));
 		}
 
 		EMP_FORCEINLINE void createFontFacefrommemory(Font& font, const Empaerior::byte* buffer, Empaerior::s_inter size)
@@ -103,7 +108,7 @@ namespace Empaerior
 			if (FT_Load_Char(font.fontFace, 'P', FT_LOAD_RENDER))
 				std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
 
-			font.fontFace->glyph->bitmap;
+			
 
 			size_t width = font.fontFace->glyph->bitmap.width;
 			size_t height = font.fontFace->glyph->bitmap.rows;

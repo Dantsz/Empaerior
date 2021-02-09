@@ -52,7 +52,7 @@ template <length_t width , length_t height, typename type>
     template<length_t dim , typename type>
     constexpr Empaerior::mat<dim, dim,type> identity_mat()
     {
-        mat<width, height, type> temp;
+        mat<dim, dim, type> temp;
         for (length_t i = 0; i < dim; i++)
         {
             temp[i][i] = 0;
