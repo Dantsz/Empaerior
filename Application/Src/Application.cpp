@@ -145,7 +145,7 @@ public:
 		
 		
 		
-		Empaerior::FontLoading::initFontEngine();
+	
 
 		//make the state active
 

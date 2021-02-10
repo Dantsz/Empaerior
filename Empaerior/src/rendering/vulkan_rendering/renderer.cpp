@@ -379,7 +379,7 @@ void VK_Renderer::Init(SDL_Window* window)
         ENGINE_ERROR("Invalid window");
 
     }
-
+	Empaerior::FontLoading::initFontEngine();
     initVulkan();
 
     //  recordCommandBuffer(commandBuffers[imageIndex], swapChainFramebuffers[imageIndex], &geometrybuffer.vertexBuffer.inUseBuffer, geometrybuffer.indexBuffer.inUseBuffer, &descriptorSets[imageIndex]);
