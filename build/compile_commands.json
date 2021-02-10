@@ -101,6 +101,11 @@
 },
 {
   "directory": "C:/Users/Dan/source/repos/Empaerior/build",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -I../Empaerior/src -I../Empaerior/../External_Libraries/SDL/SDL2/include -I../Empaerior/../External_Libraries/SDL/SDL2_mixer/include -I../Empaerior/../External_Libraries/stb -I../Empaerior/../External_Libraries/glm -I../Empaerior/../External_Libraries/VulkanSDK/include -I../Empaerior/../External_Libraries/VulkanMemoryAllocator/src -I../Empaerior/../External_Libraries/spdlog/include -I../Empaerior/../External_Libraries/freetype/include -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -std=c++17 -o Empaerior\\CMakeFiles\\Empaerior.dir\\src\\rendering\\vulkan_rendering\\glyphs.cpp.obj -c C:\\Users\\Dan\\source\\repos\\Empaerior\\Empaerior\\src\\rendering\\vulkan_rendering\\glyphs.cpp",
+  "file": "C:/Users/Dan/source/repos/Empaerior/Empaerior/src/rendering/vulkan_rendering/glyphs.cpp"
+},
+{
+  "directory": "C:/Users/Dan/source/repos/Empaerior/build",
   "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE -I../Empaerior/src -I../Empaerior/../External_Libraries/SDL/SDL2/include -I../Empaerior/../External_Libraries/SDL/SDL2_mixer/include -I../Empaerior/../External_Libraries/stb -I../Empaerior/../External_Libraries/glm -I../Empaerior/../External_Libraries/VulkanSDK/include -I../Empaerior/../External_Libraries/VulkanMemoryAllocator/src -I../Empaerior/../External_Libraries/spdlog/include -I../Empaerior/../External_Libraries/freetype/include -g -Xclang -gcodeview -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -std=c++17 -o Empaerior\\CMakeFiles\\Empaerior.dir\\src\\state\\state.cpp.obj -c C:\\Users\\Dan\\source\\repos\\Empaerior\\Empaerior\\src\\state\\state.cpp",
   "file": "C:/Users/Dan/source/repos/Empaerior/Empaerior/src/state/state.cpp"
 },

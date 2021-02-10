@@ -61,22 +61,7 @@ namespace Empaerior
 		}
 
 
-		EMP_FORCEINLINE void createFontFacefrompath(Font& font, const char* path)
-		{
-			auto error = FT_New_Face(Empaerior::FontLoading::fontLibrary, path, 0, &font.fontFace);
-			if (error == FT_Err_Unknown_File_Format)
-			{
-				ENGINE_ERROR("Font file cannot be read or format is unsupported");
-			}
-			else if (error)
-			{
-				ENGINE_ERROR("File cannot be opened or file is broken");
-			}
-
-			font.name = std::make_unique<char[]>(strlen(path)+ 1);
-			//do alternative here pls
-			strncpy(font.name.get(), path,strlen(path));
-		}
+		void createFontFacefrompath(Font& font, const char* path);
 
 		EMP_FORCEINLINE void createFontFacefrommemory(Font& font, const Empaerior::byte* buffer, Empaerior::s_inter size)
 		{

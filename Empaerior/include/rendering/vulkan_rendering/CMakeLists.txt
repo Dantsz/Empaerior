@@ -11,6 +11,7 @@ set(vulkan_rendering
 "Src/rendering/vulkan_rendering/sprite.cpp"
 "Src/rendering/vulkan_rendering/texture_atlas.cpp"
 "Src/rendering/vulkan_rendering/misc_functions.cpp"
+"Src/rendering/vulkan_rendering/glyphs.cpp"
 "include/rendering/vulkan_rendering/graphic_settings.h"
 )
 source_group(rendering\\vulkan_rendering FILES ${vulkan_rendering})

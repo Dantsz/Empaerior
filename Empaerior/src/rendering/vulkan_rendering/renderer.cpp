@@ -158,14 +158,14 @@ static QueueFamilyIndices findQueueFamilies(VkSurfaceKHR& surface, VkPhysicalDev
     int i = 0;
     for (const auto& queueFamily : queueFamilies) {
         if (queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT) {
-            indices.graphicsFamily.value() = i;
+            indices.graphicsFamily = i;
         }
 
         VkBool32 presentSupport = false;
         vkGetPhysicalDeviceSurfaceSupportKHR(device, i, surface, &presentSupport);
 
         if (presentSupport) {
-            indices.presentFamily.value() = i;
+            indices.presentFamily = i;
         }
 
         if (indices.isComplete()) {
