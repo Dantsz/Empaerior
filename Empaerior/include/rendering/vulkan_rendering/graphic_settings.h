@@ -6,8 +6,8 @@ namespace Empaerior
     {
 
         //Shader
-        std::string vertShaderpath = "shaders/vert.spv";
-        std::string fragShaderpath = "shaders/frag.spv";
+        std::string vertShaderpath = "assets/shaders/vert.spv";
+        std::string fragShaderpath = "assets/shaders/frag.spv";
         //Viewport
         float viewportX = 0.0f;
         float viewportY = 0.0f;

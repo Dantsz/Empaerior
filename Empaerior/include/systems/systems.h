@@ -24,7 +24,9 @@ namespace Empaerior
 		{
 
 		}
-
+		/*
+		Adds an event to be listened to by the entity's event listener component
+		*/
 		void add_event_to_entity(Empaerior::ECS& ecs, const Empaerior::u_inter& entity_id, const Empaerior::u_int& event_type, std::function<void(Empaerior::Event&)> function , Empaerior::s_int call_times = -1)
 		{
 #define EVENTLISTENER  ecs.get_component<Empaerior::Event_Listener_Component>(entity_id).event_listener

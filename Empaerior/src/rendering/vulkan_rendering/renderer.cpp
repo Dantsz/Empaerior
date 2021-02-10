@@ -269,12 +269,12 @@ static VkExtent2D chooseSwapExtent(SDL_Window* sdl_window, const VkSurfaceCapabi
         };
         //where do these come from??
         //probably from SDL
-#ifdef max
-#undef max
-#endif // max
-#ifdef min
-#undef min
-#endif
+        #ifdef max
+        #undef max
+        #endif // max
+        #ifdef min
+        #undef min
+        #endif
 
         actualExtent.width = std::max(capabilities.minImageExtent.width, std::min(capabilities.maxImageExtent.width, actualExtent.width));
         actualExtent.height = std::max(capabilities.minImageExtent.height, std::min(capabilities.maxImageExtent.height, actualExtent.height));

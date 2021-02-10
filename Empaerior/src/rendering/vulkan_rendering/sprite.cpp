@@ -286,7 +286,7 @@ namespace Empaerior
 			Vertex* vertexData = (Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()];
 			//set the unused vertices to 0 
 			//hope they won't be shown
-			for (size_t i = strlen(message) - 1 ; i < (sprite.verticesSize / sizeof(Vertex) ); i++)
+			for (size_t i = strlen(message)  ; i < (sprite.verticesSize / sizeof(Vertex) ); i++)
 			{
 				(vertexData  + (sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i))->color = { 0.0f,0.0f,0.0f };
 				(vertexData  + (sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i))->pos = { 0.0f,0.0f,0.0f };

@@ -1,5 +1,5 @@
 #include <Empaerior.h>
-#include <main.h>
+#include <EmpaeriorEngine.h>
 #include <SDL_vulkan.h>
 #include "Tools/Imgui/Emp_Imgui.h"
 
@@ -18,6 +18,7 @@
 #include "input/input.h"
 #include <stb_image.h>
 #include <rendering/vulkan_rendering/sprite.h>
+
 inline Empaerior::Font idk;
 inline std::string message = "gpdr";
 inline Empaerior::Sprite lol;
@@ -65,10 +66,10 @@ public:
 
 
 		Empaerior::setTextSpriteMessage(lol, { 500,200,1000,1000 }, { 32,32 }, idk, "1234", { 255,255,255 });
-		//Empaerior::setSpriteDimensions(borge[25], 0.0f, 0.0f);
-		//Empaerior::destroySprite(borge[30]);
+		//Empaerior::destroySprite(borge[30]);	//Empaerior::setSpriteDimensions(borge[25], 0.0f, 0.0f);
+	
 
-		//renderer->geometrybuffer.reset();
+	
 	}
 
 
@@ -89,7 +90,11 @@ public:
 
 		//UPDATE 
 
-
+		if(Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_DOWN))
+		{
+			message+='r';
+			Empaerior::setTextSpriteMessage(lol, { 500,200,1000,1000 }, { 32,32 }, idk, message.c_str(), { 255,255,255 });
+		}
 
 
 
@@ -103,7 +108,7 @@ public:
 	void handleevents(Empaerior::Event& event) override
 	{
 		//HANDLE EVENTS
-		//event_system->handle_events(ecs, event);
+		event_system->handle_events(ecs, event);
 
 
 

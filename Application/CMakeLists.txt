@@ -79,12 +79,12 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 
 target_link_directories(${PROJECT_NAME} PUBLIC
     "${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/SDL/SDL2/lib/x64;"
- 
-    "${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/SDL/SDL2_mixer/lib/x64;"
+ External_Libraries/SDL/SDL2_mixer/lib/x64;"
 
 	"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/freetype/lib/x64"
 		
 	"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/VulkanSDK/Lib"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../
 )
 
 set(ADDITIONAL_LIBRARY_DEPENDENCIES
