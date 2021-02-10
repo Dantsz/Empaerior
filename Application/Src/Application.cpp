@@ -57,14 +57,14 @@ public:
 		}
 		Empaerior::createTextSprite(renderer->geometrybuffer, renderer->texture_atlas, lol, {500,100,1000,1000}, {32,32}, idk, "gffgfgfgfgfg", { 255,255,255 });
 
-		Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, testy, { 500 ,200 ,100,100 }, { 0,0,600,600 }, 1);
+		
 		
 		//std::cout << renderer->geometrybuffer.indexBuffer.index[testy.indicesIndex] / 6<< '\n';
 		//Empaerior::destroySprite(lol);
-		//Empaerior::createTextSprite(renderer->geometrybuffer, renderer->texture_atlas, lol, { 500,100,1000,1000 }, { 32,32 }, idk, "1234", { 255,255,255 });
+		//Empaerior::createTextSprite(renderer->geometrybuffer, renderer->texture_atlas, lol, { 500,200,1000,1000 }, { 32,32 }, idk, "1234", { 255,255,255 });
 
 
-		//Empaerior::setTextSpriteMessage(lol, { 500,100,1000,1000 }, { 32,32 }, idk, "1234", { 255,255,255 });
+		Empaerior::setTextSpriteMessage(lol, { 500,200,1000,1000 }, { 32,32 }, idk, "1234", { 255,255,255 });
 		//Empaerior::setSpriteDimensions(borge[25], 0.0f, 0.0f);
 		//Empaerior::destroySprite(borge[30]);
 

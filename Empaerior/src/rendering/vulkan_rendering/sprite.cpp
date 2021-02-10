@@ -284,8 +284,9 @@ namespace Empaerior
 			//overwrite the currently allocated buffer data with the message and make the rest of the data invisible
 			
 			Vertex* vertexData = (Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()];
-
-			for (size_t i = 0; i < (sprite.verticesSize / sizeof(Vertex) - strlen(message)); i++)
+			//set the unused vertices to 0 
+			//hope they won't be shown
+			for (size_t i = strlen(message) - 1 ; i < (sprite.verticesSize / sizeof(Vertex) ); i++)
 			{
 				(vertexData  + (sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i))->color = { 0.0f,0.0f,0.0f };
 				(vertexData  + (sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i))->pos = { 0.0f,0.0f,0.0f };

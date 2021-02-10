@@ -155,7 +155,7 @@ static QueueFamilyIndices findQueueFamilies(VkSurfaceKHR& surface, VkPhysicalDev
     std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
     vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, queueFamilies.data());
 
-    int i = 0;
+    uint32_t i = 0;
     for (const auto& queueFamily : queueFamilies) {
         if (queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT) {
             indices.graphicsFamily = i;
@@ -1372,7 +1372,6 @@ void VK_Renderer::present()
 }
 
 void VK_Renderer::checkFrameBufferResize()
-
 {
 
     if (Presentresult == VK_ERROR_OUT_OF_DATE_KHR || Presentresult == VK_SUBOPTIMAL_KHR || framebufferNeedsReconstruction) {
