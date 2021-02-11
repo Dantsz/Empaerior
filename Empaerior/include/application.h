@@ -41,6 +41,8 @@ public:
 	//polls event , uses the class event
 	static bool PollEvent()
 	{
+		//make it not handled yet
+		Empaerior::Application::event.is_handled = false;
 		return SDL_PollEvent(&event.event);
 	}
 

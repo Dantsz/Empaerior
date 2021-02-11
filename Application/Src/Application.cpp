@@ -35,35 +35,24 @@ public:
 		sprite_system = ecs.register_system<Empaerior::singleSpriteSystem>();
 		sprite_system->Init(renderer);
 		ecs.register_component<Empaerior::singleSprite_Component>();
-		//ecs.add_criteria_for_iteration<Empaerior::singleSpriteSystem, Empaerior::singleSprite_Component>();
+		ecs.add_criteria_for_iteration<Empaerior::singleSpriteSystem, Empaerior::singleSprite_Component>();
 
 		Empaerior::Sprite greenerboi;
 	//	Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, greenerboi, { 0,0,100,100 }, { 0,0,600,600 }, 1);
 
 		morge.id = ecs.create_entity_ID();
 		ecs.add_component<Empaerior::singleSprite_Component>(morge.id, {});
-	//	sprite_system->createSprite(ecs, morge.id, { 100,100,320,320 }, {0,0,600,600}, 1);
+		sprite_system->createSprite(ecs, morge.id, { 100,100,320,320 }, {0,0,600,600}, 1);
 
 		
 
-		Empaerior::Sprite testy;
 	
-		for (float i = 0; i < 5; i++)
-		{
-			for (float j = 0; j < 7; j++)
-			{
-				borge.push_back({});
-				Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, borge[borge.size() -1], { 100 * i,100 * j,100,100 }, { 0,0,600,600 }, 1);
-			}
-		}
+	
+		
+		
 		Empaerior::createTextSprite(renderer->geometrybuffer, renderer->texture_atlas, lol, {500,100,1000,1000}, {32,32}, idk, "gffgfgfgfgfg", { 255,255,255 });
 
-		
-		
-		//std::cout << renderer->geometrybuffer.indexBuffer.index[testy.indicesIndex] / 6<< '\n';
-		//Empaerior::destroySprite(lol);
-		//Empaerior::createTextSprite(renderer->geometrybuffer, renderer->texture_atlas, lol, { 500,200,1000,1000 }, { 32,32 }, idk, "1234", { 255,255,255 });
-
+	
 
 		Empaerior::setTextSpriteMessage(lol, { 500,200,1000,1000 }, { 32,32 }, idk, "1234", { 255,255,255 });
 		//Empaerior::destroySprite(borge[30]);	//Empaerior::setSpriteDimensions(borge[25], 0.0f, 0.0f);
@@ -87,15 +76,6 @@ public:
 		i++;
 		if (i > 20) i = 0;
 	//	Empaerior::setSpriteTexture(ecs.get_component<Empaerior::singleSprite_Component>(morge.id).sprites, i/10);
-
-		//UPDATE 
-
-		if(Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_DOWN))
-		{
-			message+='r';
-			Empaerior::setTextSpriteMessage(lol, { 500,200,1000,1000 }, { 32,32 }, idk, message.c_str(), { 255,255,255 });
-		}
-
 
 
 	}
@@ -123,8 +103,6 @@ private:
 
 	int angle = 0;
 	Empaerior::Entity morge;
-	std::vector<Empaerior::Entity> norge;
-	std::vector<Empaerior::Sprite> borge;
 
 };
 
@@ -138,18 +116,11 @@ public:
 
 
 		//CREATE A WINDOW
-		window.Init("Empaerior  3.0B9 -Vulkan Renderer", 960, 540);
+		window.Init("Empaerior  3.0B9 -Vulkan Renderer", 960, 540);/*?*/
 
-		//CREATE A NEW STATE
-		vk.Init(window.window);
 		
-
-		//make the state active
-
-		Empaerior::Sprite testtette;
-	
-	
-
+		vk.Init(window.window);/*?*/
+		
 
 		ImGui_Emp::Init(window, vk);
 		ENGINE_INFO(std::string("Sprite Size : " + std::to_string(sizeof(Empaerior::Sprite))));
@@ -201,8 +172,7 @@ public:
 			//poll what event is registered
 			while (Empaerior::Application::PollEvent()) {
 
-				//make it not handled yet
-				Empaerior::Application::event.is_handled = false;
+				
 				//handle it
 				handlevents(Empaerior::Application::event);
 
@@ -236,9 +206,8 @@ public:
 				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_O))
 				{
 					dump_data(vk.geometrybuffer);
-				}
-				
-				if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_E))
+				}	
+				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_E))
 				{
 					message += 'x';
 			
@@ -253,13 +222,12 @@ public:
 
 				timy.start();
 
-			//	
-				
+
 				
 				ImGui_Emp::NewFrame(window, vk);
 				ShowImGuiWindows();
 				
-				vk.renderFrame([&](){ImGui_Emp::refreshImgui(window, vk);},[&](){ImGui_Emp::Render(window, vk);});
+				vk.renderFrame([&](){ImGui_Emp::refreshImgui(window, vk);},[&](){ImGui_Emp::Render(window, vk);});/*?*/
 				//dump_data(vk.geometrybuffer);
 				timy.stop();
 				
