@@ -379,12 +379,23 @@ void VK_Renderer::Init(Empaerior::Window* window)
         ENGINE_ERROR("Invalid window");
 
     }
+    //add the resize event
+    window->window_listener.register_event(SDL_WINDOWEVENT,
+    [&](Empaerior::Event& event)
+    {
+        //SDL events are wonderfully named 
+        if(event.event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+        {
+        
+            framebufferNeedsReconstruction = true;
+        }
+    }
+    
+    );
+
 	Empaerior::FontLoading::initFontEngine();
     initVulkan();
-
-    //  recordCommandBuffer(commandBuffers[imageIndex], swapChainFramebuffers[imageIndex], &geometrybuffer.vertexBuffer.inUseBuffer, geometrybuffer.indexBuffer.inUseBuffer, &descriptorSets[imageIndex]);
-
-    //  geometrybuffer.updateInUseBuffers();
+ 
 }
 
 void VK_Renderer::initVulkan()

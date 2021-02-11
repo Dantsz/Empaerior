@@ -116,7 +116,7 @@ public:
 
 
 		//CREATE A WINDOW
-		window.Init("Empaerior  3.0B9 -Vulkan Renderer", 960, 540);/*?*/
+		window.Init("Empaerior  3.0B10 -Vulkan Renderer", 960, 540);/*?*/
 
 		
 		vk.Init(&Empaerior::Application::window);/*?*/
@@ -177,9 +177,6 @@ public:
 				handlevents(Empaerior::Application::event);
 
 
-				if (Empaerior::Application::event.event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
-					vk.framebufferNeedsReconstruction = true;
-				}
 
 				ImGuiEmpImpl::ProcessEvent(Empaerior::Application::event);
 
