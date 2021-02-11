@@ -11,7 +11,7 @@
 #include "geometry_buffer.h"
 #include "texture_atlas.h"
 #include "graphic_settings.h"
-
+#include <functional>
 
 
 const inline int MAX_FRAMES_IN_FLIGHT = 2;
@@ -49,7 +49,38 @@ public:
     void cleanup();
 
    
-
+  /*
+        Packs all functions fr rendering th frame in one
+    */
+    EMP_FORCEINLINE void renderFrame(){
+        
+        if (framebufferNeedsReconstruction)
+		{
+			checkFrameBufferResize();	
+			framebufferNeedsReconstruction = false;
+		}
+        newFrame();
+		drawFrame();
+		present();
+    }
+    /*
+    The frameBufferRecF function is called when the frame buffer needs to be reconstructed
+    The renderF function is called in between preparing a new frame and rendering
+    */
+    void renderFrame(std::function<void()> frameBufferRecF , std::function<void()> renderF)
+    {
+        if (framebufferNeedsReconstruction)
+		{
+			checkFrameBufferResize();
+            frameBufferRecF();	
+			framebufferNeedsReconstruction = false;
+		}
+        newFrame();
+        renderF();
+		drawFrame();
+		present();
+    }
+   
 
  
 
@@ -184,7 +215,6 @@ private:
 
     void updateUniformBuffer(uint32_t currentImage);
 
-
-   
+  
     
 };

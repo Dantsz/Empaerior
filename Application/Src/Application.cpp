@@ -138,20 +138,17 @@ public:
 
 
 		//CREATE A WINDOW
-		window.Init("Empaerior  3.0B8 -Vulkan Renderer", 960, 540);
-
+		window.Init("Empaerior  3.0B9 -Vulkan Renderer", 960, 540);
 
 		//CREATE A NEW STATE
+		vk.Init(window.window);
 		
-		
-		
-	
 
 		//make the state active
 
 		Empaerior::Sprite testtette;
 	
-		vk.Init(window.window);
+	
 
 
 		ImGui_Emp::Init(window, vk);
@@ -201,8 +198,6 @@ public:
 
 			Empaerior::Timer timy;
 
-
-
 			//poll what event is registered
 			while (Empaerior::Application::PollEvent()) {
 
@@ -224,32 +219,8 @@ public:
 			{
 
 
-			
-				
-				if (vk.framebufferNeedsReconstruction)
-				{
-					vk.checkFrameBufferResize();
-					ImGui_Emp::refreshImgui(window, vk);
-					vk.framebufferNeedsReconstruction = false;
-				}
-
-
-
 				auto position = Empaerior::Input::Mouse::get_world_mouse_coords(vk.GraphicsSettings, vk.ubo);
-	
-
 				
-				vk.ubo.position_mat = glm::translate(glm::mat4(1.0f), glm::vec3(vk.ubo.position.x * -1, vk.ubo.position.y * -1 , 1.0f));
-				
-
-
-
-				//Empaerior::setSpriteAngle(greenerboi, forTest);
-				//forTest += 1;
-
-				
-				//
-
 
 				if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_M))
 				{
@@ -284,26 +255,13 @@ public:
 
 			//	
 				
+				
 				ImGui_Emp::NewFrame(window, vk);
 				ShowImGuiWindows();
-		
-			
-				vk.newFrame();
 				
-	
-			
-
-				ImGui_Emp::Render(window, vk);
-				//	vk.framebufferResized = true;
-
-				vk.drawFrame();
-				
-
-				
-				timy.stop();
-				vk.present();
+				vk.renderFrame([&](){ImGui_Emp::refreshImgui(window, vk);},[&](){ImGui_Emp::Render(window, vk);});
 				//dump_data(vk.geometrybuffer);
-				
+				timy.stop();
 				
 				//
 

@@ -1266,7 +1266,7 @@ void VK_Renderer::updateUniformBuffer(uint32_t currentImage)
     ubo.scale_mat = glm::mat4(1.0f);
 
     ubo.scale_mat = glm::scale(glm::mat4(1.0f), glm::vec3((static_cast<float>(width) / InitialGraphicsSettings.viewportW) * ubo.scaleX, (static_cast<float>(height) / InitialGraphicsSettings.viewportH) * ubo.scaleY, 0));
-
+    ubo.position_mat = glm::translate(glm::mat4(1.0f), glm::vec3(ubo.position.x * -1, ubo.position.y * -1 , 1.0f));
 
 
     ubo.proj = glm::ortho(0.0f, static_cast<float>(width), 0.0f, static_cast<float>(height), -1.0f, 1.0f);
@@ -1383,4 +1383,6 @@ void VK_Renderer::checkFrameBufferResize()
         throw std::runtime_error("failed to present swap chain image!");
     }
 }
+
+
 #pragma endregion

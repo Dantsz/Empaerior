@@ -32,7 +32,6 @@ set(ROOT_NAMESPACE Application)
 ################################################################################
 
     set_target_properties(${PROJECT_NAME} PROPERTIES
-	
         TARGET_NAME_DEBUG   "Application"
         TARGET_NAME_DIST    "Application"
         TARGET_NAME_RELEASE "Application"
@@ -78,23 +77,18 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 )
 
 target_link_directories(${PROJECT_NAME} PUBLIC
-    "${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/SDL/SDL2/lib/x64;"
- External_Libraries/SDL/SDL2_mixer/lib/x64;"
-
+    "${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/SDL/SDL2/lib/x64"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/SDL/SDL2_mixer/lib/x64"
 	"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/freetype/lib/x64"
-		
 	"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/VulkanSDK/Lib"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../
+    
 )
 
-set(ADDITIONAL_LIBRARY_DEPENDENCIES
-        "SDL2;"
-        "SDL2main;"
-        "SDL2_mixer;"
-		"vulkan-1;"
-        "freetype;")
-	
 
-
-
-target_link_libraries(${PROJECT_NAME} PUBLIC "${ADDITIONAL_LIBRARY_DEPENDENCIES}")
+target_link_libraries(${PROJECT_NAME} PUBLIC
+    "SDL2"
+    "SDL2main"
+    "SDL2_mixer"
+	"vulkan-1"
+    "freetype"
+    )

@@ -7,7 +7,7 @@ set(no_group_source_files
     "src/application.cpp"
     "include/application.h"
     "include/Empaerior.h"
-    "include/main.h"
+    "include/EmpaeriorEngine.h"
     "src/pch.cpp"
     "src/pch.h"
 )
