@@ -119,8 +119,8 @@ public:
 		window.Init("Empaerior  3.0B9 -Vulkan Renderer", 960, 540);/*?*/
 
 		
-		vk.Init(window.window);/*?*/
-		
+		vk.Init(&Empaerior::Application::window);/*?*/
+	
 
 		ImGui_Emp::Init(window, vk);
 		ENGINE_INFO(std::string("Sprite Size : " + std::to_string(sizeof(Empaerior::Sprite))));
@@ -179,7 +179,6 @@ public:
 
 				if (Empaerior::Application::event.event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
 					vk.framebufferNeedsReconstruction = true;
-
 				}
 
 				ImGuiEmpImpl::ProcessEvent(Empaerior::Application::event);

@@ -13,6 +13,7 @@
 #include "graphic_settings.h"
 #include <functional>
 
+#include "../include/rendering/window.h"
 
 const inline int MAX_FRAMES_IN_FLIGHT = 2;
 const inline std::vector<const char*> validationLayers = {
@@ -37,7 +38,7 @@ const bool enableValidationLayers = false;
 
 class VK_Renderer {
 public:
-    void Init(SDL_Window* window);
+    void Init(Empaerior::Window* window);
     void checkFrameBufferResize();
     void newFrame();
 

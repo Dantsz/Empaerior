@@ -8,7 +8,7 @@
 
 #include "../../../include/debugging/log.h"
 
-
+#include "../../../include/Empaerior.h"
 
 #include <algorithm>
 #include <SDL_vulkan.h>
@@ -370,9 +370,9 @@ static VkPhysicalDevice pickPhysicalDevice(VkInstance& instance, VkSurfaceKHR& s
 #pragma endregion
 
 #pragma region rendererFunctions
-void VK_Renderer::Init(SDL_Window* window)
+void VK_Renderer::Init(Empaerior::Window* window)
 {
-    sdl_window = window;
+    sdl_window = window->window;
     ENGINE_INFO("Initializing vulkan renderer");
     if (sdl_window == nullptr)
     {
