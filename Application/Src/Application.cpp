@@ -34,6 +34,7 @@ public:
 		ecs.Init();
 		sprite_system = ecs.register_system<Empaerior::singleSpriteSystem>();
 		sprite_system->Init(renderer);
+		
 		ecs.register_component<Empaerior::singleSprite_Component>();
 		ecs.add_criteria_for_iteration<Empaerior::singleSpriteSystem, Empaerior::singleSprite_Component>();
 
@@ -64,28 +65,14 @@ public:
 
 	void Update(const Empaerior::u_int dt) override
 	{
-		//DEBUG CODE, LETS YOU MOVE AROUND THE MAP
-
-
-		i++;
-		if (i > 20) i = 0;
-	//	Empaerior::setSpriteTexture(ecs.get_component<Empaerior::singleSprite_Component>(morge.id).sprites, i/10);
-
-
 	}
 
 	void Render() override//renders the state
 	{
-
-
 	}
 	void handleevents(Empaerior::Event& event) override
 	{
-		//HANDLE EVENTS
 		event_system->handle_events(ecs, event);
-
-
-
 	}
 
 

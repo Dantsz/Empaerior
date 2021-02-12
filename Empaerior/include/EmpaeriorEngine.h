@@ -1,7 +1,7 @@
 #pragma once
 
 //#include "pch.h"
-#define EMP_USE_LOGS
+
 #include "Empaerior.h"
 
 

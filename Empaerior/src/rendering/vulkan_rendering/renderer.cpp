@@ -44,6 +44,7 @@ static std::vector<char> readFile(const std::string& filename) {
 
     if (!file.is_open()) {
         throw std::runtime_error("failed to open file!");
+
     }
 
     size_t fileSize = (size_t)file.tellg();
@@ -427,7 +428,7 @@ void VK_Renderer::initVulkan()
     //texture atlas
     texture_atlas.attachRenderComponents(&device, &graphicsQueue, &commandPool, &allocator,&framebufferNeedsReconstruction);
     //create one default texture
-    Empaerior::byte rgb[4] = {255,255,255,255};
+    Empaerior::byte rgb[4] = {255,0,255,255};
     texture_atlas.create_texture_from_memory(rgb,1,1,0);
     //geo buffer
     geometrybuffer.attachrenderer(&allocator, device, swapChainImages.size());
@@ -971,11 +972,34 @@ void VK_Renderer::updateDescriptorSets()
 }
 void VK_Renderer::createGraphicsPipeline(Empaerior::VK_RendererGraphicsInfo& info)
 {
-    auto vertShaderCode = readFile(info.vertShaderpath);
-    auto fragShaderCode = readFile(info.fragShaderpath);
+    std::vector<char> vertShaderCode;
+    std::vector<char> fragShaderCode;
 
-    VkShaderModule vertShaderModule = createShaderModule(device, vertShaderCode);
-    VkShaderModule fragShaderModule = createShaderModule(device, fragShaderCode);
+     try{
+        vertShaderCode = readFile(info.vertShaderpath);
+      
+    }
+    catch(...)
+    {
+        std::cout<<"Failed to open vertex shader file, include default shader instead \n";
+        
+
+    }
+
+    try{
+        fragShaderCode = readFile(info.fragShaderpath);
+    }
+    catch(...)
+    {
+        std::cout<<"Failed to open fragment shader file, including default shader instead\n";
+       
+    }
+   
+    
+    VkShaderModule vertShaderModule = createShaderModule(device, vertShaderCode);;
+    VkShaderModule fragShaderModule = createShaderModule(device, fragShaderCode);;
+
+   
 
     VkPipelineShaderStageCreateInfo vertShaderStageInfo{};
     vertShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
@@ -990,6 +1014,7 @@ void VK_Renderer::createGraphicsPipeline(Empaerior::VK_RendererGraphicsInfo& inf
     fragShaderStageInfo.pName = "main";
 
     VkPipelineShaderStageCreateInfo shaderStages[] = { vertShaderStageInfo, fragShaderStageInfo };
+
 
     VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
     vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
@@ -1256,15 +1281,18 @@ void VK_Renderer::createUniformBuffers()
     uniformBuffersAllocations.resize(swapChainImages.size());
 
     uniformBufferData.resize(swapChainImages.size());
-
+    
     for (size_t i = 0; i < swapChainImages.size(); i++) {
 
         VmaAllocationCreateInfo allocInfo{};
         allocInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
         allocInfo.requiredFlags = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
+
+
         Empaerior::VKfunctions::allocateBuffer(allocator, bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, uniformBuffers[i], uniformBuffersAllocations[i], allocInfo);
         vmaMapMemory(allocator, uniformBuffersAllocations[i], &uniformBufferData[i]);
     }
+  
 }
 
 void VK_Renderer::updateUniformBuffer(uint32_t currentImage)
@@ -1293,9 +1321,10 @@ void VK_Renderer::updateUniformBuffer(uint32_t currentImage)
 void VK_Renderer::newFrame()
 
 {
+    
     vkWaitForFences(device, 1, &inFlightFences[currentFrame], VK_TRUE, UINT64_MAX);
     VkResult result = vkAcquireNextImageKHR(device, swapChain, UINT64_MAX, imageAvailableSemaphores[currentFrame], VK_NULL_HANDLE, &imageIndex);
-
+ 
     if (result == VK_ERROR_OUT_OF_DATE_KHR) {
         recreateSwapChain();
         return;

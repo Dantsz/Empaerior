@@ -1,5 +1,5 @@
 #include "pch.h"
-#define EMP_USE_LOGS
+
 #ifdef EMP_USE_LOGS
 
 #include "../include/debugging/log.h"

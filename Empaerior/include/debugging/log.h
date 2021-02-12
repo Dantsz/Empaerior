@@ -1,6 +1,6 @@
 #pragma once
 
-#define EMP_USE_LOGS
+
 //Log usage
 
 #if defined(EMPAERIOR_DEBUG) || defined(EMPAERIOR_RELEASE)

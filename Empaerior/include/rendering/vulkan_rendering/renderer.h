@@ -40,11 +40,7 @@ class VK_Renderer {
 public:
     void Init(Empaerior::Window* window);
     void checkFrameBufferResize();
-    void newFrame();
 
-    void drawFrame();
-
-    void present();
   
 
     void cleanup();
@@ -216,6 +212,11 @@ private:
 
     void updateUniformBuffer(uint32_t currentImage);
 
+    void newFrame();
+
+    void drawFrame();
+
+    void present();
   
     
 };
