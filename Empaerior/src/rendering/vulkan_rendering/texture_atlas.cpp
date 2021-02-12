@@ -50,7 +50,8 @@ size_t Texture_Atlas::create_texture_from_file(const std::string& path)
         Empaerior::s_int texWidth, texHeight, texChannels;
         stbi_uc* pixels = stbi_load(path.c_str(), &texWidth, &texHeight, &texChannels, STBI_rgb_alpha);
         if (!pixels) {
-            ENGINE_CRITICAL(std::string("Failed to load texture : " + path)); return 0;
+            ENGINE_CRITICAL(std::string("Failed to load texture : " + path));
+            return 0;
         }
         
         texturePath.insert({ path,create_texture_from_memory(pixels, texWidth, texHeight, texChannels) });

@@ -13,11 +13,6 @@
 #include "../include/core/defines/defines.h"
 #include "glyphs.h"
 
- 
-
-    
-
-
 struct Texture_Atlas {
 
     static constexpr uint32_t texture_limit()

@@ -20,13 +20,6 @@ int Empaerior::Window::Init(const Empaerior::string& name, const Empaerior::u_in
 	height = m_height;
 	window = SDL_CreateWindow(name.c_str(),
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE);
-	
-
-	//SDL_RendererInfo info;
-	//SDL_GetRendererInfo(Empaerior::Application::window.renderer, &info);
-	//information.render_API = info.name;
-
-
 
 	window_listener.register_event(SDL_QUIT, [](Empaerior::Event const& event) { // add quit event 
 		Empaerior::Application::is_running = false;

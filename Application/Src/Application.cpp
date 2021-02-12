@@ -42,14 +42,8 @@ public:
 
 		morge.id = ecs.create_entity_ID();
 		ecs.add_component<Empaerior::singleSprite_Component>(morge.id, {});
-		sprite_system->createSprite(ecs, morge.id, { 100,100,320,320 }, {0,0,600,600}, 1);
+		sprite_system->createSprite(ecs, morge.id, { 100,100,320,320 }, {0,0,1,1}, 0);
 
-		
-
-	
-	
-		
-		
 		Empaerior::createTextSprite(renderer->geometrybuffer, renderer->texture_atlas, lol, {500,100,1000,1000}, {32,32}, idk, "gffgfgfgfgfg", { 255,255,255 });
 
 	
@@ -123,29 +117,16 @@ public:
 	
 
 		ImGui_Emp::Init(window, vk);
-		ENGINE_INFO(std::string("Sprite Size : " + std::to_string(sizeof(Empaerior::Sprite))));
 		
-		
-	
 		auto originText2 = vk.texture_atlas.create_texture_from_file("assets/textur2e.png");
 		auto originText = vk.texture_atlas.create_texture_from_file("assets/textur3e.png");
 		auto greenboiTxt = vk.texture_atlas.create_texture_from_file("assets/green_boi.png");
 		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/idk.ttf", 32);
 
-	
-
-
-
 		main_state = push_state(new APP_State1(&vk,originText));
-		
-
-
 
 		activate_state(main_state);
-		
 
-		
-	
 	}
 	
 	~Test_Aplication()
@@ -161,9 +142,6 @@ public:
 
 
 		//GAME LOOP
-
-	//	destroySprite(greenboi);
-
 		while (Empaerior::Application::is_running)
 		{
 
@@ -175,19 +153,13 @@ public:
 				
 				//handle it
 				handlevents(Empaerior::Application::event);
-
-
-
 				ImGuiEmpImpl::ProcessEvent(Empaerior::Application::event);
-
 			}
 			if (!Empaerior::Application::is_paused)
 			{
 
 
 				auto position = Empaerior::Input::Mouse::get_world_mouse_coords(vk.GraphicsSettings, vk.ubo);
-				
-
 				if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_M))
 				{
 

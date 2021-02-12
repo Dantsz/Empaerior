@@ -120,10 +120,6 @@ namespace Empaerior
 	
 		setupTextSprite(buffer, atlas, sprite, rect, charDimensions, font, message, color);
 
-	
-
-
-
 	}
 
 	

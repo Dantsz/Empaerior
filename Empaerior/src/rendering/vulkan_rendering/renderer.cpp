@@ -386,11 +386,9 @@ void VK_Renderer::Init(Empaerior::Window* window)
         //SDL events are wonderfully named 
         if(event.event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
         {
-        
             framebufferNeedsReconstruction = true;
         }
     }
-    
     );
 
 	Empaerior::FontLoading::initFontEngine();
@@ -428,7 +426,9 @@ void VK_Renderer::initVulkan()
 
     //texture atlas
     texture_atlas.attachRenderComponents(&device, &graphicsQueue, &commandPool, &allocator,&framebufferNeedsReconstruction);
-    texture_atlas.create_texture_from_file("assets/textur1e.png");
+    //create one default texture
+    Empaerior::byte rgb[4] = {255,255,255,255};
+    texture_atlas.create_texture_from_memory(rgb,1,1,0);
     //geo buffer
     geometrybuffer.attachrenderer(&allocator, device, swapChainImages.size());
 
@@ -879,7 +879,7 @@ void VK_Renderer::createDescriptorSetLayout()
 
 
 
-    std::array<VkDescriptorSetLayoutBinding, 3> bindings = { uboLayoutBinding, samplerLayoutBinding, textureArrayLayoutBinding };
+    std::vector<VkDescriptorSetLayoutBinding> bindings = { uboLayoutBinding, samplerLayoutBinding, textureArrayLayoutBinding };
 
     VkDescriptorSetLayoutCreateInfo layoutInfo{};
     layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
@@ -1086,7 +1086,7 @@ void VK_Renderer::createGraphicsPipeline(Empaerior::VK_RendererGraphicsInfo& inf
 
 
     if (vkCreatePipelineLayout(device, &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create pipeline layout!");
+        throw std::runtime_error(" failed to create pipe line layout!");
     }
 
     VkGraphicsPipelineCreateInfo pipelineInfo{};
@@ -1105,7 +1105,9 @@ void VK_Renderer::createGraphicsPipeline(Empaerior::VK_RendererGraphicsInfo& inf
     pipelineInfo.subpass = 0;
     pipelineInfo.basePipelineHandle = VK_NULL_HANDLE;
 
-    if (vkCreateGraphicsPipelines(device, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &graphicsPipeline) != VK_SUCCESS) {
+    VkResult pipelineResult = vkCreateGraphicsPipelines(device, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &graphicsPipeline);
+    if (pipelineResult != VK_SUCCESS) {
+        ENGINE_ERROR(std::string("failed to create graphics pipeline : " + pipelineResult ));
         throw std::runtime_error("failed to create graphics pipeline!");
     }
 

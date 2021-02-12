@@ -1,9 +1,9 @@
 #include "pch.h"
-
+#define EMP_USE_LOGS
 #ifdef EMP_USE_LOGS
 
-	#include "../include/debugging/log.h"
-	#include <spdlog/sinks/stdout_color_sinks.h>
+#include "../include/debugging/log.h"
+#include <spdlog/sinks/stdout_color_sinks.h>
 	
  	std::shared_ptr<spdlog::logger> Empaerior::Log::Logger::engine_logger;
 	std::shared_ptr<spdlog::logger>	Empaerior::Log::Logger::application_logger;
