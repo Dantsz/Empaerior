@@ -127,6 +127,10 @@ namespace Empaerior
 		setupTextSprite(buffer, atlas, sprite, rect, charDimensions, font, message, color);
 
 	}
+	void createTextSprite(VK_Renderer& renderer ,Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message, glm::vec3 color)
+	{
+		createTextSprite(renderer.geometrybuffer,renderer.texture_atlas,sprite,rect,charDimensions,font,message,color);
+	}
 
 	
 
