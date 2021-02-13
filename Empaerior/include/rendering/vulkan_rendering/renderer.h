@@ -37,49 +37,8 @@ const bool enableValidationLayers = false;
 
 
 class VK_Renderer {
-public:
-    void Init(Empaerior::Window* window);
-    void checkFrameBufferResize();
 
-  
-
-    void cleanup();
-
-   
-  /*
-        Packs all functions fr rendering th frame in one
-    */
-    EMP_FORCEINLINE void renderFrame(){
-        
-        if (framebufferNeedsReconstruction)
-		{
-			checkFrameBufferResize();	
-			framebufferNeedsReconstruction = false;
-		}
-        newFrame();
-		drawFrame();
-		present();
-    }
-    /*
-    The frameBufferRecF function is called when the frame buffer needs to be reconstructed
-    The renderF function is called in between preparing a new frame and rendering
-    */
-    void renderFrame(std::function<void()> frameBufferRecF , std::function<void()> renderF)
-    {
-        if (framebufferNeedsReconstruction)
-		{
-			checkFrameBufferResize();
-            frameBufferRecF();	
-			framebufferNeedsReconstruction = false;
-		}
-        newFrame();
-        renderF();
-		drawFrame();
-		present();
-    }
-   
-
- 
+    public:
 
     Texture_Atlas texture_atlas;
 
@@ -217,6 +176,48 @@ private:
     void drawFrame();
 
     void present();
+    public:
+    void Init(Empaerior::Window* window);
+    void checkFrameBufferResize();
+
+  
+
+    void cleanup();
+
+   public:
+  /*
+        Packs all functions fr rendering th frame in one
+    */
+    EMP_FORCEINLINE void renderFrame(){
+        
+        if (framebufferNeedsReconstruction)
+		{
+			checkFrameBufferResize();	
+			framebufferNeedsReconstruction = false;
+		}
+        newFrame();
+		drawFrame();
+		present();
+    }
+    /*
+    The frameBufferRecF function is called when the frame buffer needs to be reconstructed
+    The renderF function is called in between preparing a new frame and rendering
+    */
+    void renderFrame(std::function<void()> frameBufferRecF , std::function<void()> renderF)
+    {
+        if (framebufferNeedsReconstruction)
+		{
+			checkFrameBufferResize();
+            frameBufferRecF();	
+			framebufferNeedsReconstruction = false;
+		}
+        newFrame();
+        renderF();
+		drawFrame();
+		present();
+    }
+   
+
   
     
 };

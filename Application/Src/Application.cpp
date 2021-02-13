@@ -43,7 +43,7 @@ public:
 
 		morge.id = ecs.create_entity_ID();
 		ecs.add_component<Empaerior::singleSprite_Component>(morge.id, {});
-		sprite_system->createSprite(ecs, morge.id, { 100,100,320,320 }, {0,0,1,1}, 0);
+		sprite_system->createSprite(ecs, morge.id, { 0,100,960,320 }, {0,0,1,1}, 0);
 
 		Empaerior::createTextSprite(renderer->geometrybuffer, renderer->texture_atlas, lol, {500,100,1000,1000}, {32,32}, idk, "gffgfgfgfgfg", { 255,255,255 });
 

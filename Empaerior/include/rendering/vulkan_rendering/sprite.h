@@ -3,7 +3,8 @@
 #include "../include/core/defines/basic_defines.h"
 #include "texture_atlas.h"
 #include "glyphs.h"
-//Rectangle
+
+class VK_Renderer;
 namespace Empaerior
 {
 	struct Sprite
@@ -34,8 +35,10 @@ namespace Empaerior
 #define EMP_SPR_VERTEX_BTM_LEFT 1
 
 	void createSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t tex_id);
+	void createSprite(VK_Renderer& renderer, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t tex_id);
 
-	void setSpriteRect(Sprite& sprite, geometryBuffer& buffer, Empaerior::Float_Rect_S& rect);
+	void setSpriteRect(Sprite& sprite, Empaerior::Float_Rect_S& rect);
+	
 
 	void setSpritePosition(Sprite& sprite, geometryBuffer& buffer);
 
@@ -67,4 +70,11 @@ namespace Empaerior
 
 
 	void destroySprite(Sprite& sprite);
+
+
+
+
+	//functions with VK_Renderer as parameter
+
+	
 }
