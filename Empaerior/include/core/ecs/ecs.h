@@ -182,6 +182,15 @@ namespace Empaerior
 			return system_manager->register_system<T>();
 		}
 
+		template <typename T>
+		Empaerior::boole is_system_registered()
+		{
+			const char* system_type = typeid(T).name();
+				
+			return (system_manager->typetosystem.find(system_type) != system_manager->typetosystem.end());
+				
+		}
+
 		//sets the signature of T
 		template <typename T>
 		void set_system_signature(Empaerior::vector<bool>& signature)

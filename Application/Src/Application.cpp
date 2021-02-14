@@ -32,10 +32,10 @@ public:
 	APP_State1(VK_Renderer* renderer, Empaerior::u_inter originText)
 	{
 		ecs.Init();
-		std::cout << ecs.is_component_registered<Empaerior::singleSprite_Component>() << '\n';
+		std::cout << ecs.is_system_registered<Empaerior::singleSpriteSystem>() << '\n';
 		sprite_system = ecs.register_system<Empaerior::singleSpriteSystem>();
 		sprite_system->Init(ecs,renderer);
-		std::cout << ecs.is_component_registered<Empaerior::singleSprite_Component>();
+		std::cout << ecs.is_system_registered<Empaerior::singleSpriteSystem>();
 		
 
 		Empaerior::Sprite greenerboi;
