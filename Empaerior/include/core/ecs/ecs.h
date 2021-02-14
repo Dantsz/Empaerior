@@ -66,6 +66,13 @@ namespace Empaerior
 			component_manager->register_component<T>();
 			register_component<secondT, OtherT...>();
 		}
+
+		template<typename T> 
+		Empaerior::boole is_component_registered()
+		{
+			const char* component_name = typeid(T).name();
+			return (component_manager->component_type.find(component_name) != component_manager->component_type.end());
+		}
 	
 
 
