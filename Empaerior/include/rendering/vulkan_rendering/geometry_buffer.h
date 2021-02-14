@@ -363,8 +363,6 @@ struct geometryBuffer
 	VmaAllocator* m_allocator;
 
 	uint32_t images;
-
-
 	const size_t initialVertexSize = 4ULL * sizeof(Vertex);
 	const size_t initialIndexSize = 6ULL * sizeof(uint32_t);
 };

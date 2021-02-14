@@ -33,17 +33,16 @@ public:
 	{
 		ecs.Init();
 		sprite_system = ecs.register_system<Empaerior::singleSpriteSystem>();
-		sprite_system->Init(renderer);
+		sprite_system->Init(ecs,renderer);
 		
-		ecs.register_component<Empaerior::singleSprite_Component>();
-		ecs.add_criteria_for_iteration<Empaerior::singleSpriteSystem, Empaerior::singleSprite_Component>();
+		
 
 		Empaerior::Sprite greenerboi;
 	//	Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, greenerboi, { 0,0,100,100 }, { 0,0,600,600 }, 1);
 
 		morge.id = ecs.create_entity_ID();
 		ecs.add_component<Empaerior::singleSprite_Component>(morge.id, {});
-		sprite_system->createSprite(ecs, morge.id, { 0,100,960,320 }, {0,0,1,1}, 0);
+		sprite_system->createSprite(ecs, morge.id, { 0,0,960,540 }, {0,0,1,1}, 0);
 
 		Empaerior::createTextSprite(renderer->geometrybuffer, renderer->texture_atlas, lol, {500,100,1000,1000}, {32,32}, idk, "gffgfgfgfgfg", { 255,255,255 });
 
@@ -51,22 +50,14 @@ public:
 
 		Empaerior::setTextSpriteMessage(lol, { 500,200,1000,1000 }, { 32,32 }, idk, "1234", { 255,255,255 });
 		//Empaerior::destroySprite(borge[30]);	//Empaerior::setSpriteDimensions(borge[25], 0.0f, 0.0f);
-	
-
-	
 	}
-
-
-
 	~APP_State1()
 	{
 		ecs.Destroy();
 	}
-
 	void Update(const Empaerior::u_int dt) override
 	{
 	}
-
 	void Render() override//renders the state
 	{
 	}
@@ -74,9 +65,6 @@ public:
 	{
 		event_system->handle_events(ecs, event);
 	}
-
-
-
 	std::shared_ptr<Empaerior::Event_System> event_system;
 	std::shared_ptr<Empaerior::singleSpriteSystem> sprite_system;
 	int  i = 0;
@@ -84,7 +72,6 @@ private:
 
 	int angle = 0;
 	Empaerior::Entity morge;
-
 };
 
 

@@ -1360,7 +1360,7 @@ void VK_Renderer::drawFrame()
     geometrybuffer.updateInUseBuffers();
 
 
-    //TODO: TEST FOR RECREATE COMMAND BUFFER EVERY FRAME
+    
     recordCommandBuffer(commandBuffers[imageIndex], swapChainFramebuffers[imageIndex], &geometrybuffer.vertexBuffer.inUseBuffer, geometrybuffer.indexBuffer.inUseBuffer, &descriptorSets[imageIndex]);
 
     inUseCommandBuffers[mainCommandBufferinUseIndex] = commandBuffers[imageIndex];

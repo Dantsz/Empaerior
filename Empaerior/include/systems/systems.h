@@ -134,10 +134,13 @@ namespace Empaerior
 	{
 	public:
 
-		void Init(VK_Renderer* p_renderer)
+		void Init(Empaerior::ECS& ecs , VK_Renderer* p_renderer)
 		{
+			ecs.register_component<Empaerior::singleSprite_Component>();
+			ecs.add_criteria_for_iteration<Empaerior::singleSpriteSystem, Empaerior::singleSprite_Component>();	
 			renderer = p_renderer;
 		}
+		
 
 		void createSprite(Empaerior::ECS& ecs,
 			const Empaerior::u_inter& id,
