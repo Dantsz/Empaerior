@@ -56,19 +56,19 @@ int main(int argc, char** argv)
 #endif // EMPAERIOR_DEBUG
 		uint16_t error_flags = SDLW::Init();
 		//check for errors
-		if(error_flags & sdl)
+		if(error_flags & SDLW::sdl)
 		{
 			throw E_runtime_exception("Failed to initialize SDL", __FILE__, __LINE__, __FUNCTION__);
 		}
-		if (error_flags & sdl_image)
+		if (error_flags & SDLW::sdl_image)
 		{
 			throw E_runtime_exception("Failed to initialize SDL Graphics", __FILE__, __LINE__, __FUNCTION__);
 		}
-		if (error_flags & sdl_ttf)
+		if (error_flags & SDLW::sdl_ttf)
 		{
 			throw E_runtime_exception("Failed to initialize SDL Font", __FILE__, __LINE__, __FUNCTION__);
 		}
-		if (error_flags & sdl_mix)
+		if (error_flags & SDLW::sdl_mix)
 		{
 			throw E_runtime_exception("Failed to initialize SDL Audio", __FILE__, __LINE__, __FUNCTION__);
 		}

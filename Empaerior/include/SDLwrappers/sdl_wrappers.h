@@ -2,13 +2,15 @@
 
 #include <SDL.h>
 #include <SDL_mixer.h>
-//define flags
-#define sdl 1
-#define sdl_image 1<<1
-#define sdl_ttf 1<<2
-#define sdl_mix 1<<3
+
+
 
 namespace SDLW {
+	//defines constexprs
+	constexpr uint16_t sdl = 1<<0;
+	constexpr uint16_t sdl_image =  1<<1;
+	constexpr uint16_t sdl_ttf=  1<<2;
+	constexpr uint16_t sdl_mix = 1<<3;
 
 	EMP_FORCEINLINE uint16_t Init()
 	{

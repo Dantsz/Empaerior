@@ -59,6 +59,9 @@ struct Vertex {
 	}
 };
 
+/*
+ Buffers for GPU memory
+*/
 struct DynamicBuffer
 {
 	
