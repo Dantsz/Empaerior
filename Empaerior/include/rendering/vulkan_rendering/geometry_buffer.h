@@ -12,7 +12,7 @@
 #include <iostream>
 
 
-#include "../include/debugging/log.h"
+
 
 
 struct Vertex {
@@ -111,7 +111,7 @@ struct DynamicBuffer
 	
 		if (!updateBuffer)
 		{
-			ENGINE_WARN("BUFFER NEEDS UPDATING");
+		
 			if (BuffersData[index] != nullptr)
 			{
 			
@@ -190,7 +190,7 @@ struct DynamicBuffer
 			
 			while (BufferSize[get_in_use_index()] - used_size[get_in_use_index()]  < size)
 			{
-				ENGINE_WARN("Expanding buffer");
+				//ENGINE_WARN("Expanding buffer");
 				ExpandBuffer(BufferSize[get_in_use_index()]);
 				
 			}
@@ -251,7 +251,7 @@ struct DynamicBuffer
 	
 		if (updateBuffer)
 		{
-			ENGINE_WARN("updated buffer");
+			//ENGINE_WARN("updated buffer");
 			size_t new_bufferindex = (inUseBufferIndex + 1) % buffering;
 		
 			inUseBuffer = Buffers[new_bufferindex];

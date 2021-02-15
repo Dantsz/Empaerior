@@ -4,7 +4,7 @@
 #include "../include/core/defines/defines.h"
 
 
-#include "../include/debugging/log.h"
+
 
 
 #include <iostream>
@@ -56,7 +56,7 @@ namespace Empaerior
 			auto error = FT_Init_FreeType(&Empaerior::FontLoading::fontLibrary);
 			if (error)
 			{
-				ENGINE_CRITICAL("Failed to initialize the font engine");
+				//ENGINE_CRITICAL("Failed to initialize the font engine");
 			}
 		}
 
@@ -68,11 +68,11 @@ namespace Empaerior
 			auto error = FT_New_Memory_Face(Empaerior::FontLoading::fontLibrary, buffer, static_cast<FT_Long>(size), 0, &font.fontFace);
 			if (error == FT_Err_Unknown_File_Format)
 			{
-				ENGINE_ERROR("Font file cannot be read or format is unsupported");
+				//ENGINE_ERROR("Font file cannot be read or format is unsupported");
 			}
 			else if (error)
 			{
-				ENGINE_ERROR("File cannot be opened or file is broken");
+				//ENGINE_ERROR("File cannot be opened or file is broken");
 			}
 
 		}
@@ -82,7 +82,7 @@ namespace Empaerior
 			auto error = FT_Set_Pixel_Sizes(font.fontFace, 0, size);
 			if (error)
 			{
-				ENGINE_ERROR("Failed to set font size ");
+				//ENGINE_ERROR("Failed to set font size ");
 			}
 		}
 

@@ -15,11 +15,11 @@ namespace Empaerior
                 auto error = FT_New_Face(Empaerior::FontLoading::fontLibrary, path, 0, &font.fontFace);
                 if (error == FT_Err_Unknown_File_Format)
                 {
-                    ENGINE_ERROR("Font file cannot be read or format is unsupported");
+                    //ENGINE_ERROR("Font file cannot be read or format is unsupported");
                 }
                 else if (error)
                 {
-                    ENGINE_ERROR("File cannot be opened or file is broken");
+                    //ENGINE_ERROR("File cannot be opened or file is broken");
                 }
 
                 font.name = std::make_unique<char[]>(strlen(path)+ 1);

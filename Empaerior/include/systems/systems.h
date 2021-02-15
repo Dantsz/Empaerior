@@ -136,7 +136,7 @@ namespace Empaerior
 
 		void Init(Empaerior::ECS& ecs , VK_Renderer* p_renderer)
 		{
-			ecs.register_component<Empaerior::singleSprite_Component>();
+			if(!ecs.is_component_registered<Empaerior::singleSprite_Component>() )ecs.register_component<Empaerior::singleSprite_Component>();
 			ecs.add_criteria_for_iteration<Empaerior::singleSpriteSystem, Empaerior::singleSprite_Component>();	
 			renderer = p_renderer;
 		}

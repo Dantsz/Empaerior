@@ -50,7 +50,7 @@ size_t Texture_Atlas::create_texture_from_file(const std::string& path)
         Empaerior::s_int texWidth, texHeight, texChannels;
         stbi_uc* pixels = stbi_load(path.c_str(), &texWidth, &texHeight, &texChannels, STBI_rgb_alpha);
         if (!pixels) {
-            ENGINE_CRITICAL(std::string("Failed to load texture : " + path));
+           // ENGINE_CRITICAL(std::string("Failed to load texture : " + path));
             return 0;
         }
         
@@ -140,7 +140,7 @@ size_t Texture_Atlas::getFont(const char* path)
     auto fontID = fontName.find(path);
     if (fontID == fontName.end())
     {
-        ENGINE_WARN("The specified font does not exist");
+       // ENGINE_WARN("The specified font does not exist");
         return -1;
     }
     return fontID->second;

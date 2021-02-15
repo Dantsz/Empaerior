@@ -10,7 +10,7 @@
 #include  "../include/core/utilities/timer.h"
 #include "SDLwrappers/sdl_wrappers.h"
 
-#include "../include/debugging/log.h"
+
 
 
 //static objects variables
@@ -110,7 +110,7 @@ int main(int argc, char** argv)
 	catch (std::runtime_error & e)
 	{
 
-		ENGINE_CRITICAL(std::string(e.what() + '\n'));
+		//ENGINE_CRITICAL(std::string(e.what() + '\n'));
 
 	}
 	

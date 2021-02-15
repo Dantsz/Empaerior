@@ -6,7 +6,7 @@
 #include <fstream>
 #include <optional>
 
-#include "../../../include/debugging/log.h"
+
 
 #include "../../../include/Empaerior.h"
 
@@ -123,7 +123,7 @@ static  bool checkValidationLayerSupport() {
             std::string message = "Validation Layer : ";
             message += layerName;
             message +=" is missing " ;
-            ENGINE_CRITICAL(message);
+            //ENGINE_CRITICAL(message);
             return false;
         }
     }
@@ -374,10 +374,10 @@ static VkPhysicalDevice pickPhysicalDevice(VkInstance& instance, VkSurfaceKHR& s
 void VK_Renderer::Init(Empaerior::Window* window)
 {
     sdl_window = window->window;
-    ENGINE_INFO("Initializing vulkan renderer");
+   // ENGINE_INFO("Initializing vulkan renderer");
     if (sdl_window == nullptr)
     {
-        ENGINE_ERROR("Invalid window");
+      //  ENGINE_ERROR("Invalid window");
 
     }
     //add the resize event
@@ -1132,7 +1132,7 @@ void VK_Renderer::createGraphicsPipeline(Empaerior::VK_RendererGraphicsInfo& inf
 
     VkResult pipelineResult = vkCreateGraphicsPipelines(device, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &graphicsPipeline);
     if (pipelineResult != VK_SUCCESS) {
-        ENGINE_ERROR(std::string("failed to create graphics pipeline : " + pipelineResult ));
+        //ENGINE_ERROR(std::string("failed to create graphics pipeline : " + pipelineResult ));
         throw std::runtime_error("failed to create graphics pipeline!");
     }
 

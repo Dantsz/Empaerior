@@ -12,7 +12,7 @@
 
 #include "../include/input/eventhandler/eventhandler.h"
 #include "../include/core/exceptions/exceptions.h"
-#include "../include/debugging/log.h"
+
 
 namespace  Empaerior{
 
@@ -209,7 +209,7 @@ public:
 
 			//add it the freed queue
 			freed_indexes.emplace_back(to_be_deleted[i]);
-			ENGINE_INFO("DELETED STATE" + std::to_string(to_be_deleted[i]));
+			//ENGINE_INFO("DELETED STATE" + std::to_string(to_be_deleted[i]));
 
 		}
 
@@ -253,13 +253,13 @@ public:
 			//if the state is already on the top
 			if (active_states[active_states.size() - 1] == index)
 			{
-				ENGINE_WARN("State " + std::to_string(index) + " is already on top");
+				//ENGINE_WARN("State " + std::to_string(index) + " is already on top");
 				return;
 			}
 			
 			if (n >= active_states.size())
 			{
-				ENGINE_WARN("There are less than " + std::to_string(n) + " states, moving the state to the top instead");
+				//ENGINE_WARN("There are less than " + std::to_string(n) + " states, moving the state to the top instead");
 
 			}
 	
@@ -295,13 +295,13 @@ public:
 			//if the state is already at the bottom
 			if (active_states[0] == index)
 			{
-				ENGINE_WARN("State " + std::to_string(index) + " is already on the bottom");
+				//ENGINE_WARN("State " + std::to_string(index) + " is already on the bottom");
 				return;
 			}
 
 			if (n >= active_states.size())
 			{
-				ENGINE_WARN("There are less than " + std::to_string(n) + " states, moving the state to the bottom instead");
+				//ENGINE_WARN("There are less than " + std::to_string(n) + " states, moving the state to the bottom instead");
 
 			}
 
