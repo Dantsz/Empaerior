@@ -38,8 +38,8 @@ Empaerior::Window Empaerior::Application::window;
 extern Empaerior::Application* Empaerior::Create_Application();
 //THIS IS THE ENTRY POINT 
 
-#define SDL_MAIN_HANDLED
-int main(int argc, char** argv)
+//#define SDL_MAIN_HANDLED
+inline int main(int argc, char** argv)
 {
 
 #ifdef EMP_USE_LOGS

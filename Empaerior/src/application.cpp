@@ -1,17 +1,11 @@
 #include "pch.h"
 #include "../include/application.h"
 
-
-
-
-
-
 Empaerior::Application::Application()
 {
 
 
 }
-
 void Empaerior::Application::Init()
 {
 
@@ -19,8 +13,6 @@ void Empaerior::Application::Init()
 
 
 }
-
-
 
 void Empaerior::Application::Update(const Empaerior::u_int dt )
 {

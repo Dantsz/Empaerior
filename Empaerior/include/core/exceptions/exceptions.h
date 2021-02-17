@@ -6,18 +6,10 @@
 
 #include <iostream>
 
-#ifdef EMP_USE_LOGS
-	#include "../include/debugging/log.h"
-#endif // EMP_USE_LOGS
-
-
 class E_runtime_exception : public std::exception
 {
 public:
 	
-	
-
-
 	E_runtime_exception(const Empaerior::string& what, const Empaerior::string& file, const  Empaerior::u_inter& line, const  Empaerior::string& func)
 	{
 		message = "Exception: " + what + " in " + file +  " function :" + func + " at line " + std::to_string(line) + '\n';
@@ -38,7 +30,4 @@ public:
 private:
 	Empaerior::string message = "";//message
 	
-
-
-
 };

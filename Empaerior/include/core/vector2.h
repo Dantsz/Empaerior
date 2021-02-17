@@ -14,9 +14,3 @@ namespace Empaerior
 }
 
 
-
-
-
-
-#pragma endregion
-

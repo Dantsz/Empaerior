@@ -138,7 +138,8 @@ namespace Empaerior
 		//ids that had once an entity but now are 
 		Empaerior::vector<Empaerior::u_inter> freed_id;
 
-		//stores the signature of an entity with the id as key
+		//stores the signature of an entity with the id as 
+		//vector<bool> spooky
 		Empaerior::vector<Empaerior::vector<bool>> entity_signature;
 
 		//the lowest unallocated id that has not interacted with

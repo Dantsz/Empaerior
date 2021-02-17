@@ -19,8 +19,6 @@ namespace Empaerior
 			return elements[index];
 		}
 
-			
-	
 	};
 
 //vector-vector

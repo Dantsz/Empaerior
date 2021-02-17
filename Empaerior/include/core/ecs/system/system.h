@@ -4,11 +4,13 @@
 #include "../entity.h"
 #include <memory>
 
-
+//puts the item where it would be if the vector is in ascending order
 template< typename T >
 typename std::vector<T>::iterator
 EMP_FORCEINLINE insert_sorted(std::vector<T>& vec, T const& item)
 {
+	//if it is there return
+	if(std::binary_search(vec.begin(),vec.end(),item) == true) return vec.end();
 	return vec.insert
 	(
 		std::upper_bound(vec.begin(), vec.end(), item),

@@ -2,7 +2,7 @@
 #include "Empaerior.h"
 #include "core/defines/defines.h"
 #ifdef EMP_USE_DATA_DUMPS
-
+//TODO : replace macro with source_location when C++20 is more common
 namespace Empaerior {
 	//Theese are debug functions so efficienty is not a pritority
 	template <typename T>
