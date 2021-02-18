@@ -1,6 +1,6 @@
 #pragma once
 #include "defines/basic_defines.h"
-#include "mat.h"
+
 namespace Empaerior
 {
 
@@ -147,36 +147,6 @@ namespace Empaerior
 	}
 #pragma endregion
 //vector-matrix
-#pragma region operator m-v
-
-	template<length_t length , typename type>
-	vec<length,type> operator *(Empaerior::vec<length, type>& v, const Empaerior::mat<length, length, type>& mat)
-	{
-		vec<length, type> temp;
-		type sum;
-		for (length_t i = 0; i < length; i++)
-		{
-			sum = static_cast<type>(0);
-			for (length_t j = 0; j < length; j++)
-			{
-				sum += mat[i][j] * v[j];
-			}
-			temp[i] = sum;
-
-		}
-		return temp;
-	}
-
-	template <length_t length, typename type>
-	void operator *=(Empaerior::vec<length, type>& v,const Empaerior::mat<length,length,type>& mat)
-	{
-		
-		v = v * mat;
-		
-	}
-
-#pragma endregion
-
 
 template <length_t length, typename type>
 	type get_vector_length(Empaerior::vec<length,type>& v)

@@ -5,7 +5,6 @@ set(core
     "include/core/vector2.h"
     "include/core/unsafe_vector.h"
 	"include/core/vec.h" 
-    "include/core/mat.h"
 )
 source_group("core" FILES ${core})
 
