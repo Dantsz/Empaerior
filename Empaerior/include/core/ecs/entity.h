@@ -19,7 +19,7 @@ namespace Empaerior
 	};
 
 
-	class EnityManager
+	class EntityManager
 	{
 	public:
 
@@ -31,7 +31,7 @@ namespace Empaerior
 			if (freed_id.empty())
 			{
 				entity_signature.emplace_back(Empaerior::vector<bool>());
-				return lowest_unallocatedid++;
+				return lowest_unallocatedID++;
 			}
 			else
 			{
@@ -39,6 +39,8 @@ namespace Empaerior
 				Empaerior::u_inter id = freed_id.front();
 				//popit
 				freed_id.pop_back();
+				//clear signature
+				entity_signature[id].clear();
 				return  id;
 
 			}
@@ -49,7 +51,7 @@ namespace Empaerior
 		{
 			try
 			{
-				if (id > lowest_unallocatedid )
+				if (id > lowest_unallocatedID )
 				{
 					throw E_runtime_exception("Invalid id for deletion : id doesn't exist", __FILE__, __LINE__, __FUNCTION__);
 
@@ -85,7 +87,7 @@ namespace Empaerior
 		{
 			try
 			{
-				if (id > lowest_unallocatedid)
+				if (id > lowest_unallocatedID)
 				{
 					throw E_runtime_exception("Cannot set id signature  : id doesn't exist", __FILE__, __LINE__, __FUNCTION__);
 
@@ -111,7 +113,7 @@ namespace Empaerior
 
 			try
 			{
-				if (id > lowest_unallocatedid)
+				if (id > lowest_unallocatedID)
 				{
 					throw E_runtime_exception("Cannot fetch entity signature : id doesn't exist", __FILE__, __LINE__,__FUNCTION__);
 
@@ -133,6 +135,7 @@ namespace Empaerior
 
 
 		
+		
 	
 	
 		//ids that had once an entity but now are 
@@ -143,7 +146,7 @@ namespace Empaerior
 		Empaerior::vector<Empaerior::vector<bool>> entity_signature;
 
 		//the lowest unallocated id that has not interacted with
-		Empaerior::u_inter lowest_unallocatedid = 0;
+		Empaerior::u_inter lowest_unallocatedID = 0;
 	};
 
 

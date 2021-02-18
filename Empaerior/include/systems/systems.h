@@ -10,13 +10,14 @@
 #include "../include/input/eventhandler/eventhandler.h"
 
 
+#include <memory>
 #include <set>
 #include "../include/rendering/vulkan_rendering/renderer.h"
 
 namespace Empaerior
 {
 
-	class Event_System : public Empaerior::System
+	class Event_System 
 	{
 	public:
 
@@ -39,9 +40,9 @@ namespace Empaerior
 		{
 #define EVENTLISTENER  ecs.get_component<Empaerior::Event_Listener_Component>(*Iterator).event_listener
 			//REVERSE ITERATOR
-			std::vector<Empaerior::u_inter>::reverse_iterator Iterator = entities_id.rbegin();
+			std::vector<Empaerior::u_inter>::reverse_iterator Iterator = entityList->entities_id.rbegin();
 			//ITERATING THROUGH THE ENTITIES IN REVERSE
-			while (Iterator != entities_id.rend() && !Empaerior::is_event_handled(event))
+			while (Iterator != entityList->entities_id.rend() && !Empaerior::is_event_handled(event))
 			{
 				EVENTLISTENER.handleEvents(event);
 				Iterator++;
@@ -53,6 +54,8 @@ namespace Empaerior
 #undef EVENTLISTENER
 
 		}
+		public:
+		std::shared_ptr<Empaerior::EntitySystemList> entityList;
 
 
 
@@ -62,7 +65,7 @@ namespace Empaerior
 
 	
 
-	class T_E_System : public Empaerior::System
+	class T_E_System 
 	{
 	public:
 
@@ -93,7 +96,7 @@ namespace Empaerior
 #define component ecs.get_component<T_E_Component>(id)
 		void Update(Empaerior::ECS& ecs, const Empaerior::u_int& dt)
 		{
-			for (auto& id : entities_id)
+			for (auto& id : entityList->entities_id)
 			{
 				for (Empaerior::u_inter i = 0; i < component.functions.size(); i++)
 				{
@@ -126,11 +129,13 @@ namespace Empaerior
 
 		}
 #undef component
+	public:
+		std::shared_ptr<Empaerior::EntitySystemList> entityList;
 
 
 	};
 
-	class singleSpriteSystem : public Empaerior::System
+	class singleSpriteSystem 
 	{
 	public:
 
@@ -152,7 +157,7 @@ namespace Empaerior
 			Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, ecs.get_component<Empaerior::singleSprite_Component>(id).sprites, rect, texRect, textureID);
 		}
 
-		void OnEntityRemovedfromSystem(Empaerior::ECS* ecs, const Empaerior::u_inter& entity_id) override
+		void OnEntityRemovedfromSystem(Empaerior::ECS* ecs, const Empaerior::u_inter& entity_id) 
 		{
 			//Empaerior::destroySprite(ecs->get_component<singleSprite_Component>(entity_id).sprites);
 		}
@@ -160,6 +165,8 @@ namespace Empaerior
 
 	private:
 		VK_Renderer* renderer;
+	public:
+		std::shared_ptr<Empaerior::EntitySystemList> entityList;
 
 	};
 }

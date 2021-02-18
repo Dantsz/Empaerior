@@ -18,7 +18,7 @@ namespace Empaerior
 		void Init()
 		{
 			component_manager = std::make_unique<Empaerior::ComponentManager>();
-			entity_manager = std::make_unique<Empaerior::EnityManager>();
+			entity_manager = std::make_unique<Empaerior::EntityManager>();
 			system_manager = std::make_unique<Empaerior::SystemManager>();
 
 		}
@@ -32,9 +32,12 @@ namespace Empaerior
 
 
 		//assigns a new id for an entity
-		Empaerior::u_inter create_entity_ID()
+		[[nodiscard]]Empaerior::u_inter create_entity_ID()
 		{
-			return entity_manager->add_Entity();
+			Empaerior::u_inter ID =  entity_manager->add_Entity();
+			system_manager->OnEntitySignatureChange(this, ID, entity_manager->get_signature(ID));
+		
+			return ID;
 		}
 		//destroy entity
 		void destroy_entity(const Empaerior::u_inter& id)
@@ -176,13 +179,18 @@ namespace Empaerior
 		}
 
 
-		template <typename T>
-		std::shared_ptr<T> register_system()
+		template <systemT T>
+		void register_system(T& sys)
 		{
-			return system_manager->register_system<T>();
+			//if registering the system succeded
+		   if(system_manager->register_system<T>(sys))
+		   {
+			  onSystemSignatureChange<T>();
+		   }
+		   return;
 		}
 
-		template <typename T>
+		template <systemT T>
 		Empaerior::boole is_system_registered()
 		{
 			const char* system_type = typeid(T).name();
@@ -192,32 +200,31 @@ namespace Empaerior
 		}
 
 		//sets the signature of T
-		template <typename T>
+		template <systemT T>
 		void set_system_signature(Empaerior::vector<bool>& signature)
 		{
 			system_manager->set_signature<T>(signature);
 		}
 
 		//gets the signature of T
-		template <typename T>
+		template <systemT T>
 		Empaerior::vector<bool> get_system_signature()
 		{
 			return system_manager->get_system_signature<T>();
 		}
 
-		//add the components to the system <sys> as a criteria for iteration , if the entity doen't have the systems specified , it will not iterate ovr them 
-		template< typename sys>
+		//add the components to the system <sys> as a criteria for iteration , if the entity doen't have the components specified , it will not iterate ovr them 
+		template< systemT sys>
 		void add_criteria_for_iteration()
 		{
-			
-
+			//update signature when all components have been added
+			onSystemSignatureChange<sys>();
 		}
-		template <typename sys , typename comp , typename ...comps >
+		template <systemT sys , typename comp , typename ...comps >
 		void add_criteria_for_iteration()
-		{
+		{	
 			//get the current signature of sys
 			Empaerior::vector<bool> signature = get_system_signature<sys>();
-
 			//get the id of the component
 			Empaerior::u_inter component_id = get_component_id<comp>();
 			//modify the signature to fit the new component
@@ -230,22 +237,20 @@ namespace Empaerior
 			//set the new signature
 			set_system_signature<sys>(signature);
 
-
-
-
 			add_criteria_for_iteration<sys, comps...>();
+			
 
 		}
 
 
 		//sets the whole criteria instead of adding to it
-		template <typename sys>
+		template <systemT sys>
 		void set_criteria_for_iteration()
 		{
-
+			onSystemSignatureChange<sys>();	
 		}
 
-		template<typename sys, typename comp, typename ...comps>
+		template<systemT sys, typename comp, typename ...comps>
 		void set_criteria_for_iteration()
 		{
 			//get the current signature of sys
@@ -285,8 +290,36 @@ namespace Empaerior
 
 	
 		std::unique_ptr<Empaerior::ComponentManager> component_manager;
-		std::unique_ptr<Empaerior::EnityManager> entity_manager;
+		std::unique_ptr<Empaerior::EntityManager> entity_manager;
 		std::unique_ptr<Empaerior::SystemManager> system_manager;
+		private:
+	    
+		template <systemT T>
+		void onSystemSignatureChange()
+		{
+			 const char* system_type = typeid(T).name();
+			   //add matching entities to it
+			   //couldn't find a better place to put it
+			  
+			   for(Empaerior::u_inter entity = 0; entity < entity_manager->lowest_unallocatedID ; entity++)
+			   {
+				   if(system_manager->compare_entity_to_system(entity_manager->entity_signature[entity],system_manager->get_system_signature<T>()))
+				   {
+					//TODO : MAKE A METHOD TO SYSTEM , method needs to be virtual /Onewntitierase/insert
+					insert_sorted(system_manager->typetosystem.at(system_type)->entities_id, entity);
+				   }
+				   else
+				   {
+					//ugh
+					system_manager->typetosystem.at(system_type)->entities_id.erase(
+						std::remove(system_manager->typetosystem.at(system_type)->entities_id.begin(), system_manager->typetosystem.at(system_type)->entities_id.end(), entity),
+						  system_manager->typetosystem.at(system_type)->entities_id.end());
+
+					system_manager->typetosystem.at(system_type)->OnEntityRemovedfromSystem(this, entity);
+				   }
+			   }
+		}
 	};
+	
 
 }

@@ -89,4 +89,17 @@ namespace Empaerior
 
 	};
 
+	//finds the largest value lower than item and puts it before it, item must not be present in the vector
+	template< typename T >
+	EMP_FORCEINLINE typename Empaerior::vector<T>::iterator insert_sorted(Empaerior::vector<T>& vec, T const& item)
+	{
+		if(std::binary_search(vec.begin(),vec.end(),item) == true) return vec.end();
+		auto upperBound = std::upper_bound(vec.begin(), vec.end(), item);
+		return vec.insert
+		(
+			upperBound,
+			item
+		);
+	}
+
 }

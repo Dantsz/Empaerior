@@ -2,33 +2,34 @@
 
 
 #include "../entity.h"
+#include <algorithm>
 #include <memory>
+#include <concepts>
 
-//puts the item where it would be if the vector is in ascending order
-template< typename T >
-typename std::vector<T>::iterator
-EMP_FORCEINLINE insert_sorted(std::vector<T>& vec, T const& item)
-{
-	//if it is there return
-	if(std::binary_search(vec.begin(),vec.end(),item) == true) return vec.end();
-	return vec.insert
-	(
-		std::upper_bound(vec.begin(), vec.end(), item),
-		item
-	);
-}
 
 namespace Empaerior {
+
+
+	
+
+
 	//Thanks to 
 	//"A system is any functionality that iterates upon a list of entities with a certain signature of components."
 	//
 	class ECS;     // forward declaration
 
-	class System
+	template <typename systemt>
+	concept systemT = requires(systemt sys ){
+		{sys.entityList->entities_id[0]};
+		{sys.entityList->entities_id.size()};
+	};
+
+
+	class EntitySystemList
 	{
 	public:
 
-		virtual ~System()
+		virtual ~EntitySystemList()
 		{
 
 		}
@@ -41,16 +42,12 @@ namespace Empaerior {
 
 		std::vector<Empaerior::u_inter> entities_id;
 	};
-
-	
-
-
-
 	class SystemManager
 	{
 	public:
-		template <typename T>
-		std::shared_ptr<T>  register_system()
+		//creates a system of type T and puts it in the map
+		template <systemT T>
+		bool  register_system(T& system)
 		{
 			const char* system_type = typeid(T).name();
 			try
@@ -58,28 +55,22 @@ namespace Empaerior {
 				//if the system is already present //  throw
 				if (typetosystem.find(system_type) != typetosystem.end())
 				{
-
 					throw E_runtime_exception("Unable to register system: system is already registered.", __FILE__, __LINE__, __FUNCTION__);
-
 				}
-				std::shared_ptr<T> system = std::make_shared<T>();
-				typetosystem.insert({ system_type,system });
-
-				return system;
-
+				std::shared_ptr<EntitySystemList> systemEVec = std::make_shared<EntitySystemList>();
+				typetosystem.insert({ system_type,systemEVec });
+				set_signature<T>(Empaerior::vector<bool>{});
+				system.entityList = systemEVec;
+				return true; 
 			}
 			catch (E_runtime_exception & e)
 			{
 				e.print_message();
-				return nullptr;
+				return false;
 			}
-			
-
-
-
 		}
-
-		template<typename T>
+		//sets the signature of the system with type T
+		template<systemT T>
 		void set_signature(const Empaerior::vector<bool>& signature)
 		{
 			const char* system_type = typeid(T).name();	
@@ -102,7 +93,7 @@ namespace Empaerior {
 		}
 
 		//gets signature of a system
-		template <typename T>
+		template <systemT T>
 		Empaerior::vector<bool> get_system_signature()
 		{
 
@@ -141,8 +132,7 @@ namespace Empaerior {
 		}
 
 		// Notify each system that an entity's signature changed
-		
-		 void OnEntitySignatureChange(Empaerior::ECS* ecs,const Empaerior::u_inter& entity_id, Empaerior::vector<bool>& signature)
+		void OnEntitySignatureChange(Empaerior::ECS* ecs,const Empaerior::u_inter& entity_id, Empaerior::vector<bool>& signature)
 		{
 			for (auto const& it : typetosystem)
 			{
@@ -153,8 +143,6 @@ namespace Empaerior {
 				{
 					//TODO : MAKE A METHOD TO SYSTEM , method needs to be virtual /Onewntitierase/insert
 					insert_sorted(system->entities_id, entity_id);
-
-
 				}
 				else
 				{
@@ -166,7 +154,8 @@ namespace Empaerior {
 
 		}
 
-		//compare the signature//return 1  if ther are equal
+
+		//compare the signature//return 1  if they are equal
 		static bool compare_signatures(const Empaerior::vector<bool>& signature1, const Empaerior::vector<bool>& signature2)
 		{
 			if (signature1.size() != signature2.size()) return false;
@@ -180,12 +169,10 @@ namespace Empaerior {
 		//compares the signature of an entity to a specific system and if they are compatible , aka the entity has all the components the system needs return true
 		static bool compare_entity_to_system(const Empaerior::vector<bool>& entity_s , const Empaerior::vector<bool> system_s)
 		{
-
+			
 			///if the system signature doesn't match the entity
 			if (system_s.size() > entity_s.size()) return false;
-
-
-			//if a signature has a system but the tntity does not 
+			//if a signature has a system but the etity does not 
 			//return false
 			for (int i = 0; i < system_s.size(); i++)
 			{
@@ -197,7 +184,7 @@ namespace Empaerior {
 		//get the signature of a system based on type
 		Empaerior::hash_map<const char*, Empaerior::vector<bool>> typetosignature;
 		//get the system based on type
-		Empaerior::hash_map<const char*, std::shared_ptr<System>> typetosystem;
+		Empaerior::hash_map<const char*, std::shared_ptr<EntitySystemList>> typetosystem;
 
 	};
 

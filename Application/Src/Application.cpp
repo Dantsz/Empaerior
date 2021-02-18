@@ -32,10 +32,9 @@ public:
 	APP_State1(VK_Renderer* renderer, Empaerior::u_inter originText)
 	{
 		ecs.Init();
-		std::cout << ecs.is_system_registered<Empaerior::singleSpriteSystem>() << '\n';
-		sprite_system = ecs.register_system<Empaerior::singleSpriteSystem>();
-		sprite_system->Init(ecs,renderer);
-		std::cout << ecs.is_system_registered<Empaerior::singleSpriteSystem>();
+		ecs.register_system<Empaerior::singleSpriteSystem>(sprite_system);
+		sprite_system.Init(ecs,renderer);
+	
 		
 
 		Empaerior::Sprite greenerboi;
@@ -43,7 +42,7 @@ public:
 
 		morge.id = ecs.create_entity_ID();
 		ecs.add_component<Empaerior::singleSprite_Component>(morge.id, {});
-		sprite_system->createSprite(ecs, morge.id, { 0,0,960,540 }, {0,0,1,1}, 0);
+		sprite_system.createSprite(ecs, morge.id, { 0,0,960,540 }, {0,0,1,1}, 0);
 
 		Empaerior::createTextSprite(renderer->geometrybuffer, renderer->texture_atlas, lol, {500,100,1000,1000}, {32,32}, idk, "gffgfgfgfgfg", { 255,255,255 });
 
@@ -64,10 +63,10 @@ public:
 	}
 	void handleevents(Empaerior::Event& event) override
 	{
-		event_system->handle_events(ecs, event);
+		event_system.handle_events(ecs, event);
 	}
-	std::shared_ptr<Empaerior::Event_System> event_system;
-	std::shared_ptr<Empaerior::singleSpriteSystem> sprite_system;
+    Empaerior::Event_System event_system;
+	Empaerior::singleSpriteSystem sprite_system;
 	int  i = 0;
 private:
 
