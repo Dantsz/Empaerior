@@ -1,7 +1,8 @@
 #pragma once
 
 #include "../defines/defines.h"
-#define PI    3.1415926535897932384626433832795028
+#include <numbers>
+
 
 namespace Empaerior
 {
@@ -10,7 +11,7 @@ namespace Empaerior
 		//dergrees to radians
 		EMP_FORCEINLINE Empaerior::fl_point d2r(Empaerior::fl_point d)
 		{
-			return (d / 180.0f) * Empaerior::fl_point(PI);
+			return (d / 180.0f) * Empaerior::fl_point(std::numbers::pi);
 		}
 
 		//sin & cos in degress

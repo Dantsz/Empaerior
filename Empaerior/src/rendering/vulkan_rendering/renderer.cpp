@@ -874,7 +874,7 @@ void VK_Renderer::createDescriptorSetLayout()
     VkDescriptorSetLayoutBinding textureArrayLayoutBinding = {};
     textureArrayLayoutBinding.binding = 2;
     textureArrayLayoutBinding.descriptorCount = texture_atlas.images.size();
-    textureArrayLayoutBinding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT | VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT;
+    textureArrayLayoutBinding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT; //| VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT;
     textureArrayLayoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
     textureArrayLayoutBinding.pImmutableSamplers = 0;
 
