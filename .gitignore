@@ -372,3 +372,4 @@ build/compile_commands.json
 
 build/CMakeCache.txt
 
+/out/build/x64-Debug (default)

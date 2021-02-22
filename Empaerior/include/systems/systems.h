@@ -21,10 +21,8 @@ namespace Empaerior
 	{
 	public:
 
-		~Event_System()
-		{
-
-		}
+		~Event_System() = default;
+		
 		/*
 		Adds an event to be listened to by the entity's event listener component
 		*/
@@ -69,10 +67,8 @@ namespace Empaerior
 	{
 	public:
 
-		~T_E_System()
-		{
-
-		}
+		~T_E_System() = default;
+		
 
 		using Timed_Function = std::function<void()>;
 

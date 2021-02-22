@@ -174,7 +174,7 @@ namespace Empaerior
 				uint8_t* src = font.fontFace->glyph->bitmap.buffer;
 				uint8_t* startOfLine = src;
 
-				Empaerior::u_inter dst = 4 * static_cast<uint32_t>(ch) * height * width;
+				Empaerior::u_inter dst = 4 * static_cast<Empaerior::u_inter>(ch) * height * width;
 
 				
 

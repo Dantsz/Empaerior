@@ -112,7 +112,7 @@ namespace Empaerior
 				if (entityhascomponent.size() <= entity_id || entityhascomponent[entity_id] != 1)
 				{
 					//I don't know why it's giving a warning, only here as I have multiple blocks like this, not a big deal
-					E_runtime_exception("Cannot delete component: the entity doesn't have this type of component : " + Empaerior::string(typeid(T).name()), __FILE__, __LINE__, __FUNCTION__);
+					E_runtime_exception err("Cannot delete component: the entity doesn't have this type of component : " + Empaerior::string(typeid(T).name()), __FILE__, __LINE__, __FUNCTION__);
 				}
 
 				//get the index of the removed entity

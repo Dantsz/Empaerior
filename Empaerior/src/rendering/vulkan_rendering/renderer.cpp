@@ -31,7 +31,8 @@ struct QueueFamilyIndices {
     }
 };
 
-struct SwapChainSupportDetails {
+struct SwapChainSupportDetails 
+{
     VkSurfaceCapabilitiesKHR capabilities;
     std::vector<VkSurfaceFormatKHR> formats;
     std::vector<VkPresentModeKHR> presentModes;
@@ -39,7 +40,9 @@ struct SwapChainSupportDetails {
 
 #pragma region miscfunctions
 
-static std::vector<char> readFile(const std::string& filename) {
+static std::vector<char> readFile(const std::string& filename) 
+{
+
     std::ifstream file(filename, std::ios::ate | std::ios::binary);
 
     if (!file.is_open()) {

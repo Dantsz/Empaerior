@@ -10,7 +10,7 @@ namespace Empaerior {
 	struct Event
 	{
 		//the event
-		SDL_Event event;
+		SDL_Event event{};
 		//Check to see if it was handled
 		Empaerior::boole is_handled = false;
 	};

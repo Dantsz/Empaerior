@@ -28,9 +28,6 @@ namespace Empaerior {
 		virtual void handleevents(Empaerior::Event& event) = 0;
 
 
-
-
-
 		Empaerior::ECS ecs;
 	protected:
 
