@@ -44,7 +44,7 @@ namespace Empaerior
 		{
 			entity_manager->delete_entity(id);
 			component_manager->OnEntityDestroyed(id);
-			system_manager->OnEntityDestroy(id);
+			system_manager->OnEntityDestroy(this,id);
 			
 
 		}

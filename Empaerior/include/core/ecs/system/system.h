@@ -122,11 +122,12 @@ namespace Empaerior {
 
 
 		//erase entity from all systems
-		void OnEntityDestroy(const Empaerior::u_inter& entity_id)
+		void OnEntityDestroy(Empaerior::ECS* ecs,const Empaerior::u_inter& entity_id)
 		{
 			for (auto const& it : typetosystem)
 			{
 				it.second->entities_id.erase(std::remove(it.second->entities_id.begin(), it.second->entities_id.end(), entity_id), it.second->entities_id.end());
+				it.second->OnEntityRemovedfromSystem(ecs,entity_id);
 			}
 
 		}

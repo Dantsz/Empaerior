@@ -36,7 +36,7 @@ namespace Empaerior
 			else
 			{
 				//take the id from   the front of the queue
-				Empaerior::u_inter id = freed_id.front();
+				Empaerior::u_inter id = freed_id.back();
 				//popit
 				freed_id.pop_back();
 				//clear signature

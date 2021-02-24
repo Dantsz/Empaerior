@@ -1,6 +1,7 @@
 #include <Empaerior.h>
 #include <EmpaeriorEngine.h>
 #include <SDL_vulkan.h>
+#include "SDL_scancode.h"
 #include "Tools/Imgui/Emp_Imgui.h"
 
 
@@ -34,21 +35,18 @@ public:
 		ecs.Init();
 		ecs.register_system<Empaerior::singleSpriteSystem>(sprite_system);
 		sprite_system.Init(ecs,renderer);
-	
+		m_renderer = renderer;
 		
 
 		Empaerior::Sprite greenerboi;
-	//	Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, greenerboi, { 0,0,100,100 }, { 0,0,600,600 }, 1);
+		Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, greenerboi, { 0,0,100,100 }, { 0,0,1,1 }, 0);
+		
 
-		morge.id = ecs.create_entity_ID();
-		ecs.add_component<Empaerior::singleSprite_Component>(morge.id, {});
-		sprite_system.createSprite(ecs, morge.id, { 0,0,960,540 }, {0,0,1,1}, 0);
-
-		Empaerior::createTextSprite(renderer->geometrybuffer, renderer->texture_atlas, lol, {500,100,1000,1000}, {32,32}, idk, "gffgfgfgfgfg", { 255,255,255 });
+		//Empaerior::createTextSprite(renderer->geometrybuffer, renderer->texture_atlas, lol, {500,100,1000,1000}, {32,32}, idk, "gffgfgfgfgfg", { 255,255,255 });
 
 	
 
-		Empaerior::setTextSpriteMessage(lol, { 500,200,1000,1000 }, { 32,32 }, idk, "1234", { 255,255,255 });
+	//	Empaerior::setTextSpriteMessage(lol, { 500,200,1000,1000 }, { 32,32 }, idk, "1234", { 255,255,255 });
 		//Empaerior::destroySprite(borge[30]);	//Empaerior::setSpriteDimensions(borge[25], 0.0f, 0.0f);
 	}
 	~APP_State1()
@@ -57,6 +55,25 @@ public:
 	}
 	void Update(const Empaerior::u_int dt) override
 	{
+		if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_M))
+			{
+					
+				auto position = Empaerior::Input::Mouse::get_world_mouse_coords(m_renderer->GraphicsSettings, m_renderer->ubo);
+				morge.push_back({});
+				morge[morge.size() - 1].id = ecs.create_entity_ID();
+				ecs.add_component<Empaerior::singleSprite_Component>(morge[morge.size() - 1].id, {});
+				sprite_system.createSprite(ecs, morge[morge.size() - 1].id, { position[0],position[1],100,100 }, {0,0,1,1}, 0);
+			}
+		else if(Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_Q))
+		{
+			if(morge.size() > 1)
+			{
+			
+			 ecs.destroy_entity(morge[morge.size() - 1].id);
+			 morge.pop_back();
+			
+			}
+		}
 	}
 	void Render() override//renders the state
 	{
@@ -71,7 +88,8 @@ public:
 private:
 
 	int angle = 0;
-	Empaerior::Entity morge;
+	std::vector<Empaerior::Entity> morge;
+	VK_Renderer* m_renderer;
 };
 
 
@@ -137,7 +155,7 @@ public:
 				if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_M))
 				{
 
-					Empaerior::createSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { position[0],position[1],10,10 }, { 0,0,vk.texture_atlas.image_dimensions[2][0],vk.texture_atlas.image_dimensions[2][1] }, 2);
+				//	Empaerior::createSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { position[0],position[1],10,10 }, { 0,0,vk.texture_atlas.image_dimensions[2][0],vk.texture_atlas.image_dimensions[2][1] }, 2);
 
 
 				}
