@@ -68,7 +68,7 @@ public:
 		{
 			if(morge.size() > 1)
 			{
-			
+			 sprite_system.destroySprite(&ecs, morge[morge.size() -1].id);
 			 ecs.destroy_entity(morge[morge.size() - 1].id);
 			 morge.pop_back();
 			

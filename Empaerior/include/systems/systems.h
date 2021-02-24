@@ -153,7 +153,7 @@ namespace Empaerior
 			Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, ecs.get_component<Empaerior::singleSprite_Component>(id).sprites, rect, texRect, textureID);
 		}
 
-		void OnEntityRemovedfromSystem(Empaerior::ECS* ecs, const Empaerior::u_inter& entity_id) 
+		void destroySprite(Empaerior::ECS* ecs, const Empaerior::u_inter& entity_id) 
 		{
 			Empaerior::destroySprite(ecs->get_component<singleSprite_Component>(entity_id).sprites);
 		}
