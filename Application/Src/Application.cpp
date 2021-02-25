@@ -39,8 +39,8 @@ public:
 		
 
 		Empaerior::Sprite greenerboi;
-		Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, greenerboi, { 0,0,100,100 }, { 0,0,1,1 }, 0);
-		
+		Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, greenerboi, { 0,0,99,99 }, { 0,0,1,1 }, 0);
+
 
 		//Empaerior::createTextSprite(renderer->geometrybuffer, renderer->texture_atlas, lol, {500,100,1000,1000}, {32,32}, idk, "gffgfgfgfgfg", { 255,255,255 });
 

@@ -10,9 +10,6 @@
 namespace Empaerior {
 
 
-	
-
-
 	//Thanks to 
 	//"A system is any functionality that iterates upon a list of entities with a certain signature of components."
 	//
@@ -28,18 +25,11 @@ namespace Empaerior {
 	class EntitySystemList
 	{
 	public:
-
-		virtual ~EntitySystemList()
-		{
-
-		}
-
-		virtual void OnEntityRemovedfromSystem(Empaerior::ECS* ecs,const Empaerior::u_inter& entity_id)
+		void OnEntityRemovedfromSystem(Empaerior::ECS* ecs,const Empaerior::u_inter& entity_id)
 		{
 
 		}
 		//the id of the entities the system works on
-
 		std::vector<Empaerior::u_inter> entities_id;
 	};
 	class SystemManager

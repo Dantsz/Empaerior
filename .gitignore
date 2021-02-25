@@ -374,3 +374,4 @@ build/CMakeCache.txt
 
 /out/build/x64-Debug (default)
 /CMakeSettings.json
+cmake-build-debug/

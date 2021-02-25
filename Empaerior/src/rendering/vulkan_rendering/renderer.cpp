@@ -933,7 +933,7 @@ void VK_Renderer::updateDescriptorSets()
         descriptorImageInfos.resize(texture_atlas.images.size());
         for (uint32_t i = 0; i < texture_atlas.images.size(); ++i)
         {
-            descriptorImageInfos[i].sampler = nullptr;
+            descriptorImageInfos[i].sampler = 0;
             descriptorImageInfos[i].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
             descriptorImageInfos[i].imageView = texture_atlas.image_views[i];
         }
