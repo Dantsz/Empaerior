@@ -1039,16 +1039,15 @@ void VK_Renderer::createGraphicsPipeline(Empaerior::VK_RendererGraphicsInfo& inf
     viewport.x = info.viewportX;
     viewport.y = info.viewportY;
 
-    viewport.width = static_cast<float>(swapChainExtent.width);
-
-    viewport.height = static_cast<float>(swapChainExtent.height);
+    viewport.width = info.viewportW;
+    viewport.height = info.viewportH;
 
 
     viewport.minDepth = info.minDepth;
     viewport.maxDepth = info.maxDepth;
 
     VkRect2D scissor{};
-    scissor.offset = { 0, 0 };
+    scissor.offset = { info.scissorOffset[0], info.scissorOffset[1] };
     scissor.extent = swapChainExtent;
 
     VkPipelineViewportStateCreateInfo viewportState{};
@@ -1063,14 +1062,14 @@ void VK_Renderer::createGraphicsPipeline(Empaerior::VK_RendererGraphicsInfo& inf
     rasterizer.depthClampEnable = info.DepthClamp;
     rasterizer.rasterizerDiscardEnable = info.rasterizerDiscardEnable;
     rasterizer.polygonMode = VK_POLYGON_MODE_FILL;
-    rasterizer.lineWidth = 1.0f;
+    rasterizer.lineWidth = info.lineWidth;
     rasterizer.cullMode = VK_CULL_MODE_BACK_BIT;
     rasterizer.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
-    rasterizer.depthBiasEnable = VK_FALSE;
+    rasterizer.depthBiasEnable = info.DepthBias;
 
     VkPipelineMultisampleStateCreateInfo multisampling{};
     multisampling.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
-    multisampling.sampleShadingEnable = VK_FALSE;
+    multisampling.sampleShadingEnable = info.sampleShadingEnable;
     multisampling.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
 
     VkPipelineColorBlendAttachmentState colorBlendAttachment{};
@@ -1085,7 +1084,7 @@ void VK_Renderer::createGraphicsPipeline(Empaerior::VK_RendererGraphicsInfo& inf
 
     VkPipelineColorBlendStateCreateInfo colorBlending{};
     colorBlending.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
-    colorBlending.logicOpEnable = VK_FALSE;
+    colorBlending.logicOpEnable = info.LogicOPEnable;
     colorBlending.logicOp = VK_LOGIC_OP_COPY;
     colorBlending.attachmentCount = 1;
     colorBlending.pAttachments = &colorBlendAttachment;

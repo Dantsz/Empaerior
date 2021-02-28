@@ -91,7 +91,7 @@ public:
 			 morge.pop_back();
 			
 			}
-		} else if(Empaerior::Input::Keyboard::is_key_pressed((SDL_SCANCODE_1)))
+		} else if(Empaerior::Input::Keyboard::is_key_pressed((SDL_SCANCODE_1)) && !morge.empty())
         {
 		    Empaerior::setSpriteTexture(ecs.get_component<Empaerior::singleSprite_Component>(morge[morge.size() -1 ].id).sprites,0);
 		    Empaerior::setSpriteDepth(ecs.get_component<Empaerior::singleSprite_Component>(morge[morge.size() -1 ].id).sprites,.0f);
@@ -118,10 +118,10 @@ private:
 
 
 //a user defined application
-class Test_Aplication : public Empaerior::Application
+class TestApplication : public Empaerior::Application
 {
 public:
-	Test_Aplication()
+    TestApplication()
 	{
 
 
@@ -145,7 +145,7 @@ public:
 
 	}
 	
-	~Test_Aplication()
+	~TestApplication()
 	{
 
 	}
@@ -176,14 +176,7 @@ public:
 
 
 				auto position = Empaerior::Input::Mouse::get_world_mouse_coords(vk.GraphicsSettings, vk.ubo);
-				if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_M))
-				{
-
-				//	Empaerior::createSprite(vk.geometrybuffer, vk.texture_atlas, greenboi, { position[0],position[1],10,10 }, { 0,0,vk.texture_atlas.image_dimensions[2][0],vk.texture_atlas.image_dimensions[2][1] }, 2);
-
-
-				}
-				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_N))
+			    if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_N))
 				{
 					vk.geometrybuffer.reset();
 				}
@@ -260,14 +253,20 @@ public:
 		ImGui::Begin("Graphics");
 		if (ImGui::CollapsingHeader("Rasterization"))
 		{
-			ImGui::Checkbox("rasterizerDiscardEnable", &vk.GraphicsSettings.rasterizerDiscardEnable);
+			ImGui::Checkbox("RasterizerDiscardEnable", &vk.GraphicsSettings.rasterizerDiscardEnable);
 			ImGui::Checkbox("DepthClamp", &vk.GraphicsSettings.DepthClamp);
+			ImGui::Checkbox("DepthBias",&vk.GraphicsSettings.DepthBias);
+			ImGui::InputFloat("LineWidth",&vk.GraphicsSettings.lineWidth);
 		}
+		if(ImGui::CollapsingHeader("Multisampling"))
+        {
+		    ImGui::Checkbox("SampleShadingEnable",&vk.GraphicsSettings.sampleShadingEnable);
+        }
 		if (ImGui::CollapsingHeader("Depth Settings"))
 		{
 			ImGui::Checkbox("Depth", &vk.GraphicsSettings.Depth);
-			ImGui::Checkbox("Stenciltest", &vk.GraphicsSettings.StencilTest);
-			ImGui::Checkbox("DepthBoundtest", &vk.GraphicsSettings.DepthBoundTest);
+			ImGui::Checkbox("StencilTest", &vk.GraphicsSettings.StencilTest);
+			ImGui::Checkbox("DepthBoundTest", &vk.GraphicsSettings.DepthBoundTest);
 			ImGui::InputFloat("MinDepth", &vk.GraphicsSettings.minDepth);
 			ImGui::InputFloat("MaxDepth", &vk.GraphicsSettings.maxDepth);
 		}
@@ -277,16 +276,16 @@ public:
 			ImGui::InputFloat("ViewportY", &vk.GraphicsSettings.viewportY, 10, 100, 2);
 			ImGui::InputFloat("ViewportW", &vk.GraphicsSettings.viewportW, 10, 100, 2);
 			ImGui::InputFloat("ViewportH", &vk.GraphicsSettings.viewportH ,10, 100, 2);
-
-
+            ImGui::InputInt2("ScissorOffset", vk.GraphicsSettings.scissorOffset.elements);
 		}
-		
-		ImGui::Checkbox("Blending", &vk.GraphicsSettings.Blending);
-		
+		if(ImGui::CollapsingHeader("Blending"))
+        {
+            ImGui::Checkbox("Blending", &vk.GraphicsSettings.Blending);
+            ImGui::Checkbox("LogicOpEnable",&vk.GraphicsSettings.LogicOPEnable);
+        }
 
 		ImGui::Button("Apply", { 50, 25 });
 		if (ImGui::IsItemClicked()) vk.framebufferNeedsReconstruction = true;
-	
 
 		ImGui::Button("Reset", { 50,25 });
 		if (ImGui::IsItemClicked()) { vk.GraphicsSettings = vk.InitialGraphicsSettings;  vk.framebufferNeedsReconstruction = true; }
@@ -338,19 +337,13 @@ public:
 
 	std::vector<Empaerior::Sprite> sprites;
 	Empaerior::u_inter main_state;
-	Empaerior::Sprite greenboi;
-	Empaerior::Sprite greenerboi;
-	Empaerior::Sprite textboiii;
 
 	VK_Renderer vk;
-	float forTest = 0;
-	float i  = 0, j = 0;
-
 	std::string str = "1111111";
 };
 
 //CREATE A NEW APPLICATION
 Empaerior::Application* Empaerior::Create_Application()
 {
-	return new Test_Aplication();
+	return new TestApplication();
 }
