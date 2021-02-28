@@ -18,7 +18,7 @@ namespace Empaerior
         float minDepth = 0.0f;
         float maxDepth = 1.0f;
         //Blending   
-        bool Blending = 1;
+        bool Blending = VK_FALSE;
         //Depth
         bool Depth = VK_TRUE;
         bool DepthBoundTest = VK_FALSE;

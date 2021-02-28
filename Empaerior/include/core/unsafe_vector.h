@@ -21,7 +21,6 @@ namespace Empaerior
 			{
 				objects.push_back(object);
 				return objects.size() - 1;
-
 			}
 			else
 			{
@@ -35,8 +34,6 @@ namespace Empaerior
 			}
 		}
 
-		//TODO: Imoplement
-		//emplaces only 
 		template<typename ...Args>
 		[[nodiscard]] indexing_type emplace_back(Args&& ...args)
 		{

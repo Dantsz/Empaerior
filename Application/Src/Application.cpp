@@ -23,6 +23,17 @@
 inline Empaerior::Font idk;
 inline std::string message = "gpdr";
 inline Empaerior::Sprite lol;
+
+struct copyReductorComponent
+{
+    copyReductorComponent()
+    {
+        std::cout<<"copy created\n";
+    }
+
+};
+
+
 //
 //a user defined state
 class APP_State1 : public Empaerior::State
@@ -40,6 +51,12 @@ public:
 
 		Empaerior::Sprite greenerboi;
 		Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, greenerboi, { 0,0,99,99 }, { 0,0,1,1 }, 0);
+        Empaerior::setSpriteDepth(greenerboi,0.9f);
+		Empaerior::Entity copier;
+        copier.id = ecs.create_entity_ID();
+
+		ecs.add_component<copyReductorComponent>(copier.id,{});
+
 
 
 		//Empaerior::createTextSprite(renderer->geometrybuffer, renderer->texture_atlas, lol, {500,100,1000,1000}, {32,32}, idk, "gffgfgfgfgfg", { 255,255,255 });
@@ -62,7 +79,8 @@ public:
 				morge.push_back({});
 				morge[morge.size() - 1].id = ecs.create_entity_ID();
 				ecs.add_component<Empaerior::singleSprite_Component>(morge[morge.size() - 1].id, {});
-				sprite_system.createSprite(ecs, morge[morge.size() - 1].id, { position[0],position[1],100,100 }, {0,0,1,1}, 0);
+				sprite_system.createSprite(ecs, morge[morge.size() - 1].id, { position[0],position[1],100,100 }, {0,0,1,1}, 1);
+				Empaerior::setSpriteDepth(ecs.get_component<Empaerior::singleSprite_Component>(morge[morge.size() -1].id).sprites,0.5f);
 			}
 		else if(Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_Q))
 		{
@@ -73,11 +91,17 @@ public:
 			 morge.pop_back();
 			
 			}
-		}
+		} else if(Empaerior::Input::Keyboard::is_key_pressed((SDL_SCANCODE_1)))
+        {
+		    Empaerior::setSpriteTexture(ecs.get_component<Empaerior::singleSprite_Component>(morge[morge.size() -1 ].id).sprites,0);
+		    Empaerior::setSpriteDepth(ecs.get_component<Empaerior::singleSprite_Component>(morge[morge.size() -1 ].id).sprites,.0f);
+        }
+
 	}
 	void Render() override//renders the state
 	{
 	}
+
 	void handleevents(Empaerior::Event& event) override
 	{
 		event_system.handle_events(ecs, event);
@@ -102,7 +126,7 @@ public:
 
 
 		//CREATE A WINDOW
-		window.Init("Empaerior  3.0B10 -Vulkan Renderer", 960, 540);/*?*/
+		window.Init("Empaerior  3.0C11 -Vulkan Renderer", 960, 540);/*?*/
 
 		
 		vk.Init(&Empaerior::Application::window);/*?*/
@@ -181,8 +205,6 @@ public:
 
 
 				timy.start();
-
-
 				
 				ImGui_Emp::NewFrame(window, vk);
 				ShowImGuiWindows();

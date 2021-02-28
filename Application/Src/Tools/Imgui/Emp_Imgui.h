@@ -194,9 +194,6 @@ namespace ImGui_Emp
 		init_info.CheckVkResultFn = nullptr;
 
 
-
-
-
 		CreateRenderPass(renderer);
 
 
