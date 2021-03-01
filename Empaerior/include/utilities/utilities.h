@@ -41,7 +41,7 @@ namespace Empaerior
 		{
 			return SDL_GetCPUCount();
 		}
-		 EMP_FORCEINLINE int get_system_ram()//get the amount of RAM configured in the system.
+		EMP_FORCEINLINE int get_system_ram()//get the amount of RAM configured in the system.
 		{
 			return SDL_GetSystemRAM();
 		}

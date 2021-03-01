@@ -145,10 +145,8 @@ public:
 
 	}
 	
-	~TestApplication()
-	{
+	~TestApplication() override = default;
 
-	}
 
 	//the main loop
 
@@ -282,6 +280,7 @@ public:
         {
             ImGui::Checkbox("Blending", &vk.GraphicsSettings.Blending);
             ImGui::Checkbox("LogicOpEnable",&vk.GraphicsSettings.LogicOPEnable);
+            ImGui::InputFloat4("BlendConstants",vk.GraphicsSettings.blendConstants);
         }
 
 		ImGui::Button("Apply", { 50, 25 });

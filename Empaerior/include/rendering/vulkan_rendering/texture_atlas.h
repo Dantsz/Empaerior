@@ -26,7 +26,7 @@ struct Texture_Atlas {
     void createTextureSampler();
 
     size_t create_texture_from_file(const std::string& path);
-    size_t create_texture_from_memory(Empaerior::byte* pixels, Empaerior::s_int width, Empaerior::s_int height, Empaerior::s_int texChannels);
+    size_t create_texture_from_memory(Empaerior::byte* pixels, Empaerior::u_int width, Empaerior::u_int height, Empaerior::s_int texChannels);
    
 
     size_t create_texture_from_fontPath(Empaerior::Font& font, const std::string& path, Empaerior::u_int size);

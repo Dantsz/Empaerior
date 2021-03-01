@@ -33,5 +33,8 @@ namespace Empaerior
         bool sampleShadingEnable = VK_FALSE;
 
         Empaerior::vec<2,int32_t> scissorOffset = {0 , 0};
+
+        float blendConstants[4] = {0.0f,0.0f,0.0f,0.0f};
+
     };
 }

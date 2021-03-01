@@ -50,7 +50,7 @@ namespace Empaerior
 
 	void setSpriteAngle(Sprite& sprite, Empaerior::fl_point angle);
 
-	void setSpriteTexture(Sprite& sprite, Empaerior::u_inter texID);
+	void setSpriteTexture(Sprite& sprite, Empaerior::u_int texID);
 
 	Vertex* getSpriteVertex(Sprite& sprite, uint8_t vert);
 

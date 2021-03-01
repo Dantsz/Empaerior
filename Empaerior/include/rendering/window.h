@@ -39,8 +39,8 @@ namespace Empaerior
 		//lisens for window events
 		Event_Listener window_listener;
 		Window_Info information;
-		Empaerior::u_int width = 0;
-		Empaerior::u_int height = 0;
+		Empaerior::s_int width = 0;
+		Empaerior::s_int height = 0;
 	};
 
 

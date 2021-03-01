@@ -285,7 +285,7 @@ struct DynamicBuffer
 struct geometryBuffer
 {
 	
-	void attachrenderer(VmaAllocator* allocator, VkDevice device,uint32_t swapChainImages)
+	void attachrenderer(VmaAllocator* allocator, VkDevice device,Empaerior::u_inter swapChainImages)
 	{
 		m_allocator = allocator;
 		images = swapChainImages;
@@ -365,7 +365,7 @@ struct geometryBuffer
 
 	VmaAllocator* m_allocator;
 
-	uint32_t images;
+	Empaerior::u_inter images;
 	const size_t initialVertexSize = 4ULL * sizeof(Vertex);
 	const size_t initialIndexSize = 6ULL * sizeof(uint32_t);
 };

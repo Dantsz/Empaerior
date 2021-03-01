@@ -5,10 +5,7 @@
 
 
 Empaerior::State::State()
-
 {
-	
-	
 
 }
 

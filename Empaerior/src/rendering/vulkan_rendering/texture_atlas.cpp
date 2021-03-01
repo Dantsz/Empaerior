@@ -62,7 +62,7 @@ size_t Texture_Atlas::create_texture_from_file(const std::string& path)
 
 }
 
-size_t Texture_Atlas::create_texture_from_memory(Empaerior::byte* pixels, Empaerior::s_int width, Empaerior::s_int height, Empaerior::s_int texChannels)
+size_t Texture_Atlas::create_texture_from_memory(Empaerior::byte* pixels, Empaerior::u_int width, Empaerior::u_int height, Empaerior::s_int texChannels)
 {
     image_allocations.push_back({});
     images.push_back({});

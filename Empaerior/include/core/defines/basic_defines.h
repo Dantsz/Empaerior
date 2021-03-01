@@ -10,8 +10,8 @@ namespace Empaerior
 	//BASIC TYPES
 	//one byte interger
 	using byte = uint8_t;
-	//type compatible with SDL
-	using u_int = int;
+	//type compatible with SDL and uint32_t used in the vulkan API
+	using u_int = uint32_t;
 	using s_int = int;
 	//the type the engine works with 
 	using u_inter = uint64_t;

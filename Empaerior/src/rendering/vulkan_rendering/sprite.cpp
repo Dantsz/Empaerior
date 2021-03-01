@@ -212,7 +212,7 @@ namespace Empaerior
 #undef vertex
 	}
 
-	void setSpriteTexture(Sprite& sprite, Empaerior::u_inter texID)
+	void setSpriteTexture(Sprite& sprite, Empaerior::u_int texID)
 	{
 #define vertex ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
 		

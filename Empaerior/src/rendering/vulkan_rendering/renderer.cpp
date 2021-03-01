@@ -876,7 +876,7 @@ void VK_Renderer::createDescriptorSetLayout()
 
     VkDescriptorSetLayoutBinding textureArrayLayoutBinding = {};
     textureArrayLayoutBinding.binding = 2;
-    textureArrayLayoutBinding.descriptorCount = texture_atlas.images.size();
+    textureArrayLayoutBinding.descriptorCount = static_cast<Empaerior::u_int>(texture_atlas.images.size());
     textureArrayLayoutBinding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT; //| VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT;
     textureArrayLayoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
     textureArrayLayoutBinding.pImmutableSamplers = 0;
@@ -965,7 +965,7 @@ void VK_Renderer::updateDescriptorSets()
         descriptorWrites[2].dstBinding = 2;
         descriptorWrites[2].dstArrayElement = 0;
         descriptorWrites[2].descriptorType = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
-        descriptorWrites[2].descriptorCount = descriptorImageInfos.size();
+        descriptorWrites[2].descriptorCount = static_cast<Empaerior::u_int>(descriptorImageInfos.size());
         descriptorWrites[2].pBufferInfo = 0;
         descriptorWrites[2].pImageInfo = descriptorImageInfos.data();
 
@@ -977,7 +977,6 @@ void VK_Renderer::createGraphicsPipeline(Empaerior::VK_RendererGraphicsInfo& inf
 {
     std::vector<char> vertShaderCode;
     std::vector<char> fragShaderCode;
-
      try{
         vertShaderCode = readFile(info.vertShaderpath);
       
@@ -988,7 +987,6 @@ void VK_Renderer::createGraphicsPipeline(Empaerior::VK_RendererGraphicsInfo& inf
         
 
     }
-
     try{
         fragShaderCode = readFile(info.fragShaderpath);
     }
@@ -997,12 +995,9 @@ void VK_Renderer::createGraphicsPipeline(Empaerior::VK_RendererGraphicsInfo& inf
         std::cout<<"Failed to open fragment shader file, including default shader instead\n";
        
     }
-   
-    
+
     VkShaderModule vertShaderModule = createShaderModule(device, vertShaderCode);;
     VkShaderModule fragShaderModule = createShaderModule(device, fragShaderCode);;
-
-   
 
     VkPipelineShaderStageCreateInfo vertShaderStageInfo{};
     vertShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
@@ -1088,10 +1083,10 @@ void VK_Renderer::createGraphicsPipeline(Empaerior::VK_RendererGraphicsInfo& inf
     colorBlending.logicOp = VK_LOGIC_OP_COPY;
     colorBlending.attachmentCount = 1;
     colorBlending.pAttachments = &colorBlendAttachment;
-    colorBlending.blendConstants[0] = 0.0f;
-    colorBlending.blendConstants[1] = 0.0f;
-    colorBlending.blendConstants[2] = 0.0f;
-    colorBlending.blendConstants[3] = 0.0f;
+    colorBlending.blendConstants[0] = info.blendConstants[0];
+    colorBlending.blendConstants[1] = info.blendConstants[1];
+    colorBlending.blendConstants[2] = info.blendConstants[2];
+    colorBlending.blendConstants[3] = info.blendConstants[3];
 
 
     VkPipelineDepthStencilStateCreateInfo depthStencil{};
@@ -1241,7 +1236,7 @@ void VK_Renderer::recordCommandBuffer(VkCommandBuffer& commandBuffer, VkFramebuf
     vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, 0, 1, descriptorSet, 0, nullptr);
     vkCmdBindVertexBuffers(commandBuffer, 0, 1, vertexBuffers, offsets);
     vkCmdBindIndexBuffer(commandBuffer, indexBuffer, 0, VK_INDEX_TYPE_UINT32);
-    vkCmdDrawIndexed(commandBuffer, geometrybuffer.indexBuffer.used_size[geometrybuffer.indexBuffer.get_in_use_index()] / sizeof(uint32_t), 1, 0, 0, 0);
+    vkCmdDrawIndexed(commandBuffer, static_cast<Empaerior::u_int>(geometrybuffer.indexBuffer.used_size[geometrybuffer.indexBuffer.get_in_use_index()]) / sizeof(Empaerior::u_int), 1, 0, 0, 0);
 
     vkCmdEndRenderPass(commandBuffer);
 
@@ -1366,7 +1361,7 @@ void VK_Renderer::drawFrame()
     recordCommandBuffer(commandBuffers[imageIndex], swapChainFramebuffers[imageIndex], &geometrybuffer.vertexBuffer.inUseBuffer, geometrybuffer.indexBuffer.inUseBuffer, &descriptorSets[imageIndex]);
 
     inUseCommandBuffers[mainCommandBufferinUseIndex] = commandBuffers[imageIndex];
-    submitInfo.commandBufferCount = inUseCommandBuffers.size();
+    submitInfo.commandBufferCount = static_cast<Empaerior::u_int>(inUseCommandBuffers.size());
     submitInfo.pCommandBuffers = inUseCommandBuffers.data();
 
     VkSemaphore signalSemaphores[] = { renderFinishedSemaphores[currentFrame] };
