@@ -38,7 +38,8 @@ namespace Empaerior
 				//if there isn't any free space,create one
 				if (free_index.empty())
 				{
-					components.push_back(component);
+					components.push_back(component);//create component
+
 					while (entitytocomponent.size() <= entity_id)
 					{
 						entitytocomponent.push_back(0);
@@ -47,13 +48,12 @@ namespace Empaerior
 					entitytocomponent[entity_id] = components.size() - 1;
 					entityhascomponent[entity_id] = 1;
 
+
 				}
 				else//just take an unused component
 				{
 
 					components[free_index.front()] = component;
-
-
 
 					while (entitytocomponent.size() < entity_id)
 					{
@@ -173,8 +173,7 @@ namespace Empaerior
 		Empaerior::vector<Empaerior::boole> entityhascomponent;
 		Empaerior::vector<Empaerior::u_inter> entitytocomponent;
 
-		//lookup the entity of a component
-		Empaerior::vector<Empaerior::u_inter> componenttoentity;
+
 
 	};
 

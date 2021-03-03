@@ -29,10 +29,15 @@ namespace Empaerior
 	};
 
 
-#define EMP_SPR_VERTEX_TOP_LEFT 0
-#define EMP_SPR_VERTEX_TOP_RIGHT 3
-#define EMP_SPR_VERTEX_BTM_RIGHT 2
-#define EMP_SPR_VERTEX_BTM_LEFT 1
+	enum spriteCorners
+    {
+	    sprTopLeft = 0,
+        sprBottomLeft = 1,
+        sprBottomRight = 2,
+	    sprTopRight = 3,
+
+    };
+
 
 	void createSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t tex_id);
 	void createSprite(VK_Renderer& renderer, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t tex_id);

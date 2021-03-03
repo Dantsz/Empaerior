@@ -5,7 +5,7 @@
 namespace Empaerior
 {
 #pragma region Rect
-	//A simple Rectangl without roation
+	//A simple Rectangle without rotation
 	template <typename T>
 	struct S_Rect
 	{
@@ -54,7 +54,6 @@ namespace Empaerior
 		bottom_left = 1,
 		top_right = 2,
 		bottom_right = 3
-
 	};
 
 	namespace Rect_Funct

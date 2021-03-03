@@ -196,17 +196,17 @@ namespace Empaerior
 #define vertex ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
 		//rotate each vertex separately
 		//top left
-		(vertex + EMP_SPR_VERTEX_TOP_LEFT)->pos.x = midX + (sprite.rect.dimensions.x - midX) * Empaerior::Math::cosd(sprite.rect.angle) - (sprite.rect.dimensions.y - midY) * Empaerior::Math::sind(sprite.rect.angle);
-		(vertex + EMP_SPR_VERTEX_TOP_LEFT)->pos.y = midY + (sprite.rect.dimensions.y - midY) * Empaerior::Math::cosd(sprite.rect.angle) + (sprite.rect.dimensions.x - midX) * Empaerior::Math::sind(sprite.rect.angle);
+		(vertex + sprTopLeft)->pos.x = midX + (sprite.rect.dimensions.x - midX) * Empaerior::Math::cosd(sprite.rect.angle) - (sprite.rect.dimensions.y - midY) * Empaerior::Math::sind(sprite.rect.angle);
+		(vertex + sprTopLeft)->pos.y = midY + (sprite.rect.dimensions.y - midY) * Empaerior::Math::cosd(sprite.rect.angle) + (sprite.rect.dimensions.x - midX) * Empaerior::Math::sind(sprite.rect.angle);
 		//top right
-		(vertex + EMP_SPR_VERTEX_TOP_RIGHT)->pos.x = midX + (sprite.rect.dimensions.x + sprite.rect.dimensions.w - midX) * Empaerior::Math::cosd(sprite.rect.angle) - (sprite.rect.dimensions.y - midY) * Empaerior::Math::sind(sprite.rect.angle);
-		(vertex + EMP_SPR_VERTEX_TOP_RIGHT)->pos.y = midY + (sprite.rect.dimensions.y - midY) * Empaerior::Math::cosd(sprite.rect.angle) + (sprite.rect.dimensions.x + sprite.rect.dimensions.w - midX) * Empaerior::Math::sind(sprite.rect.angle);
+		(vertex + sprTopRight)->pos.x = midX + (sprite.rect.dimensions.x + sprite.rect.dimensions.w - midX) * Empaerior::Math::cosd(sprite.rect.angle) - (sprite.rect.dimensions.y - midY) * Empaerior::Math::sind(sprite.rect.angle);
+		(vertex + sprTopRight)->pos.y = midY + (sprite.rect.dimensions.y - midY) * Empaerior::Math::cosd(sprite.rect.angle) + (sprite.rect.dimensions.x + sprite.rect.dimensions.w - midX) * Empaerior::Math::sind(sprite.rect.angle);
 		//bottom left
-		(vertex + EMP_SPR_VERTEX_BTM_LEFT)->pos.x = midX + (sprite.rect.dimensions.x - midX) * Empaerior::Math::cosd(sprite.rect.angle) - (sprite.rect.dimensions.y + sprite.rect.dimensions.h - midY) * Empaerior::Math::sind(sprite.rect.angle);
-		(vertex + EMP_SPR_VERTEX_BTM_LEFT)->pos.y = midY + (sprite.rect.dimensions.y + sprite.rect.dimensions.h - midY) * Empaerior::Math::cosd(sprite.rect.angle) + (sprite.rect.dimensions.x - midX) * Empaerior::Math::sind(sprite.rect.angle);
+		(vertex + sprBottomLeft)->pos.x = midX + (sprite.rect.dimensions.x - midX) * Empaerior::Math::cosd(sprite.rect.angle) - (sprite.rect.dimensions.y + sprite.rect.dimensions.h - midY) * Empaerior::Math::sind(sprite.rect.angle);
+		(vertex + sprBottomLeft)->pos.y = midY + (sprite.rect.dimensions.y + sprite.rect.dimensions.h - midY) * Empaerior::Math::cosd(sprite.rect.angle) + (sprite.rect.dimensions.x - midX) * Empaerior::Math::sind(sprite.rect.angle);
 		//bottom right
-		(vertex + EMP_SPR_VERTEX_BTM_RIGHT)->pos.x = midX + (sprite.rect.dimensions.x + sprite.rect.dimensions.w - midX) * Empaerior::Math::cosd(sprite.rect.angle) - (sprite.rect.dimensions.y + sprite.rect.dimensions.h - midY) * Empaerior::Math::sind(sprite.rect.angle);
-		(vertex + EMP_SPR_VERTEX_BTM_RIGHT)->pos.y = midY + (sprite.rect.dimensions.y + sprite.rect.dimensions.h - midY) * Empaerior::Math::cosd(sprite.rect.angle) + (sprite.rect.dimensions.x + sprite.rect.dimensions.w - midX) * Empaerior::Math::sind(sprite.rect.angle);
+		(vertex + sprBottomRight)->pos.x = midX + (sprite.rect.dimensions.x + sprite.rect.dimensions.w - midX) * Empaerior::Math::cosd(sprite.rect.angle) - (sprite.rect.dimensions.y + sprite.rect.dimensions.h - midY) * Empaerior::Math::sind(sprite.rect.angle);
+		(vertex + sprBottomRight)->pos.y = midY + (sprite.rect.dimensions.y + sprite.rect.dimensions.h - midY) * Empaerior::Math::cosd(sprite.rect.angle) + (sprite.rect.dimensions.x + sprite.rect.dimensions.w - midX) * Empaerior::Math::sind(sprite.rect.angle);
 
 		
 #undef vertex
@@ -216,10 +216,10 @@ namespace Empaerior
 	{
 #define vertex ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
 		
-		(vertex + EMP_SPR_VERTEX_TOP_LEFT)->tex_id = texID;
-		(vertex + EMP_SPR_VERTEX_TOP_RIGHT)->tex_id = texID;
-		(vertex + EMP_SPR_VERTEX_BTM_RIGHT)->tex_id = texID;
-		(vertex + EMP_SPR_VERTEX_BTM_LEFT)->tex_id = texID;
+		(vertex + sprTopLeft)->tex_id = texID;
+		(vertex + sprTopRight)->tex_id = texID;
+		(vertex + sprBottomRight)->tex_id = texID;
+		(vertex + sprBottomLeft)->tex_id = texID;
 #undef vertex
 
 
@@ -269,7 +269,7 @@ namespace Empaerior
 		if (sprite.verticesSize > 0)
 		{
 			//
-			Vertex* vert = getSpriteVertex(sprite, EMP_SPR_VERTEX_TOP_LEFT);
+			Vertex* vert = getSpriteVertex(sprite, sprTopLeft);
 
 			originalDepth = vert->pos.z;
 		}
