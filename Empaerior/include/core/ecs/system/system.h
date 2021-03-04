@@ -157,7 +157,7 @@ namespace Empaerior {
 		static bool compare_signatures(const Empaerior::vector<bool>& signature1, const Empaerior::vector<bool>& signature2)
 		{
 			if (signature1.size() != signature2.size()) return false;
-			for (int i = 0; i < signature1.size(); i++)
+			for (size_t i = 0; i < signature1.size(); i++)
 			{
 				//if a signature  is missing somewhere
 				if (signature1[i] != signature2[i]) return false;
@@ -172,7 +172,7 @@ namespace Empaerior {
 			if (system_s.size() > entity_s.size()) return false;
 			//if a signature has a system but the etity does not 
 			//return false
-			for (int i = 0; i < system_s.size(); i++)
+			for (size_t i = 0; i < system_s.size(); i++)
 			{
 				if (system_s[i] && !entity_s[i]) return false;
 			}

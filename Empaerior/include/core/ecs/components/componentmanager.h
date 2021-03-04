@@ -24,7 +24,7 @@ namespace Empaerior
 	class ComponentContainer : public VContainer
 	{
 	public:
-		virtual ~ComponentContainer() {};
+		virtual ~ComponentContainer() override {};
 
 		//update a specific component
 		void add_component(const Empaerior::u_inter& entity_id, T component)
