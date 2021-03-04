@@ -12,12 +12,13 @@
 
 #include "../include/input/eventhandler/eventhandler.h"
 #include "../include/core/exceptions/exceptions.h"
+#include <limits>
 
 
 namespace  Empaerior{
 
 
-
+constexpr Empaerior::u_inter maxStateNumber = std::numeric_limits<Empaerior::u_inter>::max();
 
 //this is the base application class
 //all others applications should inherit from this class
@@ -84,7 +85,7 @@ public:
 		catch (E_runtime_exception & e)
 		{
 			e.print_message();
-			return -1;
+			return  Empaerior::maxStateNumber;
 		}
 
 	}
@@ -125,7 +126,7 @@ public:
 		
 		try {
 			//check validity and search for the index in the active states
-			if (index >= states.size() || index < 0) throw E_runtime_exception("Invalid Index ", __FILE__, __LINE__, __FUNCTION__);
+			if (index >= states.size()) throw E_runtime_exception("Invalid Index ", __FILE__, __LINE__, __FUNCTION__);
 			
 			//check if the state is active by searching  for the index
 			Empaerior::vector<Empaerior::u_inter>::iterator itr = std::find(active_states.begin(), active_states.end(), index);
@@ -222,23 +223,23 @@ public:
 #pragma region ACTIVE STATE MANIPULATION
 	
 	//check to see if the state is active
-	//returns the index in active_states if true or -1 if it's inactive or doesn't exist
+	//returns the index in active_states if true or Empaerior::maxStateNumber if it's inactive or doesn't exist
 	static EMP_FORCEINLINE Empaerior::u_inter is_active(const Empaerior::u_inter index)
 	{
 		try
 		{
-			if (index >= states.size() || index < 0) throw E_runtime_exception("Invalid Index ", __FILE__, __LINE__, __FUNCTION__);
+			if (index >= states.size()) throw E_runtime_exception("Invalid Index ", __FILE__, __LINE__, __FUNCTION__);
 			Empaerior::vector<Empaerior::u_inter>::iterator itr = std::find(active_states.begin(), active_states.end(), index);
 			if (itr == active_states.cend())
 			{
-				return -1;
+				return Empaerior::maxStateNumber;
 			}
 			return Empaerior::u_inter(std::distance(active_states.begin(), itr));
 		}
 		catch (E_runtime_exception& e)
 		{
 			e.print_message();
-			return -1;
+			return  Empaerior::maxStateNumber;
 		}
 	}
 
@@ -249,7 +250,7 @@ public:
 			//if the state is not active
 			Empaerior::u_inter in_active_index = is_active(index);
 
-			if (in_active_index == -1) throw E_runtime_exception("State is not active", __FILE__, __LINE__, __FUNCTION__);
+			if (in_active_index ==  Empaerior::maxStateNumber) throw E_runtime_exception("State is not active", __FILE__, __LINE__, __FUNCTION__);
 			//if the state is already on the top
 			if (active_states[active_states.size() - 1] == index)
 			{
@@ -290,7 +291,7 @@ public:
 			//if the state is not active
 			Empaerior::u_inter in_active_index = is_active(index);
 
-			if (in_active_index == -1) throw E_runtime_exception("State is not active", __FILE__, __LINE__, __FUNCTION__);
+			if (in_active_index ==  Empaerior::maxStateNumber) throw E_runtime_exception("State is not active", __FILE__, __LINE__, __FUNCTION__);
 
 			//if the state is already at the bottom
 			if (active_states[0] == index)
@@ -331,8 +332,8 @@ public:
 	{
 		try
 		{
-			Empaerior::s_inter in_active_index = is_active(index);
-			if (in_active_index == -1) throw E_runtime_exception("State is not active", __FILE__, __LINE__, __FUNCTION__);
+			Empaerior::u_inter in_active_index = is_active(index);
+			if (in_active_index ==  Empaerior::maxStateNumber) throw E_runtime_exception("State is not active", __FILE__, __LINE__, __FUNCTION__);
 			move_up_by(index, active_states.size() - 1 - in_active_index);
 		}
 		catch (E_runtime_exception & e)
@@ -347,8 +348,8 @@ public:
 	{
 		try
 		{
-			Empaerior::s_inter in_active_index = is_active(index);
-			if (in_active_index == -1) throw E_runtime_exception("State is not active", __FILE__, __LINE__, __FUNCTION__);
+			Empaerior::u_inter in_active_index = is_active(index);
+			if (in_active_index == Empaerior::maxStateNumber) throw E_runtime_exception("State is not active", __FILE__, __LINE__, __FUNCTION__);
 			move_below_by(index, in_active_index);
 		}
 		catch (E_runtime_exception & e)
