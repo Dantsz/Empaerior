@@ -408,7 +408,10 @@ void VK_Renderer::initVulkan()
     setupDebugMessenger(instance, debugMessenger);
     //create surface
     auto result = SDL_Vulkan_CreateSurface(sdl_window, instance, &surface);
-
+    if(!result)
+    {
+        throw std::runtime_error("failed to create Vulkan Surface");
+    }
     physicalDevice = pickPhysicalDevice(instance, surface);
     createLogicalDevice();
 
