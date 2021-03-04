@@ -15,23 +15,30 @@ namespace Empaerior {
 	//
 	class ECS;     // forward declaration
 
+    class EntitySystemList
+    {
+    public:
+        void OnEntityRemovedfromSystem(Empaerior::ECS* ecs,const Empaerior::u_inter& entity_id)
+        {
+
+        }
+        //the id of the entities the system works on
+        std::vector<Empaerior::u_inter> entities_id;
+    };
+
+	//concept for a valid system
+	//must have a vector of size_ts or Empaerior::u_inter
 	template <typename systemt>
 	concept systemT = requires(systemt sys ){
+        std::same_as<decltype(sys.entityList),std::shared_ptr<Empaerior::EntitySystemList>>;
 		{sys.entityList->entities_id[0]};
 		{sys.entityList->entities_id.size()};
 	};
 
 
-	class EntitySystemList
-	{
-	public:
-		void OnEntityRemovedfromSystem(Empaerior::ECS* ecs,const Empaerior::u_inter& entity_id)
-		{
 
-		}
-		//the id of the entities the system works on
-		std::vector<Empaerior::u_inter> entities_id;
-	};
+
+
 	class SystemManager
 	{
 	public:

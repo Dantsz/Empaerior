@@ -111,7 +111,7 @@ inline int main(int argc, char** argv)
 	{
 
 		//ENGINE_CRITICAL(std::string(e.what() + '\n'));
-
+        throw e;
 	}
 	
 

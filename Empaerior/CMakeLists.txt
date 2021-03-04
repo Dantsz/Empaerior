@@ -95,7 +95,8 @@ set(ALL_FILES
 # Target
 ################################################################################
 add_library(${PROJECT_NAME} STATIC ${ALL_FILES})
-
+target_include_directories(${PROJECT_NAME} PRIVATE include/
+		SYSTEM INTERFACE include/)
 
 set(ROOT_NAMESPACE Empaerior)
 
@@ -135,5 +136,11 @@ set(ROOT_NAMESPACE Empaerior)
         "${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/spdlog/include"
 		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/freetype/include"
     )
+
+target_compile_options(${PROJECT_NAME} PRIVATE
+		$<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
+		-Weverything>
+		$<$<CXX_COMPILER_ID:MSVC>:
+		/W4>)
 
 

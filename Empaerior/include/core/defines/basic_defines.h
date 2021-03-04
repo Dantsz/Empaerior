@@ -4,11 +4,11 @@
 #include <vector>
 #include <queue>
 #include <unordered_map>
-//Typpes Defines
+//Types Defines
 namespace Empaerior
 {
 	//BASIC TYPES
-	//one byte interger
+	//one byte integer
 	using byte = uint8_t;
 	//type compatible with SDL and uint32_t used in the vulkan API
 	using u_int = uint32_t;
@@ -24,7 +24,7 @@ namespace Empaerior
 	//for vec and mat
 	using length_t = size_t;
 
-	//stl aliasses 
+	//stl aliases
 	//value tuple // 
 	template <typename T, typename Y>
 	using v_pair = std::pair<T, Y>;

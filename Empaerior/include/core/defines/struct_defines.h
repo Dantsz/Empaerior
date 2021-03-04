@@ -4,10 +4,9 @@
 #include "../vector2.h"
 #include "../rect.h"
 #include "../unsafe_vector.h"
+
 namespace Empaerior
 {
-
-	
 
 	using Float_Rect_S = Empaerior::S_Rect<Empaerior::fl_point>;
 

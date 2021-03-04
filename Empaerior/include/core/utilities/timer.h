@@ -26,10 +26,8 @@ namespace  Empaerior
 		{
 			//Stop the timer
 			mStarted = false;
-
 			//Unpause the timer
 			mStopped = true;
-
 			stop_point = std::chrono::steady_clock::now();
 
 		}

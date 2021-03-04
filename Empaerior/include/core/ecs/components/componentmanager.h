@@ -10,7 +10,7 @@
 //thanks to Austin Morlan for providing a ECS template
 namespace Empaerior
 {
-	//virtual cointainer for polymorphism
+	//virtual container for polymorphism
 	class VContainer
 	{
 	public:
@@ -153,10 +153,9 @@ namespace Empaerior
 		//deletes the 
 		void OnEntityDestroyed(const Empaerior::u_inter& entity_id)  noexcept  override//this function never throws exception because not finding the component of the entity is  intended
 		{
-			//there is already an exception to point if something happenes
+			//there is already an exception to point if something happens
 			remove_component(entity_id);
 			//add more relevant code
-
 		}
 
 
@@ -169,7 +168,7 @@ namespace Empaerior
 
 
 		//lookup the component of a entity
-		//lookup the entity to component, it's now done throught 2 vectors
+		//lookup the entity to component, it's now done through 2 vectors
 		Empaerior::vector<Empaerior::boole> entityhascomponent;
 		Empaerior::vector<Empaerior::u_inter> entitytocomponent;
 
@@ -184,7 +183,7 @@ namespace Empaerior
 
 	public:
 		//register a component
-		//Note: add_component already registers a coponentthat has not been use before
+		//Note: add_component already registers a component that has not been use before
 		//this function is not really useful at this point
 		template<typename T>
 		void register_component()
@@ -258,7 +257,7 @@ namespace Empaerior
 		}
 
 
-		//iterate throught all components of the entity and delete them
+		//iterate through all components of the entity and delete them
 		void OnEntityDestroyed(const Empaerior::u_inter& entity_id)
 		{
 			for (auto const& i : component_containers)

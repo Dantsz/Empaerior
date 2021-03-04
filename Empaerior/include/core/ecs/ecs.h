@@ -28,9 +28,6 @@ namespace Empaerior
 			entity_manager.reset();
 			system_manager.reset();
 		}
-
-
-
 		//assigns a new id for an entity
 		[[nodiscard]]Empaerior::u_inter create_entity_ID()
 		{
@@ -45,17 +42,12 @@ namespace Empaerior
 			entity_manager->delete_entity(id);
 			component_manager->OnEntityDestroyed(id);
 			system_manager->OnEntityDestroy(this,id);
-			
-
 		}
 		//get entity signature
 		Empaerior::vector<bool> get_entity_signature(const Empaerior::u_inter& entity_id)
 		{
 			return entity_manager->get_signature(entity_id);
 		}
-
-
-
 
 		template<typename T>
 		void register_component()
@@ -76,17 +68,12 @@ namespace Empaerior
 			const char* component_name = typeid(T).name();
 			return (component_manager->component_type.find(component_name) != component_manager->component_type.end());
 		}
-	
-
 
 		template<typename T>
 		void add_component(const Empaerior::u_inter& entity_id, T component)
 		{
-			
 			//add the component
 			component_manager->add_component<T>(entity_id, component);
-
-
 			//modify the signature to match the new addition
 			Empaerior::vector<bool> e_signature = entity_manager->get_signature(entity_id);
 			Empaerior::u_inter component_type = component_manager->get_component_id<T>();
@@ -103,11 +90,8 @@ namespace Empaerior
 		template<typename T, typename ...Other>
 		void add_component(const Empaerior::u_inter& entity_id, T component,const Other&... other)
 		{
-		
 			//add the component
 			component_manager->add_component<T>(entity_id, component);
-
-
 			//modify the signature to match the new addition
 			Empaerior::vector<bool> e_signature = entity_manager->get_signature(entity_id);
 			Empaerior::u_inter component_type = component_manager->get_component_id<T>();

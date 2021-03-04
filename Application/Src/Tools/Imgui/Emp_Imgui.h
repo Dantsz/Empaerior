@@ -109,7 +109,7 @@ namespace ImGui_Emp
 		std::array<VkAttachmentDescription, 1> attachments = { colorAttachment };
 		VkRenderPassCreateInfo info = {};
 		info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
-		info.attachmentCount = attachments.size();
+		info.attachmentCount = static_cast<uint32_t>(attachments.size());
 		info.pAttachments = attachments.data();
 		info.subpassCount = 1;
 		info.pSubpasses = &subpass;
@@ -178,7 +178,7 @@ namespace ImGui_Emp
 		wd.Swapchain = renderer.swapChain;
 		wd.Surface = renderer.surface;
 		wd.SurfaceFormat = renderer.surfaceFormat;
-		wd.ImageCount = renderer.swapChainImages.size();
+		wd.ImageCount = static_cast<uint32_t>(renderer.swapChainImages.size());
 
 		ImGui_ImplVulkan_InitInfo init_info = {};
 		init_info.Instance = renderer.instance;
@@ -189,8 +189,8 @@ namespace ImGui_Emp
 		init_info.PipelineCache = VK_NULL_HANDLE;
 		init_info.DescriptorPool = renderer.descriptorPool;
 		init_info.Allocator = nullptr;
-		init_info.MinImageCount = renderer.swapChainImages.size();
-		init_info.ImageCount = renderer.swapChainImages.size();
+		init_info.MinImageCount = static_cast<uint32_t>(renderer.swapChainImages.size());
+		init_info.ImageCount = static_cast<uint32_t>(renderer.swapChainImages.size());
 		init_info.CheckVkResultFn = nullptr;
 
 
