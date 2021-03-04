@@ -3,7 +3,7 @@
 static void stringCopy(char* dst, const char* src, size_t numberofCharstoCopy  )
 {
     if(strlen(src) < numberofCharstoCopy) return;
-    for(int i = 0 ; i < numberofCharstoCopy ; i ++) dst[i] = src[i];
+    for(size_t i = 0 ; i < numberofCharstoCopy ; i ++) dst[i] = src[i];
 
 }
 

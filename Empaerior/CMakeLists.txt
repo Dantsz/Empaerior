@@ -139,7 +139,7 @@ set(ROOT_NAMESPACE Empaerior)
 
 target_compile_options(${PROJECT_NAME} PRIVATE
 		$<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
-		-Weverything>
+		-Wall -Wextra -Wpedantic >
 		$<$<CXX_COMPILER_ID:MSVC>:
 		/W4>)
 

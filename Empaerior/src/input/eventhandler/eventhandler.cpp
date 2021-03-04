@@ -15,7 +15,7 @@ void Empaerior::Event_Listener::handleEvents(Empaerior::Event& cur_event)
 	
 	if (_registeredCallbacks.find(cur_event.event.type) == _registeredCallbacks.end()) return;
 
-	for (int i = 0; i < _registeredCallbacks[cur_event.event.type].size(); i++)//iterate throught command and match thoose that fit
+	for (size_t i = 0; i < _registeredCallbacks[cur_event.event.type].size(); i++)//iterate throught command and match thoose that fit
 	{  
 
 		_registeredCallbacks[cur_event.event.type][i].first(cur_event);

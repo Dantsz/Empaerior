@@ -127,7 +127,8 @@ namespace Empaerior
 		{
 			font.fontTexture.clear();
 			font.glyphSize.clear();
-			Empaerior::u_inter width = 0, height = 0 , pitch = 0;
+			Empaerior::u_inter width = 0, height = 0;
+			int  pitch = 0;
 			//find the max width/height
 			for (FT_ULong ch = 0; ch < Characters; ch++)
 			{
