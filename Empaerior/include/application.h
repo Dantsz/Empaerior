@@ -27,7 +27,10 @@ class Application
 public:
 	Application();
 
-	virtual ~Application() {};
+	virtual ~Application() 
+	{
+
+	}
 
 	void Init();
 
@@ -159,7 +162,7 @@ public:
 		
 		try {
 			//if it active remove it in order to make sure it's not active when it's deleted
-			if (index >= states.size() || index < 0) throw E_runtime_exception("Invalid Index ", __FILE__, __LINE__, __FUNCTION__);
+			if (index >= states.size()) throw E_runtime_exception("Invalid Index ", __FILE__, __LINE__, __FUNCTION__);
 			Empaerior::vector<Empaerior::u_inter>::iterator itr = std::find(active_states.begin(), active_states.end(), index);
 			//put it in to be pause
 			if (itr != active_states.cend()) 	to_be_paused.emplace_back(std::distance(active_states.begin(), itr));

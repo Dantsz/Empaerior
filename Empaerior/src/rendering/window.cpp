@@ -4,10 +4,10 @@
 #include "../include/application.h"
 
 
-Empaerior::Window::Window(const Empaerior::string& name, const Empaerior::s_int& width, const Empaerior::s_int& height)
+Empaerior::Window::Window(const Empaerior::string& name, const Empaerior::s_int& windowWidth, const Empaerior::s_int& windowHeight)
 {
 	
-	Init(name, width, height);
+	Init(name, windowWidth, windowHeight);
 }
 
 Empaerior::Window::Window()

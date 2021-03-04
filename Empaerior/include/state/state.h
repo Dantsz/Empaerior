@@ -21,7 +21,7 @@ namespace Empaerior {
 		State();
 		virtual ~State() {
 
-		};
+		}
 
 		virtual void Update(const Empaerior::u_int dt) = 0;
 		virtual void Render() = 0 ;//renders the state

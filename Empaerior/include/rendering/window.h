@@ -15,14 +15,14 @@ namespace Empaerior
 
 	public:
 		Window();
-		Window(const Empaerior::string& name, const Empaerior::s_int& width, const Empaerior::s_int& height);
+		Window(const Empaerior::string& name, const Empaerior::s_int& windowWidth, const Empaerior::s_int& windowHeight);
 		~Window()
 		{
 			if (window != nullptr)	SDL_DestroyWindow(window);
 			
 
 		}
-		int Init(const Empaerior::string& name, const Empaerior::s_int& width, const Empaerior::s_int& height);
+		int Init(const Empaerior::string& name, const Empaerior::s_int& m_width, const Empaerior::s_int& m_height);
 		void render();
 		void clear();
 		void reset();

@@ -1,5 +1,6 @@
 #pragma once
 #include <vulkan/vulkan.h>
+#include <string>
 namespace Empaerior
 {
     struct VK_RendererGraphicsInfo

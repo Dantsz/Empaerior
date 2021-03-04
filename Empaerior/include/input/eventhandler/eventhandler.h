@@ -27,8 +27,8 @@ namespace Empaerior {
 
 		using EventCallback = std::function<void(Empaerior::Event&)>;
 
-		Event_Listener() {};
-		~Event_Listener() {};
+		Event_Listener() {}
+		~Event_Listener() {}
 
 
 		void register_event(Empaerior::u_int type, EventCallback callback,Empaerior::s_inter call_times =-1); //put a callback in the lisener

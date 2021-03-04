@@ -18,8 +18,8 @@ namespace Empaerior
 	class VContainer
 	{
 	public:
-		virtual ~VContainer() {};
-		virtual void OnEntityDestroyed(const Empaerior::u_inter& entity_id) noexcept {};
+		virtual ~VContainer() {}
+		virtual void OnEntityDestroyed(const Empaerior::u_inter& entity_id) noexcept {}
 	};
 
 
@@ -28,7 +28,7 @@ namespace Empaerior
 	class ComponentContainer : public VContainer
 	{
 	public:
-		virtual ~ComponentContainer() override {};
+		virtual ~ComponentContainer() override {}
 
 		//update a specific component
 		void add_component(const Empaerior::u_inter& entity_id, T component)

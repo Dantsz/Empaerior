@@ -999,8 +999,8 @@ void VK_Renderer::createGraphicsPipeline(Empaerior::VK_RendererGraphicsInfo& inf
        
     }
 
-    VkShaderModule vertShaderModule = createShaderModule(device, vertShaderCode);;
-    VkShaderModule fragShaderModule = createShaderModule(device, fragShaderCode);;
+    VkShaderModule vertShaderModule = createShaderModule(device, vertShaderCode);
+    VkShaderModule fragShaderModule = createShaderModule(device, fragShaderCode);
 
     VkPipelineShaderStageCreateInfo vertShaderStageInfo{};
     vertShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
