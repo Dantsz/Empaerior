@@ -50,8 +50,8 @@ static std::vector<char> readFile(const std::string& filename)
 
     }
 
-    size_t fileSize = (size_t)file.tellg();
-    std::vector<char> buffer(fileSize);
+    Empaerior::s_inter fileSize = static_cast<Empaerior::s_inter>(file.tellg());
+    std::vector<char> buffer(static_cast<size_t>(fileSize));
 
     file.seekg(0);
     file.read(buffer.data(), fileSize);

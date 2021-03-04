@@ -174,15 +174,15 @@ public:
 
 
 				auto position = Empaerior::Input::Mouse::get_world_mouse_coords(vk.GraphicsSettings, vk.ubo);
-			    if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_N))
-				{
+		    	if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_N))
+		   		{
 					vk.geometrybuffer.reset();
 				}
-				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_O))
+				 else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_O))
 				{
 					dump_data(vk.geometrybuffer);
 				}	
-				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_E))
+				 else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_E))
 				{
 					message += 'x';
 			

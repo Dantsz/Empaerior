@@ -15,22 +15,22 @@ namespace Empaerior
 
 	public:
 		Window();
-		Window(const Empaerior::string& name, const Empaerior::u_int& width, const Empaerior::u_int& height);
+		Window(const Empaerior::string& name, const Empaerior::s_int& width, const Empaerior::s_int& height);
 		~Window()
 		{
 			if (window != nullptr)	SDL_DestroyWindow(window);
 			
 
 		}
-		int Init(const Empaerior::string& name, const Empaerior::u_int& width, const Empaerior::u_int& height);
+		int Init(const Empaerior::string& name, const Empaerior::s_int& width, const Empaerior::s_int& height);
 		void render();
 		void clear();
 		void reset();
-		EMP_FORCEINLINE Empaerior::u_int get_width()
+		EMP_FORCEINLINE Empaerior::s_int get_width()
 		{
 			return width;
 		}
-		EMP_FORCEINLINE Empaerior::u_int get_heigth()
+		EMP_FORCEINLINE Empaerior::s_int get_heigth()
 		{
 			return height;
 		}

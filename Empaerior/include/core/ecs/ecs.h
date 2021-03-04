@@ -242,7 +242,7 @@ namespace Empaerior
 			
 			//reset criteria 
 		
-			for(auto i = 0 ; i < signature.size() ; i++)
+			for(size_t i = 0 ; i < signature.size() ; i++)
 			{
 				signature[i] = 0;
 			}

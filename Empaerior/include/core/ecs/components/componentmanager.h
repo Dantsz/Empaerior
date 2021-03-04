@@ -1,15 +1,19 @@
 #pragma once
 
+#include <limits>
 #include <vector>
 #include <queue>
 #include <memory>
 
 #include "../../exceptions/exceptions.h"
 #include "../entity.h"
+#include "core/defines/basic_defines.h"
 
 //thanks to Austin Morlan for providing a ECS template
 namespace Empaerior
 {
+	//max number of components
+	constexpr Empaerior::u_inter maxComponentID = std::numeric_limits<Empaerior::u_inter>::max();
 	//virtual container for polymorphism
 	class VContainer
 	{
@@ -250,7 +254,7 @@ namespace Empaerior
 			catch (E_runtime_exception& e)
 			{
 				e.print_message();
-				return -1;
+				return Empaerior::maxComponentID;
 			}
 
 

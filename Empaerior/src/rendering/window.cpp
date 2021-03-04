@@ -1,9 +1,10 @@
+#include "core/defines/basic_defines.h"
 #include "pch.h"
 #include "../include/rendering/window.h"
 #include "../include/application.h"
 
 
-Empaerior::Window::Window(const Empaerior::string& name, const Empaerior::u_int& width, const Empaerior::u_int& height)
+Empaerior::Window::Window(const Empaerior::string& name, const Empaerior::s_int& width, const Empaerior::s_int& height)
 {
 	
 	Init(name, width, height);
@@ -14,15 +15,16 @@ Empaerior::Window::Window()
 
 }
 
-int Empaerior::Window::Init(const Empaerior::string& name, const Empaerior::u_int& m_width, const Empaerior::u_int& m_height)
+int Empaerior::Window::Init(const Empaerior::string& name, const Empaerior::s_int& m_width, const Empaerior::s_int& m_height)
 {
 	width = m_width;
 	height = m_height;
 	window = SDL_CreateWindow(name.c_str(),
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE);
 
-	window_listener.register_event(SDL_QUIT, [](Empaerior::Event const& event) { // add quit event 
+	window_listener.register_event(SDL_QUIT, [](Empaerior::Event& event) { // add quit event 
 		Empaerior::Application::is_running = false;
+		event.is_handled = true;
 		});
 
 	window_listener.register_event(SDL_WINDOWEVENT, [window = this](Empaerior::Event const& event) { //add 
@@ -31,7 +33,7 @@ int Empaerior::Window::Init(const Empaerior::string& name, const Empaerior::u_in
 			Empaerior::Application::is_paused = true;
 			break;
 
-		case SDL_WINDOWEVENT_RESTORED || SDL_WINDOW_MAXIMIZED:
+		case (SDL_WINDOWEVENT_RESTORED || SDL_WINDOW_MAXIMIZED):
 			Empaerior::Application::is_paused = false;
 			break;
 

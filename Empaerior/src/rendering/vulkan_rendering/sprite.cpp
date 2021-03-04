@@ -57,7 +57,7 @@ namespace Empaerior
 		{
 			//used to transform the width and height based on the char size
 			Empaerior::fl_point ar;
-			if (font.glyphSize[message[i]].height > 0.0001) ar = font.glyphSize[message[i]].width / font.glyphSize[message[i]].height;
+			if (font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].height > 0.0001) ar = font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].width / font.glyphSize[message[i]].height;
 			else  ar = 1.0f;
 
 			//calculate if the character fits and how much it fits
@@ -94,15 +94,15 @@ namespace Empaerior
 			Empaerior::fl_point  visibilityX = CharWidth / (charDimensions.elements[0] * ar);
 			//calculate how much of the letter must be shown
 			Empaerior::fl_point visibilityY;
-			if (beginY + font.glyphSize[message[i]].height > rect.y + rect.h) visibilityY = CharHeight / charDimensions.elements[1];
+			if (beginY + font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].height > rect.y + rect.h) visibilityY = CharHeight / charDimensions.elements[1];
 			else visibilityY = 1.0f;
 
 
-			setSpriteTexRect(sprite, { 0, message[i] * font.glyphHeight   , font.glyphSize[message[i]].width * visibilityX,font.glyphSize[message[i]].height * visibilityY }, i * 4);
+			setSpriteTexRect(sprite, { 0, message[i] * font.glyphHeight   , font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].width * visibilityX,font.glyphSize[message[i]].height * visibilityY }, i * 4);
 
 			//add the space 
 			if (message[i] == ' ') beginX += charDimensions[0];
-			else beginX += font.glyphSize[message[i]].Mwidth;
+			else beginX += font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].Mwidth;
 
 		}
 	}
