@@ -931,11 +931,11 @@ void VK_Renderer::updateDescriptorSets()
 
         std::vector<VkDescriptorImageInfo> descriptorImageInfos;
         descriptorImageInfos.resize(texture_atlas.images.size());
-        for (uint32_t i = 0; i < texture_atlas.images.size(); ++i)
+        for (size_t j = 0; j < texture_atlas.images.size(); ++j)
         {
-            descriptorImageInfos[i].sampler = 0;
-            descriptorImageInfos[i].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-            descriptorImageInfos[i].imageView = texture_atlas.image_views[i];
+            descriptorImageInfos[j].sampler = 0;
+            descriptorImageInfos[j].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+            descriptorImageInfos[j].imageView = texture_atlas.image_views[j];
         }
 
 
