@@ -28,7 +28,7 @@ namespace Empaerior
 		//the size of each individual glyph
 		// glyphSize[i] , i - code of the character
 		std::vector<Empaerior::FontLoading::GlyphDimesnsions> glyphSize;
-		Empaerior::u_inter texWidth, texHeight;
+		Empaerior::u_int texWidth, texHeight;
 		
 	
 		//the sizes of the whole images
@@ -127,7 +127,7 @@ namespace Empaerior
 		{
 			font.fontTexture.clear();
 			font.glyphSize.clear();
-			Empaerior::u_inter width = 0, height = 0;
+			Empaerior::u_int width = 0, height = 0;
 			int  pitch = 0;
 			//find the max width/height
 			for (FT_ULong ch = 0; ch < Characters; ch++)

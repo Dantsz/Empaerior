@@ -1,4 +1,6 @@
 #include "..\..\..\include\rendering\vulkan_rendering\texture_atlas.h"
+#include "core/defines/basic_defines.h"
+#include <stdexcept>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
@@ -54,7 +56,7 @@ size_t Texture_Atlas::create_texture_from_file(const std::string& path)
             return 0;
         }
         
-        texturePath.insert({ path,create_texture_from_memory(pixels, texWidth, texHeight, texChannels) });
+        texturePath.insert({ path,create_texture_from_memory(pixels, static_cast<Empaerior::u_int>(texWidth), static_cast<Empaerior::u_int>(texHeight), texChannels) });
      
     }
    
@@ -141,7 +143,7 @@ size_t Texture_Atlas::getFont(const char* path)
     if (fontID == fontName.end())
     {
        // ENGINE_WARN("The specified font does not exist");
-        return -1;
+        throw std::runtime_error("Font does not exist");
     }
     return fontID->second;
 }
