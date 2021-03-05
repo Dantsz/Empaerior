@@ -33,7 +33,10 @@ int Empaerior::Window::Init(const Empaerior::string& name, const Empaerior::s_in
 			Empaerior::Application::is_paused = true;
 			break;
 
-		case (SDL_WINDOWEVENT_RESTORED || SDL_WINDOW_MAXIMIZED):
+		case (SDL_WINDOWEVENT_RESTORED):
+			Empaerior::Application::is_paused = false;
+			break;
+		case (SDL_WINDOW_MAXIMIZED):
 			Empaerior::Application::is_paused = false;
 			break;
 
