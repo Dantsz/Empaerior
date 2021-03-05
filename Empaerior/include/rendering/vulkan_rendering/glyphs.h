@@ -87,41 +87,6 @@ namespace Empaerior
 		}
 
 
-		//returns a bitmap 
-		EMP_FORCEINLINE std::vector<uint8_t> loadChar(Font& font, char ch)
-		{
-			if (FT_Load_Char(font.fontFace, 'P', FT_LOAD_RENDER))
-				std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
-
-			
-
-			size_t width = font.fontFace->glyph->bitmap.width;
-			size_t height = font.fontFace->glyph->bitmap.rows;
-			size_t bufferSize = width * height * 4;
-
-			std::vector<uint8_t> buffer(bufferSize);
-
-			uint8_t* src = font.fontFace->glyph->bitmap.buffer;
-			uint8_t* startOfLine = src;
-			int dst = 0;
-
-			for (size_t y = 0; y < height; ++y) {
-				src = startOfLine;
-				for (size_t x = 0; x < width; ++x) {
-					auto value = *src;
-					src++;
-
-					buffer[dst++] = 0xff;
-					buffer[dst++] = 0xff;
-					buffer[dst++] = 0xff;
-					buffer[dst++] = value;
-
-				}
-				startOfLine += font.fontFace->glyph->bitmap.pitch;
-
-			}
-			return buffer;
-		}
 
 		EMP_FORCEINLINE void createFontTexture(Font& font)
 		{
