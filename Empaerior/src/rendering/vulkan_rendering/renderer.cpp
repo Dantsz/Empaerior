@@ -1,5 +1,4 @@
 #include "..\..\..\include\rendering\vulkan_rendering\renderer.h"
-#include "../../../include/rendering/vulkan_rendering/misc_functions.h"
 
 #include <set>
 #include <array>
@@ -14,8 +13,6 @@
 #include <SDL_vulkan.h>
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
 #define VMA_IMPLEMENTATION
 #include <vk_mem_alloc.h>
@@ -26,14 +23,14 @@ struct QueueFamilyIndices {
     std::optional<uint32_t> graphicsFamily;
     std::optional<uint32_t> presentFamily;
 
-    bool isComplete() {
+    [[nodiscard]] bool isComplete() const {
         return graphicsFamily.has_value() && presentFamily.has_value();
     }
 };
 
 struct SwapChainSupportDetails 
 {
-    VkSurfaceCapabilitiesKHR capabilities;
+    VkSurfaceCapabilitiesKHR capabilities{};
     std::vector<VkSurfaceFormatKHR> formats;
     std::vector<VkPresentModeKHR> presentModes;
 };
@@ -76,7 +73,7 @@ static std::vector<const char*> getRequiredExtensions(SDL_Window* sdl_window) {
 
     unsigned int count = 0;
 
-    SDL_Vulkan_GetInstanceExtensions(sdl_window, &count, NULL);
+    SDL_Vulkan_GetInstanceExtensions(sdl_window, &count, nullptr);
 
     // now count is (probably) 2. Now you can make space:
     extensions.resize(count);
@@ -882,7 +879,7 @@ void VK_Renderer::createDescriptorSetLayout()
     textureArrayLayoutBinding.descriptorCount = static_cast<Empaerior::u_int>(texture_atlas.images.size());
     textureArrayLayoutBinding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT; //| VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT;
     textureArrayLayoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
-    textureArrayLayoutBinding.pImmutableSamplers = 0;
+    textureArrayLayoutBinding.pImmutableSamplers = nullptr;
 
 
 
@@ -936,7 +933,7 @@ void VK_Renderer::updateDescriptorSets()
         descriptorImageInfos.resize(texture_atlas.images.size());
         for (size_t j = 0; j < texture_atlas.images.size(); ++j)
         {
-            descriptorImageInfos[j].sampler = 0;
+            descriptorImageInfos[j].sampler = nullptr;
             descriptorImageInfos[j].imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
             descriptorImageInfos[j].imageView = texture_atlas.image_views[j];
         }
@@ -969,7 +966,7 @@ void VK_Renderer::updateDescriptorSets()
         descriptorWrites[2].dstArrayElement = 0;
         descriptorWrites[2].descriptorType = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
         descriptorWrites[2].descriptorCount = static_cast<Empaerior::u_int>(descriptorImageInfos.size());
-        descriptorWrites[2].pBufferInfo = 0;
+        descriptorWrites[2].pBufferInfo = nullptr;
         descriptorWrites[2].pImageInfo = descriptorImageInfos.data();
 
 

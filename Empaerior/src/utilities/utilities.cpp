@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "../include/utilities/utilities.h"
-#include "../include/core/utilities/math.h"
 
 
 Empaerior::string Empaerior::Utilities::get_clipboard_text()
@@ -80,7 +79,7 @@ Empaerior::boole Empaerior::Utilities::rect_contains_point(const Empaerior::Floa
 	return true;
 }
 
-Empaerior::Point2f Empaerior::Utilities::get_rotated_point(const Empaerior::Point2f& point, const Empaerior::Point2f& axis, const Empaerior::fl_point angle)
+Empaerior::Point2f Empaerior::Utilities::get_rotated_point(const Empaerior::Point2f& point, const Empaerior::Point2f& axis,  Empaerior::fl_point angle)
 {
 	Empaerior::Point2f rotated;
 	rotated[0] = axis[0] + (point[0] - axis[0]) * Empaerior::Math::cosd(angle) - (point[1] - axis[1]) * Empaerior::Math::sind(angle);

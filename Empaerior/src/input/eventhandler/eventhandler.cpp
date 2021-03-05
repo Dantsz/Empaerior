@@ -4,7 +4,7 @@
 
 
 
-void Empaerior::Event_Listener::register_event(Empaerior::u_int type, EventCallback callback, Empaerior::s_inter call_times)
+void Empaerior::Event_Listener::register_event(Empaerior::u_int type, const EventCallback& callback, Empaerior::s_inter call_times)
 {
 	_registeredCallbacks[type].push_back({ callback , call_times});
 	

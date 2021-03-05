@@ -1,8 +1,6 @@
 #include "..\..\..\include\rendering\vulkan_rendering\misc_functions.h"
 
-namespace Empaerior {
-
-    namespace VKfunctions
+namespace Empaerior::VKfunctions
     {
         //CommandBuffer functions
         VkCommandBuffer beginSingleTimeCommands(VkDevice& device, VkQueue& graphicsQueue, VkCommandPool& commandPool)
@@ -185,4 +183,3 @@ namespace Empaerior {
             return imageView;
         }
     }
-}

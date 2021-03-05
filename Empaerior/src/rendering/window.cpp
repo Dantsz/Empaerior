@@ -10,10 +10,7 @@ Empaerior::Window::Window(const Empaerior::string& name, const Empaerior::s_int&
 	Init(name, windowWidth, windowHeight);
 }
 
-Empaerior::Window::Window()
-{
-
-}
+Empaerior::Window::Window() = default;
 
 int Empaerior::Window::Init(const Empaerior::string& name, const Empaerior::s_int& m_width, const Empaerior::s_int& m_height)
 {
@@ -32,7 +29,6 @@ int Empaerior::Window::Init(const Empaerior::string& name, const Empaerior::s_in
 		case SDL_WINDOWEVENT_MINIMIZED:
 			Empaerior::Application::is_paused = true;
 			break;
-
 		case (SDL_WINDOWEVENT_RESTORED):
 			Empaerior::Application::is_paused = false;
 			break;
@@ -62,7 +58,7 @@ void Empaerior::Window::clear()
 }
 
 
-void Empaerior::Window::reset()
+void Empaerior::Window::reset() const
 {
 	if (window != nullptr)	SDL_DestroyWindow(window);
 	

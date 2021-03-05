@@ -25,7 +25,7 @@ namespace Empaerior
 		int Init(const Empaerior::string& name, const Empaerior::s_int& m_width, const Empaerior::s_int& m_height);
 		void render();
 		void clear();
-		void reset();
+		void reset() const;
 		EMP_FORCEINLINE Empaerior::s_int get_width()
 		{
 			return width;
@@ -35,7 +35,7 @@ namespace Empaerior
 			return height;
 		}
 
-		SDL_Window* window;
+		SDL_Window* window{};
 		//lisens for window events
 		Event_Listener window_listener;
 		Window_Info information;

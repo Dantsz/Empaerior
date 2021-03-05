@@ -1,11 +1,6 @@
 #include "pch.h"
-#include "../include/application.h"
 
-Empaerior::Application::Application()
-{
-
-
-}
+Empaerior::Application::Application() = default;
 void Empaerior::Application::Init()
 {
 

@@ -4,10 +4,7 @@
 
 
 
-Empaerior::State::State()
-{
-
-}
+Empaerior::State::State() = default;
 
 
 

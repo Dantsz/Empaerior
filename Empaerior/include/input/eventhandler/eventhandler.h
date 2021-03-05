@@ -31,7 +31,7 @@ namespace Empaerior {
 		~Event_Listener() {}
 
 
-		void register_event(Empaerior::u_int type, EventCallback callback,Empaerior::s_inter call_times =-1); //put a callback in the lisener
+		void register_event(Empaerior::u_int type, const EventCallback& callback,Empaerior::s_inter call_times =-1); //put a callback in the lisener
 		
 		void handleEvents(Empaerior::Event& cur_event); //execute commands
 		
