@@ -54,17 +54,11 @@ public:
         Empaerior::setSpriteDepth(greenerboi,0.9f);
 		Empaerior::Entity copier;
         copier.id = ecs.create_entity_ID();
-
 		ecs.add_component<copyReductorComponent>(copier.id,{});
+		ecs.add_component<Empaerior::singleSprite_Component>(copier.id,{});
+		sprite_system.createSprite(ecs,copier.id,{0,0,100,100},"assets/2209.png");
+		Empaerior::setSpriteDepth(ecs.get_component<Empaerior::singleSprite_Component>(copier.id).sprites,0.0f);
 
-
-
-		//Empaerior::createTextSprite(renderer->geometrybuffer, renderer->texture_atlas, lol, {500,100,1000,1000}, {32,32}, idk, "gffgfgfgfgfg", { 255,255,255 });
-
-	
-
-	//	Empaerior::setTextSpriteMessage(lol, { 500,200,1000,1000 }, { 32,32 }, idk, "1234", { 255,255,255 });
-		//Empaerior::destroySprite(borge[30]);	//Empaerior::setSpriteDimensions(borge[25], 0.0f, 0.0f);
 	}
 	~APP_State1()
 	{

@@ -25,7 +25,7 @@ namespace Empaerior
 			else
 			{
 
-				indexing_type index = freed_indexes[freed_indexes.size() - 1];
+				indexing_type index = freed_indexes.back();
 				freed_indexes.pop_back();
 				objects[index].~T();
 				objects[index] = object;
@@ -45,7 +45,7 @@ namespace Empaerior
 			}
 			else
 			{
-				indexing_type index = freed_indexes[freed_indexes.size() - 1];
+				indexing_type index = freed_indexes.back();
 				freed_indexes.pop_back();
 				objects[index].~T();
 				objects[index] = { args... };

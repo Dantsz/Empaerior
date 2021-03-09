@@ -142,7 +142,7 @@ namespace Empaerior
 			renderer = p_renderer;
 		}
 		
-
+        //default createSprite
 		void createSprite(Empaerior::ECS& ecs,
 			const Empaerior::u_inter& id,
 			const Empaerior::Float_Rect_S& rect,
@@ -153,6 +153,40 @@ namespace Empaerior
 			Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, ecs.get_component<Empaerior::singleSprite_Component>(id).sprites, rect, texRect, textureID);
 		}
 
+#pragma  region createSpritesOverloads
+        //create sprite but use the whole texture
+        void createSprite(Empaerior::ECS& ecs,
+                          const Empaerior::u_inter& id,
+                          const Empaerior::Float_Rect_S& rect,
+                          const uint32_t textureID
+        )
+        {
+            Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, ecs.get_component<Empaerior::singleSprite_Component>(id).sprites, rect,
+                                    {0,0,renderer->texture_atlas.image_dimensions[textureID][0],renderer->texture_atlas.image_dimensions[textureID][1]}, textureID);
+        }
+        //string to image instead of texID
+        void createSprite(Empaerior::ECS& ecs,
+                          const Empaerior::u_inter& id,
+                          const Empaerior::Float_Rect_S& rect,
+                          const Empaerior::Float_Rect_S& texRect,
+                          const std::string& texturePath
+        )
+        {
+            Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, ecs.get_component<Empaerior::singleSprite_Component>(id).sprites, rect, texRect, renderer->texture_atlas.create_texture_from_file(texturePath));
+        }
+        //create sprite but use the whole texture and use string instead of textureID
+        void createSprite(Empaerior::ECS& ecs,
+                          const Empaerior::u_inter& id,
+                          const Empaerior::Float_Rect_S& rect,
+                          const std::string& texturePath
+        )
+        {
+		    size_t texID =  renderer->texture_atlas.create_texture_from_file(texturePath);
+            Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, ecs.get_component<Empaerior::singleSprite_Component>(id).sprites, rect,
+                                    {0,0,renderer->texture_atlas.image_dimensions[texID][0],renderer->texture_atlas.image_dimensions[texID][1]},texID);
+        }
+
+#pragma endregion
 		void destroySprite(Empaerior::ECS* ecs, const Empaerior::u_inter& entity_id) 
 		{
 			Empaerior::destroySprite(ecs->get_component<singleSprite_Component>(entity_id).sprites);

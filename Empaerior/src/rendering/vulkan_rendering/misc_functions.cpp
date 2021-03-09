@@ -60,7 +60,8 @@ namespace Empaerior::VKfunctions
         }
 
         //Image Functions
-        void createImage(VmaAllocator& allocator, Empaerior::u_int width, Empaerior::u_int height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VmaAllocation& allocation)
+        void createImage(VmaAllocator& allocator, Empaerior::u_int width, Empaerior::u_int height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage,
+                         [[maybe_unused]] VkMemoryPropertyFlags properties, VkImage& image, VmaAllocation& allocation)
         {
             VkImageCreateInfo imageInfo{};
             imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
@@ -92,7 +93,8 @@ namespace Empaerior::VKfunctions
             }
 
         }
-        void transitionImageLayout(VkDevice& device, VkQueue& graphicsQueue, VkCommandPool& commandPool, VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout) {
+        void transitionImageLayout(VkDevice& device, VkQueue& graphicsQueue, VkCommandPool& commandPool, VkImage image,
+                                   [[maybe_unused]] VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout) {
             VkCommandBuffer commandBuffer = beginSingleTimeCommands(device, graphicsQueue, commandPool);
 
             VkImageMemoryBarrier barrier{};
