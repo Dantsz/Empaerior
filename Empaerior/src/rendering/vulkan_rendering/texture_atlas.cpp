@@ -57,9 +57,10 @@ size_t Texture_Atlas::create_texture_from_file(const std::string& path)
         }
         
         texturePath.insert({ path,create_texture_from_memory(pixels, static_cast<Empaerior::u_int>(texWidth), static_cast<Empaerior::u_int>(texHeight), texChannels) });
-     
+        stbi_image_free(pixels);
     }
-   
+  
+  
     return texturePath.at(path);
 
 }
@@ -96,7 +97,7 @@ void Texture_Atlas::createImageAtIndex(size_t index , Empaerior::byte* pixels, E
     image_dimensions[index][0] = width;
     image_dimensions[index][1] = height;
     image_views[index] = VK_NULL_HANDLE;
-    
+
     VkDeviceSize imageSize = width * height * 4;
 
     VmaAllocationCreateInfo allocInfo{};
@@ -105,8 +106,8 @@ void Texture_Atlas::createImageAtIndex(size_t index , Empaerior::byte* pixels, E
 
    
     void* data = nullptr;
-    VkBuffer stagingBuffer;
-    VmaAllocation buffer_allocation;
+    VkBuffer stagingBuffer = VK_NULL_HANDLE;
+    VmaAllocation buffer_allocation = VK_NULL_HANDLE;
     Empaerior::VKfunctions::allocateBuffer(*m_allocator, imageSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, stagingBuffer, buffer_allocation, allocInfo);
     vmaMapMemory(*m_allocator, buffer_allocation, &data);
     memcpy(data, pixels, static_cast<size_t>(imageSize));
