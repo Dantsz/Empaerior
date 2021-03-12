@@ -402,7 +402,6 @@ void VK_Renderer::Init(Empaerior::Window* window)
 void VK_Renderer::initVulkan()
 {
 
-
     createInstance();
     setupDebugMessenger(instance, debugMessenger);
     //create surface
@@ -430,11 +429,15 @@ void VK_Renderer::initVulkan()
     createFramebuffers();
     createCommandPool();
 
+
+
+    //set the graphics settings
+    GraphicsSettings = InitialGraphicsSettings;
+
     //texture atlas
     texture_atlas.attachRenderComponents(&device, &graphicsQueue, &commandPool, &allocator,&framebufferNeedsReconstruction);
     //create one default texture
-    std::array<Empaerior::byte,4> rgb{255,0,255,255};
-    texture_atlas.create_texture_from_memory(rgb.data(),1,1,0);
+    texture_atlas.create_texture_from_memory(GraphicsSettings.defaultTextureColor.data(),1,1,0);
     //geo buffer
     geometrybuffer.attachrenderer(&allocator, device, swapChainImages.size());
 
@@ -452,7 +455,7 @@ void VK_Renderer::initVulkan()
     mainCommandBufferinUseIndex = inUseCommandBuffers.size() - 1;
 
     createSyncObjects();
-    GraphicsSettings = InitialGraphicsSettings;
+ 
 
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <vulkan/vulkan.h>
 #include <string>
+#include <array>
 #include "core/vector2.h"
 
 namespace Empaerior
@@ -39,7 +40,7 @@ namespace Empaerior
 
         float blendConstants[4] = {0.0f,0.0f,0.0f,0.0f};
 
-        
+        std::array<Empaerior::byte,4> defaultTextureColor = {255,0,255,255};        
 
     };
 }
