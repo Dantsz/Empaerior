@@ -1,6 +1,8 @@
 #pragma once
 #include <vulkan/vulkan.h>
 #include <string>
+#include "core/vector2.h"
+
 namespace Empaerior
 {
     struct VK_RendererGraphicsInfo
@@ -33,9 +35,11 @@ namespace Empaerior
         //multisampling
         bool sampleShadingEnable = VK_FALSE;
 
-        Empaerior::vec<2,int32_t> scissorOffset = {0 , 0};
+        Empaerior::Vector2<int32_t> scissorOffset = {0 , 0};
 
         float blendConstants[4] = {0.0f,0.0f,0.0f,0.0f};
+
+        
 
     };
 }

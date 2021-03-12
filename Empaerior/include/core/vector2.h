@@ -1,7 +1,6 @@
 #pragma once
-#include <sstream>
-#include <math.h>  
-#include "defines/defines.h"
+#include <sstream> 
+
 #include "point2.h"
 #include "vec.h"
 

@@ -7,6 +7,10 @@
 
 #include <cmath>
 #include "../include/core/defines/defines.h"
+#include "SDL_cpuinfo.h"
+#include "SDL_platform.h"
+#include "SDL_stdinc.h"
+#include "rendering/window.h"
 
 namespace Empaerior::Utilities {
 		//clipboard functions

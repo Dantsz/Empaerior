@@ -123,7 +123,7 @@ public:
 		window.Init("Empaerior  3.0C11 -Vulkan Renderer", 960, 540);/*?*/
 
 		
-		vk.Init(&Empaerior::Application::window);/*?*/
+		vk.Init(&window);/*?*/
 	
 
 		ImGui_Emp::Init(window, vk);
@@ -172,11 +172,11 @@ public:
 		   		{
 					vk.geometrybuffer.reset();
 				}
-				 else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_O))
+				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_O))
 				{
 					dump_data(vk.geometrybuffer);
 				}	
-				 else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_E))
+				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_E))
 				{
 					message += 'x';
 			
@@ -218,7 +218,7 @@ public:
 
 	void handlevents(Empaerior::Event& event) override
 	{
-		Empaerior::Application::window.window_listener.handleEvents(event);
+		window.window_listener.handleEvents(event);
 		/*	if (active_states.size() == 0) return;
 			for (Empaerior::u_inter i = active_states.size() - 1; active_states.size() > i; --i)
 			{

@@ -100,6 +100,11 @@ target_include_directories(${PROJECT_NAME} PRIVATE include/
 
 set(ROOT_NAMESPACE Empaerior)
 
+target_compile_options(${PROJECT_NAME} PRIVATE
+		$<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>>:
+		-Wall -Wextra -Wno-c++98-compat-pedantic -Wno-c++98-compat>
+		$<$<CXX_COMPILER_ID:MSVC>:
+		/W4>)
 ################################################################################
 # Target name
 ################################################################################
@@ -137,10 +142,6 @@ set(ROOT_NAMESPACE Empaerior)
 		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/freetype/include"
     )
 
-target_compile_options(${PROJECT_NAME} PRIVATE
-		$<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
-        -Weverything -Wno-c++98-compat-pedantic -Wno-c++98-compat>
-		$<$<CXX_COMPILER_ID:MSVC>:
-		/W4>)
+
 
 

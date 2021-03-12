@@ -25,8 +25,8 @@ Empaerior::vector <Empaerior::u_inter> Empaerior::Application::to_be_deleted;
 Empaerior::vector <Empaerior::u_inter> Empaerior::Application::freed_indexes;
 //time between frames
 Empaerior::u_int Empaerior::Application::dt = 1000 / 60;
-Empaerior::boole Empaerior::Application::is_paused = 0;
-Empaerior::boole Empaerior::Application::is_running = 1;
+Empaerior::boole Empaerior::Application::is_paused = false;
+Empaerior::boole Empaerior::Application::is_running = true;
 Empaerior::Event Empaerior::Application::event;
 Empaerior::Window Empaerior::Application::window;
 

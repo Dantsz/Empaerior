@@ -103,7 +103,7 @@ static void populateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT&
 }
 
 static  bool checkValidationLayerSupport() {
-    uint32_t layerCount;
+    uint32_t layerCount = 0;
     vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
 
     std::vector<VkLayerProperties> availableLayers(layerCount);
@@ -139,7 +139,8 @@ static VkFormat findSupportedFormat(VkPhysicalDevice& physicalDevice, const std:
         if (tiling == VK_IMAGE_TILING_LINEAR && (props.linearTilingFeatures & features) == features) {
             return format;
         }
-        else if (tiling == VK_IMAGE_TILING_OPTIMAL && (props.optimalTilingFeatures & features) == features) {
+        
+        if (tiling == VK_IMAGE_TILING_OPTIMAL && (props.optimalTilingFeatures & features) == features) {
             return format;
         }
     }
@@ -260,14 +261,15 @@ static VkExtent2D chooseSwapExtent(SDL_Window* sdl_window, const VkSurfaceCapabi
     if (capabilities.currentExtent.width != UINT32_MAX) {
         return capabilities.currentExtent;
     }
-    else {
-        int width, height;
-        SDL_GetWindowSize(sdl_window, &width, &height);
+    
+    int width = 0, height = 0;
+    SDL_GetWindowSize(sdl_window, &width, &height);
 
-        VkExtent2D actualExtent = {
-            static_cast<uint32_t>(width),
-            static_cast<uint32_t>(height)
-        };
+    VkExtent2D actualExtent = {
+        static_cast<uint32_t>(width),
+        static_cast<uint32_t>(height)
+    };
+
         //where do these come from??
         //probably from SDL
         #ifdef max
@@ -277,11 +279,11 @@ static VkExtent2D chooseSwapExtent(SDL_Window* sdl_window, const VkSurfaceCapabi
         #undef min
         #endif
 
-        actualExtent.width = std::max(capabilities.minImageExtent.width, std::min(capabilities.maxImageExtent.width, actualExtent.width));
-        actualExtent.height = std::max(capabilities.minImageExtent.height, std::min(capabilities.maxImageExtent.height, actualExtent.height));
+    actualExtent.width = std::max(capabilities.minImageExtent.width, std::min(capabilities.maxImageExtent.width, actualExtent.width));
+    actualExtent.height = std::max(capabilities.minImageExtent.height, std::min(capabilities.maxImageExtent.height, actualExtent.height));
 
-        return actualExtent;
-    }
+    return actualExtent;
+    
 }
 
 static VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats) {
@@ -308,7 +310,7 @@ static VkShaderModule createShaderModule(VkDevice& device, const std::vector<cha
     VkShaderModuleCreateInfo createInfo{};
     createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
     createInfo.codeSize = code.size();
-    createInfo.pCode = reinterpret_cast<const uint32_t*>(code.data());
+    createInfo.pCode = reinterpret_cast<const uint32_t*>(code.data());// reinterpret_cast???
 
     VkShaderModule shaderModule;
     if (vkCreateShaderModule(device, &createInfo, nullptr, &shaderModule) != VK_SUCCESS) {
@@ -431,8 +433,8 @@ void VK_Renderer::initVulkan()
     //texture atlas
     texture_atlas.attachRenderComponents(&device, &graphicsQueue, &commandPool, &allocator,&framebufferNeedsReconstruction);
     //create one default texture
-    Empaerior::byte rgb[4] = {255,0,255,255};
-    texture_atlas.create_texture_from_memory(rgb,1,1,0);
+    std::array<Empaerior::byte,4> rgb{255,0,255,255};
+    texture_atlas.create_texture_from_memory(rgb.data(),1,1,0);
     //geo buffer
     geometrybuffer.attachrenderer(&allocator, device, swapChainImages.size());
 
@@ -533,7 +535,7 @@ void VK_Renderer::cleanupSwapChain()
 
     vmaDestroyImage(allocator, depthImage, depthImageAllocation);
 
-    for (auto framebuffer : swapChainFramebuffers) {
+    for (auto& framebuffer : swapChainFramebuffers) {
         vkDestroyFramebuffer(device, framebuffer, nullptr);
     }
 
@@ -544,7 +546,7 @@ void VK_Renderer::cleanupSwapChain()
     vkDestroyRenderPass(device, renderPass, nullptr);
 
 
-    for (auto imageView : swapChainImageViews) {
+    for (auto& imageView : swapChainImageViews) {
         vkDestroyImageView(device, imageView, nullptr);
     }
 
@@ -818,20 +820,20 @@ void VK_Renderer::createRenderPass()
 }
 void VK_Renderer::createDescriptorPool()
 {
-
+    constexpr uint32_t descriptorCount = 1000;
     VkDescriptorPoolSize pool_sizes[] =
     {
-        { VK_DESCRIPTOR_TYPE_SAMPLER, 1000 },
-        { VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1000 },
-        { VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1000 },
-        { VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, 1000 },
-        { VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER, 1000 },
-        { VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER, 1000 },
-        { VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1000 },
-        { VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1000 },
-        { VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, 1000 },
-        { VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC, 1000 },
-        { VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT, 1000 }
+        { VK_DESCRIPTOR_TYPE_SAMPLER, descriptorCount },
+        { VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, descriptorCount },
+        { VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, descriptorCount },
+        { VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, descriptorCount },
+        { VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER, descriptorCount },
+        { VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER, descriptorCount },
+        { VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, descriptorCount },
+        { VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, descriptorCount },
+        { VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, descriptorCount },
+        { VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC, descriptorCount },
+        { VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT, descriptorCount }
     };
 
     //TODO : FIX
@@ -1200,7 +1202,6 @@ void VK_Renderer::createCommandBuffers()
 }
 
 void VK_Renderer::recordCommandBuffer(VkCommandBuffer& commandBuffer, VkFramebuffer& swapChainFramebuffer, VkBuffer vertexBuffers[], VkBuffer& indexBuffer, VkDescriptorSet* descriptorSet)
-
 {
     vkResetCommandBuffer(commandBuffer, VK_COMMAND_BUFFER_RESET_RELEASE_RESOURCES_BIT);
     VkCommandBufferBeginInfo beginInfo{};
@@ -1326,7 +1327,7 @@ void VK_Renderer::newFrame()
         recreateSwapChain();
         return;
     }
-    else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
+    if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
         throw std::runtime_error("failed to acquire swap chain image!");
     }
 
@@ -1370,7 +1371,7 @@ void VK_Renderer::drawFrame()
 
     vkResetFences(device, 1, &inFlightFences[currentFrame]);
 
-    VkResult SubmitResult;
+    VkResult SubmitResult = VK_SUCCESS;
     SubmitResult = vkQueueSubmit(graphicsQueue, 1, &submitInfo, inFlightFences[currentFrame]);
     if (SubmitResult != VK_SUCCESS) {
 

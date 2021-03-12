@@ -7,7 +7,7 @@
 
 #include "../../exceptions/exceptions.h"
 #include "../entity.h"
-#include "core/defines/basic_defines.h"
+#include "core/defines/defines.h"
 
 //thanks to Austin Morlan for providing a ECS template
 namespace Empaerior
