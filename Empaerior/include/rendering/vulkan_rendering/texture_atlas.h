@@ -27,6 +27,9 @@ public:
    
     void createTextureSampler();
 
+    //replaces the old texture with the new one
+    void changeTextureAtIndex(size_t index,Empaerior::byte* pixels,Empaerior::u_int width , Empaerior::u_int height);
+
     size_t create_texture_from_file(const std::string& path);
     [[nodiscard]] size_t create_texture_from_memory(Empaerior::byte* pixels, Empaerior::u_int width, Empaerior::u_int height, Empaerior::s_int texChannels);
    
@@ -36,12 +39,15 @@ public:
 
     size_t getImageSize(size_t index);
     
+
 private:
     //destroy image at index
     void destroyImage(size_t index);
+
     //create an image at index index, throws if there's already a image there
     //asumems pixels is valid
     void createImageAtIndex(size_t index , Empaerior::byte* pixels, Empaerior::u_int width , Empaerior::u_int height);
+
 
           
 

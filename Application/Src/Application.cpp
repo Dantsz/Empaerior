@@ -178,10 +178,8 @@ public:
 				}	
 				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_E))
 				{
-					message += 'x';
-			
-					
-					Empaerior::setTextSpriteMessage(lol, { 500,100,1000,1000 }, { 32,32 }, idk, message.c_str(), {255,255,255});
+					std::array<Empaerior::byte,4> pixel = {255,255,255,255};
+					vk.texture_atlas.changeTextureAtIndex(0,pixel.data(), 1,1);
 				}
 
 

@@ -144,7 +144,12 @@ void Texture_Atlas::createImageAtIndex(size_t index , Empaerior::byte* pixels, E
     *framebufferResetSwitch = true;
 }
 
-
+void Texture_Atlas::changeTextureAtIndex(size_t index,Empaerior::byte* pixels,Empaerior::u_int width , Empaerior::u_int height)
+{
+    if(index >= images.size() || images[index] == VK_NULL_HANDLE) return;
+    destroyImage(index);
+    createImageAtIndex(index,pixels,width,height);
+}
 
 
 size_t Texture_Atlas::getFont(const char* path)
