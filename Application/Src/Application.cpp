@@ -69,6 +69,7 @@ public:
 	~APP_State1() override
 	{
 		ecs.Destroy();
+		m_renderer->cleanup();
 	}
 	void Update(const Empaerior::u_int dt) override
 	{

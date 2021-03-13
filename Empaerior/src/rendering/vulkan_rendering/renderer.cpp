@@ -493,9 +493,6 @@ void VK_Renderer::cleanup()
     vkDestroyInstance(instance, nullptr);
 
 
-    SDL_DestroyWindow(sdl_window);
-
-    SDL_Quit();
 }
 
 void VK_Renderer::recreateSwapChain()
