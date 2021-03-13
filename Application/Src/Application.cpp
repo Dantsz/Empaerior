@@ -30,6 +30,10 @@ struct copyReductorComponent
     {
         std::cout<<"copy created\n";
     }
+	~copyReductorComponent()
+	{
+		std::cout<<"copy destroyed\n";
+	}
 
 };
 

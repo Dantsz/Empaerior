@@ -6,6 +6,7 @@
 
 
 #include "../include/core/exceptions/exceptions.h"
+#include "application.h"
 #include "debugging/log.h"
 #include "utilities/utilities.h"
 #include  "../include/core/utilities/timer.h"
@@ -95,9 +96,9 @@ inline int main(int argc, char** argv)
 
 	Empaerior::log("Creating Application");
 #endif // EMPAERIOR_DEBUG
-	Empaerior::Application* aplication = Empaerior::Create_Application();
+	Empaerior::Application* application = Empaerior::Create_Application();
 	
-	aplication->Init();
+	application->Init();
 	
 	
 	try {
@@ -105,7 +106,7 @@ inline int main(int argc, char** argv)
 #ifdef EMP_USE_LOGS
 		Empaerior::log("Runnning Aplication");
 #endif // EMPAERIOR_DEBUG
-		aplication->run();
+		application->run();
 
 	}
 	catch (std::runtime_error & e)
@@ -124,7 +125,7 @@ inline int main(int argc, char** argv)
 	timer.stop();
 #endif // EMPAERIOR_DEBUG
 
-
+	Empaerior::Application::clear_states();
 	Empaerior::Application::window.reset();
 
 

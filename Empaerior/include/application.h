@@ -218,6 +218,14 @@ public:
 
 
 	}
+	//deletes all states
+	static void clear_states()
+	{
+		for(auto& i : states)
+		{
+			if(i != nullptr) delete i;
+		}
+	}
 #pragma endregion
 
 #pragma region ACTIVE STATE MANIPULATION
