@@ -6,10 +6,10 @@
 
 
 #include "../include/core/exceptions/exceptions.h"
+#include "debugging/log.h"
 #include "utilities/utilities.h"
 #include  "../include/core/utilities/timer.h"
 #include "SDLwrappers/sdl_wrappers.h"
-
 
 
 
@@ -44,15 +44,16 @@ inline int main(int argc, char** argv)
 
 #ifdef EMP_USE_LOGS
 
-	Empaerior::Log::Init();
+	
  
 #endif // EMPAERIOR_DEBUG
 
 	#pragma region SDL_Inititalization
 
 	try {
+
 #ifdef EMP_USE_LOGS
-		ENGINE_INFO("INITIALIZING SDL");
+		Empaerior::log("INITIALIZING SDL");
 #endif // EMPAERIOR_DEBUG
 		uint16_t error_flags = SDLW::Init();
 		//check for errors
@@ -92,7 +93,7 @@ inline int main(int argc, char** argv)
 	Empaerior::Timer timer;
 	timer.start();
 
-	ENGINE_INFO("Creating Application");
+	Empaerior::log("Creating Application");
 #endif // EMPAERIOR_DEBUG
 	Empaerior::Application* aplication = Empaerior::Create_Application();
 	
@@ -102,7 +103,7 @@ inline int main(int argc, char** argv)
 	try {
 		
 #ifdef EMP_USE_LOGS
-		ENGINE_INFO("Runnning Aplication");
+		Empaerior::log("Runnning Aplication");
 #endif // EMPAERIOR_DEBUG
 		aplication->run();
 
@@ -110,16 +111,16 @@ inline int main(int argc, char** argv)
 	catch (std::runtime_error & e)
 	{
 
-		//ENGINE_CRITICAL(std::string(e.what() + '\n'));
+		Empaerior::log(e.what());
         //throw e;
 	}
 	
 
 
 #ifdef EMP_USE_LOGS
-	ENGINE_INFO("Stoping Application");
+	Empaerior::log("Stoping Application");
 	
-	ENGINE_INFO("Application ran for " +std::to_string(timer.getTicks()) + " ms");
+	Empaerior::log("Application ran for " +std::to_string(timer.getTicks()) + " ms");
 	timer.stop();
 #endif // EMPAERIOR_DEBUG
 

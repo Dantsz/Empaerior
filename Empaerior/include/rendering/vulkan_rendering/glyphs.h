@@ -2,7 +2,7 @@
 #pragma once
 #include <ft2build.h>
 #include "../include/core/defines/defines.h"
-
+#include "../include/debugging/log.h"
 
 
 
@@ -95,7 +95,7 @@ namespace Empaerior
 			{
 
 				if (FT_Load_Char(font.fontFace, ch, FT_LOAD_RENDER))
-					std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
+					Empaerior::log("ERROR::FREETYTPE: Failed to load Glyph");
 
 				font.glyphSize.push_back({
 					static_cast<Empaerior::fl_point>(font.fontFace->glyph->bitmap.width) ,				  
@@ -126,9 +126,9 @@ namespace Empaerior
 			font.texHeight = Characters * height;
 			for (FT_ULong ch = 0; ch < Characters; ch++)
 			{
-				//std::cout << ch << '\n';
+				
 				if (FT_Load_Char(font.fontFace, ch , FT_LOAD_RENDER))
-					std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
+					Empaerior::log("ERROR::FREETYTPE: Failed to load Glyph");
 
 				Empaerior::u_inter cwidth = font.fontFace->glyph->bitmap.width;
 				Empaerior::u_inter cheight = font.fontFace->glyph->bitmap.rows;
@@ -152,7 +152,7 @@ namespace Empaerior
 						font.fontTexture[dst++] = 0x0;
 						font.fontTexture[dst++] = 0x0;
 						font.fontTexture[dst++] = value;
-						//std::cout << value << ' ';
+					
 
 					}
 					for (Empaerior::u_inter x = cwidth; x < width; ++x)
@@ -165,7 +165,7 @@ namespace Empaerior
 
 
 					startOfLine += font.fontFace->glyph->bitmap.pitch;
-					//std::cout << '\n';
+					
 				}
 
 

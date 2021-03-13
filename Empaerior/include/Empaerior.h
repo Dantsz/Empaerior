@@ -22,7 +22,7 @@
 #include "../include/input/input.h"
 
 
-
+#define EMP_USE_LOGS true
 #ifdef EMP_USE_LOGS
 
 #include "debugging/log.h"
