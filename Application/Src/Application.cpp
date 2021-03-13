@@ -56,11 +56,13 @@ public:
         copier.id = ecs.create_entity_ID();
 		ecs.add_component<copyReductorComponent>(copier.id,{});
 		ecs.add_component<Empaerior::singleSprite_Component>(copier.id,{});
-		sprite_system.createSprite(ecs,copier.id,{0,0,100,100},"assets/2209.png");
-		Empaerior::setSpriteDepth(ecs.get_component<Empaerior::singleSprite_Component>(copier.id).sprites,0.0f);
+		//sprite_system.createSprite(ecs,copier.id,{0,0,100,100},"assets/2209.png");
+		//Empaerior::setSpriteDepth(ecs.get_component<Empaerior::singleSprite_Component>(copier.id).sprites,0.0f);
+		Empaerior::Sprite text;
+		Empaerior::createTextSprite((*renderer),text,{250,250,100,100},{32.f,32.f},idk,"ijgi gijfigji fgijfgij",{255,255,255});
 
 	}
-	~APP_State1()
+	~APP_State1() override
 	{
 		ecs.Destroy();
 	}
@@ -178,8 +180,7 @@ public:
 				}	
 				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_E))
 				{
-					std::array<Empaerior::byte,4> pixel = {255,255,255,255};
-					vk.texture_atlas.changeTextureAtIndex(0,pixel.data(), 1,1);
+
 				}
 
 
@@ -240,6 +241,7 @@ public:
 
 	void ShowImGuiWindows()
 	{
+		static float defaultTextureColor[4] = {255.f,0,255.f,255.f};
 		ImGui::Begin("Graphics");
 		if (ImGui::CollapsingHeader("Rasterization"))
 		{
@@ -274,12 +276,38 @@ public:
             ImGui::Checkbox("LogicOpEnable",&vk.GraphicsSettings.LogicOPEnable);
             ImGui::InputFloat4("BlendConstants",vk.GraphicsSettings.blendConstants);
         }
-
+		if(ImGui::CollapsingHeader("Textures"))
+		{
+			
+			ImGui::SetColorEditOptions(ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_Uint8 | ImGuiColorEditFlags_DisplayRGB);
+			ImGui::ColorPicker3("Default Texture",defaultTextureColor);
+			
+		}
 		ImGui::Button("Apply", { 50, 25 });
-		if (ImGui::IsItemClicked()) vk.framebufferNeedsReconstruction = true;
+		if (ImGui::IsItemClicked())
+		{
+			for(size_t i = 0 ; i < 3 ; i++)
+			{
+				float rgb = defaultTextureColor[i]*255;
+				vk.GraphicsSettings.defaultTextureColor[i] = static_cast<Empaerior::byte>(rgb);
+				std::cout<<  (int)(static_cast<Empaerior::byte>(rgb)) << ' ';
+
+			}
+			std::cout<< '\n';
+			vk.framebufferNeedsReconstruction = true;
+			vk.texture_atlas.changeTextureAtIndex(0,vk.GraphicsSettings.defaultTextureColor.data(),1,1);
+		}
 
 		ImGui::Button("Reset", { 50,25 });
-		if (ImGui::IsItemClicked()) { vk.GraphicsSettings = vk.InitialGraphicsSettings;  vk.framebufferNeedsReconstruction = true; }
+		if (ImGui::IsItemClicked())
+		 { 
+			 vk.GraphicsSettings = vk.InitialGraphicsSettings;  
+			 vk.framebufferNeedsReconstruction = true;
+			 defaultTextureColor[0] = 255.f;
+			 defaultTextureColor[1] = 0;
+			 defaultTextureColor[2] = 255.f;
+			 defaultTextureColor[3] = 255.f;
+		}
 		ImGui::End();
 
 		ImGui::Begin("Camera Settings");

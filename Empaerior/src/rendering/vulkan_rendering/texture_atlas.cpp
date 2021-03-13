@@ -51,7 +51,7 @@ size_t Texture_Atlas::create_texture_from_file(const std::string& path)
     {
         Empaerior::s_int texWidth, texHeight, texChannels;
         stbi_uc* pixels = stbi_load(path.c_str(), &texWidth, &texHeight, &texChannels, STBI_rgb_alpha);
-        if (!pixels) {
+        if (pixels == nullptr) {
            // ENGINE_CRITICAL(std::string("Failed to load texture : " + path));
             return 0;
         }
@@ -146,7 +146,7 @@ void Texture_Atlas::createImageAtIndex(size_t index , Empaerior::byte* pixels, E
 
 void Texture_Atlas::changeTextureAtIndex(size_t index,Empaerior::byte* pixels,Empaerior::u_int width , Empaerior::u_int height)
 {
-    if(index >= images.size() || images[index] == VK_NULL_HANDLE) return;
+    if((index >= images.size()) || (images[index] == VK_NULL_HANDLE)) return;
     destroyImage(index);
     createImageAtIndex(index,pixels,width,height);
 }

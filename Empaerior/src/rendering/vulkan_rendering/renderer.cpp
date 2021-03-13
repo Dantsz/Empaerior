@@ -163,7 +163,7 @@ static QueueFamilyIndices findQueueFamilies(VkSurfaceKHR& surface, VkPhysicalDev
             indices.graphicsFamily = i;
         }
 
-        VkBool32 presentSupport = false;
+        VkBool32 presentSupport = VK_FALSE;
         vkGetPhysicalDeviceSurfaceSupportKHR(device, i, surface, &presentSupport);
 
         if (presentSupport) {
@@ -201,7 +201,7 @@ static SwapChainSupportDetails querySwapChainSupport(VkSurfaceKHR& surface, VkPh
 
     vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device, surface, &details.capabilities);
 
-    uint32_t formatCount;
+    uint32_t formatCount = 0;
     vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &formatCount, nullptr);
 
     if (formatCount != 0) {
@@ -209,7 +209,7 @@ static SwapChainSupportDetails querySwapChainSupport(VkSurfaceKHR& surface, VkPh
         vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &formatCount, details.formats.data());
     }
 
-    uint32_t presentModeCount;
+    uint32_t presentModeCount = 0;
     vkGetPhysicalDeviceSurfacePresentModesKHR(device, surface, &presentModeCount, nullptr);
 
     if (presentModeCount != 0) {
@@ -325,9 +325,9 @@ static VkResult CreateDebugUtilsMessengerEXT(VkInstance instance, const VkDebugU
     if (func != nullptr) {
         return func(instance, pCreateInfo, pAllocator, pDebugMessenger);
     }
-    else {
-        return VK_ERROR_EXTENSION_NOT_PRESENT;
-    }
+    
+    return VK_ERROR_EXTENSION_NOT_PRESENT;
+
 }
 static void DestroyDebugUtilsMessengerEXT(VkInstance instance, VkDebugUtilsMessengerEXT debugMessenger, const VkAllocationCallbacks* pAllocator) {
     auto func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
@@ -1222,7 +1222,7 @@ void VK_Renderer::recordCommandBuffer(VkCommandBuffer& commandBuffer, VkFramebuf
     renderPassInfo.renderArea.extent = swapChainExtent;
 
     std::array<VkClearValue, 2> clearValues{};
-    clearValues[0].color = { 0.0f, 0.0f, 0.0f, 0.0f };
+    clearValues[0].color = {0.0f, 0.0f, 0.0f, 0.0f};
     clearValues[1].depthStencil = { 1.0f, 0 };
 
     renderPassInfo.clearValueCount = static_cast<uint32_t>(clearValues.size());
@@ -1301,7 +1301,7 @@ void VK_Renderer::updateUniformBuffer(uint32_t currentImage)
 
 
 
-    int width, height;
+    int width = 0, height = 0;
     SDL_GetWindowSize(sdl_window, &width, &height);
 
 

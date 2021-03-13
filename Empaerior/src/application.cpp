@@ -9,11 +9,11 @@ void Empaerior::Application::Init()
 
 }
 
-void Empaerior::Application::Update(const Empaerior::u_int deltaT )
+void Empaerior::Application::Update(Empaerior::u_int dt )
 {
 	for (Empaerior::u_inter i = active_states.size() - 1; i >= 0; i--)
 	{
-		states[active_states[i]]->Update(deltaT);
+		states[active_states[i]]->Update(dt);
 	}
 }
 

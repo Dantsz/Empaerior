@@ -27,10 +27,7 @@ class Application
 public:
 	Application();
 
-	virtual ~Application() 
-	{
-
-	}
+	virtual ~Application() = default;
 
 	void Init();
 
@@ -40,7 +37,7 @@ public:
 
 
 	virtual void handlevents(Empaerior::Event& event);
-    virtual void Update(const Empaerior::u_int dt);
+    virtual void Update(Empaerior::u_int dt);
 	
 	//polls event , uses the class event
 	static bool PollEvent()

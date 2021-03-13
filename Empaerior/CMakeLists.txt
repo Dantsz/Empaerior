@@ -61,7 +61,7 @@ source_group("systems" FILES ${systems})
 
 set (debugging 
 	"include/debugging/get_data_info.h"
-
+    "include/debugging/log.h"
 )
 source_group("debugging" FILES ${debugging})
 

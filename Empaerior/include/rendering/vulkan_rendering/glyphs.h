@@ -35,11 +35,7 @@ namespace Empaerior
 		//its the size of the largest glyph 
 		FT_Face fontFace;
 		Empaerior::fl_point glyphWidth, glyphHeight;
-	
-		~Font()
-		{
-			
-		}
+
 
 	};
 
