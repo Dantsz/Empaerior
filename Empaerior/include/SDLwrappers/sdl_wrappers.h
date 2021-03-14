@@ -2,7 +2,7 @@
 
 #include <SDL.h>
 #include <SDL_mixer.h>
-
+#include "core/defines/basic_defines.h"
 
 
 namespace SDLW {
