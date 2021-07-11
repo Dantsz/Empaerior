@@ -28,7 +28,7 @@ const inline std::vector<const char*> deviceExtensions = {
 #ifdef EMP_USE_LOGS
 const bool enableValidationLayers = true;
 #else
-const bool enableValidationLayers = false;
+const bool enableValidationLayers = true;
 #endif
 
 

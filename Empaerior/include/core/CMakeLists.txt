@@ -39,8 +39,6 @@ source_group("core\\exceptions" FILES ${core__exceptions})
 set(core__utilities
     "include/core/utilities/math.h"
     "include/core/utilities/timer.h"
-	"include/core/utilities/hash/emp_hash.h"
-	"include/core/utilities/hash/sha256.h"
 
 )
 source_group("core\\utilities" FILES ${core__utilities})

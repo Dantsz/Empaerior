@@ -215,7 +215,7 @@ public:
 
 		vkDeviceWaitIdle(vk.device);
 		ImGui_Emp::Quit(vk);
-		vk.cleanup();
+		
 	
 	}
 
@@ -246,7 +246,7 @@ public:
 
 	void ShowImGuiWindows()
 	{
-		static float defaultTextureColor[4] = {255.f,0,255.f,255.f};
+		static float defaultTextureColor[4] = {1.f,0,1.f,1.f};
 		ImGui::Begin("Graphics");
 		if (ImGui::CollapsingHeader("Rasterization"))
 		{
@@ -295,8 +295,6 @@ public:
 			{
 				float rgb = defaultTextureColor[i]*255;
 				vk.GraphicsSettings.defaultTextureColor[i] = static_cast<Empaerior::byte>(rgb);
-				std::cout<<  (int)(static_cast<Empaerior::byte>(rgb)) << ' ';
-
 			}
 			std::cout<< '\n';
 			vk.framebufferNeedsReconstruction = true;
@@ -308,10 +306,10 @@ public:
 		 { 
 			 vk.GraphicsSettings = vk.InitialGraphicsSettings;  
 			 vk.framebufferNeedsReconstruction = true;
-			 defaultTextureColor[0] = 255.f;
+			 defaultTextureColor[0] = 1.f;
 			 defaultTextureColor[1] = 0;
-			 defaultTextureColor[2] = 255.f;
-			 defaultTextureColor[3] = 255.f;
+			 defaultTextureColor[2] = 1.f;
+			 defaultTextureColor[3] = 1.f;
 		}
 		ImGui::End();
 

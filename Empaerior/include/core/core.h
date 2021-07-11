@@ -7,7 +7,6 @@
 
 #include "exceptions/exceptions.h"
 
-#include "utilities/hash/emp_hash.h"
 #include "utilities/math.h"
 #include "utilities/timer.h"
 

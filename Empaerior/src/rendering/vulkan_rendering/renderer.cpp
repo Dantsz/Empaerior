@@ -84,9 +84,6 @@ static std::vector<const char*> getRequiredExtensions(SDL_Window* sdl_window) {
     // Now names should have (count) strings in it:
 
 
-
-
-
     if (enableValidationLayers) {
         extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
     }
@@ -124,8 +121,11 @@ static  bool checkValidationLayerSupport() {
             message += layerName;
             message +=" is missing " ;
             //ENGINE_CRITICAL(message);
+            Empaerior::log(message);
             return false;
         }
+        Empaerior::log(std::string("Validation Layer found: ")+ layerName);
+        
     }
 
     return true;
@@ -820,36 +820,37 @@ void VK_Renderer::createRenderPass()
 }
 void VK_Renderer::createDescriptorPool()
 {
-    constexpr uint32_t descriptorCount = 1000;
+    /*
+    constexpr uint32_t descriptorCount = 1000000;
     VkDescriptorPoolSize pool_sizes[] =
     {
         { VK_DESCRIPTOR_TYPE_SAMPLER, descriptorCount },
-        { VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, descriptorCount },
+    //    { VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, descriptorCount },
         { VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, descriptorCount },
-        { VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, descriptorCount },
-        { VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER, descriptorCount },
-        { VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER, descriptorCount },
+     //   { VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, descriptorCount },
+    //    { VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER, descriptorCount },
+     //   { VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER, descriptorCount },
         { VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, descriptorCount },
-        { VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, descriptorCount },
-        { VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, descriptorCount },
-        { VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC, descriptorCount },
+     //   { VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, descriptorCount },
+     //   { VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, descriptorCount },
+    //    { VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC, descriptorCount },
         { VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT, descriptorCount }
-    };
+    };*/
 
     //TODO : FIX
 
-  /*  std::array<VkDescriptorPoolSize, 3> poolSizes{};
+    std::array<VkDescriptorPoolSize, 3> poolSizes{};
     poolSizes[0].type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
     poolSizes[0].descriptorCount = static_cast<uint32_t>(swapChainImages.size());
     poolSizes[1].type = VK_DESCRIPTOR_TYPE_SAMPLER;
     poolSizes[1].descriptorCount = static_cast<uint32_t>(swapChainImages.size());
     poolSizes[2].type = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
-    poolSizes[2].descriptorCount = texture_atlas.texture_limit() * static_cast<uint32_t>(swapChainImages.size());*/
+    poolSizes[2].descriptorCount = texture_atlas.texture_limit() * static_cast<uint32_t>(swapChainImages.size());
 
     VkDescriptorPoolCreateInfo poolInfo{};
     poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-    poolInfo.poolSizeCount = static_cast<uint32_t>(11);
-    poolInfo.pPoolSizes = pool_sizes;
+    poolInfo.poolSizeCount = static_cast<uint32_t>(poolSizes.size());
+    poolInfo.pPoolSizes = poolSizes.data();
     poolInfo.maxSets = static_cast<uint32_t>(swapChainImages.size()) + 1;
 
     if (vkCreateDescriptorPool(device, &poolInfo, nullptr, &descriptorPool) != VK_SUCCESS) {
