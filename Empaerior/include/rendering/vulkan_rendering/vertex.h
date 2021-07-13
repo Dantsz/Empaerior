@@ -3,6 +3,8 @@
 #include <glm/glm.hpp>
 #include <array>
 struct Vertex {
+
+
 	glm::vec3 pos;
 	glm::vec2 texCoord;
 	uint32_t tex_id;

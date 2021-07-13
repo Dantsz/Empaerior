@@ -11,7 +11,7 @@ namespace Empaerior::VKfunctions
             allocInfo.commandPool = commandPool;
             allocInfo.commandBufferCount = 1;
 
-            VkCommandBuffer commandBuffer;
+            VkCommandBuffer commandBuffer{};
             vkAllocateCommandBuffers(device, &allocInfo, &commandBuffer);
 
             VkCommandBufferBeginInfo beginInfo{};
@@ -110,8 +110,8 @@ namespace Empaerior::VKfunctions
             barrier.subresourceRange.baseArrayLayer = 0;
             barrier.subresourceRange.layerCount = 1;
 
-            VkPipelineStageFlags sourceStage;
-            VkPipelineStageFlags destinationStage;
+            VkPipelineStageFlags sourceStage{};
+            VkPipelineStageFlags destinationStage{};
 
             if (oldLayout == VK_IMAGE_LAYOUT_UNDEFINED && newLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL) {
                 barrier.srcAccessMask = 0;
@@ -177,7 +177,7 @@ namespace Empaerior::VKfunctions
             viewInfo.subresourceRange.baseArrayLayer = 0;
             viewInfo.subresourceRange.layerCount = 1;
 
-            VkImageView imageView;
+            VkImageView imageView{};
             if (vkCreateImageView(device, &viewInfo, nullptr, &imageView) != VK_SUCCESS) {
                 throw std::runtime_error("failed to create texture image view!");
             }

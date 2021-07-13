@@ -137,7 +137,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/stb;"
 		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/glm;"
 		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/VulkanSDK/include;"
-		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/VulkanMemoryAllocator/src;"
+		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/VulkanMemoryAllocator/include;"
         "${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/spdlog/include"
 		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/freetype/include"
     )

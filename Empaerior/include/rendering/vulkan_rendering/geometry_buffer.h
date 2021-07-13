@@ -7,11 +7,11 @@
 #include <array>
 #include "misc_functions.h"
 #include "../include/core/unsafe_vector.h"
-#define buffering 2
+
 #include <iostream>
 #include "vertex.h"
 
-
+static constexpr size_t buffering  = 2;
 
 
 
@@ -93,9 +93,9 @@ struct DynamicBuffer
 		else//the buffer is updated so the new one has to contain the new buffer info
 		{
 			
-			VkBuffer stagingBuffer;
-			VmaAllocation stagingBufferAllocation;
-			void* stagingBufferData;
+			VkBuffer stagingBuffer{};
+			VmaAllocation stagingBufferAllocation{};
+			void* stagingBufferData = nullptr;
 			VmaAllocationCreateInfo stagingBufferAllocInfo{};
 			stagingBufferAllocInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
 			stagingBufferAllocInfo.requiredFlags =  VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
@@ -189,12 +189,13 @@ struct DynamicBuffer
 		{
 			data[i] = data[i + size];
 		}
+		
 		//adjust the allocations
-		for (size_t i = 0; i < index.objects.size(); i++)
+		for (auto& objectIndex : index.objects)
 		{
-			if (index.objects[i] >= index[allocationIndex])
+			if (objectIndex >= index[allocationIndex])
 			{
-				index.objects[i] -= size;
+				objectIndex -= size;
 			}
 		}
 
@@ -331,7 +332,7 @@ struct geometryBuffer
 
 EMP_FORCEINLINE void dump_IndexData(geometryBuffer& geometrybuffer)
 {
-	uint32_t* index_data = (uint32_t*)geometrybuffer.indexBuffer.BuffersData[geometrybuffer.indexBuffer.get_in_use_index()];
+	uint32_t* index_data = static_cast<uint32_t*>(geometrybuffer.indexBuffer.BuffersData[geometrybuffer.indexBuffer.get_in_use_index()]);
 	std::cout << "======Index=====\n";
 	std::cout << geometrybuffer.indexBuffer.used_size[geometrybuffer.indexBuffer.get_in_use_index()] / sizeof(uint32_t) << " will be drawn\n";
 	for (size_t i = 0; i < (geometrybuffer.indexBuffer.used_size[geometrybuffer.indexBuffer.get_in_use_index()] / sizeof(uint32_t)); i++)
@@ -343,7 +344,7 @@ EMP_FORCEINLINE void dump_IndexData(geometryBuffer& geometrybuffer)
 }
 EMP_FORCEINLINE void dump_VertexData(geometryBuffer& buffer)
 {
-	Vertex* vertex_data = (Vertex*)buffer.vertexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()];
+	Vertex* vertex_data = static_cast<Vertex*>(buffer.vertexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()]);
 	std::cout << "==========Vertex=========\n";
 	for (size_t i = 0; i < buffer.vertexBuffer.used_size[buffer.indexBuffer.get_in_use_index()] / sizeof(Vertex); i++)
 	{

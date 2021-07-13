@@ -16,10 +16,11 @@ namespace Empaerior
 		sprite.rect.angle = 0.0f;
 
 
-		sprite.indicesIndex = buffer.indexBuffer.allocate(6 * sizeof(uint32_t));
-		sprite.verticesIndex = buffer.vertexBuffer.allocate(4 * sizeof(Vertex));
-		sprite.indicesSize = 6 * sizeof(uint32_t);
-		sprite.verticesSize = 4 * sizeof(Vertex);
+		sprite.indicesIndex = buffer.indexBuffer.allocate(Empaerior::Sprite::nIndexes * sizeof(uint32_t));
+		sprite.verticesIndex = buffer.vertexBuffer.allocate(Empaerior::Sprite::nVertices * sizeof(Vertex));
+		
+		sprite.indicesSize = Empaerior::Sprite::nIndexes * sizeof(uint32_t);
+		sprite.verticesSize = Empaerior::Sprite::nVertices * sizeof(Vertex);
 
 		sprite.texture_id = tex_id;
 
@@ -61,17 +62,13 @@ namespace Empaerior
 			else  ar = 1.0f;
 
 			//calculate if the character fits and how much it fits
-			Empaerior::fl_point CharWidth, CharHeight;
 			if (beginX + charDimensions.elements[0] * ar >= rect.w + rect.x) {
-				//CharWidth = charDimensions.elements[0] * ar - beginX - charDimensions.elements[0] * ar + rect.w + rect.x;
+			
 				beginY += font.glyphHeight;
 				beginX = rect.x;
 			}
-
-
-
-			CharWidth = charDimensions.elements[0] * ar;
-			CharHeight = charDimensions.elements[1];
+			Empaerior::fl_point CharWidth = charDimensions.elements[0] * ar;
+			Empaerior::fl_point CharHeight = charDimensions.elements[1];
 
 			//crop 
 			if (beginY + CharHeight >= rect.y + rect.h) CharHeight = (rect.y + rect.h) - beginY;

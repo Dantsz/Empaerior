@@ -9,15 +9,9 @@ namespace Empaerior
 
 	struct Camera2D
 	{
-		Camera2D()
-		{
-			position_mat = glm::translate(glm::mat4(1.0f), position);
-			
-		}
-
-		glm::mat4 scale_mat;
-		glm::mat4 position_mat;
-		glm::mat4 proj;
+		glm::mat4 scale_mat = glm::translate(glm::mat4(1.0f), {0,0,0});;
+		glm::mat4 position_mat = glm::scale(glm::mat4(1.0f),glm::vec3(1.0f,1.0f,1.0f));
+		glm::mat4 proj = glm::ortho(0.0f, 1.0f, 0.0f,1.0f, -1.0f, 1.0f);
 
 		glm::vec3 position = {0,0,0};
 		Empaerior::fl_point scaleX = 1.0f;

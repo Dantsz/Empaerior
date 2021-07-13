@@ -55,6 +55,7 @@ void Empaerior::Window::render()
 
 void Empaerior::Window::clear()
 {
+	
 }
 
 

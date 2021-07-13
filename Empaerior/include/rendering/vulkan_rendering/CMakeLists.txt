@@ -8,6 +8,7 @@ set(vulkan_rendering
 "include/rendering/vulkan_rendering/misc_functions.h"
 "include/rendering/vulkan_rendering/sprite.h"
 "include/rendering/vulkan_rendering/glyphs.h"
+"include/rendering/vulkan_rendering/vertex.h"
 "Src/rendering/vulkan_rendering/sprite.cpp"
 "Src/rendering/vulkan_rendering/texture_atlas.cpp"
 "Src/rendering/vulkan_rendering/misc_functions.cpp"

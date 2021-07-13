@@ -73,8 +73,6 @@ namespace Empaerior
 		using Timed_Function = std::function<void()>;
 
 
-
-
 		//Adds a function to the container
 		//time = the time between this function and the time *function* is called
 		//call_number the number of times the function is called

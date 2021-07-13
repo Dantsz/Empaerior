@@ -33,17 +33,16 @@ namespace Empaerior
 				entity_signature.emplace_back(Empaerior::vector<bool>());
 				return lowest_unallocatedID++;
 			}
-			else
-			{
-				//take the id from   the front of the queue
-				Empaerior::u_inter id = freed_id.back();
-				//popit
-				freed_id.pop_back();
-				//clear signature
-				entity_signature[id].clear();
-				return  id;
+		
+			//take the id from   the front of the queue
+			Empaerior::u_inter id = freed_id.back();
+			//popit
+			freed_id.pop_back();
+			//clear signature
+			entity_signature[id].clear();
+			return  id;
 
-			}
+			
 		}
 		
 
@@ -57,7 +56,7 @@ namespace Empaerior
 
 				} 
 				//if the id appears in the delted entities
-				else if(std::binary_search(freed_id.begin(),freed_id.end(),id))
+				if(std::binary_search(freed_id.begin(),freed_id.end(),id))
 				{
 					throw E_runtime_exception("Invalid id deletion : id is not a valid entity", __FILE__, __LINE__, __FUNCTION__);
 				
@@ -93,7 +92,7 @@ namespace Empaerior
 
 				}
 				//if the id appears in the delted entities
-				else if (std::binary_search(freed_id.begin(), freed_id.end(), id))
+				if (std::binary_search(freed_id.begin(), freed_id.end(), id))
 				{
 					throw E_runtime_exception("Cannot set id signature : id is not a valid entity", __FILE__, __LINE__, __FUNCTION__);
 
@@ -119,7 +118,7 @@ namespace Empaerior
 
 				}
 				//if the id appears in the delted entities
-				else if (std::binary_search(freed_id.begin(), freed_id.end(), id))
+				if (std::binary_search(freed_id.begin(), freed_id.end(), id))
 				{
 					throw E_runtime_exception("Cannot fetch entity signature : id is not a valid entity", __FILE__, __LINE__, __FUNCTION__);
 

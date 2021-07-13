@@ -10,6 +10,10 @@ namespace Empaerior
 	struct Sprite
 	{
 
+		//the number of vertices and indexes a sprite needs
+		static constexpr size_t nIndexes = 6;
+		static constexpr size_t nVertices = 4;
+
 
 		size_t verticesIndex;
 		size_t indicesIndex;
