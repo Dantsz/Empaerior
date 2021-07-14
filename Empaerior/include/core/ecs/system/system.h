@@ -35,10 +35,6 @@ namespace Empaerior {
 		{sys.entityList->entities_id.size()};
 	};
 
-
-
-
-
 	class SystemManager
 	{
 	public:

@@ -20,8 +20,8 @@
 
 struct QueueFamilyIndices {
 
-    std::optional<uint32_t> graphicsFamily;
-    std::optional<uint32_t> presentFamily;
+    std::optional<uint32_t> graphicsFamily{};
+    std::optional<uint32_t> presentFamily{};
 
     [[nodiscard]] bool isComplete() const {
         return graphicsFamily.has_value() && presentFamily.has_value();
@@ -31,8 +31,8 @@ struct QueueFamilyIndices {
 struct SwapChainSupportDetails 
 {
     VkSurfaceCapabilitiesKHR capabilities{};
-    std::vector<VkSurfaceFormatKHR> formats;
-    std::vector<VkPresentModeKHR> presentModes;
+    std::vector<VkSurfaceFormatKHR> formats{};
+    std::vector<VkPresentModeKHR> presentModes{};
 };
 
 #pragma region miscfunctions
@@ -64,11 +64,7 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(VkDebugUtilsMessageSeverityF
 }
 
 static std::vector<const char*> getRequiredExtensions(SDL_Window* sdl_window) {
-
-
     std::vector<const char*> extensions;
-
-
 
     unsigned int count = 0;
 
@@ -119,7 +115,7 @@ static  bool checkValidationLayerSupport() {
             std::string message = "Validation Layer : ";
             message += layerName;
             message +=" is missing " ;
-            //ENGINE_CRITICAL(message);
+           
             Empaerior::log(message);
             return false;
         }
@@ -1334,9 +1330,6 @@ void VK_Renderer::newFrame()
 
 void VK_Renderer::drawFrame()
 {
-
-
-
     updateUniformBuffer(imageIndex);
 
     if (imagesInFlight[imageIndex] != VK_NULL_HANDLE) {

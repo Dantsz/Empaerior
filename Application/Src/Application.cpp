@@ -164,8 +164,6 @@ public:
 
 			//poll what event is registered
 			while (Empaerior::Application::PollEvent()) {
-
-				
 				//handle it
 				handlevents(Empaerior::Application::event);
 				ImGuiEmpImpl::ProcessEvent(Empaerior::Application::event);

@@ -15,38 +15,10 @@ set(ALL_FILES ${no_group_source_files})
 #Include Tools 
 include("Src/Tools/CMakeLists.txt")
 
-
-
-
 ################################################################################
 # Target
 ################################################################################
 add_executable(${PROJECT_NAME} ${ALL_FILES})
-
-
-set(ROOT_NAMESPACE Application)
-
-
-################################################################################
-# Target name
-################################################################################
-
-    set_target_properties(${PROJECT_NAME} PROPERTIES
-        TARGET_NAME_DEBUG   "Application"
-        TARGET_NAME_DIST    "Application"
-        TARGET_NAME_RELEASE "Application"
-    )
-
-################################################################################
-# Output directory
-################################################################################
-
-set_target_properties(${PROJECT_NAME} PROPERTIES
-        OUTPUT_DIRECTORY_DEBUG   "${CMAKE_CURRENT_SOURCE_DIR}/../bin/Debug64/Application/"
-        OUTPUT_DIRECTORY_DIST    "${CMAKE_CURRENT_SOURCE_DIR}/../bin/Dist64/Application/"
-        OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_SOURCE_DIR}/../bin/Release64/Application/"
-    )
-
 
 ################################################################################
 # Include directories

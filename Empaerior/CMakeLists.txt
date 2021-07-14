@@ -29,7 +29,6 @@ source_group("input" FILES ${input})
 set(input__eventhandler
     "src/input/eventhandler/eventhandler.cpp"
     "include/input/eventhandler/eventhandler.h"
-		
 )
 source_group("input\\eventhandler" FILES ${input__eventhandler})
 
@@ -76,6 +75,8 @@ set(SDLwrappers
 	"include/SDLwrappers/sdl_wrappers.h"
 )
 source_group("SDLwrapper" FILES ${SDLwrappers})
+
+
 set(ALL_FILES
 
 	${core_all_files}
@@ -95,6 +96,7 @@ set(ALL_FILES
 # Target
 ################################################################################
 add_library(${PROJECT_NAME} STATIC ${ALL_FILES})
+
 target_include_directories(${PROJECT_NAME} PRIVATE include/
 		SYSTEM INTERFACE include/)
 
@@ -105,26 +107,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 		-Wall -Wextra -Wno-c++98-compat-pedantic -Wno-c++98-compat>
 		$<$<CXX_COMPILER_ID:MSVC>:
 		/W4>)
-################################################################################
-# Target name
-################################################################################
 
-    set_target_properties(${PROJECT_NAME} PROPERTIES
-        TARGET_NAME_DEBUG   "Empaerior"
-        TARGET_NAME_DIST    "Empaerior"
-        TARGET_NAME_RELEASE "Empaerior"
-    )
-
-################################################################################
-# Output directory
-################################################################################
-    set_target_properties(${PROJECT_NAME} PROPERTIES
-        OUTPUT_DIRECTORY_DEBUG   "${CMAKE_CURRENT_SOURCE_DIR}/../bin/Debug64-windows-/Empaerior/"
-        OUTPUT_DIRECTORY_DIST    "${CMAKE_CURRENT_SOURCE_DIR}/../bin/Dist64-windows-/Empaerior/"
-        OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_SOURCE_DIR}/../bin/Release64-windows-/Empaerior/"
-		
-		
-    )
 
 ################################################################################
 # Include directories

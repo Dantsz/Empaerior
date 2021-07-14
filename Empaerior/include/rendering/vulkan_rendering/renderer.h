@@ -183,8 +183,8 @@ private:
     void cleanup();
 
    public:
-  /*
-        Packs all functions fr rendering th frame in one
+    /*
+        Packs all functions fr rendering the frame in one
     */
     EMP_FORCEINLINE void renderFrame(){
         
