@@ -311,7 +311,7 @@ static VkShaderModule createShaderModule(VkDevice& device, const std::vector<cha
     createInfo.codeSize = code.size();
     createInfo.pCode = reinterpret_cast<const uint32_t*>(code.data());// reinterpret_cast???
 
-    VkShaderModule shaderModule;
+    VkShaderModule shaderModule{};
     if (vkCreateShaderModule(device, &createInfo, nullptr, &shaderModule) != VK_SUCCESS) {
         throw std::runtime_error("failed to create shader module!");
     }
@@ -986,8 +986,7 @@ void VK_Renderer::createGraphicsPipeline(Empaerior::VK_RendererGraphicsInfo& inf
     catch(...)
     {
         std::cout<<"Failed to open vertex shader file, include default shader instead \n";
-        
-
+    
     }
     try{
         fragShaderCode = readFile(info.fragShaderpath);

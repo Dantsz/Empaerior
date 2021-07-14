@@ -376,3 +376,4 @@ build/CMakeCache.txt
 /CMakeSettings.json
 cmake-build-debug/
 compile_commands.json
+CMakeFiles/
