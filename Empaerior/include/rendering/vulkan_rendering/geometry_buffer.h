@@ -209,7 +209,6 @@ struct DynamicBuffer
 
 	void updateInUseBuffers()
 	{
-	
 		if (updateBuffer)
 		{
 			//ENGINE_WARN("updated buffer");

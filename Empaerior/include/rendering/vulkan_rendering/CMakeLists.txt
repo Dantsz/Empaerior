@@ -9,10 +9,12 @@ set(vulkan_rendering
 "include/rendering/vulkan_rendering/sprite.h"
 "include/rendering/vulkan_rendering/glyphs.h"
 "include/rendering/vulkan_rendering/vertex.h"
+"include/rendering/vulkan_rendering/scene.h"
 "Src/rendering/vulkan_rendering/sprite.cpp"
 "Src/rendering/vulkan_rendering/texture_atlas.cpp"
 "Src/rendering/vulkan_rendering/misc_functions.cpp"
 "Src/rendering/vulkan_rendering/glyphs.cpp"
+"Src/rendering/vulkan_rendering/scene.cpp"
 "include/rendering/vulkan_rendering/graphic_settings.h"
 )
 source_group(rendering\\vulkan_rendering FILES ${vulkan_rendering})

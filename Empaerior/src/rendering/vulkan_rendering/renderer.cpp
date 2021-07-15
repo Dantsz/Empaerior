@@ -52,7 +52,7 @@ static std::vector<char> readFile(const std::string& filename)
 
     file.seekg(0);
     file.read(buffer.data(), fileSize);
-
+    
     file.close();
 
     return buffer;
@@ -77,12 +77,9 @@ static std::vector<const char*> getRequiredExtensions(SDL_Window* sdl_window) {
     SDL_Vulkan_GetInstanceExtensions(sdl_window, &count, extensions.data());
 
     // Now names should have (count) strings in it:
-
-
     if (enableValidationLayers) {
         extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
     }
-
     return extensions;
 }
 
@@ -434,8 +431,8 @@ void VK_Renderer::initVulkan()
     //create one default texture
     texture_atlas.create_texture_from_memory(GraphicsSettings.defaultTextureColor.data(),1,1,0);
     //geo buffer
-    geometrybuffer.attachrenderer(&allocator, device, swapChainImages.size());
-
+  
+    scene.geometrybuffer.attachrenderer(&allocator,device,swapChainImages.size());
     createDescriptorSetLayout();
     createGraphicsPipeline(InitialGraphicsSettings);
 
@@ -462,7 +459,7 @@ void VK_Renderer::cleanup()
     texture_atlas.cleanup();
 
 
-    geometrybuffer.cleanup();
+    scene.geometrybuffer.cleanup();
 
 
 
@@ -936,9 +933,6 @@ void VK_Renderer::updateDescriptorSets()
             descriptorImageInfos[j].imageView = texture_atlas.image_views[j];
         }
 
-
-
-
         std::array<VkWriteDescriptorSet, 3> descriptorWrites{};
 
         descriptorWrites[0].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -1232,7 +1226,7 @@ void VK_Renderer::recordCommandBuffer(VkCommandBuffer& commandBuffer, VkFramebuf
     vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, 0, 1, descriptorSet, 0, nullptr);
     vkCmdBindVertexBuffers(commandBuffer, 0, 1, vertexBuffers, offsets);
     vkCmdBindIndexBuffer(commandBuffer, indexBuffer, 0, VK_INDEX_TYPE_UINT32);
-    vkCmdDrawIndexed(commandBuffer, static_cast<Empaerior::u_int>(geometrybuffer.indexBuffer.used_size[geometrybuffer.indexBuffer.get_in_use_index()]) / sizeof(Empaerior::u_int), 1, 0, 0, 0);
+    vkCmdDrawIndexed(commandBuffer, static_cast<Empaerior::u_int>(scene.geometrybuffer.indexBuffer.used_size[scene.geometrybuffer.indexBuffer.get_in_use_index()]) / sizeof(Empaerior::u_int), 1, 0, 0, 0);
 
     vkCmdEndRenderPass(commandBuffer);
 
@@ -1290,25 +1284,10 @@ void VK_Renderer::createUniformBuffers()
 
 void VK_Renderer::updateUniformBuffer(uint32_t currentImage)
 {
-
-
-
     int width = 0, height = 0;
-    SDL_GetWindowSize(sdl_window, &width, &height);
-
-
-    ubo.scale_mat = glm::mat4(1.0f);
-
-    ubo.scale_mat = glm::scale(glm::mat4(1.0f), glm::vec3((static_cast<float>(width) / InitialGraphicsSettings.viewportW) * ubo.scaleX, (static_cast<float>(height) / InitialGraphicsSettings.viewportH) * ubo.scaleY, 0));
-    ubo.position_mat = glm::translate(glm::mat4(1.0f), glm::vec3(ubo.position.x * -1, ubo.position.y * -1 , 1.0f));
-
-
-    ubo.proj = glm::ortho(0.0f, static_cast<float>(width), 0.0f, static_cast<float>(height), -1.0f, 1.0f);
-
-
-    memcpy(uniformBufferData[currentImage], &ubo, sizeof(Empaerior::Camera2D));
-
-
+    SDL_GetWindowSize(sdl_window, &width, &height); 
+    scene.updateCamera(*this,width,height);
+    memcpy(uniformBufferData[currentImage], &scene.ubo, sizeof(Empaerior::Camera2D));
 }
 
 void VK_Renderer::newFrame()
@@ -1330,8 +1309,8 @@ void VK_Renderer::newFrame()
 
 void VK_Renderer::drawFrame()
 {
-    updateUniformBuffer(imageIndex);
-
+   
+    
     if (imagesInFlight[imageIndex] != VK_NULL_HANDLE) {
         vkWaitForFences(device, 1, &imagesInFlight[imageIndex], VK_TRUE, UINT64_MAX);
     }
@@ -1346,12 +1325,10 @@ void VK_Renderer::drawFrame()
     submitInfo.pWaitSemaphores = waitSemaphores;
     submitInfo.pWaitDstStageMask = waitStages;
 
+    updateUniformBuffer(imageIndex); 
+    scene.geometrybuffer.updateInUseBuffers();
 
-    geometrybuffer.updateInUseBuffers();
-
-
-    
-    recordCommandBuffer(commandBuffers[imageIndex], swapChainFramebuffers[imageIndex], &geometrybuffer.vertexBuffer.inUseBuffer, geometrybuffer.indexBuffer.inUseBuffer, &descriptorSets[imageIndex]);
+    recordCommandBuffer(commandBuffers[imageIndex], swapChainFramebuffers[imageIndex], &scene.geometrybuffer.vertexBuffer.inUseBuffer, scene.geometrybuffer.indexBuffer.inUseBuffer, &descriptorSets[imageIndex]);
 
     inUseCommandBuffers[mainCommandBufferinUseIndex] = commandBuffers[imageIndex];
     submitInfo.commandBufferCount = static_cast<Empaerior::u_int>(inUseCommandBuffers.size());

@@ -44,7 +44,7 @@ namespace Empaerior
 
 	void createSprite(VK_Renderer& renderer, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t tex_id)
 	{
-		createSprite(renderer.geometrybuffer, renderer.texture_atlas,  sprite,  rect, tex_rect,  tex_id);
+		createSprite(renderer.scene.geometrybuffer, renderer.texture_atlas,  sprite,  rect, tex_rect,  tex_id);
 	}
 
 
@@ -126,7 +126,7 @@ namespace Empaerior
 	}
 	void createTextSprite(VK_Renderer& renderer ,Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message, glm::vec3 color)
 	{
-		createTextSprite(renderer.geometrybuffer,renderer.texture_atlas,sprite,rect,charDimensions,font,message,color);
+		createTextSprite(renderer.scene.geometrybuffer,renderer.texture_atlas,sprite,rect,charDimensions,font,message,color);
 	}
 
 	

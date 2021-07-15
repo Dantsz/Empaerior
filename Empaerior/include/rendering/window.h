@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../include/input/eventhandler/eventhandler.h"
+#include "../input/eventhandler/eventhandler.h"
 #include "../include/core/defines/defines.h"
 namespace Empaerior
 {

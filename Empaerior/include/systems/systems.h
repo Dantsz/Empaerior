@@ -148,7 +148,7 @@ namespace Empaerior
 			const uint32_t textureID
 		)
 		{
-			Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, ecs.get_component<Empaerior::singleSprite_Component>(id).sprites, rect, texRect, textureID);
+			Empaerior::createSprite(renderer->scene.geometrybuffer, renderer->texture_atlas, ecs.get_component<Empaerior::singleSprite_Component>(id).sprites, rect, texRect, textureID);
 		}
 
 #pragma  region createSpritesOverloads
@@ -159,7 +159,7 @@ namespace Empaerior
                           const uint32_t textureID
         )
         {
-            Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, ecs.get_component<Empaerior::singleSprite_Component>(id).sprites, rect,
+            Empaerior::createSprite(renderer->scene.geometrybuffer, renderer->texture_atlas, ecs.get_component<Empaerior::singleSprite_Component>(id).sprites, rect,
                                     {0,0,renderer->texture_atlas.image_dimensions[textureID][0],renderer->texture_atlas.image_dimensions[textureID][1]}, textureID);
         }
         //string to image instead of texID
@@ -170,7 +170,7 @@ namespace Empaerior
                           const std::string& texturePath
         )
         {
-            Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, ecs.get_component<Empaerior::singleSprite_Component>(id).sprites, rect, texRect, renderer->texture_atlas.create_texture_from_file(texturePath));
+            Empaerior::createSprite(renderer->scene.geometrybuffer, renderer->texture_atlas, ecs.get_component<Empaerior::singleSprite_Component>(id).sprites, rect, texRect, renderer->texture_atlas.create_texture_from_file(texturePath));
         }
         //create sprite but use the whole texture and use string instead of textureID
         void createSprite(Empaerior::ECS& ecs,
@@ -180,7 +180,7 @@ namespace Empaerior
         )
         {
 		    size_t texID =  renderer->texture_atlas.create_texture_from_file(texturePath);
-            Empaerior::createSprite(renderer->geometrybuffer, renderer->texture_atlas, ecs.get_component<Empaerior::singleSprite_Component>(id).sprites, rect,
+            Empaerior::createSprite(renderer->scene.geometrybuffer, renderer->texture_atlas, ecs.get_component<Empaerior::singleSprite_Component>(id).sprites, rect,
                                     {0,0,renderer->texture_atlas.image_dimensions[texID][0],renderer->texture_atlas.image_dimensions[texID][1]},texID);
         }
 

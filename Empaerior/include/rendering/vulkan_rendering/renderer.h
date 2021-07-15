@@ -14,7 +14,7 @@
 #include <functional>
 
 #include "../include/rendering/window.h"
-
+#include "scene.h"
 const inline int MAX_FRAMES_IN_FLIGHT = 2;
 const inline std::vector<const char*> validationLayers = {
     "VK_LAYER_KHRONOS_validation",
@@ -77,8 +77,6 @@ class VK_Renderer {
     VkPipeline graphicsPipeline;
 
     VkCommandPool commandPool;
-    geometryBuffer geometrybuffer;
-
 
     VkResult Presentresult;
 
@@ -107,10 +105,14 @@ class VK_Renderer {
     Empaerior::VK_RendererGraphicsInfo GraphicsSettings, InitialGraphicsSettings;
 
    
-    Empaerior::Camera2D ubo{};
+
 
     uint32_t imageIndex;
     bool framebufferNeedsReconstruction = false;
+    //SCENE OBJECTS
+    
+    Empaerior::Scene2D scene;
+
 private:
 
 
