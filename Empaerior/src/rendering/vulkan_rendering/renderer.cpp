@@ -1307,7 +1307,7 @@ void VK_Renderer::newFrame()
 
 }
 
-void VK_Renderer::drawFrame(Empaerior::Scene2D& sceneR)
+void VK_Renderer::drawFrame(Empaerior::Scene2D& scene)
 {
    
     
@@ -1325,10 +1325,10 @@ void VK_Renderer::drawFrame(Empaerior::Scene2D& sceneR)
     submitInfo.pWaitSemaphores = waitSemaphores;
     submitInfo.pWaitDstStageMask = waitStages;
 
-    updateUniformBuffer(sceneR,imageIndex); 
-    sceneR.geometrybuffer.updateInUseBuffers();
+    updateUniformBuffer(scene,imageIndex); 
+    scene.geometrybuffer.updateInUseBuffers();
 
-    recordCommandBuffer(sceneR,commandBuffers[imageIndex], swapChainFramebuffers[imageIndex], &sceneR.geometrybuffer.vertexBuffer.inUseBuffer, sceneR.geometrybuffer.indexBuffer.inUseBuffer, &descriptorSets[imageIndex]);
+    recordCommandBuffer(scene,commandBuffers[imageIndex], swapChainFramebuffers[imageIndex], &scene.geometrybuffer.vertexBuffer.inUseBuffer, scene.geometrybuffer.indexBuffer.inUseBuffer, &descriptorSets[imageIndex]);
 
     inUseCommandBuffers[mainCommandBufferinUseIndex] = commandBuffers[imageIndex];
     submitInfo.commandBufferCount = static_cast<Empaerior::u_int>(inUseCommandBuffers.size());

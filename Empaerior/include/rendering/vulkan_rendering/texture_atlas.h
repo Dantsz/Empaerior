@@ -17,6 +17,7 @@
 
 struct Texture_Atlas {
 public:
+    friend class VK_Renderer;
     static constexpr uint32_t texture_limit()
     {
         return 1 << 16;
@@ -40,7 +41,7 @@ public:
     size_t getImageSize(size_t index);
     
 
-private:
+
     //destroy image at index
     void destroyImage(size_t index);
 
@@ -48,13 +49,14 @@ private:
     //asumems pixels is valid
     void createImageAtIndex(size_t index , Empaerior::byte* pixels, Empaerior::u_int width , Empaerior::u_int height);
 
-
+    void cleanup();
           
 
+    std::vector<Empaerior::Point2f> image_dimensions;
 
-public:
+private:
 
-    void cleanup();
+  
 
 
     VkDevice* m_device;
@@ -66,7 +68,7 @@ public:
     std::vector<VmaAllocation> image_allocations;
     std::vector<VkImage> images;
     std::vector<VkImageView> image_views;
-    std::vector<Empaerior::Point2f> image_dimensions;
+ 
 
 
     std::unordered_map<std::string, Empaerior::u_inter> fontName;
