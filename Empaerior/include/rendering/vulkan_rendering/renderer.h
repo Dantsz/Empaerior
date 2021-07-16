@@ -111,7 +111,7 @@ class VK_Renderer {
     bool framebufferNeedsReconstruction = false;
     //SCENE OBJECTS
     
-    Empaerior::Scene2D scene;
+
 
 private:
 
@@ -163,17 +163,19 @@ private:
 
     void createCommandBuffers();
 
-    void recordCommandBuffer(VkCommandBuffer& commandBuffer, VkFramebuffer& swapChainFramebuffer, VkBuffer vertexBuffers[], VkBuffer& indexBuffer, VkDescriptorSet* descriptorSet);
+    void recordCommandBuffer(Empaerior::Scene2D& scene,VkCommandBuffer& commandBuffer, VkFramebuffer& swapChainFramebuffer, VkBuffer vertexBuffers[], VkBuffer& indexBuffer, VkDescriptorSet* descriptorSet);
 
     void createSyncObjects();
 
     void createUniformBuffers();
 
-    void updateUniformBuffer(uint32_t currentImage);
+    void updateUniformBuffer(Empaerior::Scene2D& scene, uint32_t currentImage);
 
+    //
     void newFrame();
 
-    void drawFrame();
+    //draw a scene
+    void drawFrame(Empaerior::Scene2D&);
 
     void present();
     public:
@@ -188,7 +190,7 @@ private:
     /*
         Packs all functions fr rendering the frame in one
     */
-    EMP_FORCEINLINE void renderFrame(){
+    EMP_FORCEINLINE void renderFrame(Empaerior::Scene2D& scene){
         
         if (framebufferNeedsReconstruction)
 		{
@@ -196,14 +198,14 @@ private:
 			framebufferNeedsReconstruction = false;
 		}
         newFrame();
-		drawFrame();
+		drawFrame(scene);
 		present();
     }
     /*
     The frameBufferRecF function is called when the frame buffer needs to be reconstructed
     The renderF function is called in between preparing a new frame and rendering
     */
-    void renderFrame(const std::function<void()>& frameBufferRecF ,const std::function<void()>& renderF)
+    void renderFrame(Empaerior::Scene2D scene,const std::function<void()>& frameBufferRecF ,const std::function<void()>& renderF)
     {
         if (framebufferNeedsReconstruction)
 		{
@@ -213,7 +215,7 @@ private:
 		}
         newFrame();
         renderF();
-		drawFrame();
+		drawFrame(scene);
 		present();
     }
    

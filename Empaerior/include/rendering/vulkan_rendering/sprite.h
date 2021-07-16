@@ -3,7 +3,7 @@
 #include "../include/core/defines/basic_defines.h"
 #include "texture_atlas.h"
 #include "glyphs.h"
-
+#include "scene.h"
 class VK_Renderer;
 namespace Empaerior
 {
@@ -44,7 +44,7 @@ namespace Empaerior
 
 
 	void createSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t tex_id);
-	void createSprite(VK_Renderer& renderer, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t tex_id);
+	void createSprite(VK_Renderer& renderer,Empaerior::Scene2D& scene, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t tex_id);
 
 	void setSpriteRect(Sprite& sprite, Empaerior::Float_Rect_S& rect);
 	
@@ -70,7 +70,7 @@ namespace Empaerior
 
 
 	void createTextSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message, glm::vec3 color);
-	void createTextSprite(VK_Renderer& renderer ,Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message, glm::vec3 color);
+	void createTextSprite(VK_Renderer& renderer,Empaerior::Scene2D& scene ,Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message, glm::vec3 color);
 
 	void setTextSpriteDepth(Sprite& sprite, Empaerior::fl_point depth);
 	void setTextSpritePosition(Sprite& sprite, Empaerior::fl_point x, Empaerior::fl_point y);

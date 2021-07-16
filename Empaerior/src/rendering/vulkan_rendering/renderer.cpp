@@ -432,7 +432,7 @@ void VK_Renderer::initVulkan()
     texture_atlas.create_texture_from_memory(GraphicsSettings.defaultTextureColor.data(),1,1,0);
     //geo buffer
   
-    scene.geometrybuffer.attachrenderer(&allocator,device,swapChainImages.size());
+
     createDescriptorSetLayout();
     createGraphicsPipeline(InitialGraphicsSettings);
 
@@ -459,7 +459,7 @@ void VK_Renderer::cleanup()
     texture_atlas.cleanup();
 
 
-    scene.geometrybuffer.cleanup();
+
 
 
 
@@ -1190,7 +1190,7 @@ void VK_Renderer::createCommandBuffers()
 
 }
 
-void VK_Renderer::recordCommandBuffer(VkCommandBuffer& commandBuffer, VkFramebuffer& swapChainFramebuffer, VkBuffer vertexBuffers[], VkBuffer& indexBuffer, VkDescriptorSet* descriptorSet)
+void VK_Renderer::recordCommandBuffer(Empaerior::Scene2D& scene,VkCommandBuffer& commandBuffer, VkFramebuffer& swapChainFramebuffer, VkBuffer vertexBuffers[], VkBuffer& indexBuffer, VkDescriptorSet* descriptorSet)
 {
     vkResetCommandBuffer(commandBuffer, VK_COMMAND_BUFFER_RESET_RELEASE_RESOURCES_BIT);
     VkCommandBufferBeginInfo beginInfo{};
@@ -1282,7 +1282,7 @@ void VK_Renderer::createUniformBuffers()
   
 }
 
-void VK_Renderer::updateUniformBuffer(uint32_t currentImage)
+void VK_Renderer::updateUniformBuffer(Empaerior::Scene2D& scene,uint32_t currentImage)
 {
     int width = 0, height = 0;
     SDL_GetWindowSize(sdl_window, &width, &height); 
@@ -1307,7 +1307,7 @@ void VK_Renderer::newFrame()
 
 }
 
-void VK_Renderer::drawFrame()
+void VK_Renderer::drawFrame(Empaerior::Scene2D& sceneR)
 {
    
     
@@ -1325,10 +1325,10 @@ void VK_Renderer::drawFrame()
     submitInfo.pWaitSemaphores = waitSemaphores;
     submitInfo.pWaitDstStageMask = waitStages;
 
-    updateUniformBuffer(imageIndex); 
-    scene.geometrybuffer.updateInUseBuffers();
+    updateUniformBuffer(sceneR,imageIndex); 
+    sceneR.geometrybuffer.updateInUseBuffers();
 
-    recordCommandBuffer(commandBuffers[imageIndex], swapChainFramebuffers[imageIndex], &scene.geometrybuffer.vertexBuffer.inUseBuffer, scene.geometrybuffer.indexBuffer.inUseBuffer, &descriptorSets[imageIndex]);
+    recordCommandBuffer(sceneR,commandBuffers[imageIndex], swapChainFramebuffers[imageIndex], &sceneR.geometrybuffer.vertexBuffer.inUseBuffer, sceneR.geometrybuffer.indexBuffer.inUseBuffer, &descriptorSets[imageIndex]);
 
     inUseCommandBuffers[mainCommandBufferinUseIndex] = commandBuffers[imageIndex];
     submitInfo.commandBufferCount = static_cast<Empaerior::u_int>(inUseCommandBuffers.size());

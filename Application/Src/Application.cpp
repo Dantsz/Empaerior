@@ -45,16 +45,18 @@ class APP_State1 : public Empaerior::State
 
 public:
 
-	APP_State1(VK_Renderer* renderer, Empaerior::u_inter originText)
+	APP_State1(VK_Renderer* renderer,Empaerior::Scene2D* m_scene, Empaerior::u_inter originText)
 	{
 		ecs.Init();
 		ecs.register_system<Empaerior::singleSpriteSystem>(sprite_system);
-		sprite_system.Init(ecs,renderer);
+		scene = m_scene;
+		scene->init(*renderer);
+		sprite_system.Init(ecs,renderer,scene);
 		m_renderer = renderer;
 		
 
 		Empaerior::Sprite greenerboi;
-		Empaerior::createSprite(renderer->scene.geometrybuffer, renderer->texture_atlas, greenerboi, { 0,0,99,99 }, { 0,0,1,1 }, 0);
+		Empaerior::createSprite(scene->geometrybuffer, renderer->texture_atlas, greenerboi, { 0,0,99,99 }, { 0,0,1,1 }, 0);
         Empaerior::setSpriteDepth(greenerboi,0.9f);
 		Empaerior::Entity copier;
         copier.id = ecs.create_entity_ID();
@@ -63,12 +65,13 @@ public:
 		//sprite_system.createSprite(ecs,copier.id,{0,0,100,100},"assets/2209.png");
 		//Empaerior::setSpriteDepth(ecs.get_component<Empaerior::singleSprite_Component>(copier.id).sprites,0.0f);
 		Empaerior::Sprite text;
-		Empaerior::createTextSprite((*renderer),text,{250,250,100,100},{32.f,32.f},idk,"ijgi gijfigji fgijfgij",{255,255,255});
+		Empaerior::createTextSprite((*renderer),*scene,text,{250,250,100,100},{32.f,32.f},idk,"ijgi gijfigji fgijfgij",{255,255,255});
 
 	}
 	~APP_State1() override
 	{
 		ecs.Destroy();
+		scene->cleanup();
 		m_renderer->cleanup();
 	}
 	void Update(const Empaerior::u_int dt) override
@@ -76,7 +79,7 @@ public:
 		if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_M))
 			{
 					
-				auto position = Empaerior::Input::Mouse::get_world_mouse_coords(m_renderer->GraphicsSettings, m_renderer->scene.ubo);
+				auto position = Empaerior::Input::Mouse::get_world_mouse_coords(m_renderer->GraphicsSettings, scene->ubo);
 				morge.push_back({});
 				morge[morge.size() - 1].id = ecs.create_entity_ID();
 				ecs.add_component<Empaerior::singleSprite_Component>(morge[morge.size() - 1].id, {});
@@ -115,6 +118,7 @@ private:
 	int angle = 0;
 	std::vector<Empaerior::Entity> morge;
 	VK_Renderer* m_renderer;
+	Empaerior::Scene2D* scene;
 };
 
 
@@ -136,7 +140,7 @@ public:
 		auto greenboiTxt = vk.texture_atlas.create_texture_from_file("assets/green_boi.png");
 		vk.texture_atlas.create_texture_from_fontPath(idk, "assets/fonts/idk.ttf", 32);
 
-		main_state = push_state(new APP_State1(&vk,originText));
+		main_state = push_state(new APP_State1(&vk,&scene,originText));
 
 		activate_state(main_state);
 
@@ -166,14 +170,14 @@ public:
 			}
 			if (!Empaerior::Application::is_paused)
 			{
-				auto position = Empaerior::Input::Mouse::get_world_mouse_coords(vk.GraphicsSettings, vk.scene.ubo);
+				auto position = Empaerior::Input::Mouse::get_world_mouse_coords(vk.GraphicsSettings, scene.ubo);
 		    	if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_N))
 		   		{
-					vk.scene.geometrybuffer.reset();
+					scene.geometrybuffer.reset();
 				}
 				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_O))
 				{
-					dump_data(vk.scene.geometrybuffer);
+					dump_data(scene.geometrybuffer);
 				}	
 				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_E))
 				{
@@ -183,7 +187,7 @@ public:
 				timy.start();
 				ImGui_Emp::NewFrame(window, vk);
 				ShowImGuiWindows();
-				vk.renderFrame([&](){ImGui_Emp::refreshImgui(window, vk);},[&](){ImGui_Emp::Render(window, vk);});/*?*/
+				vk.renderFrame(scene,[&](){ImGui_Emp::refreshImgui(window, vk);},[&](){ImGui_Emp::Render(window, vk);});/*?*/
 				//dump_data(vk.geometrybuffer);
 				timy.stop();
 				
@@ -291,10 +295,10 @@ public:
 		ImGui::End();
 
 		ImGui::Begin("Camera Settings");
-		ImGui::InputFloat("Camera X", &vk.scene.ubo.position.x, 10, 100, 2);
-		ImGui::InputFloat("Camera Y", &vk.scene.ubo.position.y, 10, 100, 2);
-		ImGui::InputFloat("ScaleX", &vk.scene.ubo.scaleX, 0.1f, 100, 2);
-		ImGui::InputFloat("ScaleY", &vk.scene.ubo.scaleY, 0.1f, 100, 2);
+		ImGui::InputFloat("Camera X", &scene.ubo.position.x, 10, 100, 2);
+		ImGui::InputFloat("Camera Y", &scene.ubo.position.y, 10, 100, 2);
+		ImGui::InputFloat("ScaleX", &scene.ubo.scaleX, 0.1f, 100, 2);
+		ImGui::InputFloat("ScaleY", &scene.ubo.scaleY, 0.1f, 100, 2);
 
 
 		ImGui::End();
@@ -302,29 +306,29 @@ public:
 		ImGui::Begin("Geometry Buffer Data");
 
 		if (ImGui::CollapsingHeader("Vertex Buffer")) {
-			std::string bufferIndex("Current Buffer Index : " + std::to_string(vk.scene.geometrybuffer.vertexBuffer.inUseBufferIndex));
+			std::string bufferIndex("Current Buffer Index : " + std::to_string(scene.geometrybuffer.vertexBuffer.inUseBufferIndex));
 			ImGui::Text(bufferIndex.c_str());
 
-			std::string bufferAllocationSize("Buffer Allocation Size : " + std::to_string(vk.scene.geometrybuffer.vertexBuffer.BufferSize[vk.scene.geometrybuffer.vertexBuffer.inUseBufferIndex]));
+			std::string bufferAllocationSize("Buffer Allocation Size : " + std::to_string(scene.geometrybuffer.vertexBuffer.BufferSize[scene.geometrybuffer.vertexBuffer.inUseBufferIndex]));
 			ImGui::Text(bufferAllocationSize.c_str());
 
-			std::string bufferSize("Current Buffer Size : " + std::to_string(vk.scene.geometrybuffer.vertexBuffer.used_size[vk.scene.geometrybuffer.vertexBuffer.inUseBufferIndex]));
+			std::string bufferSize("Current Buffer Size : " + std::to_string(scene.geometrybuffer.vertexBuffer.used_size[scene.geometrybuffer.vertexBuffer.inUseBufferIndex]));
 			ImGui::Text(bufferSize.c_str());
 
-			std::string vertices("Current Vertice count : " + std::to_string(vk.scene.geometrybuffer.vertexBuffer.used_size[vk.scene.geometrybuffer.vertexBuffer.inUseBufferIndex] / sizeof(Vertex)));
+			std::string vertices("Current Vertice count : " + std::to_string(scene.geometrybuffer.vertexBuffer.used_size[scene.geometrybuffer.vertexBuffer.inUseBufferIndex] / sizeof(Vertex)));
 			ImGui::Text(vertices.c_str());
 		}
 		if (ImGui::CollapsingHeader("Index Buffer")) {
-			std::string bufferIndex("Current Buffer Index : " + std::to_string(vk.scene.geometrybuffer.indexBuffer.inUseBufferIndex));
+			std::string bufferIndex("Current Buffer Index : " + std::to_string(scene.geometrybuffer.indexBuffer.inUseBufferIndex));
 			ImGui::Text(bufferIndex.c_str());
 
-			std::string bufferAllocation("Current Buffer Allocation : " + std::to_string(vk.scene.geometrybuffer.indexBuffer.BufferSize[vk.scene.geometrybuffer.indexBuffer.inUseBufferIndex]));
+			std::string bufferAllocation("Current Buffer Allocation : " + std::to_string(scene.geometrybuffer.indexBuffer.BufferSize[scene.geometrybuffer.indexBuffer.inUseBufferIndex]));
 			ImGui::Text(bufferAllocation.c_str());
 
-			std::string bufferSize("Current Buffer Size : " + std::to_string(vk.scene.geometrybuffer.indexBuffer.used_size[vk.scene.geometrybuffer.indexBuffer.inUseBufferIndex]));
+			std::string bufferSize("Current Buffer Size : " + std::to_string(scene.geometrybuffer.indexBuffer.used_size[scene.geometrybuffer.indexBuffer.inUseBufferIndex]));
 			ImGui::Text(bufferSize.c_str());
 
-			std::string vertices("Current Index count : " + std::to_string(vk.scene.geometrybuffer.indexBuffer.used_size[vk.scene.geometrybuffer.indexBuffer.inUseBufferIndex] / sizeof(uint32_t)));
+			std::string vertices("Current Index count : " + std::to_string(scene.geometrybuffer.indexBuffer.used_size[scene.geometrybuffer.indexBuffer.inUseBufferIndex] / sizeof(uint32_t)));
 			ImGui::Text(vertices.c_str());
 
 
@@ -338,6 +342,7 @@ public:
 	Empaerior::u_inter main_state;
 
 	VK_Renderer vk;
+	Empaerior::Scene2D scene;
 	std::string str = "1111111";
 };
 
