@@ -143,7 +143,7 @@ public:
 		main_state = push_state(new APP_State1(&vk,&scene,originText));
 
 		activate_state(main_state);
-
+	
 	}
 	
 	~TestApplication() override = default;

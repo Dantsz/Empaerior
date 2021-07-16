@@ -173,7 +173,7 @@ static QueueFamilyIndices findQueueFamilies(VkSurfaceKHR& surface, VkPhysicalDev
 }
 
 static bool checkDeviceExtensionSupport(VkPhysicalDevice device) {
-    uint32_t extensionCount;
+    uint32_t extensionCount = 0;
     vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, nullptr);
 
     std::vector<VkExtensionProperties> availableExtensions(extensionCount);
@@ -254,7 +254,8 @@ static VkExtent2D chooseSwapExtent(SDL_Window* sdl_window, const VkSurfaceCapabi
         return capabilities.currentExtent;
     }
     
-    int width = 0, height = 0;
+    int width = 0;
+    int height = 0;
     SDL_GetWindowSize(sdl_window, &width, &height);
 
     VkExtent2D actualExtent = {
@@ -328,7 +329,8 @@ static void DestroyDebugUtilsMessengerEXT(VkInstance instance, VkDebugUtilsMesse
     }
 }
 static void setupDebugMessenger(VkInstance& instance, VkDebugUtilsMessengerEXT& debugMessenger) {
-    if (!enableValidationLayers) return;
+    if (!enableValidationLayers) { return;
+}
 
     VkDebugUtilsMessengerCreateInfoEXT createInfo;
     populateDebugMessengerCreateInfo(createInfo);
@@ -837,7 +839,7 @@ void VK_Renderer::createDescriptorPool()
     poolSizes[1].type = VK_DESCRIPTOR_TYPE_SAMPLER;
     poolSizes[1].descriptorCount = static_cast<uint32_t>(swapChainImages.size());
     poolSizes[2].type = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
-    poolSizes[2].descriptorCount = texture_atlas.texture_limit() * static_cast<uint32_t>(swapChainImages.size());
+    poolSizes[2].descriptorCount = Texture_Atlas::texture_limit() * static_cast<uint32_t>(swapChainImages.size());
 
     VkDescriptorPoolCreateInfo poolInfo{};
     poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
@@ -1284,7 +1286,8 @@ void VK_Renderer::createUniformBuffers()
 
 void VK_Renderer::updateUniformBuffer(Empaerior::Scene2D& scene,uint32_t currentImage)
 {
-    int width = 0, height = 0;
+    int width = 0;
+    int height = 0;
     SDL_GetWindowSize(sdl_window, &width, &height); 
     scene.updateCamera(*this,width,height);
     memcpy(uniformBufferData[currentImage], &scene.ubo, sizeof(Empaerior::Camera2D));
