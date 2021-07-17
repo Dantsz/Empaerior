@@ -1,4 +1,5 @@
 #pragma once
+#include "core/defines/basic_defines.h"
 #include <vector>
 
 namespace Empaerior

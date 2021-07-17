@@ -10,8 +10,8 @@ namespace Empaerior
 	struct Sprite
 	{
 
-		//the number of vertices and indexes a sprite needs
-		static constexpr size_t nIndexes = 6;
+		//the number of vertices and indices a sprite needs
+		static constexpr size_t nIndices = 6;
 		static constexpr size_t nVertices = 4;
 
 
@@ -51,7 +51,7 @@ namespace Empaerior
 
 	void setSpritePosition(Sprite& sprite, geometryBuffer& buffer);
 
-	void setSpriteDimensions(Sprite& sprite, Empaerior::fl_point x, Empaerior::fl_point y);
+	void setSpriteDimensions(Sprite& sprite, Empaerior::fl_point width, Empaerior::fl_point height);
 
 	void setSpriteTexRect (Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::u_inter offset = 0);
 

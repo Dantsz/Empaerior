@@ -151,14 +151,14 @@ static QueueFamilyIndices findQueueFamilies(VkSurfaceKHR& surface, VkPhysicalDev
 
     uint32_t i = 0;
     for (const auto& queueFamily : queueFamilies) {
-        if (queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT) {
+        if ((queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT) != 0u) {
             indices.graphicsFamily = i;
         }
 
         VkBool32 presentSupport = VK_FALSE;
         vkGetPhysicalDeviceSurfaceSupportKHR(device, i, surface, &presentSupport);
 
-        if (presentSupport) {
+        if (presentSupport != 0u) {
             indices.presentFamily = i;
         }
 
@@ -400,7 +400,7 @@ void VK_Renderer::initVulkan()
     setupDebugMessenger(instance, debugMessenger);
     //create surface
     auto result = SDL_Vulkan_CreateSurface(sdl_window, instance, &surface);
-    if(!result)
+    if(result == 0)
     {
         throw std::runtime_error("failed to create Vulkan Surface");
     }
@@ -672,7 +672,7 @@ void VK_Renderer::createLogicalDevice()
     }
 
     bool res = vkCreateDevice(physicalDevice, &createInfo, nullptr, &device) != VK_SUCCESS;
-    if (res != VK_SUCCESS) {
+    if (static_cast<int>(res) != VK_SUCCESS) {
         throw std::runtime_error("Something went wrong creating the logical device");
     }
 
@@ -1210,7 +1210,7 @@ void VK_Renderer::recordCommandBuffer(Empaerior::Scene2D& scene,VkCommandBuffer&
     renderPassInfo.renderArea.extent = swapChainExtent;
 
     std::array<VkClearValue, 2> clearValues{};
-    clearValues[0].color = {0.0f, 0.0f, 0.0f, 0.0f};
+    clearValues[0].color = {{0.0f, 0.0f, 0.0f, 0.0f}};
     clearValues[1].depthStencil = { 1.0f, 0 };
 
     renderPassInfo.clearValueCount = static_cast<uint32_t>(clearValues.size());
@@ -1219,8 +1219,6 @@ void VK_Renderer::recordCommandBuffer(Empaerior::Scene2D& scene,VkCommandBuffer&
     vkCmdBeginRenderPass(commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
     vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline);
-
-
 
     VkDeviceSize offsets[] = { 0 };
 
@@ -1312,8 +1310,6 @@ void VK_Renderer::newFrame()
 
 void VK_Renderer::drawFrame(Empaerior::Scene2D& scene)
 {
-   
-    
     if (imagesInFlight[imageIndex] != VK_NULL_HANDLE) {
         vkWaitForFences(device, 1, &imagesInFlight[imageIndex], VK_TRUE, UINT64_MAX);
     }
@@ -1350,11 +1346,6 @@ void VK_Renderer::drawFrame(Empaerior::Scene2D& scene)
         std::cout << "VK RESULT : " << SubmitResult << '\n';
         throw std::runtime_error("failed to submit draw command buffer! ");
     }
-
-
-
-
-
 }
 
 void VK_Renderer::present()
@@ -1377,9 +1368,6 @@ void VK_Renderer::present()
     presentInfo.pImageIndices = &imageIndex;
 
     Presentresult = vkQueuePresentKHR(presentQueue, &presentInfo);
-
-
-
     currentFrame = (currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
 }
 

@@ -68,7 +68,6 @@ struct DynamicBuffer
 		size_t dataIndex = (inUseBufferIndex + 1) % buffering;
 		//if the buffer hasn't been updated before , it doesn't have any new data that the old buffer doesn't have
 		//so a third buffer is not needed
-	
 		if (!updateBuffer)
 		{
 		
@@ -118,7 +117,6 @@ struct DynamicBuffer
 			BufferSize[dataIndex] = BufferSize[dataIndex] + size;
 			used_size[dataIndex] = used_size[dataIndex] ;
 
-			
 		}
 		
 		
@@ -128,7 +126,10 @@ struct DynamicBuffer
 
 	size_t get_in_use_index()
 	{
-		if(updateBuffer) return  (inUseBufferIndex + 1) % buffering;
+		if(updateBuffer) 
+		{
+			 return  (inUseBufferIndex + 1) % buffering;
+		}
 		return inUseBufferIndex;
 	}
 
@@ -142,12 +143,11 @@ struct DynamicBuffer
 		
 		place = index.emplace_back(used_size[get_in_use_index()]);
 			
-		
+
 		if (size >= BufferSize[get_in_use_index()] - used_size[get_in_use_index()]) // create new space
 		{
 			
 			//expand the buffer while the new allocation is bigger
-			
 			while (BufferSize[get_in_use_index()] - used_size[get_in_use_index()]  < size)
 			{
 				//ENGINE_WARN("Expanding buffer");
@@ -230,11 +230,10 @@ struct DynamicBuffer
 		{
 			used_size[i] = 0;
 		}
-		//no updates
-		updateBuffer = false;
+	
 		//go to the first buff
-		inUseBufferIndex = 0;
-		inUseBuffer = Buffers[0];
+		//inUseBufferIndex = 0;
+		//inUseBuffer = Buffers[0];
 	}
 };
 

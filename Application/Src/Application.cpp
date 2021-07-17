@@ -6,6 +6,7 @@
 
 
 //#include "tools/emptmxlite/emptmxlite.h"
+#include <string>
 #include <thread>         
 
 
@@ -14,6 +15,7 @@
 
 
 //An example of what a application might look like
+#include "debugging/log.h"
 #include "rendering/vulkan_rendering/renderer.h"
 #include <vulkan/vulkan.h>
 #include "input/input.h"
@@ -55,16 +57,21 @@ public:
 		m_renderer = renderer;
 		
 
-		Empaerior::Sprite greenerboi;
+		Empaerior::Sprite greenerboi{};
 		Empaerior::createSprite(scene->geometrybuffer, renderer->texture_atlas, greenerboi, { 0,0,99,99 }, { 0,0,1,1 }, 0);
         Empaerior::setSpriteDepth(greenerboi,0.9f);
+		Empaerior::setSpriteAngle(greenerboi,60.0f);
+
+
 		Empaerior::Entity copier;
         copier.id = ecs.create_entity_ID();
 		ecs.add_component<copyReductorComponent>(copier.id,{});
 		ecs.add_component<Empaerior::singleSprite_Component>(copier.id,{});
-		//sprite_system.createSprite(ecs,copier.id,{0,0,100,100},"assets/2209.png");
-		//Empaerior::setSpriteDepth(ecs.get_component<Empaerior::singleSprite_Component>(copier.id).sprites,0.0f);
-		Empaerior::Sprite text;
+		
+
+
+
+		Empaerior::Sprite text{};
 		Empaerior::createTextSprite((*renderer),*scene,text,{250,250,100,100},{32.f,32.f},idk,"ijgi gijfigji fgijfgij",{255,255,255});
 
 	}
@@ -179,19 +186,45 @@ public:
 				{
 					dump_data(scene.geometrybuffer);
 				}	
-				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_E))
-				{
-
-				}
+				
 				Update(0);
 				timy.start();
-				ImGui_Emp::NewFrame(window, vk);
-				ShowImGuiWindows();
-				vk.renderFrame(scene,[&](){ImGui_Emp::refreshImgui(window, vk);},[&](){ImGui_Emp::Render(window, vk);});/*?*/
-				//dump_data(vk.geometrybuffer);
-				timy.stop();
+				if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_E))
+				{
+
+			
+					for(int i = 0 ; i < 10 ; i ++ )
+					{
+						for(int j = 0 ; j < 10 ; j++)
+						{
+							Empaerior::Sprite sprt;
+							Empaerior::createSprite(vk,scene,sprt,{(float)i,(float)j,1,1},{0,0,1,1},1);
+							if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_Y))
+								{
+									Empaerior::Sprite sprt;
+									Empaerior::createSprite(vk,scene,sprt,{(float)1,(float)300,30,30},{0,0,1,1},1);
+									Empaerior::createSprite(vk,scene,sprt,{(float)1,(float)330,30,30},{0,0,1,1},1);
+									Empaerior::createSprite(vk,scene,sprt,{(float)1,(float)360,30,30},{0,0,1,1},1);
+								}	
+						}
+					}
+				}
+				timy.stop(); 
 				
+				ImGui_Emp::NewFrame(window, vk);
+
+				ShowImGuiWindows();
+
+
+				timy.start();
+				vk.renderFrame(scene,[&](){ImGui_Emp::refreshImgui(window, vk);},[&](){ImGui_Emp::Render(window, vk);});/*?*/
+			
+				scene.geometrybuffer.reset();
 				//
+				timy.stop();
+			
+
+
 
 			}
 
@@ -306,29 +339,29 @@ public:
 		ImGui::Begin("Geometry Buffer Data");
 
 		if (ImGui::CollapsingHeader("Vertex Buffer")) {
-			std::string bufferIndex("Current Buffer Index : " + std::to_string(scene.geometrybuffer.vertexBuffer.inUseBufferIndex));
+			std::string bufferIndex("Current Buffer Index : " + std::to_string(scene.geometrybuffer.vertexBuffer.get_in_use_index()));
 			ImGui::Text(bufferIndex.c_str());
 
-			std::string bufferAllocationSize("Buffer Allocation Size : " + std::to_string(scene.geometrybuffer.vertexBuffer.BufferSize[scene.geometrybuffer.vertexBuffer.inUseBufferIndex]));
+			std::string bufferAllocationSize("Buffer Allocation Size : " + std::to_string(scene.geometrybuffer.vertexBuffer.BufferSize[scene.geometrybuffer.vertexBuffer.get_in_use_index()]));
 			ImGui::Text(bufferAllocationSize.c_str());
 
-			std::string bufferSize("Current Buffer Size : " + std::to_string(scene.geometrybuffer.vertexBuffer.used_size[scene.geometrybuffer.vertexBuffer.inUseBufferIndex]));
+			std::string bufferSize("Current Buffer Size : " + std::to_string(scene.geometrybuffer.vertexBuffer.used_size[scene.geometrybuffer.vertexBuffer.get_in_use_index()]));
 			ImGui::Text(bufferSize.c_str());
 
-			std::string vertices("Current Vertice count : " + std::to_string(scene.geometrybuffer.vertexBuffer.used_size[scene.geometrybuffer.vertexBuffer.inUseBufferIndex] / sizeof(Vertex)));
+			std::string vertices("Current Vertice count : " + std::to_string(scene.geometrybuffer.vertexBuffer.used_size[scene.geometrybuffer.vertexBuffer.get_in_use_index()] / sizeof(Vertex)));
 			ImGui::Text(vertices.c_str());
 		}
 		if (ImGui::CollapsingHeader("Index Buffer")) {
-			std::string bufferIndex("Current Buffer Index : " + std::to_string(scene.geometrybuffer.indexBuffer.inUseBufferIndex));
+			std::string bufferIndex("Current Buffer Index : " + std::to_string(scene.geometrybuffer.indexBuffer.get_in_use_index()));
 			ImGui::Text(bufferIndex.c_str());
 
-			std::string bufferAllocation("Current Buffer Allocation : " + std::to_string(scene.geometrybuffer.indexBuffer.BufferSize[scene.geometrybuffer.indexBuffer.inUseBufferIndex]));
+			std::string bufferAllocation("Current Buffer Allocation : " + std::to_string(scene.geometrybuffer.indexBuffer.BufferSize[scene.geometrybuffer.indexBuffer.get_in_use_index()]));
 			ImGui::Text(bufferAllocation.c_str());
 
-			std::string bufferSize("Current Buffer Size : " + std::to_string(scene.geometrybuffer.indexBuffer.used_size[scene.geometrybuffer.indexBuffer.inUseBufferIndex]));
+			std::string bufferSize("Current Buffer Size : " + std::to_string(scene.geometrybuffer.indexBuffer.used_size[scene.geometrybuffer.indexBuffer.get_in_use_index()]));
 			ImGui::Text(bufferSize.c_str());
 
-			std::string vertices("Current Index count : " + std::to_string(scene.geometrybuffer.indexBuffer.used_size[scene.geometrybuffer.indexBuffer.inUseBufferIndex] / sizeof(uint32_t)));
+			std::string vertices("Current Index count : " + std::to_string(scene.geometrybuffer.indexBuffer.used_size[scene.geometrybuffer.indexBuffer.get_in_use_index()] / sizeof(uint32_t)));
 			ImGui::Text(vertices.c_str());
 
 

@@ -2,8 +2,9 @@
 #include "../include/rendering/vulkan_rendering/sprite.h"
 #include "../include/rendering/vulkan_rendering/glyphs.h"
 #include "../include/rendering/vulkan_rendering/renderer.h"
-
-
+#include "../include/rendering/vulkan_rendering/vertex.h"
+//the lower limit for the char to be drawn
+static constexpr float charHeightLimit = 0.0001;
 namespace Empaerior
 {
 	void createSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t tex_id)
@@ -16,10 +17,10 @@ namespace Empaerior
 		sprite.rect.angle = 0.0f;
 
 
-		sprite.indicesIndex = buffer.indexBuffer.allocate(Empaerior::Sprite::nIndexes * sizeof(uint32_t));
+		sprite.indicesIndex = buffer.indexBuffer.allocate(Empaerior::Sprite::nIndices * sizeof(uint32_t));
 		sprite.verticesIndex = buffer.vertexBuffer.allocate(Empaerior::Sprite::nVertices * sizeof(Vertex));
 		
-		sprite.indicesSize = Empaerior::Sprite::nIndexes * sizeof(uint32_t);
+		sprite.indicesSize = Empaerior::Sprite::nIndices * sizeof(uint32_t);
 		sprite.verticesSize = Empaerior::Sprite::nVertices * sizeof(Vertex);
 
 		sprite.texture_id = tex_id;
@@ -58,8 +59,14 @@ namespace Empaerior
 		{
 			//used to transform the width and height based on the char size
 			Empaerior::fl_point ar;
-			if (font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].height > 0.0001) ar = font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].width / font.glyphSize[message[i]].height;
-			else  ar = 1.0f;
+			if (font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].height > charHeightLimit)
+			{
+				 ar = font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].width / font.glyphSize[message[i]].height;
+			}
+			else
+		  	{
+				    ar = 1.0f;
+			}
 
 			//calculate if the character fits and how much it fits
 			if (beginX + charDimensions.elements[0] * ar >= rect.w + rect.x) {
@@ -91,31 +98,46 @@ namespace Empaerior
 			Empaerior::fl_point  visibilityX = CharWidth / (charDimensions.elements[0] * ar);
 			//calculate how much of the letter must be shown
 			Empaerior::fl_point visibilityY;
-			if (beginY + font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].height > rect.y + rect.h) visibilityY = CharHeight / charDimensions.elements[1];
-			else visibilityY = 1.0f;
+			if (beginY + font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].height > rect.y + rect.h)
+			{ 
+				visibilityY = CharHeight / charDimensions.elements[1];
+			}
+			else 
+			{
+				visibilityY = 1.0f;
+			}
 
 
 			setSpriteTexRect(sprite, { 0, message[i] * font.glyphHeight   , font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].width * visibilityX,font.glyphSize[message[i]].height * visibilityY }, i * 4);
 
 			//add the space 
-			if (message[i] == ' ') beginX += charDimensions[0];
-			else beginX += font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].Mwidth;
+			if (message[i] == ' ')
+			{
+				 beginX += charDimensions[0];
+			}
+			else
+			{
+				 beginX += font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].Mwidth;
+			}
 
 		}
 	}
 
 	void createTextSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite,Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions , const Empaerior::Font &  font, const char* message, glm::vec3 color)
 	{
-		if (strlen(message) == 0) return;
+		if (strlen(message) == 0)
+		{
+			 return;
+		}
 
 		sprite.parent = &buffer;
 		sprite.parent_atlas = &atlas;
 
-		sprite.indicesIndex = buffer.indexBuffer.allocate(strlen(message) * 6 * sizeof(uint32_t));
-		sprite.verticesIndex = buffer.vertexBuffer.allocate(strlen(message) * 4 * sizeof(Vertex));
+		sprite.indicesIndex = buffer.indexBuffer.allocate(strlen(message) * Empaerior::Sprite::nIndices * sizeof(uint32_t));
+		sprite.verticesIndex = buffer.vertexBuffer.allocate(strlen(message) * Empaerior::Sprite::nVertices * sizeof(Vertex));
 
-		sprite.indicesSize = strlen(message) * 6 * sizeof(uint32_t);
-		sprite.verticesSize = strlen(message) *  4 * sizeof(Vertex);
+		sprite.indicesSize = strlen(message) * Empaerior::Sprite::nIndices * sizeof(uint32_t);
+		sprite.verticesSize = strlen(message) *  Empaerior::Sprite::nVertices * sizeof(Vertex);
 
 
 		//TODO: fix type mismatch
@@ -188,8 +210,8 @@ namespace Empaerior
 	{
 		sprite.rect.angle = angle;
 		//get the middle of the sprite
-		Empaerior::fl_point midX = sprite.rect.dimensions.x + sprite.rect.dimensions.w / 2 ,
-			                midY = sprite.rect.dimensions.y + sprite.rect.dimensions.h / 2;
+		Empaerior::fl_point midX = sprite.rect.dimensions.x + sprite.rect.dimensions.w / 2;
+		Empaerior::fl_point midY = sprite.rect.dimensions.y + sprite.rect.dimensions.h / 2;
 #define vertex ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
 		//rotate each vertex separately
 		//top left

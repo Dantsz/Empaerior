@@ -378,3 +378,17 @@ cmake-build-debug/
 compile_commands.json
 CMakeFiles/
 /out/
+ALL_BUILD.vcxproj
+ALL_BUILD.vcxproj.filters
+cmake_install.cmake
+CMakeCache.txt
+Empaerior.sln
+Application/Application.sln
+Application/Application.vcxproj
+Application/Application.vcxproj.filters
+Empaerior/Empaerior.vcxproj
+Empaerior/Empaerior.vcxproj.filters
+Application/imgui.ini
+
+Empaerior/RelWithDebInfo/Empaerior.lib
+Application/RelWithDebInfo/Application.exe

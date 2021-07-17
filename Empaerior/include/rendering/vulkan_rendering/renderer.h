@@ -205,7 +205,7 @@ private:
     The frameBufferRecF function is called when the frame buffer needs to be reconstructed
     The renderF function is called in between preparing a new frame and rendering
     */
-    void renderFrame(Empaerior::Scene2D scene,const std::function<void()>& frameBufferRecF ,const std::function<void()>& renderF)
+    void renderFrame(Empaerior::Scene2D& scene,const std::function<void()>& frameBufferRecF ,const std::function<void()>& renderF)
     {
         if (framebufferNeedsReconstruction)
 		{
