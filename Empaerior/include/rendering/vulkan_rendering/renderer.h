@@ -110,7 +110,8 @@ class VK_Renderer {
     uint32_t imageIndex;
     bool framebufferNeedsReconstruction = false;
     //SCENE OBJECTS
-    
+    //a default scene for the renderer
+    Empaerior::Scene2D defaultScene;
 
 
 private:
@@ -187,8 +188,26 @@ private:
     void cleanup();
 
    public:
+
     /*
-        Packs all functions fr rendering the frame in one
+       Packs all functions for rendering the frame in one
+    */
+     EMP_FORCEINLINE void renderFrame(){
+        
+        if (framebufferNeedsReconstruction)
+		{
+			checkFrameBufferResize();	
+			framebufferNeedsReconstruction = false;
+		}
+        newFrame();
+		drawFrame(defaultScene);
+		present();
+    }
+
+
+    /*
+     
+        Renders a specific scene
     */
     EMP_FORCEINLINE void renderFrame(Empaerior::Scene2D& scene){
         
@@ -205,6 +224,22 @@ private:
     The frameBufferRecF function is called when the frame buffer needs to be reconstructed
     The renderF function is called in between preparing a new frame and rendering
     */
+    void renderFrame(const std::function<void()>& frameBufferRecF ,const std::function<void()>& renderF)
+    {
+        if (framebufferNeedsReconstruction)
+		{
+			checkFrameBufferResize();
+            frameBufferRecF();	
+			framebufferNeedsReconstruction = false;
+		}
+        newFrame();
+        renderF();
+		drawFrame(defaultScene);
+		present();
+    }
+    /*
+    Renders a specific scene
+    */ 
     void renderFrame(Empaerior::Scene2D& scene,const std::function<void()>& frameBufferRecF ,const std::function<void()>& renderF)
     {
         if (framebufferNeedsReconstruction)

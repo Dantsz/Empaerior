@@ -450,20 +450,19 @@ void VK_Renderer::initVulkan()
 
     createSyncObjects();
  
-
+    //Initialize default scene
+    defaultScene.init(*this);
 }
 
 void VK_Renderer::cleanup()
 {
+    //cleanup default scene
+    defaultScene.cleanup();
+
     cleanupSwapChain();
 
 
     texture_atlas.cleanup();
-
-
-
-
-
 
 
     for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {

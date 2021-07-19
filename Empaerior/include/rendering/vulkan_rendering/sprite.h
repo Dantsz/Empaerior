@@ -42,8 +42,12 @@ namespace Empaerior
 
     };
 
-
+	//takes geometrybuffer and atlas
 	void createSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t tex_id);
+	//takes the renderer
+	//uses the buffer from the default scene
+	void createSprite(VK_Renderer& renderer, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t tex_id);
+	//takes the renderer and scene
 	void createSprite(VK_Renderer& renderer,Empaerior::Scene2D& scene, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t tex_id);
 
 	void setSpriteRect(Sprite& sprite, Empaerior::Float_Rect_S& rect);
@@ -68,8 +72,11 @@ namespace Empaerior
 
 
 
-
+	//geombuffer and atlas
 	void createTextSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message, glm::vec3 color);
+	//renderer
+	void createTextSprite(VK_Renderer& renderer, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message, glm::vec3 color);
+	//renderer and scene
 	void createTextSprite(VK_Renderer& renderer,Empaerior::Scene2D& scene ,Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message, glm::vec3 color);
 
 	void setTextSpriteDepth(Sprite& sprite, Empaerior::fl_point depth);

@@ -43,10 +43,17 @@ namespace Empaerior
 		
 	}
 
+	void createSprite(VK_Renderer& renderer, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t tex_id)
+	{
+		createSprite(renderer.defaultScene.geometrybuffer, renderer.texture_atlas,  sprite,  rect, tex_rect,  tex_id);
+	}
+
 	void createSprite(VK_Renderer& renderer,Empaerior::Scene2D& scene, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t tex_id)
 	{
 		createSprite(scene.geometrybuffer, renderer.texture_atlas,  sprite,  rect, tex_rect,  tex_id);
 	}
+
+
 
 
 	static void setupTextSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S& rect, Empaerior::Point2f& charDimensions, const Empaerior::Font& font, const char* message, glm::vec3& color)
@@ -146,6 +153,13 @@ namespace Empaerior
 		setupTextSprite(buffer, atlas, sprite, rect, charDimensions, font, message, color);
 
 	}
+
+
+	void createTextSprite(VK_Renderer& renderer, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message, glm::vec3 color)
+	{
+		createTextSprite(renderer.defaultScene.geometrybuffer,renderer.texture_atlas,sprite,rect,charDimensions,font,message,color);
+	}
+
 	void createTextSprite(VK_Renderer& renderer,Empaerior::Scene2D& scene, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Point2f charDimensions, const Empaerior::Font& font, const char* message, glm::vec3 color)
 	{
 		createTextSprite(scene.geometrybuffer,renderer.texture_atlas,sprite,rect,charDimensions,font,message,color);

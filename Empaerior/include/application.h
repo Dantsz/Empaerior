@@ -44,7 +44,7 @@ public:
 	{
 		//make it not handled yet
 		Empaerior::Application::event.is_handled = false;
-		return SDL_PollEvent(&event.event);
+		return SDL_PollEvent(&event.event) != 0;
 	}
 
 #pragma region	STATE EDITING
@@ -70,15 +70,15 @@ public:
 				states.emplace_back(n_state);
 				return states.size() - 1;
 			}
-			else
-			{
+			
+			
 				
-				Empaerior::u_inter index = freed_indexes[freed_indexes.size()-1];
-				states[index] = n_state;
-				//remove the index from the freed queue
-				freed_indexes.pop_back();
-				return index;
-			}
+			Empaerior::u_inter index = freed_indexes[freed_indexes.size()-1];
+			states[index] = n_state;
+			//remove the index from the freed queue
+			freed_indexes.pop_back();
+			return index;
+		
 
 			
 		}
@@ -100,11 +100,17 @@ public:
 	        
 			//check if the index is valid
 			//because the index is signed, check if it's negative
-			if (index >= states.size()) throw E_runtime_exception("Invalid Index ", __FILE__, __LINE__,__FUNCTION__);
+			if (index >= states.size()) 
+			{
+				throw E_runtime_exception("Invalid Index ", __FILE__, __LINE__,__FUNCTION__);
+			}
 
 			Empaerior::vector<Empaerior::u_inter>::iterator itr = std::find(active_states.begin(), active_states.end(), index);
 
-			if (itr != active_states.cend()) throw E_runtime_exception("State at the provided index is already active ", __FILE__, __LINE__, __FUNCTION__);
+			if (itr != active_states.cend()) 
+			{
+				 throw E_runtime_exception("State at the provided index is already active ", __FILE__, __LINE__, __FUNCTION__);
+			}
 
 
 			//ENGINE_INFO("ACTIVATED STATE: " + std::to_string(index));

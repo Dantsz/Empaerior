@@ -136,7 +136,7 @@ public:
     TestApplication()
 	{
 		//CREATE A WINDOW
-		window.Init("Empaerior  3.0C11 -Vulkan Renderer", 960, 540);/*?*/
+		window.Init("Empaerior  3.0C12 -Vulkan Renderer", 960, 540);/*?*/
 	
 		vk.Init(&window);/*?*/
 	
@@ -177,16 +177,6 @@ public:
 			}
 			if (!Empaerior::Application::is_paused)
 			{
-				auto position = Empaerior::Input::Mouse::get_world_mouse_coords(vk.GraphicsSettings, scene.ubo);
-		    	if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_N))
-		   		{
-					scene.geometrybuffer.reset();
-				}
-				else if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_O))
-				{
-					dump_data(scene.geometrybuffer);
-				}	
-				
 				Update(0);
 				timy.start();
 				if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_E))
@@ -198,13 +188,13 @@ public:
 						for(int j = 0 ; j < 10 ; j++)
 						{
 							Empaerior::Sprite sprt;
-							Empaerior::createSprite(vk,scene,sprt,{(float)i,(float)j,1,1},{0,0,1,1},1);
+							Empaerior::createSprite(vk,sprt,{(float)i,(float)j,1,1},{0,0,1,1},1);
 							if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_Y))
 								{
 									Empaerior::Sprite sprt;
-									Empaerior::createSprite(vk,scene,sprt,{(float)1,(float)300,30,30},{0,0,1,1},1);
-									Empaerior::createSprite(vk,scene,sprt,{(float)1,(float)330,30,30},{0,0,1,1},1);
-									Empaerior::createSprite(vk,scene,sprt,{(float)1,(float)360,30,30},{0,0,1,1},1);
+									Empaerior::createSprite(vk,sprt,{(float)1,(float)300,30,30},{0,0,1,1},1);
+									Empaerior::createSprite(vk,sprt,{(float)1,(float)330,30,30},{0,0,1,1},1);
+									Empaerior::createSprite(vk,sprt,{(float)1,(float)360,30,30},{0,0,1,1},1);
 								}	
 						}
 					}
@@ -212,14 +202,13 @@ public:
 				timy.stop(); 
 				
 				ImGui_Emp::NewFrame(window, vk);
-
 				ShowImGuiWindows();
 
 
 				timy.start();
-				vk.renderFrame(scene,[&](){ImGui_Emp::refreshImgui(window, vk);},[&](){ImGui_Emp::Render(window, vk);});/*?*/
-			
-				scene.geometrybuffer.reset();
+				vk.renderFrame([&](){ImGui_Emp::refreshImgui(window, vk);},[&](){ImGui_Emp::Render(window, vk);});/*?*/
+				vk.defaultScene.geometrybuffer.reset();
+				
 				//
 				timy.stop();
 			
