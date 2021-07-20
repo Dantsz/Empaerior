@@ -1,3 +1,4 @@
+#include "SDL_vulkan.h"
 #include "core/defines/basic_defines.h"
 #include "pch.h"
 #include "../include/rendering/window.h"
@@ -57,6 +58,22 @@ void Empaerior::Window::clear()
 {
 	
 }
+
+
+std::vector<const char*> Empaerior::Window::getVulkanRequiredInstanceExtensions()
+{
+	std::vector<const char*> extensions;
+
+    unsigned int count = 0;
+    SDL_Vulkan_GetInstanceExtensions(window, &count, nullptr);
+    // now count is (probably) 2.
+    extensions.resize(count);
+    // now call again with that not-NULL array you just allocated.
+    SDL_Vulkan_GetInstanceExtensions(window, &count, extensions.data());
+
+	return extensions;
+}
+
 
 
 void Empaerior::Window::reset() const

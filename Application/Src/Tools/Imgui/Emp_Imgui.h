@@ -158,7 +158,7 @@ namespace ImGui_Emp
 			FBinfo.attachmentCount = 1;
 			FBinfo.pAttachments = attachment;
 			FBinfo.width = window.get_width();
-			FBinfo.height = window.get_heigth();
+			FBinfo.height = window.get_height();
 			
 			FBinfo.layers = 1;
 
@@ -304,7 +304,7 @@ namespace ImGui_Emp
 		renderInfo.framebuffer = fd->Framebuffer;
 		renderInfo.renderArea.offset = { 0, 0 };
 		renderInfo.renderArea.extent.width = window.get_width();
-		renderInfo.renderArea.extent.height = window.get_heigth();
+		renderInfo.renderArea.extent.height = window.get_height();
 		
 		renderInfo.clearValueCount = 1;
 		renderInfo.pClearValues = &clearValues[0];

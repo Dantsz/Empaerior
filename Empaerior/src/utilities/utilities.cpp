@@ -92,7 +92,7 @@ Empaerior::Point2f Empaerior::Utilities::get_rotated_point(const Empaerior::Poin
 
 void Empaerior::Utilities::take_screenshot(Empaerior::Window& window, std::string name )
 {
-	SDL_Surface* sshot = SDL_CreateRGBSurface(0, window.get_width() , window.get_heigth(), 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
+	SDL_Surface* sshot = SDL_CreateRGBSurface(0, window.get_width() , window.get_height(), 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
 //	SDL_RenderReadPixels(Empaerior::SDL_Rendering::get_renderer(), NULL, SDL_PIXELFORMAT_ARGB8888, sshot->pixels, sshot->pitch);
 	name += ".bmp";
 	SDL_SaveBMP(sshot,name.c_str());

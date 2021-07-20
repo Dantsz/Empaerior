@@ -11,7 +11,7 @@
 #include <iostream>
 #include "vertex.h"
 
-static constexpr size_t buffering  = 2;
+static constexpr size_t buffering  = 1;
 
 
 

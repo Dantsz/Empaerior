@@ -40,8 +40,7 @@ class VK_Renderer {
 
     Texture_Atlas texture_atlas;
 
-    SDL_Window* sdl_window;
-
+    Empaerior::Window* parentWindow;
 
     VkInstance instance;
     VkDebugUtilsMessengerEXT debugMessenger;

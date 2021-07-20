@@ -8,6 +8,8 @@
 
 
 #include "../../../include/Empaerior.h"
+#include "core/defines/basic_defines.h"
+#include "rendering/window.h"
 
 #include <algorithm>
 #include <SDL_vulkan.h>
@@ -63,18 +65,9 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(VkDebugUtilsMessageSeverityF
     return VK_FALSE;
 }
 
-static std::vector<const char*> getRequiredExtensions(SDL_Window* sdl_window) {
-    std::vector<const char*> extensions;
+static std::vector<const char*> getRequiredExtensions(Empaerior::Window* window) {
 
-    unsigned int count = 0;
-
-    SDL_Vulkan_GetInstanceExtensions(sdl_window, &count, nullptr);
-
-    // now count is (probably) 2. Now you can make space:
-    extensions.resize(count);
-
-    // now call again with that not-NULL array you just allocated.
-    SDL_Vulkan_GetInstanceExtensions(sdl_window, &count, extensions.data());
+    std::vector<const char*> extensions = window->getVulkanRequiredInstanceExtensions();
 
     // Now names should have (count) strings in it:
     if (enableValidationLayers) {
@@ -249,18 +242,18 @@ static bool isDeviceSuitable(VkSurfaceKHR& surface, VkPhysicalDevice device) {
     return indices.isComplete() && extensionsSupported && swapChainAdequate && supportedFeatures.features.samplerAnisotropy;
 }
 
-static VkExtent2D chooseSwapExtent(SDL_Window* sdl_window, const VkSurfaceCapabilitiesKHR& capabilities) {
+static VkExtent2D chooseSwapExtent(Empaerior::Window* window, const VkSurfaceCapabilitiesKHR& capabilities) {
     if (capabilities.currentExtent.width != UINT32_MAX) {
         return capabilities.currentExtent;
     }
     
-    int width = 0;
-    int height = 0;
-    SDL_GetWindowSize(sdl_window, &width, &height);
+    uint32_t width = window->get_width();
+    uint32_t height = window->get_height();
 
+    
     VkExtent2D actualExtent = {
-        static_cast<uint32_t>(width),
-        static_cast<uint32_t>(height)
+        width,
+        height
     };
 
         //where do these come from??
@@ -369,13 +362,10 @@ static VkPhysicalDevice pickPhysicalDevice(VkInstance& instance, VkSurfaceKHR& s
 #pragma region rendererFunctions
 void VK_Renderer::Init(Empaerior::Window* window)
 {
-    sdl_window = window->window;
+    parentWindow = window;
+  
    // ENGINE_INFO("Initializing vulkan renderer");
-    if (sdl_window == nullptr)
-    {
-      //  ENGINE_ERROR("Invalid window");
-
-    }
+  
     //add the resize event
     window->window_listener.register_event(SDL_WINDOWEVENT,
     [&](Empaerior::Event& event)
@@ -399,7 +389,7 @@ void VK_Renderer::initVulkan()
     createInstance();
     setupDebugMessenger(instance, debugMessenger);
     //create surface
-    auto result = SDL_Vulkan_CreateSurface(sdl_window, instance, &surface);
+    auto result = SDL_Vulkan_CreateSurface(parentWindow->window, instance, &surface);
     if(result == 0)
     {
         throw std::runtime_error("failed to create Vulkan Surface");
@@ -490,11 +480,15 @@ void VK_Renderer::cleanup()
 
 void VK_Renderer::recreateSwapChain()
 {
-    int width = 0, height = 0;
+    Empaerior::s_int width = 0;
+    Empaerior::s_int height = 0;
 
-    SDL_GetWindowSize(sdl_window, &width, &height);
+    width = parentWindow->get_width();
+    height = parentWindow->get_height();
     while (width == 0 || height == 0) {
-        SDL_GetWindowSize(sdl_window, &width, &height);
+       
+    width = parentWindow->get_width();
+    height = parentWindow->get_height();
 
     }
 
@@ -588,7 +582,7 @@ void VK_Renderer::createInstance()
     createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
     createInfo.pApplicationInfo = &appInfo;
 
-    auto extensions = getRequiredExtensions(sdl_window);
+    auto extensions = getRequiredExtensions(parentWindow);
     createInfo.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
     createInfo.ppEnabledExtensionNames = extensions.data();
 
@@ -695,7 +689,7 @@ void VK_Renderer::createSwapChain()
 
     surfaceFormat = chooseSwapSurfaceFormat(swapChainSupport.formats);
     VkPresentModeKHR presentMode = chooseSwapPresentMode(swapChainSupport.presentModes);
-    VkExtent2D extent = chooseSwapExtent(sdl_window, swapChainSupport.capabilities);
+    VkExtent2D extent = chooseSwapExtent(parentWindow, swapChainSupport.capabilities);
 
     uint32_t imageCount = swapChainSupport.capabilities.minImageCount + 1;
     if (swapChainSupport.capabilities.maxImageCount > 0 && imageCount > swapChainSupport.capabilities.maxImageCount) {
@@ -1283,9 +1277,10 @@ void VK_Renderer::createUniformBuffers()
 
 void VK_Renderer::updateUniformBuffer(Empaerior::Scene2D& scene,uint32_t currentImage)
 {
-    int width = 0;
-    int height = 0;
-    SDL_GetWindowSize(sdl_window, &width, &height); 
+    uint32_t width = 0;
+    uint32_t height = 0;
+    width = parentWindow->get_width();
+    height = parentWindow->get_height();
     scene.updateCamera(*this,width,height);
     memcpy(uniformBufferData[currentImage], &scene.ubo, sizeof(Empaerior::Camera2D));
 }

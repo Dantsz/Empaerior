@@ -30,11 +30,13 @@ namespace Empaerior
 		{
 			return width;
 		}
-		EMP_FORCEINLINE Empaerior::s_int get_heigth()
+		EMP_FORCEINLINE Empaerior::s_int get_height()
 		{
 			return height;
 		}
 
+		std::vector<const char*> getVulkanRequiredInstanceExtensions();
+	
 		SDL_Window* window{};
 		//lisens for window events
 		Event_Listener window_listener;
