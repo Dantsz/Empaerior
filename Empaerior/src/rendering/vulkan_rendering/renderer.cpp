@@ -1040,22 +1040,22 @@ void VK_Renderer::createGraphicsPipeline(Empaerior::VK_RendererGraphicsInfo& inf
 
     VkPipelineRasterizationStateCreateInfo rasterizer{};
     rasterizer.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
-    rasterizer.depthClampEnable = info.DepthClamp;
-    rasterizer.rasterizerDiscardEnable = info.rasterizerDiscardEnable;
+    rasterizer.depthClampEnable = static_cast<VkBool32>(info.DepthClamp);
+    rasterizer.rasterizerDiscardEnable = static_cast<VkBool32>(info.rasterizerDiscardEnable);
     rasterizer.polygonMode = VK_POLYGON_MODE_FILL;
     rasterizer.lineWidth = info.lineWidth;
     rasterizer.cullMode = VK_CULL_MODE_BACK_BIT;
     rasterizer.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
-    rasterizer.depthBiasEnable = info.DepthBias;
+    rasterizer.depthBiasEnable = static_cast<VkBool32>(info.DepthBias);
 
     VkPipelineMultisampleStateCreateInfo multisampling{};
     multisampling.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
-    multisampling.sampleShadingEnable = info.sampleShadingEnable;
+    multisampling.sampleShadingEnable = static_cast<VkBool32>(info.sampleShadingEnable);
     multisampling.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
 
     VkPipelineColorBlendAttachmentState colorBlendAttachment{};
     colorBlendAttachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
-    colorBlendAttachment.blendEnable = info.Blending;
+    colorBlendAttachment.blendEnable = static_cast<VkBool32>(info.Blending);
     colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
     colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
     colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD;
@@ -1065,7 +1065,7 @@ void VK_Renderer::createGraphicsPipeline(Empaerior::VK_RendererGraphicsInfo& inf
 
     VkPipelineColorBlendStateCreateInfo colorBlending{};
     colorBlending.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
-    colorBlending.logicOpEnable = info.LogicOPEnable;
+    colorBlending.logicOpEnable = static_cast<VkBool32>(info.LogicOPEnable);
     colorBlending.logicOp = VK_LOGIC_OP_COPY;
     colorBlending.attachmentCount = 1;
     colorBlending.pAttachments = &colorBlendAttachment;
@@ -1077,13 +1077,13 @@ void VK_Renderer::createGraphicsPipeline(Empaerior::VK_RendererGraphicsInfo& inf
 
     VkPipelineDepthStencilStateCreateInfo depthStencil{};
     depthStencil.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
-    depthStencil.depthTestEnable = info.Depth;
-    depthStencil.depthWriteEnable = info.Depth;
+    depthStencil.depthTestEnable = static_cast<VkBool32>(info.Depth);
+    depthStencil.depthWriteEnable = static_cast<VkBool32>(info.Depth);
     depthStencil.depthCompareOp = VK_COMPARE_OP_LESS;
-    depthStencil.depthBoundsTestEnable = info.DepthBoundTest;
+    depthStencil.depthBoundsTestEnable = static_cast<VkBool32>(info.DepthBoundTest);
     depthStencil.minDepthBounds = 0.0f; // Optional
     depthStencil.maxDepthBounds = 1.0f; // Optional
-    depthStencil.stencilTestEnable = info.StencilTest;
+    depthStencil.stencilTestEnable = static_cast<VkBool32>(info.StencilTest);
 
 
     VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
