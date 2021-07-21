@@ -16,11 +16,11 @@
 #include "../include/rendering/window.h"
 #include "scene.h"
 const inline int MAX_FRAMES_IN_FLIGHT = 2;
-const inline std::vector<const char*> validationLayers = {
+constexpr inline std::array<const char*,1> validationLayers = {
     "VK_LAYER_KHRONOS_validation",
 };
 
-const inline std::vector<const char*> deviceExtensions = {
+constexpr inline std::array<const char*,2> deviceExtensions = {
     VK_KHR_SWAPCHAIN_EXTENSION_NAME,
     VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME,
 };
