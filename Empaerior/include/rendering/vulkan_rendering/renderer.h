@@ -186,7 +186,7 @@ private:
 
     void cleanup();
 
-   public:
+   
 
     /*
        Packs all functions for rendering the frame in one

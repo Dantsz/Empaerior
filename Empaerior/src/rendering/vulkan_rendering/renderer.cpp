@@ -1,5 +1,6 @@
 #include "..\..\..\include\rendering\vulkan_rendering\renderer.h"
 
+#include <bit>
 #include <set>
 #include <array>
 #include <fstream>
@@ -296,7 +297,7 @@ static VkShaderModule createShaderModule(VkDevice& device, const std::vector<cha
     VkShaderModuleCreateInfo createInfo{};
     createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
     createInfo.codeSize = code.size();
-    createInfo.pCode = reinterpret_cast<const uint32_t*>(code.data());// reinterpret_cast???
+    createInfo.pCode = std::bit_cast<const uint32_t*>(code.data());
 
     VkShaderModule shaderModule{};
     if (vkCreateShaderModule(device, &createInfo, nullptr, &shaderModule) != VK_SUCCESS) {
