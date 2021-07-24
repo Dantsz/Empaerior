@@ -16,6 +16,8 @@
 
 //An example of what a application might look like
 #include "debugging/log.h"
+#include "input/keyboard.h"
+#include "rendering/vulkan_rendering/geometry_buffer.h"
 #include "rendering/vulkan_rendering/renderer.h"
 #include <vulkan/vulkan.h>
 #include "input/input.h"
@@ -79,7 +81,7 @@ public:
 	{
 		ecs.Destroy();
 		scene->cleanup();
-		m_renderer->cleanup();
+		
 	}
 	void Update(const Empaerior::u_int dt) override
 	{
@@ -181,24 +183,25 @@ public:
 				timy.start();
 				if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_E))
 				{
-
-			
-					for(int i = 0 ; i < 100 ; i ++ )
+					
+					for(int i = 0 ; i < 10 ; i ++ )
 					{
-						for(int j = 0 ; j < 100 ; j++)
+						for(int j = 0 ; j < 3 ; j++)
 						{
-							Empaerior::Sprite sprt;
+							Empaerior::Sprite sprt{};
 							Empaerior::createSprite(vk,sprt,{(float)i,(float)j,1,1},{0,0,1,1},1);
-							if (Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_Y))
-								{
-									Empaerior::Sprite sprt;
-									Empaerior::createSprite(vk,sprt,{(float)i*30,(float)j*30,30,30},{0,0,1,1},1);
-									Empaerior::createSprite(vk,sprt,{(float)i*30,(float)j*30,30,30},{0,0,1,1},1);
-									Empaerior::createSprite(vk,sprt,{(float)i*30,(float)j*30,30,30},{0,0,1,1},1);
-								}	
+							
 						}
 					}
+					
 				}
+				Empaerior::Sprite text{};
+				Empaerior::createTextSprite(vk,text,{250,250,100,100},{32.f,32.f},idk,"ijgi gijfigji fgijfgij",{255,255,255});	
+				if(Empaerior::Input::Keyboard::is_key_pressed(SDL_SCANCODE_E))
+				{
+					//dump_data(vk.defaultScene.geometrybuffer);
+				}
+
 				timy.stop(); 
 				
 				ImGui_Emp::NewFrame(window, vk);

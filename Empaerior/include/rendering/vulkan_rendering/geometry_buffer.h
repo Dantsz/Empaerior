@@ -1,4 +1,5 @@
 #pragma once
+#include <vcruntime_string.h>
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include <vulkan/vulkan.h>
@@ -10,8 +11,9 @@
 
 #include <iostream>
 #include "vertex.h"
-
-static constexpr size_t buffering  = 1;
+//the number of buffers in action
+//should ideally be 2
+static constexpr size_t buffering  = 2;
 
 
 
@@ -50,7 +52,7 @@ struct DynamicBuffer
 		{
 			VmaAllocationCreateInfo bufferAllocInfo{};
 			bufferAllocInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
-			Empaerior::VKfunctions::allocateBuffer(*m_allocator, BufferSize[inUseBufferIndex] + initialSize, usage, Buffers[i], BuffersAllocations[i], bufferAllocInfo);
+			Empaerior::VKfunctions::allocateBuffer(*m_allocator, BufferSize[inUseBufferIndex] + initialSize, usage, &Buffers[i], &BuffersAllocations[i], &bufferAllocInfo);
 			vmaMapMemory(*m_allocator, BuffersAllocations[i], &BuffersData[i]);
 
 			BufferSize[i] = initialSize;
@@ -65,63 +67,42 @@ struct DynamicBuffer
 	{
 
 		vkDeviceWaitIdle(device);
-		size_t dataIndex = (inUseBufferIndex + 1) % buffering;
-		//if the buffer hasn't been updated before , it doesn't have any new data that the old buffer doesn't have
-		//so a third buffer is not needed
-		if (!updateBuffer)
+		size_t dataIndex = (inUseBufferIndex + 1) % buffering;//where the new buffer needs to go
+		size_t srcdataIndex = dataIndex;// from where to take the data
+		if(!updateBuffer)
 		{
-		
-			if (BuffersData[dataIndex] != nullptr)
-			{
-			
-				vmaUnmapMemory(*m_allocator, BuffersAllocations[dataIndex]);
-				vmaDestroyBuffer(*m_allocator, Buffers[dataIndex], BuffersAllocations[dataIndex]);
-				
-			}
-			VmaAllocationCreateInfo bufferAllocateInfo{};
-			bufferAllocateInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
-			bufferAllocateInfo.requiredFlags = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
-			Empaerior::VKfunctions::allocateBuffer(*m_allocator,BufferSize[inUseBufferIndex] + size, usage, Buffers[dataIndex], BuffersAllocations[dataIndex], bufferAllocateInfo);
-			vmaMapMemory(*m_allocator, BuffersAllocations[dataIndex], &BuffersData[dataIndex]);
-			memcpy(BuffersData[dataIndex], BuffersData[inUseBufferIndex], BufferSize[inUseBufferIndex]);
-
-			BufferSize[dataIndex] = BufferSize[inUseBufferIndex] + size;
-			used_size[dataIndex] = used_size[inUseBufferIndex];
+			srcdataIndex = inUseBufferIndex;
 			updateBuffer = true;
 		}
-		else//the buffer is updated so the new one has to contain the new buffer info
-		{
+		//if the buffer hasn't been updated before , it doesn't have any new data that the old buffer doesn't have
+		//so a third buffer is not needed
+		//
+		VmaAllocationCreateInfo bufferAllocateInfo{};
+		bufferAllocateInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
+		bufferAllocateInfo.requiredFlags = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
+
+	
+		
+		VkBuffer stagingBuffer{};
+		VmaAllocation stagingBufferAllocation{};
+		void* stagingBufferData = nullptr;
+
+		Empaerior::VKfunctions::allocateBuffer(*m_allocator, BufferSize[srcdataIndex] + size, usage, &stagingBuffer, &stagingBufferAllocation, &bufferAllocateInfo);
+		vmaMapMemory(*m_allocator, stagingBufferAllocation, &stagingBufferData);
+		memcpy(stagingBufferData, BuffersData[srcdataIndex], BufferSize[srcdataIndex]);
 			
-			VkBuffer stagingBuffer{};
-			VmaAllocation stagingBufferAllocation{};
-			void* stagingBufferData = nullptr;
-			VmaAllocationCreateInfo stagingBufferAllocInfo{};
-			stagingBufferAllocInfo.usage = VMA_MEMORY_USAGE_CPU_TO_GPU;
-			stagingBufferAllocInfo.requiredFlags =  VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
-			Empaerior::VKfunctions::allocateBuffer(*m_allocator, BufferSize[dataIndex] + size, usage, stagingBuffer, stagingBufferAllocation, stagingBufferAllocInfo);
-			vmaMapMemory(*m_allocator, stagingBufferAllocation, &stagingBufferData);
-
+		vmaUnmapMemory(*m_allocator, BuffersAllocations[srcdataIndex]);
+		vmaDestroyBuffer(*m_allocator, Buffers[srcdataIndex], BuffersAllocations[srcdataIndex]);
 			
 
-			if (BuffersData[dataIndex] != nullptr)
-			{
-				memcpy(stagingBufferData, BuffersData[dataIndex], BufferSize[dataIndex]);
-				vmaUnmapMemory(*m_allocator, BuffersAllocations[dataIndex]);
-				vmaDestroyBuffer(*m_allocator, Buffers[dataIndex], BuffersAllocations[dataIndex]);
-			}
+		Buffers[dataIndex] = stagingBuffer;
+		BuffersAllocations[dataIndex] = stagingBufferAllocation;
+		
+		BuffersData[dataIndex] = stagingBufferData;
 
-			Buffers[dataIndex] = stagingBuffer;
-			BuffersAllocations[dataIndex] = stagingBufferAllocation;
-			BuffersData[dataIndex] = stagingBufferData;
+		BufferSize[dataIndex] = BufferSize[dataIndex] + size;
 		
-			BufferSize[dataIndex] = BufferSize[dataIndex] + size;
-			used_size[dataIndex] = used_size[dataIndex] ;
-
-		}
-		
-		
-		
-		
+			
 	}
 
 	size_t get_in_use_index()
@@ -136,23 +117,16 @@ struct DynamicBuffer
 	[[nodiscard]]size_t allocate(size_t size)
 	{
 		//create a new pointer
-		size_t place;
-		//check if there's space available
-		
-		
-		
-		place = index.emplace_back(used_size[get_in_use_index()]);
+		size_t place = index.emplace_back(used_size[get_in_use_index()]);
 			
-
+		//check if there's space available
 		if (size >= BufferSize[get_in_use_index()] - used_size[get_in_use_index()]) // create new space
 		{
-			
 			//expand the buffer while the new allocation is bigger
 			while (BufferSize[get_in_use_index()] - used_size[get_in_use_index()]  < size)
 			{
 				//ENGINE_WARN("Expanding buffer");
 				ExpandBuffer(BufferSize[get_in_use_index()]);
-				
 			}
 		}
 		//mark the meory as used
@@ -302,6 +276,7 @@ struct geometryBuffer
 
 	void updateInUseBuffers()
 	{
+		
 		indexBuffer.updateInUseBuffers();
 		vertexBuffer.updateInUseBuffers();
 		

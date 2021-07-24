@@ -108,7 +108,7 @@ void Texture_Atlas::createImageAtIndex(size_t index , Empaerior::byte* pixels, E
     void* data = nullptr;
     VkBuffer stagingBuffer = VK_NULL_HANDLE;
     VmaAllocation buffer_allocation = VK_NULL_HANDLE;
-    Empaerior::VKfunctions::allocateBuffer(*m_allocator, imageSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, stagingBuffer, buffer_allocation, allocInfo);
+    Empaerior::VKfunctions::allocateBuffer(*m_allocator, imageSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, &stagingBuffer, &buffer_allocation, &allocInfo);
     vmaMapMemory(*m_allocator, buffer_allocation, &data);
     memcpy(data, pixels, static_cast<size_t>(imageSize));
     vmaUnmapMemory(*m_allocator, buffer_allocation);

@@ -1270,7 +1270,7 @@ void VK_Renderer::createUniformBuffers()
         allocInfo.requiredFlags = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
 
 
-        Empaerior::VKfunctions::allocateBuffer(allocator, bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, uniformBuffers[i], uniformBuffersAllocations[i], allocInfo);
+        Empaerior::VKfunctions::allocateBuffer(allocator, bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, &uniformBuffers[i], &uniformBuffersAllocations[i], &allocInfo);
         vmaMapMemory(allocator, uniformBuffersAllocations[i], &uniformBufferData[i]);
     }
   
@@ -1321,7 +1321,7 @@ void VK_Renderer::drawFrame(Empaerior::Scene2D& scene)
 
     updateUniformBuffer(scene,imageIndex); 
     scene.geometrybuffer.updateInUseBuffers();
-
+  
     recordCommandBuffer(scene,commandBuffers[imageIndex], swapChainFramebuffers[imageIndex], &scene.geometrybuffer.vertexBuffer.inUseBuffer, scene.geometrybuffer.indexBuffer.inUseBuffer, &descriptorSets[imageIndex]);
 
     inUseCommandBuffers[mainCommandBufferinUseIndex] = commandBuffers[imageIndex];

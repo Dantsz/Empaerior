@@ -36,8 +36,8 @@ namespace Empaerior::VKfunctions
 
             vkFreeCommandBuffers(device, commandPool, 1, &commandBuffer);
         }
-        //Buffer funtions
-        void allocateBuffer(VmaAllocator& allocator, VkDeviceSize size, VkBufferUsageFlags usage, VkBuffer& buffer, VmaAllocation& allocation, VmaAllocationCreateInfo& allocInfo)
+        //Buffer functions
+        void allocateBuffer(VmaAllocator& allocator, VkDeviceSize size, VkBufferUsageFlags usage, VkBuffer* buffer, VmaAllocation* allocation, VmaAllocationCreateInfo* allocInfo)
         {
             VkBufferCreateInfo bufferInfo = {};
             bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
@@ -46,7 +46,7 @@ namespace Empaerior::VKfunctions
 
             bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
-            vmaCreateBuffer(allocator, &bufferInfo, &allocInfo, &buffer, &allocation, nullptr);
+            vmaCreateBuffer(allocator, &bufferInfo, allocInfo, buffer, allocation, nullptr);
         }
         void copyBuffer(VkDevice device, VkQueue graphicsQueue, VkCommandPool commandPool, VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size)
         {

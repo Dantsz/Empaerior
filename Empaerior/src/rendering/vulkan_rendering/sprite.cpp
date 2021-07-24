@@ -1,10 +1,15 @@
 
+
+
+#include <cmath>
+
 #include "../include/rendering/vulkan_rendering/sprite.h"
 #include "../include/rendering/vulkan_rendering/glyphs.h"
 #include "../include/rendering/vulkan_rendering/renderer.h"
 #include "../include/rendering/vulkan_rendering/vertex.h"
 //the lower limit for the char to be drawn
 static constexpr float charHeightLimit = 0.0001;
+
 namespace Empaerior
 {
 	void createSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S rect, Empaerior::Float_Rect_S tex_rect, uint32_t tex_id)
@@ -26,10 +31,10 @@ namespace Empaerior
 		sprite.texture_id = tex_id;
 
 
-		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex)) = { {  rect.x,rect.y ,0.0f},                      {0.0f,0.0f} ,tex_id , {0.0f,0.0f,0.0f} };
-		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1) = { {rect.x, rect.y + rect.h,0.0f },          {0.0f,1.0f}, tex_id, {0.0f,0.0f,0.0f} };
-		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2) = { { rect.x + rect.w, rect.y + rect.h,0.0f}, {0.0f,1.0f},tex_id, {0.0f,0.0f,0.0f} };
-		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3) = { { rect.x + rect.w,rect.y ,0.0f},          {0.0f,0.0f},tex_id , {0.0f,0.0f,0.0f} };
+		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprTopLeft) = { {  rect.x,rect.y ,0.0f},                      {0.0f,0.0f} ,tex_id , {0.0f,0.0f,0.0f} };
+		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprBottomLeft) = { {rect.x, rect.y + rect.h,0.0f },          {0.0f,1.0f}, tex_id, {0.0f,0.0f,0.0f} };
+		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprBottomRight) = { { rect.x + rect.w, rect.y + rect.h,0.0f}, {0.0f,1.0f},tex_id, {0.0f,0.0f,0.0f} };
+		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprTopRight) = { { rect.x + rect.w,rect.y ,0.0f},          {0.0f,0.0f},tex_id , {0.0f,0.0f,0.0f} };
 
 		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t)) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex));
 		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 1) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1);
@@ -52,10 +57,6 @@ namespace Empaerior
 	{
 		createSprite(scene.geometrybuffer, renderer.texture_atlas,  sprite,  rect, tex_rect,  tex_id);
 	}
-
-
-
-
 	static void setupTextSprite(geometryBuffer& buffer, Texture_Atlas& atlas, Sprite& sprite, Empaerior::Float_Rect_S& rect, Empaerior::Point2f& charDimensions, const Empaerior::Font& font, const char* message, glm::vec3& color)
 	{
 		Empaerior::fl_point beginX = rect.x;
@@ -65,15 +66,12 @@ namespace Empaerior
 		for (size_t i = 0; i < strlen(message); i++)
 		{
 			//used to transform the width and height based on the char size
-			Empaerior::fl_point ar;
+			Empaerior::fl_point ar = 1.0f;
 			if (font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].height > charHeightLimit)
 			{
 				 ar = font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].width / font.glyphSize[message[i]].height;
 			}
-			else
-		  	{
-				    ar = 1.0f;
-			}
+			
 
 			//calculate if the character fits and how much it fits
 			if (beginX + charDimensions.elements[0] * ar >= rect.w + rect.x) {
@@ -90,12 +88,25 @@ namespace Empaerior
 				 CharHeight = (rect.y + rect.h) - beginY;
 			}
 
-			//set data
-			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i * 4) = { { beginX ,     beginY + (CharHeight - font.glyphSize[message[i]].HbearingY)   ,     0.0f},{0.0f,0.0f} , sprite.texture_id, color };
-			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1 + i * 4) = { { beginX ,    beginY + CharHeight + (font.glyphSize[message[i]].MHeight - font.glyphSize[message[i]].HbearingY)   ,0.0f},          {0.0f,1.0f},  sprite.texture_id,color };
-			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2 + i * 4) = { { beginX + font.glyphSize[message[i]].Mwidth ,      beginY + CharHeight + (font.glyphSize[message[i]].MHeight - font.glyphSize[message[i]].HbearingY) ,  0.0f}, {0.14f,1.0f}, sprite.texture_id , color };
-			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3 + i * 4) = { { beginX + font.glyphSize[message[i]].Mwidth,       beginY + (CharHeight - font.glyphSize[message[i]].HbearingY) ,0.0f}, {0.14f,0.0f}, sprite.texture_id , color };
 
+			//set texture cropping (how much of a letter is visible)
+			Empaerior::fl_point  visibilityX = CharWidth / (charDimensions.elements[0] * ar);
+			//calculate how much of the letter must be shown
+			Empaerior::fl_point visibilityY = 1.0f; 
+			if (beginY + font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].height > rect.y + rect.h)
+			{ 
+				visibilityY = CharHeight / charDimensions.elements[1];
+			}
+			
+			//set data
+			//Empaerior::Sprite glyph{};
+			//Empaerior::createSprite(buffer,atlas,glyph,{},{},sprite.texture_id);
+
+			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprTopLeft + i * 4) = { { beginX ,     beginY + (CharHeight - font.glyphSize[message[i]].HbearingY)   ,     0.0f},{0.0f,0.0f} , sprite.texture_id, color };
+			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprBottomLeft + i * 4) = { { beginX ,    beginY + CharHeight + (font.glyphSize[message[i]].MHeight - font.glyphSize[message[i]].HbearingY)   ,0.0f},          {0.0f,1.0f},  sprite.texture_id,color };
+			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprBottomRight + i * 4) = { { beginX + font.glyphSize[message[i]].Mwidth ,      beginY + CharHeight + (font.glyphSize[message[i]].MHeight - font.glyphSize[message[i]].HbearingY) ,  0.0f}, {1.0f,1.0f}, sprite.texture_id , color };
+			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprTopRight + i * 4) = { { beginX + font.glyphSize[message[i]].Mwidth,       beginY + (CharHeight - font.glyphSize[message[i]].HbearingY) ,0.0f}, {1.0f,0.0f}, sprite.texture_id , color };
+			
 			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + i * 6) =     static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i * 4);
 			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 1 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1 + i * 4);
 			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 2 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2 + i * 4);
@@ -104,21 +115,10 @@ namespace Empaerior
 			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 4 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3 + i * 4);
 			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 5 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i * 4);
 
-			//set texture cropping (how much of a letter is visible)
-			Empaerior::fl_point  visibilityX = CharWidth / (charDimensions.elements[0] * ar);
-			//calculate how much of the letter must be shown
-			Empaerior::fl_point visibilityY;
-			if (beginY + font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].height > rect.y + rect.h)
-			{ 
-				visibilityY = CharHeight / charDimensions.elements[1];
-			}
-			else 
-			{
-				visibilityY = 1.0f;
-			}
+			
 
 
-			setSpriteTexRect(sprite, { 0, message[i] * font.glyphHeight   , font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].width * visibilityX,font.glyphSize[message[i]].height * visibilityY }, i * 4);
+			setSpriteTexRect(sprite, { 0, static_cast<float>(message[i]) * font.glyphHeight   , font.glyphSize[static_cast<Empaerior::u_inter>(message[i])].width * visibilityX,font.glyphSize[message[i]].height * visibilityY }, i * 4);
 
 			//add the space 
 			if (message[i] == ' ')

@@ -8,7 +8,7 @@ namespace Empaerior::VKfunctions {
 	
 	VkCommandBuffer beginSingleTimeCommands(VkDevice& device, VkQueue& graphicsQueue, VkCommandPool& commandPool);
 	void endSingleTimeCommands(VkDevice& device, VkQueue& graphicsQueue, VkCommandPool& commandPool, VkCommandBuffer commandBuffer);
-	void allocateBuffer(VmaAllocator& allocator, VkDeviceSize size, VkBufferUsageFlags usage, VkBuffer& buffer, VmaAllocation& allocation, VmaAllocationCreateInfo& allocInfo);
+	void allocateBuffer(VmaAllocator& allocator, VkDeviceSize size, VkBufferUsageFlags usage, VkBuffer* buffer, VmaAllocation* allocation, VmaAllocationCreateInfo* allocInfo);
 	void copyBuffer(VkDevice device, VkQueue graphicsQueue, VkCommandPool commandPool, VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size);
 	void createImage(VmaAllocator& allocator, Empaerior::u_int width, Empaerior::u_int height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage,
                       [[maybe_unused]] VkMemoryPropertyFlags properties, VkImage& image, VmaAllocation& allocation);
