@@ -105,7 +105,7 @@ struct DynamicBuffer
 			
 	}
 
-	size_t get_in_use_index()
+	size_t get_in_use_index() const
 	{
 		if(updateBuffer) 
 		{

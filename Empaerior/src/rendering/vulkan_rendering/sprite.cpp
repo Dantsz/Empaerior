@@ -1,6 +1,7 @@
 
 
 
+#include <bit>
 #include <cmath>
 
 #include "../include/rendering/vulkan_rendering/sprite.h"
@@ -31,18 +32,18 @@ namespace Empaerior
 		sprite.texture_id = tex_id;
 
 
-		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprTopLeft) = { {  rect.x,rect.y ,0.0f},                      {0.0f,0.0f} ,tex_id , {0.0f,0.0f,0.0f} };
-		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprBottomLeft) = { {rect.x, rect.y + rect.h,0.0f },          {0.0f,1.0f}, tex_id, {0.0f,0.0f,0.0f} };
-		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprBottomRight) = { { rect.x + rect.w, rect.y + rect.h,0.0f}, {0.0f,1.0f},tex_id, {0.0f,0.0f,0.0f} };
-		*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprTopRight) = { { rect.x + rect.w,rect.y ,0.0f},          {0.0f,0.0f},tex_id , {0.0f,0.0f,0.0f} };
+		*(std::bit_cast<Vertex*>(buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()]) + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprTopLeft) = { {  rect.x,rect.y ,0.0f},{0.0f,0.0f} ,tex_id, {0.0f,0.0f,0.0f} };
+		*(std::bit_cast<Vertex*>(buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()]) + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprBottomLeft) = { {rect.x, rect.y + rect.h,0.0f },    {0.0f,1.0f}, tex_id, {0.0f,0.0f,0.0f} };
+		*(std::bit_cast<Vertex*>(buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()]) + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprBottomRight) = { { rect.x + rect.w, rect.y + rect.h,0.0f}, {0.0f,1.0f},tex_id, {0.0f,0.0f,0.0f} };
+		*(std::bit_cast<Vertex*>(buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()]) + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprTopRight) = { { rect.x + rect.w,rect.y ,0.0f},          {0.0f,0.0f},tex_id , {0.0f,0.0f,0.0f} };
 
-		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t)) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex));
-		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 1) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1);
-		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 2) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2);
+		*(std::bit_cast<uint32_t*>(buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()]) + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t)) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex));
+		*(std::bit_cast<uint32_t*>(buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()]) + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 1) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1);
+		*(std::bit_cast<uint32_t*>(buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()]) + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 2) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2);
 
-		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 3) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2);
-		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 4) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3);
-		*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 5) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex));
+		*(std::bit_cast<uint32_t*>(buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()]) + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 3) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2);
+		*(std::bit_cast<uint32_t*>(buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()]) + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 4) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3);
+		*(std::bit_cast<uint32_t*>(buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()]) + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 5) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex));
 
 		setSpriteTexRect(sprite, tex_rect);
 		
@@ -102,18 +103,18 @@ namespace Empaerior
 			//Empaerior::Sprite glyph{};
 			//Empaerior::createSprite(buffer,atlas,glyph,{},{},sprite.texture_id);
 
-			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprTopLeft + i * 4) = { { beginX ,     beginY + (CharHeight - font.glyphSize[message[i]].HbearingY)   ,     0.0f},{0.0f,0.0f} , sprite.texture_id, color };
-			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprBottomLeft + i * 4) = { { beginX ,    beginY + CharHeight + (font.glyphSize[message[i]].MHeight - font.glyphSize[message[i]].HbearingY)   ,0.0f},          {0.0f,1.0f},  sprite.texture_id,color };
-			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprBottomRight + i * 4) = { { beginX + font.glyphSize[message[i]].Mwidth ,      beginY + CharHeight + (font.glyphSize[message[i]].MHeight - font.glyphSize[message[i]].HbearingY) ,  0.0f}, {1.0f,1.0f}, sprite.texture_id , color };
-			*((Vertex*)buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()] + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprTopRight + i * 4) = { { beginX + font.glyphSize[message[i]].Mwidth,       beginY + (CharHeight - font.glyphSize[message[i]].HbearingY) ,0.0f}, {1.0f,0.0f}, sprite.texture_id , color };
+			*(std::bit_cast<Vertex*>(buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()]) + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprTopLeft + i * 4) = { { beginX ,     beginY + (CharHeight - font.glyphSize[message[i]].HbearingY)   ,     0.0f},{0.0f,0.0f} , sprite.texture_id, color };
+			*(std::bit_cast<Vertex*>(buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()]) + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprBottomLeft + i * 4) = { { beginX ,    beginY + CharHeight + (font.glyphSize[message[i]].MHeight - font.glyphSize[message[i]].HbearingY)   ,0.0f},          {0.0f,1.0f},  sprite.texture_id,color };
+			*(std::bit_cast<Vertex*>(buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()]) + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprBottomRight + i * 4) = { { beginX + font.glyphSize[message[i]].Mwidth ,      beginY + CharHeight + (font.glyphSize[message[i]].MHeight - font.glyphSize[message[i]].HbearingY) ,  0.0f}, {1.0f,1.0f}, sprite.texture_id , color };
+			*(std::bit_cast<Vertex*>(buffer.vertexBuffer.BuffersData[buffer.vertexBuffer.get_in_use_index()]) + buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + Empaerior::spriteCorners::sprTopRight + i * 4) = { { beginX + font.glyphSize[message[i]].Mwidth,       beginY + (CharHeight - font.glyphSize[message[i]].HbearingY) ,0.0f}, {1.0f,0.0f}, sprite.texture_id , color };
 			
-			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + i * 6) =     static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i * 4);
-			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 1 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1 + i * 4);
-			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 2 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2 + i * 4);
+			*(std::bit_cast<uint32_t*>(buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()]) + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + i * 6) =     static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i * 4);
+			*(std::bit_cast<uint32_t*>(buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()]) + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 1 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1 + i * 4);
+			*(std::bit_cast<uint32_t*>(buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()]) + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 2 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2 + i * 4);
 
-			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 3 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2 + i * 4);
-			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 4 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3 + i * 4);
-			*((uint32_t*)buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()] + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 5 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i * 4);
+			*(std::bit_cast<uint32_t*>(buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()]) + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 3 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2 + i * 4);
+			*(std::bit_cast<uint32_t*>(buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()]) + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 4 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3 + i * 4);
+			*(std::bit_cast<uint32_t*>(buffer.indexBuffer.BuffersData[buffer.indexBuffer.get_in_use_index()]) + buffer.indexBuffer.index[sprite.indicesIndex] / sizeof(uint32_t) + 5 + i * 6) = static_cast<uint32_t>(buffer.vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + i * 4);
 
 			
 
@@ -176,13 +177,13 @@ namespace Empaerior
 		sprite.rect.dimensions = rect;
 		//BuffersData - pointer
 		//index - offset 
-		((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))->pos = { rect.x,rect.y,0.0f };
+		(std::bit_cast<Vertex*>(sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()]) + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))->pos = { rect.x,rect.y,0.0f };
 
-		((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1)->pos = { rect.x , rect.y + rect.h ,0.0f };
+		(std::bit_cast<Vertex*>(sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()]) + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 1)->pos = { rect.x , rect.y + rect.h ,0.0f };
 
-		((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2)->pos = { rect.x + rect.w, rect.y + rect.h,0.0f };
+		(std::bit_cast<Vertex*>(sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()]) + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 2)->pos = { rect.x + rect.w, rect.y + rect.h,0.0f };
 
-		((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3)->pos = { rect.x + rect.w, rect.y ,0.0f };
+		(std::bit_cast<Vertex*>(sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()]) + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + 3)->pos = { rect.x + rect.w, rect.y ,0.0f };
 
 	}
 
@@ -192,7 +193,7 @@ namespace Empaerior
 	{
 		sprite.rect.dimensions.w = width;
 		sprite.rect.dimensions.h = height;
-#define vertex ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
+#define vertex (std::bit_cast<Vertex*>(sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()]) + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
 		(vertex + 1)->pos.y = vertex->pos.y + height;
 		(vertex + 2)->pos = { vertex->pos.x + width, vertex->pos.y + height,0.0f };
 		(vertex + 3)->pos.x = vertex->pos.x + width;
@@ -206,16 +207,16 @@ namespace Empaerior
 		rect.y /= sprite.parent_atlas->image_dimensions[sprite.texture_id].elements[1];
 		rect.h /= sprite.parent_atlas->image_dimensions[sprite.texture_id].elements[1];
 
-		((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + offset)->texCoord = { rect.x,rect.y };
-		((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + offset + 1)->texCoord = { rect.x , rect.y + rect.h };
-		((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + offset +  2)->texCoord = { rect.x + rect.w, rect.y + rect.h };
-		((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + offset +  3)->texCoord = { rect.x + rect.w, rect.y };
+		(std::bit_cast<Vertex*>(sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()]) + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + offset)->texCoord = { rect.x,rect.y };
+		(std::bit_cast<Vertex*>(sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()]) + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + offset + 1)->texCoord = { rect.x , rect.y + rect.h };
+		(std::bit_cast<Vertex*>(sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()]) + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + offset +  2)->texCoord = { rect.x + rect.w, rect.y + rect.h };
+		(std::bit_cast<Vertex*>(sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()]) + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + offset +  3)->texCoord = { rect.x + rect.w, rect.y };
 
 	}
 
 	void setSpriteDepth(Sprite& sprite, Empaerior::fl_point depth)
 	{
-#define vertex ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
+#define vertex (std::bit_cast<Vertex*>(sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()]) + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
 		vertex->pos.z = depth;
 		(vertex + 1)->pos.z = depth;
 		(vertex + 2)->pos.z = depth;
@@ -229,7 +230,7 @@ namespace Empaerior
 		//get the middle of the sprite
 		Empaerior::fl_point midX = sprite.rect.dimensions.x + sprite.rect.dimensions.w / 2;
 		Empaerior::fl_point midY = sprite.rect.dimensions.y + sprite.rect.dimensions.h / 2;
-#define vertex ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
+#define vertex (std::bit_cast<Vertex*>(sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()]) + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
 		//rotate each vertex separately
 		//top left
 		(vertex + sprTopLeft)->pos.x = midX + (sprite.rect.dimensions.x - midX) * Empaerior::Math::cosd(sprite.rect.angle) - (sprite.rect.dimensions.y - midY) * Empaerior::Math::sind(sprite.rect.angle);
@@ -250,7 +251,7 @@ namespace Empaerior
 
 	void setSpriteTexture(Sprite& sprite, Empaerior::u_int texID)
 	{
-#define vertex ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
+#define vertex (std::bit_cast<Vertex*>(sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()]) + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
 		
 		(vertex + sprTopLeft)->tex_id = texID;
 		(vertex + sprTopRight)->tex_id = texID;
@@ -264,14 +265,14 @@ namespace Empaerior
 
 	Vertex* getSpriteVertex(Sprite& sprite, uint8_t vert)
 	{
-		return ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + vert);
+		return std::bit_cast<Vertex*>(sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()]) + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex) + vert;
 	}
 	//======Text Sprite======//
 
 
 	void setTextSpriteDepth(Sprite& sprite, Empaerior::fl_point depth)
 	{
-#define vertex ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
+#define vertex (std::bit_cast<Vertex*>(sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()]) + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
 		for (size_t i = 0; i < sprite.verticesSize / ( sizeof(Vertex)); i++)
 		{
 			(vertex + i)->pos.z = depth;
@@ -283,7 +284,7 @@ namespace Empaerior
 
 	void setTextSpritePosition(Sprite& sprite, Empaerior::fl_point x , Empaerior::fl_point y)
 	{
-#define vertex ((Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()] + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
+#define vertex (std::bit_cast<Vertex*>(sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()]) + sprite.parent->vertexBuffer.index[sprite.verticesIndex] / sizeof(Vertex))
 
 		//calculate the offset 
 		x = x - vertex->pos.x;
@@ -326,7 +327,7 @@ namespace Empaerior
 		{
 			//overwrite the currently allocated buffer data with the message and make the rest of the data invisible
 			
-			Vertex* vertexData = (Vertex*)sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()];
+			Vertex* vertexData = std::bit_cast<Vertex*>(sprite.parent->vertexBuffer.BuffersData[sprite.parent->vertexBuffer.get_in_use_index()]);
 			//set the unused vertices to 0 
 			//hope they won't be shown
 			for (size_t i = strlen(message)  ; i < (sprite.verticesSize / sizeof(Vertex) ); i++)
@@ -352,7 +353,7 @@ namespace Empaerior
 	void destroySprite(Sprite& sprite)
 	{
 		
-		uint32_t* data = (uint32_t*)sprite.parent->indexBuffer.BuffersData[sprite.parent->indexBuffer.get_in_use_index()];
+		uint32_t* data = std::bit_cast<uint32_t*>(sprite.parent->indexBuffer.BuffersData[sprite.parent->indexBuffer.get_in_use_index()]);
 		/*ENGINE_INFO(std::string("Deleting  sprite : \n Indices index: " 
 			+ std::to_string(sprite.indicesIndex) + "->" + std::to_string(sprite.parent->indexBuffer.index[sprite.indicesIndex]) + '\n' 
 			+ "Vertices index: " + std::to_string(sprite.verticesIndex) + "->" + std::to_string(sprite.parent->vertexBuffer.index[sprite.verticesIndex]) + '\n'	

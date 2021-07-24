@@ -231,7 +231,7 @@ static bool isDeviceSuitable(VkSurfaceKHR& surface, VkPhysicalDevice device) {
     vkGetPhysicalDeviceFeatures2(device, &supportedFeatures);
 
 
-    if (!descriptorIndexingFeatures.shaderSampledImageArrayNonUniformIndexing)
+    if (descriptorIndexingFeatures.shaderSampledImageArrayNonUniformIndexing == 0u)
     {
         throw std::runtime_error("Device doesn't have non uniform indexing");
     }
@@ -240,7 +240,7 @@ static bool isDeviceSuitable(VkSurfaceKHR& surface, VkPhysicalDevice device) {
         throw std::runtime_error("Device does not support shaderSampledImageArrayDynamicIndexing feature , please use another render backend!");
     }
 
-    return indices.isComplete() && extensionsSupported && swapChainAdequate && supportedFeatures.features.samplerAnisotropy;
+    return indices.isComplete() && extensionsSupported && swapChainAdequate && (supportedFeatures.features.samplerAnisotropy != 0u);
 }
 
 static VkExtent2D chooseSwapExtent(Empaerior::Window* window, const VkSurfaceCapabilitiesKHR& capabilities) {
@@ -422,7 +422,7 @@ void VK_Renderer::initVulkan()
     //texture atlas
     texture_atlas.attachRenderComponents(&device, &graphicsQueue, &commandPool, &allocator,&framebufferNeedsReconstruction);
     //create one default texture
-    texture_atlas.create_texture_from_memory(GraphicsSettings.defaultTextureColor.data(),1,1,0);
+    size_t defaultTexture  = texture_atlas.create_texture_from_memory(GraphicsSettings.defaultTextureColor.data(),1,1,0);
     //geo buffer
   
 
