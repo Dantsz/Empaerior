@@ -31,7 +31,6 @@ jobs:
       id: runvcpkg
       with:
           vcpkgDirectory: '${{ runner.workspace }}/b/vcpkg'
-          runVcpkgInstall: true
           vcpkgGitCommitId: '${{ matrix.vcpkgCommitId}}'
 
         
