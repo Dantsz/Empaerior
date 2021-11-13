@@ -23,9 +23,6 @@ jobs:
             vcpkgCommitId: '5568f110b509a9fd90711978a7cb76bae75bb092'
           - os: ubuntu-latest
             vcpkgCommitId: '5568f110b509a9fd90711978a7cb76bae75bb092'
-          - os: macos-latest
-            vcpkgCommitId: '5568f110b509a9fd90711978a7cb76bae75bb092'
-  
     steps:
     - uses: actions/checkout@v2
     
@@ -34,6 +31,7 @@ jobs:
       id: runvcpkg
       with:
           vcpkgDirectory: '${{ runner.workspace }}/b/vcpkg'
+          runVcpkgInstall: true
           vcpkgGitCommitId: '${{ matrix.vcpkgCommitId}}'
 
         
