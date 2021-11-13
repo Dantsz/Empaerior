@@ -13,10 +13,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
         include:
-          - os: windows-latest
-            vcpkgCommitId: '5568f110b509a9fd90711978a7cb76bae75bb092'
           - os: ubuntu-latest
             vcpkgCommitId: '5568f110b509a9fd90711978a7cb76bae75bb092'
     steps:
@@ -31,7 +29,7 @@ jobs:
 
         
     - name: install sdl2
-      run: vcpkg install sdl2
+      run: sudo apt-get install libsdl2-dev
     - name: install sdl2_mixer
       run: vcpkg install sdl2-mixer
     - name: install freetype
