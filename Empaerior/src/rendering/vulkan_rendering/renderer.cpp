@@ -96,6 +96,7 @@ static  bool checkValidationLayerSupport() {
         bool layerFound = false;
 
         for (const auto& layerProperties : availableLayers) {
+         
             if (strcmp(layerName, layerProperties.layerName) == 0) {
                 layerFound = true;
                 break;

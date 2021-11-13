@@ -1,3 +1,4 @@
+#include "SDL_error.h"
 #include "SDL_vulkan.h"
 #include "core/defines/basic_defines.h"
 #include "pch.h"
@@ -19,6 +20,10 @@ int Empaerior::Window::Init(const Empaerior::string& name, const Empaerior::s_in
 	height = m_height;
 	window = SDL_CreateWindow(name.c_str(),
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE);
+	if(window == nullptr) 
+	{
+		Empaerior::log(SDL_GetError());
+	}
 
 	window_listener.register_event(SDL_QUIT, [](Empaerior::Event& event) { // add quit event 
 		Empaerior::Application::is_running = false;
@@ -62,9 +67,9 @@ void Empaerior::Window::clear()
 
 std::vector<const char*> Empaerior::Window::getVulkanRequiredInstanceExtensions()
 {
-	std::vector<const char*> extensions;
+	std::vector<const char*> extensions{};
 
-    unsigned int count = 0;
+    uint32_t count = 0;
     SDL_Vulkan_GetInstanceExtensions(window, &count, nullptr);
     // now count is (probably) 2.
     extensions.resize(count);

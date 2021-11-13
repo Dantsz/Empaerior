@@ -15,6 +15,14 @@ set(ALL_FILES ${no_group_source_files})
 #Include Tools 
 include("Src/Tools/CMakeLists.txt")
 
+find_package(SDL2 REQUIRED)
+find_package(spdlog CONFIG REQUIRED)
+find_package(freetype CONFIG REQUIRED)
+find_package(unofficial-vulkan-memory-allocator CONFIG REQUIRED)
+find_package(Vulkan)
+find_path(STB_INCLUDE_DIRS "stb.h")
+find_package(glm CONFIG REQUIRED)
+find_package(sdl2-mixer CONFIG REQUIRED)
 ################################################################################
 # Target
 ################################################################################
@@ -26,16 +34,10 @@ add_executable(${PROJECT_NAME} ${ALL_FILES})
 
     target_include_directories(${PROJECT_NAME} PUBLIC
         "${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/SDL/SDL2/include;"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/SDL/SDL2_mixer/include;"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/spdlog/include;"
-		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/stb;"
-		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/glm;"
-		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/VulkanSDK/Include;"
-		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/VulkanMemoryAllocator/src;"	
-		"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/freetype/include;"
+		${STB_INCLUDE_DIRS}
 		"${CMAKE_CURRENT_SOURCE_DIR}/../Empaerior/include"
     )
-
+   
 ################################################################################
 # Dependencies
 ################################################################################
@@ -46,21 +48,15 @@ add_dependencies(${PROJECT_NAME}
 # Link with other targets.
 target_link_libraries(${PROJECT_NAME} PUBLIC
     Empaerior
+    spdlog::spdlog_header_only
+    freetype
+    Vulkan::Vulkan
+    unofficial::vulkan-memory-allocator::vulkan-memory-allocator
+    glm::glm
+    SDL2::SDL2_mixer
+    SDL2::SDL2 
+    SDL2::SDL2main
 )
 
-target_link_directories(${PROJECT_NAME} PUBLIC
-    "${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/SDL/SDL2/lib/x64"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/SDL/SDL2_mixer/lib/x64"
-	"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/freetype/lib/x64"
-	"${CMAKE_CURRENT_SOURCE_DIR}/../External_Libraries/VulkanSDK/Lib"
-    
-)
 
 
-target_link_libraries(${PROJECT_NAME} PUBLIC
-    "SDL2"
-    "SDL2main"
-    "SDL2_mixer"
-	"vulkan-1"
-    "freetype"
-    )
