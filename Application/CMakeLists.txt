@@ -15,7 +15,7 @@ set(ALL_FILES ${no_group_source_files})
 #Include Tools 
 include("Src/Tools/CMakeLists.txt")
 
-find_package(SDL2 REQUIRED)
+find_package(SDL2 CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
 find_package(freetype CONFIG REQUIRED)
 find_package(unofficial-vulkan-memory-allocator CONFIG REQUIRED)
