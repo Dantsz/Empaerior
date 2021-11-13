@@ -28,8 +28,9 @@ jobs:
   
     steps:
     - uses: actions/checkout@v2
+    
+    - uses: humbletim/setup-vulkan-sdk@v1.0.3   
     - uses: lukka/run-vcpkg@v10
-    - uses: humbletim/setup-vulkan-sdk@v1.0.3    
       id: runvcpkg
       with:
           vcpkgDirectory: '${{ runner.workspace }}/b/vcpkg'
