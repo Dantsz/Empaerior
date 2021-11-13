@@ -29,11 +29,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: lukka/run-vcpkg@v10
+    - uses: humbletim/setup-vulkan-sdk@v1.0.3    
       id: runvcpkg
       with:
           vcpkgDirectory: '${{ runner.workspace }}/b/vcpkg'
           vcpkgGitCommitId: '${{ matrix.vcpkgCommitId}}'
-          
+
+        
     - name: install sdl2
       run: vcpkg install sdl2[vulkan]
     - name: install sdl2_mixer
