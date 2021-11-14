@@ -22,7 +22,7 @@ jobs:
     
   #  - uses: humbletim/setup-vulkan-sdk@v1.0.3   
     - name: get vcpkg
-      run: git clone https://github.com/Microsoft/vcpkg.git ${{github.workspace }}
+      run: git clone https://github.com/Microsoft/vcpkg.git ${{github.workspace }}/vcpkg
     - name: bootstrapvcpkg
       run: .${{ github.workspace }}/vcpkg/bootstrap-vcpkg.sh
     - name: Configure CMake
