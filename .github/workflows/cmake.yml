@@ -21,10 +21,8 @@ jobs:
     - uses: actions/checkout@v2
     
   #  - uses: humbletim/setup-vulkan-sdk@v1.0.3   
-    - name: cd to vcpkg location
-      run: cd ${{github.workspace }}
     - name: get vcpkg
-      run: git clone https://github.com/Microsoft/vcpkg.git
+      run: git clone https://github.com/Microsoft/vcpkg.git ${{github.workspace }}
     - name: bootstrapvcpkg
       run: .${{ github.workspace }}/vcpkg/bootstrap-vcpkg.sh
     - name: Configure CMake
