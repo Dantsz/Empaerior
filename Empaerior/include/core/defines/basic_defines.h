@@ -4,6 +4,7 @@
 #include <vector>
 #include <queue>
 #include <unordered_map>
+#include <cmath>
 //Types Defines
 namespace Empaerior
 {
