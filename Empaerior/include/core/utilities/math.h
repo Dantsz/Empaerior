@@ -2,7 +2,7 @@
 
 #include "../defines/basic_defines.h"
 #include <numbers>
-
+#include <cmath>
 
 namespace Empaerior
 {
