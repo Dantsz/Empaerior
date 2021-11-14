@@ -3,7 +3,7 @@
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include <vulkan/vulkan.h>
-
+#include <cstdlib>
 #include <vector>
 #include <array>
 #include "misc_functions.h"

@@ -1,7 +1,7 @@
 #include "..\..\..\include\rendering\vulkan_rendering\texture_atlas.h"
 #include "core/defines/basic_defines.h"
 #include <stdexcept>
-
+#include <cstdlib>
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #include "..\..\..\include\rendering\vulkan_rendering\misc_functions.h"
