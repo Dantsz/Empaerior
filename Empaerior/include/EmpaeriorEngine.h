@@ -40,7 +40,7 @@ extern Empaerior::Application* Empaerior::Create_Application();
 //THIS IS THE ENTRY POINT 
 
 //#define SDL_MAIN_HANDLED
-inline int main(int argc, char** argv)
+int main(int argc, char** argv)
 {
 
 #ifdef EMP_USE_LOGS
