@@ -1,5 +1,6 @@
 #include "../../../include/rendering/vulkan_rendering/renderer.h"
 #include <cstdlib>
+#include <cstring>
 #include <bit>
 #include <set>
 #include <array>

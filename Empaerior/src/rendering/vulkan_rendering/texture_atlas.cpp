@@ -2,6 +2,7 @@
 #include "core/defines/basic_defines.h"
 #include <stdexcept>
 #include <cstdlib>
+#include <cstring>
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #include "..\..\..\include\rendering\vulkan_rendering\misc_functions.h"
