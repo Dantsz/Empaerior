@@ -23,16 +23,16 @@ jobs:
     - uses: humbletim/setup-vulkan-sdk@v1.0.3   
     - name: reps
       run : sudo add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu `lsb_release -sc` main universe restricted multiverse"
-    
+  
     
     
     - name: update
       run: sudo apt-get update -y -qq
-    - name: install gcc10
-      run: sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100 --slave /usr/bin/g++ g++ /usr/bin/g++-10 --slave /usr/bin/gcov gcov /usr/bin/gcov-10
-    #bad
-    - name: install sdl2
-      run: sudo apt-get install libsdl2-dev
+    - name: install clang
+      run: sudo apt-get install clang
+
+    - name: set clang as default
+      run: sudo update-alternatives --config c++#bad
   
     - name: get vcpkg
       run: git clone https://github.com/Microsoft/vcpkg.git ${{github.workspace }}/vcpkg
