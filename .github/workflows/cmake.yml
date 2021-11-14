@@ -21,12 +21,10 @@ jobs:
     - uses: actions/checkout@v2
     
     - uses: humbletim/setup-vulkan-sdk@v1.0.3   
-    - uses: lukka/run-vcpkg@v10
-      id: runvcpkg
-      with:
-          vcpkgDirectory: '${{ runner.workspace }}/b/vcpkg'
-          vcpkgGitCommitId: '${{ matrix.vcpkgCommitId}}'
-          vcpkgJsonGlob: '${{ github.workspace }}/vcpkg.json'
+    - name: cd to vcpkg location
+      run: cd .${{ runner.workspace }}/b/
+    - name: get vcpkg
+      run: git clone https://github.com/Microsoft/vcpkg.git
     - name: bootstrapvcpkg
       run: .${{ runner.workspace }}/b/vcpkg/bootstrap-vcpkg.bat
     - name: Configure CMake
