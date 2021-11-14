@@ -117,6 +117,23 @@ target_compile_options(${PROJECT_NAME} PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/src;"
     )
 
+    find_package(SDL2 CONFIG REQUIRED)
+    find_package(spdlog CONFIG REQUIRED)
+    find_package(freetype CONFIG REQUIRED)
+    find_package(unofficial-vulkan-memory-allocator CONFIG REQUIRED)
+    find_package(Vulkan)
+    find_path(STB_INCLUDE_DIRS "stb.h")
+    find_package(glm CONFIG REQUIRED)
+    find_package(sdl2-mixer CONFIG REQUIRED)
+    target_link_libraries(${PROJECT_NAME} PUBLIC
+        spdlog::spdlog_header_only
+        freetype
+        Vulkan::Vulkan
+        unofficial::vulkan-memory-allocator::vulkan-memory-allocator
+        glm::glm
+        SDL2::SDL2_mixer
+        SDL2::SDL2main
+    )
 
 
 
