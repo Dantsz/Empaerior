@@ -1,13 +1,14 @@
 
 
 
-#include <bit>
-#include <cmath>
+
 
 #include "../include/rendering/vulkan_rendering/sprite.h"
 #include "../include/rendering/vulkan_rendering/glyphs.h"
 #include "../include/rendering/vulkan_rendering/renderer.h"
 #include "../include/rendering/vulkan_rendering/vertex.h"
+#include <bit>
+#include <cmath>
 //the lower limit for the char to be drawn
 static constexpr float charHeightLimit = 0.0001;
 

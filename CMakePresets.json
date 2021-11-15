@@ -1,0 +1,93 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 0,
+    "patch": 0
+},
+"configurePresets": [
+  {
+    "name": "default",
+    "displayName": "Default Config",
+    "description": "Default build using Ninja generator",
+    "generator": "Ninja",
+    "binaryDir": "${sourceDir}/build/default",
+    "cacheVariables": {
+      "FIRST_CACHE_VARIABLE": {
+        "type": "BOOL",
+        "value": "OFF"
+      },
+      "SECOND_CACHE_VARIABLE": "ON"
+    },
+    "environment": {
+      "MY_ENVIRONMENT_VARIABLE": "Test",
+      "PATH": "$env{HOME}/ninja/bin:$penv{PATH}"
+    },
+    "vendor": {
+      "example.com/ExampleIDE/1.0": {
+        "autoFormat": true
+      }
+    }
+  },
+  {
+    "name": "ninja-multi",
+    "inherits": "default",
+    "displayName": "Ninja Multi-Config",
+    "description": "Default build using Ninja Multi-Config generator",
+    "generator": "Ninja Multi-Config"
+  },
+  {
+    "name": "windows-only",
+    "inherits": "default",
+    "displayName": "Windows-only configuration",
+    "description": "This build is only available on Windows",
+    "condition": {
+      "type": "equals",
+      "lhs": "${hostSystemName}",
+      "rhs": "Windows"
+    }
+  },
+  {
+    "name": "ninja-multi-vcpkg",
+    "displayName": "Ninja Multi-Config Configure Settings",
+    "description": "Configure with vcpkg toolchain",
+    "binaryDir": "${sourceDir}/builds/${presetName}",
+    "generator": "Ninja Multi-Config",
+    "cacheVariables": {
+      "CMAKE_TOOLCHAIN_FILE": {
+        "type": "FILEPATH",
+        "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+      }
+    }
+  }
+],
+"buildPresets": [
+  {
+    "name": "default",
+    "configurePreset": "default"
+  },
+  {
+    "name": "ninja-multi-vcpkg",
+    "configurePreset": "ninja-multi-vcpkg",
+    "displayName": "Build ninja-multi-vcpkg",
+    "description": "Build ninja-multi-vcpkg Configurations"
+  }
+],
+"testPresets": [
+  {
+    "name": "default",
+    "configurePreset": "default",
+    "output": {"outputOnFailure": true},
+    "execution": {"noTestsAction": "error", "stopOnFailure": true}
+  },
+  {
+    "name": "ninja-multi-vcpkg",
+    "configurePreset": "ninja-multi-vcpkg"
+  }
+],
+"vendor": {
+  "example.com/ExampleIDE/1.0": {
+    "autoFormat": false
+  }
+}
+}
