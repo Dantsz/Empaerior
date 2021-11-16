@@ -1,4 +1,4 @@
-#include "..\..\..\include\rendering\vulkan_rendering\misc_functions.h"
+#include "../../../include/rendering/vulkan_rendering/misc_functions.h"
 
 namespace Empaerior::VKfunctions
     {

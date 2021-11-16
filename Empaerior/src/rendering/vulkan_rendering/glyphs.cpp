@@ -1,4 +1,4 @@
-#include "..\..\..\include\rendering\vulkan_rendering\glyphs.h"
+#include "../../../include/rendering/vulkan_rendering/glyphs.h"
 
 static void stringCopy(char* dst, const char* src, size_t numberofCharstoCopy  )
 {

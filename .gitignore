@@ -392,3 +392,4 @@ Application/imgui.ini
 
 Empaerior/RelWithDebInfo/Empaerior.lib
 Application/RelWithDebInfo/Application.exe
+builds/ninja-multi-vcpkg/.cmake/api/v1/query/client-vscode/query.json
