@@ -46,7 +46,7 @@ jobs:
       env:
        CC: clang
        CXX: clang++
-      run: cmake  -B ${{github.workspace }}/build -S /Empaerior/ -DCMAKE_TOOLCHAIN_FILE='${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake' 
+      run: cmake  -B ${{github.workspace }}/build -S ./Empaerior/ -DCMAKE_TOOLCHAIN_FILE='${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake' 
      
        
     - name: Build
