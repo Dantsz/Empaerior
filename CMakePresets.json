@@ -55,7 +55,7 @@
     }
   },
   {
-    "name": "ninja-multi-vcpkg-clang",
+    "name": "ninja-multi-vcpkg",
     "displayName": "Ninja Multi-Config Configure Settings",
     "description": "Configure with vcpkg toolchain",
     "binaryDir": "${sourceDir}/builds/${presetName}",
