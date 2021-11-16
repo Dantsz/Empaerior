@@ -47,7 +47,7 @@ add_dependencies(${PROJECT_NAME}
 
 # Link with other targets.
 target_link_libraries(${PROJECT_NAME} PUBLIC
-    Empaerior
+ 
     spdlog::spdlog_header_only
     freetype
     Vulkan::Vulkan
@@ -56,6 +56,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     SDL2::SDL2_mixer
     SDL2::SDL2main
     SDL2::SDL2
+    Empaerior
 )
 
 
