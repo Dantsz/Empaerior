@@ -42,6 +42,8 @@ jobs:
     - name: build
       uses: lukka/run-cmake@v10
       with:
+          C: clang
+          CXX: clang++
           configurePreset: 'ninja-multi-vcpkg'
           buildPreset: 'ninja-multi-vcpkg'
 
