@@ -126,10 +126,10 @@ set(ROOT_NAMESPACE Empaerior)
         Vulkan::Vulkan
         unofficial::vulkan-memory-allocator::vulkan-memory-allocator
         glm::glm
-        SDL2::SDL2_mixer
+       
         SDL2::SDL2
         SDL2::SDL2main
-        
+        SDL2::SDL2_mixer
     )
 
 
