@@ -4,7 +4,7 @@
     "dependencies": [
         "freetype",
         {
-            "name": "sdl2",
+            "name": "sdl2"
            
         },
         "sdl2-mixer",
