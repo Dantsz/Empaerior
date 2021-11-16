@@ -4,8 +4,8 @@
     "dependencies": [
         "freetype",
         {
-            "name": "sdl2"
-           
+            "name": "sdl2",
+            "features": ["vulkan"]
         },
         "sdl2-mixer",
         "spdlog",
