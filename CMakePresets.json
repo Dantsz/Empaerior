@@ -58,6 +58,10 @@
         "type": "FILEPATH",
         "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
       }
+    },
+    "environment": {
+      "C": "clang",
+      "CXX": "clang++"
     }
   }
 ],
