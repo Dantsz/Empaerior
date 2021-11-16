@@ -55,6 +55,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     glm::glm
     SDL2::SDL2_mixer
     SDL2::SDL2main
+    SDL2::SDL2
 )
 
 
