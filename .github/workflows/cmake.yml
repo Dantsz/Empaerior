@@ -36,26 +36,12 @@ jobs:
     - name: install clang
       run: sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
       
-    - name: get vcpkg
-      run: git clone https://github.com/Microsoft/vcpkg.git ${{github.workspace }}/vcpkg
-    - name: bootstrapvcpkg
-      run: sudo ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.sh
-    - name: Configure CMake
-      # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
-      # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type 
-      env:
-       CC: clang
-       CXX: clang++
-      run: cmake  -B ${{github.workspace }}/build -S ./Empaerior/ -DCMAKE_TOOLCHAIN_FILE='${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake' 
-     
-       
-    - name: Build
-      # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build 
+    - uses: lukka/run-vcpkg@v10
+      with:
+        vcpkgGitCommitId: '5568f110b509a9fd90711978a7cb76bae75bb092'
+    - name: build
+      uses: lukka/run-cmake@v10
+      with:
+          configurePreset: 'ninja-multi-vcpkg'
+          buildPreset: 'ninja-multi-vcpkg'
 
-    #- name: Test
-     # working-directory: ${{github.workspace}}/build
-      # Execute tests defined by the CMake configuration.  
-      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      #run: ctest -C ${{env.BUILD_TYPE}}
-      
