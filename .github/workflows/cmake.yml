@@ -29,6 +29,9 @@ jobs:
     - name: update
       run: sudo apt-get update -y -qq
       
+    - name : install sdl2
+      run: sudo apt-get install libsdl2
+      
     - name: install clang
       run: sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
       
